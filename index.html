@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROQ — Experience Home</title>
+<meta name="description" content="ROQ is the future of homeownership. Welcome home." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0A0E14;
+    --bg-deep: #05070A;
+    --ink: #FFFFFF;
+    --ink-dim: #9AA3AD;
+    --ink-faint: #5C6570;
+    --gold: #C8A882;
+    --border: rgba(255,255,255,0.08);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--gold); color: #14110B; }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px clamp(24px, 5vw, 64px);
+    mix-blend-mode: normal;
+  }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--ink);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-wrap {
+    position: relative;
+  }
+
+  .nav-trigger {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--ink-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 10px 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+  }
+
+  .nav-trigger:hover,
+  .nav-trigger[aria-expanded="true"] {
+    border-color: rgba(255,255,255,0.25);
+    color: var(--ink);
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    background: rgba(10,14,20,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .nav-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    border-radius: 8px;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .nav-menu a:hover {
+    background: rgba(255,255,255,0.06);
+    color: var(--ink);
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('assets/hero.jpg');
+    background-size: cover;
+    background-position: center 60%;
+    animation: heroZoom 24s ease-out forwards;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.07); }
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(5,7,10,0.35) 0%, rgba(5,7,10,0.15) 30%, rgba(5,7,10,0.55) 75%, rgba(5,7,10,0.88) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 clamp(24px, 5vw, 64px) clamp(64px, 10vh, 120px);
+    text-align: center;
+  }
+
+  .hero-wordmark {
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: 0.5em;
+    color: var(--ink);
+    margin-left: 0.5em; /* optically re-center given letter-spacing */
+    margin-bottom: clamp(20px, 3vw, 32px);
+    opacity: 0;
+    animation: fadeUp 1.1s var(--ease) 0.2s forwards;
+  }
+
+  .hero-tagline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(22px, 3vw, 34px);
+    color: var(--ink-dim);
+    max-width: 20ch;
+    margin: 0 auto;
+    line-height: 1.35;
+    opacity: 0;
+    animation: fadeUp 1.1s var(--ease) 0.5s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s var(--ease) 1.2s forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* ---------- Statement ---------- */
+
+  .statement {
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 120px clamp(24px, 8vw, 160px);
+    background: var(--bg);
+  }
+
+  .statement-text {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 5.2vw, 68px);
+    line-height: 1.28;
+    text-align: center;
+    color: var(--ink);
+    max-width: 16ch;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
+  }
+
+  .statement-text.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .statement-text em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ---------- Close / CTA ---------- */
+
+  .close {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 100px clamp(24px, 6vw, 64px);
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border);
+  }
+
+  .close-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 22px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+
+  .close-headline {
+    font-family: 'Lora', serif;
+    font-size: clamp(30px, 4.4vw, 52px);
+    color: var(--ink);
+    margin-bottom: 18px;
+    max-width: 14ch;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.1s, transform 0.9s var(--ease) 0.1s;
+  }
+
+  .close-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--ink-dim);
+    max-width: 40ch;
+    margin-bottom: 44px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.2s, transform 0.9s var(--ease) 0.2s;
+  }
+
+  .close-eyebrow.in-view,
+  .close-headline.in-view,
+  .close-sub.in-view,
+  .waitlist-form.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.3s, transform 0.9s var(--ease) 0.3s;
+  }
+
+  .waitlist-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 15px 22px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .waitlist-input::placeholder { color: var(--ink-faint); }
+
+  .waitlist-input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .waitlist-btn {
+    background: var(--ink);
+    color: #14110B;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .waitlist-btn:hover { background: var(--gold); }
+  .waitlist-btn:active { transform: scale(0.97); }
+  .waitlist-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .waitlist-msg {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-dim);
+    min-height: 18px;
+  }
+
+  .waitlist-msg.success { color: var(--gold); }
+  .waitlist-msg.error { color: #C97A6A; }
+
+  @media (max-width: 520px) {
+    .waitlist-form { flex-direction: column; }
+    .waitlist-btn { padding: 15px; }
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg-deep);
+    padding: 48px clamp(24px, 5vw, 64px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.7; }
+  .footer-left .logo-mark path { stroke: var(--ink-dim); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg { animation: none; }
+    .hero-wordmark, .hero-tagline, .scroll-cue,
+    .statement-text, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="#" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 82 L28 48 L46 26 Q80 30 76 82" />
+      </svg>
+    </a>
+
+    <div class="nav-wrap">
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false">Menu</button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#about">About</a>
+        <a href="#values">Values</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <div class="hero-wordmark">ROQ</div>
+      <p class="hero-tagline">Welcome to the future of homeownership.</p>
+    </div>
+    <div class="scroll-cue"></div>
+  </section>
+
+  <section class="statement">
+    <p class="statement-text" id="statementText">Every home has a story.<br>Start writing <em>yours</em>.</p>
+  </section>
+
+  <section class="close" id="closeSection">
+    <p class="close-eyebrow" id="closeEyebrow">Join the waitlist</p>
+    <h2 class="close-headline" id="closeHeadline">Be the first to know.</h2>
+    <p class="close-sub" id="closeSub">ROQ is currently in private beta. Leave your email and we'll let you know the moment it's ready for you.</p>
+
+    <form class="waitlist-form" id="waitlistForm">
+      <input
+        type="email"
+        class="waitlist-input"
+        id="waitlistEmail"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit" class="waitlist-btn" id="waitlistBtn">Experience Home</button>
+    </form>
+    <p class="waitlist-msg" id="waitlistMsg"></p>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M28 82 L28 48 L46 26 Q80 30 76 82" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Nav dropdown ----------
+    const navTrigger = document.getElementById('navTrigger');
+    const navMenu = document.getElementById('navMenu');
+
+    navTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      navTrigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    // ---------- Scroll reveal ----------
+    const revealEls = [
+      document.getElementById('statementText'),
+      document.getElementById('closeEyebrow'),
+      document.getElementById('closeHeadline'),
+      document.getElementById('closeSub'),
+      document.getElementById('waitlistForm'),
+    ];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    revealEls.forEach(el => el && observer.observe(el));
+
+    // ---------- Waitlist submit ----------
+    // Fill these in with your actual Supabase project values before deploying.
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+
+    const form = document.getElementById('waitlistForm');
+    const emailInput = document.getElementById('waitlistEmail');
+    const btn = document.getElementById('waitlistBtn');
+    const msg = document.getElementById('waitlistMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Joining…';
+      msg.textContent = '';
+      msg.className = 'waitlist-msg';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (res.ok) {
+          msg.textContent = "You're on the list. Welcome home.";
+          msg.className = 'waitlist-msg success';
+          emailInput.value = '';
+          btn.textContent = 'Experience Home';
+        } else if (res.status === 409) {
+          msg.textContent = "You're already on the list.";
+          msg.className = 'waitlist-msg success';
+          btn.textContent = 'Experience Home';
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch (err) {
+        msg.textContent = 'Something went wrong. Please try again.';
+        msg.className = 'waitlist-msg error';
+        btn.textContent = 'Experience Home';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>
