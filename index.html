@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ROQ — Experience Home</title>
-<meta name="description" content="ROQ is the future of homeownership. Welcome home." />
+<meta name="description" content="ROQ — experience home. Your entire home in one premium app." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -68,24 +68,49 @@
   }
 
   .nav-trigger {
+    width: 40px;
+    height: 40px;
     background: transparent;
     border: 1px solid var(--border);
-    color: var(--ink-dim);
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    padding: 10px 18px;
-    border-radius: 20px;
+    border-radius: 50%;
     cursor: pointer;
-    transition: border-color 0.3s var(--ease), color 0.3s var(--ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s var(--ease);
   }
 
   .nav-trigger:hover,
   .nav-trigger[aria-expanded="true"] {
-    border-color: rgba(255,255,255,0.25);
-    color: var(--ink);
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .nav-trigger span {
+    position: relative;
+    width: 16px;
+    height: 10px;
+  }
+
+  .nav-trigger span::before,
+  .nav-trigger span::after,
+  .nav-trigger span i {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--ink-dim);
+    transition: background 0.3s var(--ease);
+  }
+
+  .nav-trigger span::before { top: 0; }
+  .nav-trigger span i { top: 50%; margin-top: -0.5px; display: block; }
+  .nav-trigger span::after { bottom: 0; }
+
+  .nav-trigger:hover span::before,
+  .nav-trigger:hover span::after,
+  .nav-trigger:hover span i {
+    background: var(--ink);
   }
 
   .nav-menu {
@@ -144,6 +169,16 @@
     background-size: cover;
     background-position: center 60%;
     animation: heroZoom 24s ease-out forwards;
+  }
+
+  /* Below ~700px width, switch to a taller, purpose-cropped photo instead of
+     forcing the wide desktop crop through an aggressive zoom to fill a tall
+     narrow screen — same source photo, different framing per device shape. */
+  @media (max-width: 700px) {
+    .hero-bg {
+      background-image: url('assets/hero-mobile.jpg');
+      background-position: center 45%;
+    }
   }
 
   @keyframes heroZoom {
@@ -242,6 +277,48 @@
   .statement-text em {
     font-style: italic;
     color: var(--gold);
+  }
+
+  /* ---------- About ---------- */
+
+  .about {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px clamp(24px, 8vw, 160px);
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+  }
+
+  .about-inner {
+    max-width: 640px;
+    text-align: center;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+  }
+
+  .about-inner.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .about-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 22px;
+  }
+
+  .about-body {
+    font-family: 'Lora', serif;
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.7;
+    color: var(--ink-dim);
   }
 
   /* ---------- Close / CTA ---------- */
@@ -410,7 +487,7 @@
   @media (prefers-reduced-motion: reduce) {
     .hero-bg { animation: none; }
     .hero-wordmark, .hero-tagline, .scroll-cue,
-    .statement-text, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
+    .statement-text, .about-inner, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
       animation: none !important;
       transition: none !important;
       opacity: 1 !important;
@@ -429,11 +506,12 @@
     </a>
 
     <div class="nav-wrap">
-      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false">Menu</button>
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+        <span><i></i></span>
+      </button>
       <nav class="nav-menu" id="navMenu">
         <a href="#about">About</a>
-        <a href="#values">Values</a>
-        <a href="privacy.html">Privacy</a>
+        <a href="https://jaredkobernat21.github.io/roq-legal/privacy.html" target="_blank" rel="noopener">Privacy</a>
       </nav>
     </div>
   </header>
@@ -443,13 +521,20 @@
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-wordmark">ROQ</div>
-      <p class="hero-tagline">Welcome to the future of homeownership.</p>
+      <p class="hero-tagline">Experience home.</p>
     </div>
     <div class="scroll-cue"></div>
   </section>
 
   <section class="statement">
-    <p class="statement-text" id="statementText">Every home has a story.<br>Start writing <em>yours</em>.</p>
+    <p class="statement-text" id="statementText">ROQ is your entire home<br>in one <em>premium</em> app.</p>
+  </section>
+
+  <section class="about" id="about">
+    <div class="about-inner" id="aboutInner">
+      <p class="about-eyebrow">About</p>
+      <p class="about-body">ROQ is built by ROQ Innovation LLC, based in Kansas. We believe a home deserves more than scattered photos and forgotten paperwork &mdash; so we built one place to hold its whole story, from the first day to every day after.</p>
+    </div>
   </section>
 
   <section class="close" id="closeSection">
@@ -504,6 +589,7 @@
     // ---------- Scroll reveal ----------
     const revealEls = [
       document.getElementById('statementText'),
+      document.getElementById('aboutInner'),
       document.getElementById('closeEyebrow'),
       document.getElementById('closeHeadline'),
       document.getElementById('closeSub'),
@@ -523,7 +609,7 @@
     // ---------- Waitlist submit ----------
     // Fill these in with your actual Supabase project values before deploying.
     const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY_HERE';
+    const SUPABASE_ANON_KEY = sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER;
 
     const form = document.getElementById('waitlistForm');
     const emailInput = document.getElementById('waitlistEmail');
