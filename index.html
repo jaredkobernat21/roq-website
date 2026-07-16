@@ -10,11 +10,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0A0E14;
-    --bg-deep: #05070A;
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
     --ink: #FFFFFF;
-    --ink-dim: #9AA3AD;
-    --ink-faint: #5C6570;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
     --gold: #C8A882;
     --border: rgba(255,255,255,0.08);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -158,57 +158,64 @@
     height: 100vh;
     min-height: 640px;
     display: flex;
-    align-items: flex-end;
+    align-items: center;
     overflow: hidden;
   }
 
   .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('assets/hero.jpg');
-    background-size: cover;
-    background-position: center 60%;
-    animation: heroZoom 24s ease-out forwards;
   }
 
-  /* Below ~700px width, switch to a taller, purpose-cropped photo instead of
-     forcing the wide desktop crop through an aggressive zoom to fill a tall
-     narrow screen — same source photo, different framing per device shape. */
-  @media (max-width: 700px) {
-    .hero-bg {
-      background-image: url('assets/hero-mobile.jpg');
-      background-position: center 45%;
-    }
+  /* Rotating photo loop: layers are injected by JS, one per image in
+     heroImages.desktop / heroImages.mobile. Each layer crossfades in/out
+     and holds a slow Ken Burns zoom while active. Add more photos by
+     dropping files in /assets and adding their filenames to the arrays
+     near the bottom of this file — no other changes needed. */
+  .hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 55%;
+    opacity: 0;
+    transform: scale(1);
+    transition: opacity 1.6s var(--ease);
+  }
+
+  .hero-bg-layer.active {
+    opacity: 1;
+    animation: heroZoom 7s linear forwards;
   }
 
   @keyframes heroZoom {
     from { transform: scale(1); }
-    to { transform: scale(1.07); }
+    to { transform: scale(1.06); }
   }
 
   .hero-scrim {
     position: absolute;
     inset: 0;
     background:
-      linear-gradient(to bottom, rgba(5,7,10,0.35) 0%, rgba(5,7,10,0.15) 30%, rgba(5,7,10,0.55) 75%, rgba(5,7,10,0.88) 100%);
+      linear-gradient(to bottom, rgba(10,10,9,0.45) 0%, rgba(10,10,9,0.2) 32%, rgba(10,10,9,0.5) 72%, rgba(13,13,12,0.92) 100%);
   }
 
   .hero-content {
     position: relative;
     z-index: 2;
     width: 100%;
-    padding: 0 clamp(24px, 5vw, 64px) clamp(64px, 10vh, 120px);
+    padding: 0 clamp(24px, 5vw, 64px);
     text-align: center;
   }
 
   .hero-wordmark {
     font-family: 'Inter', sans-serif;
-    font-weight: 300;
-    font-size: clamp(28px, 4vw, 42px);
-    letter-spacing: 0.5em;
+    font-weight: 200;
+    font-size: clamp(64px, 13vw, 168px);
+    line-height: 1;
+    letter-spacing: 0.14em;
     color: var(--ink);
-    margin-left: 0.5em; /* optically re-center given letter-spacing */
-    margin-bottom: clamp(20px, 3vw, 32px);
+    margin-left: 0.14em; /* optically re-center given letter-spacing */
+    margin-bottom: clamp(16px, 2.4vw, 28px);
     opacity: 0;
     animation: fadeUp 1.1s var(--ease) 0.2s forwards;
   }
@@ -216,7 +223,8 @@
   .hero-tagline {
     font-family: 'Lora', serif;
     font-weight: 400;
-    font-size: clamp(22px, 3vw, 34px);
+    font-size: clamp(20px, 2.6vw, 30px);
+    letter-spacing: 0.02em;
     color: var(--ink-dim);
     max-width: 20ch;
     margin: 0 auto;
@@ -485,7 +493,8 @@
   .footer-links a:hover { color: var(--ink-dim); }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-bg { animation: none; }
+    .hero-bg-layer { animation: none !important; transition: none !important; }
+    .hero-bg-layer.active { opacity: 1; }
     .hero-wordmark, .hero-tagline, .scroll-cue,
     .statement-text, .about-inner, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
       animation: none !important;
@@ -517,7 +526,7 @@
   </header>
 
   <section class="hero">
-    <div class="hero-bg"></div>
+    <div class="hero-bg" id="heroBg"></div>
     <div class="hero-scrim"></div>
     <div class="hero-content">
       <div class="hero-wordmark">ROQ</div>
@@ -571,6 +580,55 @@
   </footer>
 
   <script>
+    // ---------- Hero photo loop ----------
+    // Add more photos any time: drop the file in /assets and add its
+    // filename to the matching array below. Desktop and mobile can hold
+    // different numbers of images and even totally different photos.
+    const heroImages = {
+      desktop: [
+        'assets/hero.jpg',
+      ],
+      mobile: [
+        'assets/mobile-exterior.jpg',
+        'assets/mobile-living-room.jpg',
+        'assets/mobile-planning.jpg',
+        'assets/mobile-family-dinner.jpg',
+        'assets/mobile-backyard.jpg',
+      ],
+    };
+
+    (function initHeroLoop() {
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+      const set = (isMobile && heroImages.mobile.length ? heroImages.mobile : heroImages.desktop);
+      const heroBg = document.getElementById('heroBg');
+      if (!heroBg || !set.length) return;
+
+      const layers = set.map((src, i) => {
+        const div = document.createElement('div');
+        div.className = 'hero-bg-layer';
+        div.style.backgroundImage = `url('${src}')`;
+        if (i === 0) div.classList.add('active');
+        heroBg.appendChild(div);
+        return div;
+      });
+
+      if (layers.length < 2) return; // nothing to rotate through
+
+      const HOLD_MS = 6500; // how long each photo stays fully visible
+      let current = 0;
+
+      setInterval(() => {
+        const prev = current;
+        current = (current + 1) % layers.length;
+        layers[current].classList.add('active');
+        // restart the zoom animation cleanly on the incoming layer
+        layers[current].style.animation = 'none';
+        void layers[current].offsetWidth;
+        layers[current].style.animation = '';
+        setTimeout(() => layers[prev].classList.remove('active'), 1600);
+      }, HOLD_MS);
+    })();
+
     // ---------- Nav dropdown ----------
     const navTrigger = document.getElementById('navTrigger');
     const navMenu = document.getElementById('navMenu');
