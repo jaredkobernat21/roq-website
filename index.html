@@ -179,12 +179,12 @@
     background-position: center 55%;
     opacity: 0;
     transform: scale(1);
-    transition: opacity 1.6s var(--ease);
+    transition: opacity 0.5s var(--ease);
   }
 
   .hero-bg-layer.active {
     opacity: 1;
-    animation: heroZoom 7s linear forwards;
+    animation: heroZoom 2.5s linear forwards;
   }
 
   @keyframes heroZoom {
@@ -207,30 +207,16 @@
     text-align: center;
   }
 
-  .hero-wordmark {
+  .hero-headline {
     font-family: 'Inter', sans-serif;
-    font-weight: 200;
-    font-size: clamp(64px, 13vw, 168px);
-    line-height: 1;
-    letter-spacing: 0.14em;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: clamp(40px, 9vw, 96px);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
     color: var(--ink);
-    margin-left: 0.14em; /* optically re-center given letter-spacing */
-    margin-bottom: clamp(16px, 2.4vw, 28px);
     opacity: 0;
     animation: fadeUp 1.1s var(--ease) 0.2s forwards;
-  }
-
-  .hero-tagline {
-    font-family: 'Lora', serif;
-    font-weight: 400;
-    font-size: clamp(20px, 2.6vw, 30px);
-    letter-spacing: 0.02em;
-    color: var(--ink-dim);
-    max-width: 20ch;
-    margin: 0 auto;
-    line-height: 1.35;
-    opacity: 0;
-    animation: fadeUp 1.1s var(--ease) 0.5s forwards;
   }
 
   @keyframes fadeUp {
@@ -255,78 +241,55 @@
 
   /* ---------- Statement ---------- */
 
-  .statement {
-    min-height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 120px clamp(24px, 8vw, 160px);
+  .showcase {
     background: var(--bg);
+    padding: clamp(80px, 14vh, 140px) 0 clamp(80px, 12vh, 120px);
+    overflow: hidden;
   }
 
-  .statement-text {
-    font-family: 'Lora', serif;
-    font-weight: 400;
-    font-size: clamp(32px, 5.2vw, 68px);
-    line-height: 1.28;
-    text-align: center;
+  .showcase-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 6vw, 60px);
+    line-height: 1.1;
     color: var(--ink);
-    max-width: 16ch;
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 1.1s var(--ease), transform 1.1s var(--ease);
-  }
-
-  .statement-text.in-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .statement-text em {
-    font-style: italic;
-    color: var(--gold);
-  }
-
-  /* ---------- About ---------- */
-
-  .about {
-    min-height: 60vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 100px clamp(24px, 8vw, 160px);
-    background: var(--bg);
-    border-top: 1px solid var(--border);
-  }
-
-  .about-inner {
-    max-width: 640px;
-    text-align: center;
+    padding: 0 clamp(24px, 5vw, 64px);
+    margin-bottom: clamp(40px, 6vw, 64px);
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 1s var(--ease), transform 1s var(--ease);
   }
 
-  .about-inner.in-view {
+  .showcase-headline.in-view {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .about-eyebrow {
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 22px;
+  .showcase-carousel {
+    width: 100%;
+    overflow: hidden;
+    padding-left: clamp(24px, 5vw, 64px);
   }
 
-  .about-body {
-    font-family: 'Lora', serif;
-    font-size: clamp(17px, 2vw, 22px);
-    line-height: 1.7;
-    color: var(--ink-dim);
+  .showcase-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.7s var(--ease);
+  }
+
+  .showcase-slide {
+    flex: 0 0 auto;
+    width: min(240px, 62vw);
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  }
+
+  .showcase-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
   /* ---------- Close / CTA ---------- */
@@ -358,10 +321,10 @@
 
   .close-headline {
     font-family: 'Lora', serif;
-    font-size: clamp(30px, 4.4vw, 52px);
+    font-size: clamp(28px, 3.8vw, 46px);
     color: var(--ink);
     margin-bottom: 18px;
-    max-width: 14ch;
+    max-width: 20ch;
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.9s var(--ease) 0.1s, transform 0.9s var(--ease) 0.1s;
@@ -495,8 +458,8 @@
   @media (prefers-reduced-motion: reduce) {
     .hero-bg-layer { animation: none !important; transition: none !important; }
     .hero-bg-layer.active { opacity: 1; }
-    .hero-wordmark, .hero-tagline, .scroll-cue,
-    .statement-text, .about-inner, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
+    .hero-headline, .scroll-cue,
+    .showcase-headline, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
       animation: none !important;
       transition: none !important;
       opacity: 1 !important;
@@ -510,7 +473,7 @@
   <header>
     <a href="#" aria-label="ROQ home">
       <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M28 82 L28 48 L46 26 Q80 30 76 82" />
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
       </svg>
     </a>
 
@@ -519,7 +482,7 @@
         <span><i></i></span>
       </button>
       <nav class="nav-menu" id="navMenu">
-        <a href="#about">About</a>
+        <a href="about.html">About</a>
         <a href="https://jaredkobernat21.github.io/roq-legal/privacy.html" target="_blank" rel="noopener">Privacy</a>
       </nav>
     </div>
@@ -529,26 +492,29 @@
     <div class="hero-bg" id="heroBg"></div>
     <div class="hero-scrim"></div>
     <div class="hero-content">
-      <div class="hero-wordmark">ROQ</div>
-      <p class="hero-tagline">Experience home.</p>
+      <h1 class="hero-headline">Experience<br>Home</h1>
     </div>
     <div class="scroll-cue"></div>
   </section>
 
-  <section class="statement">
-    <p class="statement-text" id="statementText">ROQ is your entire home<br>in one <em>premium</em> app.</p>
-  </section>
-
-  <section class="about" id="about">
-    <div class="about-inner" id="aboutInner">
-      <p class="about-eyebrow">About</p>
-      <p class="about-body">ROQ is built by ROQ Innovation LLC, based in Kansas. We believe a home deserves more than scattered photos and forgotten paperwork &mdash; so we built one place to hold its whole story, from the first day to every day after.</p>
+  <section class="showcase">
+    <h2 class="showcase-headline" id="showcaseHeadline">your home app</h2>
+    <div class="showcase-carousel">
+      <div class="showcase-track" id="showcaseTrack">
+        <div class="showcase-slide"><img src="assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-6-slade.jpg" alt="SLADE AI home advisor chat screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
+      </div>
     </div>
   </section>
 
   <section class="close" id="closeSection">
     <p class="close-eyebrow" id="closeEyebrow">Join the waitlist</p>
-    <h2 class="close-headline" id="closeHeadline">Be the first to know.</h2>
+    <h2 class="close-headline" id="closeHeadline">Help shape the future of homeownership.</h2>
     <p class="close-sub" id="closeSub">ROQ is currently in private beta. Leave your email and we'll let you know the moment it's ready for you.</p>
 
     <form class="waitlist-form" id="waitlistForm">
@@ -568,7 +534,7 @@
   <footer>
     <div class="footer-left">
       <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M28 82 L28 48 L46 26 Q80 30 76 82" />
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
       </svg>
       <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
     </div>
@@ -589,11 +555,12 @@
         'assets/hero.jpg',
       ],
       mobile: [
-        'assets/mobile-exterior.jpg',
-        'assets/mobile-living-room.jpg',
-        'assets/mobile-planning.jpg',
-        'assets/mobile-family-dinner.jpg',
-        'assets/mobile-backyard.jpg',
+        'assets/mobile-1.jpg',
+        'assets/mobile-2.jpg',
+        'assets/mobile-3.jpg',
+        'assets/mobile-4.jpg',
+        'assets/mobile-5.jpg',
+        'assets/mobile-6.jpg',
       ],
     };
 
@@ -614,7 +581,7 @@
 
       if (layers.length < 2) return; // nothing to rotate through
 
-      const HOLD_MS = 6500; // how long each photo stays fully visible
+      const HOLD_MS = 2000; // how long each photo stays fully visible
       let current = 0;
 
       setInterval(() => {
@@ -625,8 +592,55 @@
         layers[current].style.animation = 'none';
         void layers[current].offsetWidth;
         layers[current].style.animation = '';
-        setTimeout(() => layers[prev].classList.remove('active'), 1600);
+        setTimeout(() => layers[prev].classList.remove('active'), 500);
       }, HOLD_MS);
+    })();
+
+    // ---------- Screenshot showcase carousel ----------
+    (function initShowcase() {
+      const track = document.getElementById('showcaseTrack');
+      if (!track) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const realSlides = Array.from(track.children);
+      if (!realSlides.length) return;
+
+      // Clone the first slide onto the end so the loop can reset invisibly.
+      const clone = realSlides[0].cloneNode(true);
+      track.appendChild(clone);
+
+      if (reduceMotion) return; // leave it static on the first screenshot
+
+      let index = 0;
+      const total = realSlides.length;
+
+      function slideStep() {
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 0;
+        return track.children[0].getBoundingClientRect().width + gap;
+      }
+
+      function goTo(i, animate) {
+        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
+        track.style.transform = `translateX(-${i * slideStep()}px)`;
+      }
+
+      const timer = setInterval(() => {
+        index++;
+        goTo(index, true);
+        if (index === total) {
+          setTimeout(() => {
+            index = 0;
+            goTo(0, false);
+          }, 720);
+        }
+      }, 2600);
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => goTo(index, false), 120);
+      });
     })();
 
     // ---------- Nav dropdown ----------
@@ -646,8 +660,7 @@
 
     // ---------- Scroll reveal ----------
     const revealEls = [
-      document.getElementById('statementText'),
-      document.getElementById('aboutInner'),
+      document.getElementById('showcaseHeadline'),
       document.getElementById('closeEyebrow'),
       document.getElementById('closeHeadline'),
       document.getElementById('closeSub'),
