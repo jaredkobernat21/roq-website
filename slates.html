@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SLATES — Premium Websites for Home Professionals</title>
+<meta name="description" content="SLATES — premium websites for home professionals. Clarity, trust, and one clear action, in 10 seconds." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --white: #FFFFFF;
+    --off-white: #F4F3F1;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --charcoal: #171716;
+    --charcoal-dim: #4A4946;
+    --border: rgba(255,255,255,0.08);
+    --border-dark: rgba(23,23,22,0.12);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--charcoal); color: var(--white); }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px clamp(24px, 5vw, 64px);
+  }
+
+  .logotype {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.22em;
+    color: var(--white);
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-bg-layer {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 30%;
+    opacity: 0;
+    transform: scale(1);
+    filter: brightness(0.62) saturate(0.92);
+    transition: opacity 0.5s var(--ease);
+  }
+
+  .hero-bg-layer.active {
+    opacity: 1;
+    animation: heroZoom 1.5s linear forwards;
+  }
+
+  @keyframes heroZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.045); }
+  }
+
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(10,10,9,0.55) 0%, rgba(10,10,9,0.35) 35%, rgba(10,10,9,0.55) 70%, rgba(13,13,12,0.9) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    padding: 0 clamp(24px, 5vw, 64px);
+    text-align: center;
+  }
+
+  .hero-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: clamp(30px, 6.6vw, 72px);
+    line-height: 1.12;
+    letter-spacing: 0.01em;
+    color: var(--white);
+    max-width: 16ch;
+    margin: 0 auto;
+    opacity: 0;
+    animation: fadeUp 1.1s var(--ease) 0.2s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+    z-index: 2;
+    opacity: 0;
+    animation: fadeIn 1s var(--ease) 1.2s forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* ---------- Statement (charcoal) ---------- */
+
+  .statement {
+    background: var(--bg-deep);
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(90px, 16vh, 160px) clamp(24px, 6vw, 64px);
+    border-top: 1px solid var(--border);
+  }
+
+  .statement-text {
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(24px, 3.6vw, 42px);
+    line-height: 1.5;
+    color: var(--white);
+    max-width: 20ch;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+  }
+
+  .statement-text.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .statement-text em {
+    font-style: italic;
+    color: var(--white);
+  }
+
+  /* ---------- Intake (white) ---------- */
+
+  .intake {
+    background: var(--off-white);
+    color: var(--charcoal);
+    min-height: 78vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(90px, 14vh, 140px) clamp(24px, 6vw, 64px);
+  }
+
+  .intake-inner {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  .intake-eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--charcoal-dim);
+    margin-bottom: 20px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+
+  .intake-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(30px, 5vw, 52px);
+    line-height: 1.12;
+    color: var(--charcoal);
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.1s, transform 0.9s var(--ease) 0.1s;
+  }
+
+  .intake-eyebrow.in-view,
+  .intake-headline.in-view,
+  .cta-wrap.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .cta-wrap {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.2s, transform 0.9s var(--ease) 0.2s;
+  }
+
+  .cta-btn {
+    background: var(--charcoal);
+    color: var(--white);
+    border: none;
+    border-radius: 30px;
+    padding: 18px 44px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .cta-btn:hover { background: #000; }
+  .cta-btn:active { transform: scale(0.97); }
+
+  /* ---------- Form ---------- */
+
+  .form-panel {
+    width: 100%;
+    max-width: 560px;
+    text-align: left;
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s var(--ease), transform 0.5s var(--ease);
+  }
+
+  .form-panel.visible {
+    display: block;
+  }
+
+  .form-panel.shown {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .form-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 3.6vw, 34px);
+    color: var(--charcoal);
+    margin-bottom: 8px;
+  }
+
+  .form-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--charcoal-dim);
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+
+  .field label {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--charcoal-dim);
+    margin-bottom: 8px;
+  }
+
+  .field label .opt {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    color: var(--ink-faint);
+  }
+
+  .field input,
+  .field textarea {
+    width: 100%;
+    background: var(--white);
+    border: 1px solid var(--border-dark);
+    border-radius: 12px;
+    padding: 14px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--charcoal);
+    outline: none;
+    transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 90px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: #B7B5B1;
+  }
+
+  .field input:focus,
+  .field textarea:focus {
+    border-color: var(--charcoal);
+    box-shadow: 0 0 0 3px rgba(23,23,22,0.06);
+  }
+
+  .form-row {
+    display: flex;
+    gap: 14px;
+  }
+
+  .form-row .field { flex: 1; }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: var(--charcoal);
+    color: var(--white);
+    border: none;
+    border-radius: 30px;
+    padding: 17px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .submit-btn:hover { background: #000; }
+  .submit-btn:active { transform: scale(0.98); }
+  .submit-btn:disabled { opacity: 0.55; cursor: default; }
+
+  .form-msg {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--charcoal-dim);
+    min-height: 18px;
+    text-align: center;
+  }
+
+  .form-msg.error { color: #B4402E; }
+
+  /* ---------- Thank you ---------- */
+
+  .thanks {
+    display: none;
+    max-width: 480px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .thanks.visible { display: block; }
+  .thanks.shown { opacity: 1; transform: translateY(0); }
+
+  .thanks-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--charcoal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 26px;
+  }
+
+  .thanks-mark svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .thanks-title {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(24px, 3.6vw, 32px);
+    color: var(--charcoal);
+    margin-bottom: 10px;
+  }
+
+  .thanks-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--charcoal-dim);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 520px) {
+    .form-row { flex-direction: column; gap: 0; }
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg-deep);
+    padding: 40px clamp(24px, 5vw, 64px) 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--ink-faint);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    font-family: 'Inter', sans-serif;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-bg-layer { animation: none !important; transition: none !important; }
+    .hero-bg-layer.active { opacity: 1; }
+    .hero-headline, .scroll-cue,
+    .statement-text, .intake-eyebrow, .intake-headline, .cta-wrap,
+    .form-panel, .thanks {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="#" aria-label="SLATES home" class="logotype">SLATES</a>
+  </header>
+
+  <section class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-scrim"></div>
+    <div class="hero-content">
+      <h1 class="hero-headline">Premium Websites for Home Professionals</h1>
+    </div>
+    <div class="scroll-cue"></div>
+  </section>
+
+  <section class="statement">
+    <p class="statement-text" id="statementText">We give your community clarity on what you do, trust in who you are, and one clear action to take &mdash; all in 10 seconds.</p>
+  </section>
+
+  <section class="intake" id="intakeSection">
+    <div class="intake-inner">
+
+      <div id="ctaState">
+        <p class="intake-eyebrow" id="intakeEyebrow">Let's talk</p>
+        <h2 class="intake-headline" id="intakeHeadline">Tell us about your business</h2>
+        <div class="cta-wrap" id="ctaWrap">
+          <button class="cta-btn" id="cleanSlateBtn">Clean Slate</button>
+        </div>
+      </div>
+
+      <div class="form-panel" id="formPanel">
+        <p class="form-title">Clean slate</p>
+        <p class="form-sub">A few details and we'll take it from here.</p>
+
+        <form id="slatesForm">
+          <div class="form-row">
+            <div class="field">
+              <label for="fName">Name</label>
+              <input type="text" id="fName" name="name" placeholder="Your name" required autocomplete="name" />
+            </div>
+            <div class="field">
+              <label for="fBusiness">Business name</label>
+              <input type="text" id="fBusiness" name="business" placeholder="Business name" required autocomplete="organization" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fWhat">What you do</label>
+            <input type="text" id="fWhat" name="what_you_do" placeholder="e.g. roofing, plumbing, remodeling" required />
+          </div>
+
+          <div class="field">
+            <label for="fSite">Current website <span class="opt">(optional)</span></label>
+            <input type="text" id="fSite" name="current_website" placeholder="yourbusiness.com" />
+          </div>
+
+          <div class="form-row">
+            <div class="field">
+              <label for="fEmail">Email</label>
+              <input type="email" id="fEmail" name="email" placeholder="you@business.com" required autocomplete="email" />
+            </div>
+            <div class="field">
+              <label for="fPhone">Phone <span class="opt">(optional)</span></label>
+              <input type="tel" id="fPhone" name="phone" placeholder="(555) 555-5555" autocomplete="tel" />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fNotes">Anything else we should know? <span class="opt">(optional)</span></label>
+            <textarea id="fNotes" name="notes" placeholder="Tell us more"></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">Submit</button>
+          <p class="form-msg" id="formMsg"></p>
+        </form>
+      </div>
+
+      <div class="thanks" id="thanksPanel">
+        <div class="thanks-mark">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 12.5L9.5 18L20 6" stroke="#171716" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <p class="thanks-title">Thanks for the info!</p>
+        <p class="thanks-sub">We will reach out soon.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 SLATES</span>
+    <div class="footer-links">
+      <a href="mailto:hello@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Hero photo loop ----------
+    // Add more photos any time: drop the file in /assets and add its
+    // filename below. HOLD_MS controls how long each photo stays
+    // visible before crossfading to the next.
+    const heroImages = [
+      'assets/slate-1.jpg',
+      'assets/slate-2.jpg',
+      'assets/slate-3.jpg',
+      'assets/slate-4.jpg',
+      'assets/slate-5.jpg',
+      'assets/slate-6.jpg',
+      'assets/slate-7.jpg',
+      'assets/slate-8.jpg',
+      'assets/slate-9.jpg',
+      'assets/slate-10.jpg',
+      'assets/slate-11.jpg',
+      'assets/slate-12.jpg',
+    ];
+
+    (function initHeroLoop() {
+      const heroBg = document.getElementById('heroBg');
+      if (!heroBg || !heroImages.length) return;
+
+      const layers = heroImages.map((src, i) => {
+        const div = document.createElement('div');
+        div.className = 'hero-bg-layer';
+        div.style.backgroundImage = `url('${src}')`;
+        if (i === 0) div.classList.add('active');
+        heroBg.appendChild(div);
+        return div;
+      });
+
+      if (layers.length < 2) return;
+
+      const HOLD_MS = 1500; // how long each photo stays fully visible
+      let current = 0;
+
+      setInterval(() => {
+        const prev = current;
+        current = (current + 1) % layers.length;
+        layers[current].classList.add('active');
+        layers[current].style.animation = 'none';
+        void layers[current].offsetWidth;
+        layers[current].style.animation = '';
+        setTimeout(() => layers[prev].classList.remove('active'), 500);
+      }, HOLD_MS);
+    })();
+
+    // ---------- Scroll reveal ----------
+    const revealEls = [
+      document.getElementById('statementText'),
+      document.getElementById('intakeEyebrow'),
+      document.getElementById('intakeHeadline'),
+      document.getElementById('ctaWrap'),
+    ];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    revealEls.forEach(el => el && observer.observe(el));
+
+    // ---------- Clean Slate flow ----------
+    const ctaState = document.getElementById('ctaState');
+    const cleanSlateBtn = document.getElementById('cleanSlateBtn');
+    const formPanel = document.getElementById('formPanel');
+    const thanksPanel = document.getElementById('thanksPanel');
+    const slatesForm = document.getElementById('slatesForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formMsg = document.getElementById('formMsg');
+
+    cleanSlateBtn.addEventListener('click', () => {
+      ctaState.style.display = 'none';
+      formPanel.classList.add('visible');
+      requestAnimationFrame(() => formPanel.classList.add('shown'));
+      formPanel.querySelector('#fName').focus();
+    });
+
+    // Same Supabase project used by ROQ's waitlist. Submissions are stored
+    // in the `slates_leads` table; a Database Webhook + Edge Function on
+    // that table forwards each new row to hello@roqhome.com via Resend.
+    // The Resend key itself lives server-side as a Supabase secret, never here.
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+
+    slatesForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        name: document.getElementById('fName').value.trim(),
+        business: document.getElementById('fBusiness').value.trim(),
+        what_you_do: document.getElementById('fWhat').value.trim(),
+        current_website: document.getElementById('fSite').value.trim(),
+        email: document.getElementById('fEmail').value.trim(),
+        phone: document.getElementById('fPhone').value.trim(),
+        notes: document.getElementById('fNotes').value.trim(),
+      };
+
+      if (!payload.name || !payload.business || !payload.what_you_do || !payload.email) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      formMsg.textContent = '';
+      formMsg.className = 'form-msg';
+
+      const showThanks = () => {
+        formPanel.classList.remove('shown');
+        setTimeout(() => {
+          formPanel.classList.remove('visible');
+          thanksPanel.classList.add('visible');
+          requestAnimationFrame(() => thanksPanel.classList.add('shown'));
+        }, 400);
+      };
+
+      if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+        // No backend connected yet — fall back to opening a pre-filled
+        // email so nothing gets lost while Supabase/Resend are wired up.
+        const body = encodeURIComponent(
+          `Name: ${payload.name}\nBusiness: ${payload.business}\nWhat they do: ${payload.what_you_do}\nCurrent website: ${payload.current_website || '—'}\nEmail: ${payload.email}\nPhone: ${payload.phone || '—'}\nNotes: ${payload.notes || '—'}`
+        );
+        window.location.href = `mailto:hello@roqhome.com?subject=${encodeURIComponent('New SLATES inquiry: ' + payload.business)}&body=${body}`;
+        showThanks();
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+        return;
+      }
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/slates_leads`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (res.ok) {
+          showThanks();
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch (err) {
+        formMsg.textContent = 'Something went wrong. Please try again.';
+        formMsg.className = 'form-msg error';
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Submit';
+      }
+    });
+  </script>
+
+</body>
+</html>
