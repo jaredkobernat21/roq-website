@@ -131,21 +131,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .scroll-cue {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
-    z-index: 2;
-    opacity: 0;
-    animation: fadeIn 1s var(--ease) 1.2s forwards;
-  }
-
-  @keyframes fadeIn { to { opacity: 1; } }
-
   /* ---------- Statement (charcoal) ---------- */
 
   .statement {
@@ -470,7 +455,7 @@
   @media (prefers-reduced-motion: reduce) {
     .hero-bg-layer { animation: none !important; transition: none !important; }
     .hero-bg-layer.active { opacity: 1; }
-    .hero-headline, .scroll-cue,
+    .hero-headline,
     .statement-text, .intake-eyebrow, .intake-headline, .cta-wrap,
     .form-panel, .thanks {
       animation: none !important;
@@ -493,7 +478,6 @@
     <div class="hero-content">
       <h1 class="hero-headline">Premium Websites for Home Professionals</h1>
     </div>
-    <div class="scroll-cue"></div>
   </section>
 
   <section class="statement">
@@ -583,26 +567,42 @@
     // Add more photos any time: drop the file in /assets and add its
     // filename below. HOLD_MS controls how long each photo stays
     // visible before crossfading to the next.
-    const heroImages = [
-      '../assets/slate-1.jpg',
-      '../assets/slate-2.jpg',
-      '../assets/slate-3.jpg',
-      '../assets/slate-4.jpg',
-      '../assets/slate-5.jpg',
-      '../assets/slate-6.jpg',
-      '../assets/slate-7.jpg',
-      '../assets/slate-8.jpg',
-      '../assets/slate-9.jpg',
-      '../assets/slate-10.jpg',
-      '../assets/slate-11.jpg',
-      '../assets/slate-12.jpg',
-    ];
+    const heroImages = {
+      desktop: [
+        '../assets/SLATES 1.PNG',
+        '../assets/SLATES 2.PNG',
+        '../assets/SLATES 3.PNG',
+        '../assets/SLATES 4.PNG',
+        '../assets/SLATES 5.PNG',
+        '../assets/SLATES 6.PNG',
+        '../assets/SLATES 7.PNG',
+        '../assets/SLATES 8.PNG',
+        '../assets/SLATES 9.PNG',
+        '../assets/SLATES 10.PNG',
+      ],
+      mobile: [
+        '../assets/slate-1.jpg',
+        '../assets/slate-2.jpg',
+        '../assets/slate-3.jpg',
+        '../assets/slate-4.jpg',
+        '../assets/slate-5.jpg',
+        '../assets/slate-6.jpg',
+        '../assets/slate-7.jpg',
+        '../assets/slate-8.jpg',
+        '../assets/slate-9.jpg',
+        '../assets/slate-10.jpg',
+        '../assets/slate-11.jpg',
+        '../assets/slate-12.jpg',
+      ],
+    };
 
     (function initHeroLoop() {
+      const isMobile = window.matchMedia('(max-width: 700px)').matches;
+      const set = (isMobile && heroImages.mobile.length ? heroImages.mobile : heroImages.desktop);
       const heroBg = document.getElementById('heroBg');
-      if (!heroBg || !heroImages.length) return;
+      if (!heroBg || !set.length) return;
 
-      const layers = heroImages.map((src, i) => {
+      const layers = set.map((src, i) => {
         const div = document.createElement('div');
         div.className = 'hero-bg-layer';
         div.style.backgroundImage = `url('${src}')`;

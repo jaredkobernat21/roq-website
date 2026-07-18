@@ -224,21 +224,6 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .scroll-cue {
-    position: absolute;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
-    z-index: 2;
-    opacity: 0;
-    animation: fadeIn 1s var(--ease) 1.2s forwards;
-  }
-
-  @keyframes fadeIn { to { opacity: 1; } }
-
   /* ---------- Statement ---------- */
 
   .showcase {
@@ -458,7 +443,7 @@
   @media (prefers-reduced-motion: reduce) {
     .hero-bg-layer { animation: none !important; transition: none !important; }
     .hero-bg-layer.active { opacity: 1; }
-    .hero-headline, .scroll-cue,
+    .hero-headline,
     .showcase-headline, .close-eyebrow, .close-headline, .close-sub, .waitlist-form {
       animation: none !important;
       transition: none !important;
@@ -495,7 +480,6 @@
     <div class="hero-content">
       <h1 class="hero-headline">Experience<br>Home</h1>
     </div>
-    <div class="scroll-cue"></div>
   </section>
 
   <section class="showcase">
@@ -553,7 +537,12 @@
     // different numbers of images and even totally different photos.
     const heroImages = {
       desktop: [
-        'assets/hero.jpg',
+        'assets/ROQ 1.PNG',
+        'assets/ROQ 2.PNG',
+        'assets/ROQ 3.PNG',
+        'assets/ROQ 4.PNG',
+        'assets/ROQ 5.PNG',
+        'assets/ROQ 6.PNG',
       ],
       mobile: [
         'assets/mobile-1.jpg',
