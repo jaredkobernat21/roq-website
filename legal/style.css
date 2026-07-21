@@ -1,0 +1,207 @@
+/* ROQ / SLATES — legal document styling
+   Design intent: a formal instrument, not a marketing page.
+   Ultra-thin wordmark (matches the locked ROQ brand mark) paired with a
+   serif body face for long-form legal reading — the pairing itself is the
+   signature choice, not decoration on top of a template. */
+
+:root {
+  --ink: #141414;
+  --ink-soft: #5b5b5b;
+  --ink-faint: #9a9a9a;
+  --rule: #e4e2dd;
+  --paper: #ffffff;
+  --paper-dim: #faf9f7;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
+  font-size: 17px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+.site-header {
+  background: var(--ink);
+  color: #fff;
+  padding: 22px 24px;
+}
+.site-header-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+.wordmark svg { display: block; opacity: 0.92; }
+.wordmark-text {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 100;
+  font-size: 20px;
+  letter-spacing: 0.5em;
+  padding-left: 0.5em; /* offset the wide tracking so it optically centers */
+}
+.wordmark-sub {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  color: rgba(255,255,255,0.55);
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+.back-link {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.back-link:hover { color: #fff; }
+
+/* ── Doc switcher ───────────────────────────────────────────────────── */
+.doc-nav {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 18px 24px 0;
+  display: flex;
+  gap: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.doc-nav a {
+  color: var(--ink-faint);
+  text-decoration: none;
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+}
+.doc-nav a.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* ── Content ────────────────────────────────────────────────────────── */
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 48px 24px 96px;
+}
+
+.doc-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 0 0 6px;
+}
+.doc-heading {
+  font-size: 34px;
+  line-height: 1.15;
+  margin: 0 0 8px;
+}
+.eff-date {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  margin: 0 0 36px;
+}
+.intro {
+  font-size: 17px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+
+.section {
+  margin-top: 44px;
+  padding-top: 4px;
+}
+.section-heading {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  align-items: baseline;
+  column-gap: 14px;
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+  margin-bottom: 14px;
+}
+.section-num {
+  font-size: 26px;
+  color: var(--ink-faint);
+  font-variant-numeric: oldstyle-nums;
+  line-height: 1;
+}
+.section-title {
+  font-size: 21px;
+  margin: 0;
+  line-height: 1.3;
+}
+.sub-heading {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: 26px 0 10px;
+}
+p { margin: 0 0 14px; }
+ul { margin: 0 0 16px; padding-left: 22px; }
+li { margin-bottom: 8px; }
+
+.contact-block {
+  margin-top: 8px;
+  padding: 16px 18px;
+  background: var(--paper-dim);
+  border-left: 3px solid var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.contact-block strong { display: block; margin-bottom: 2px; }
+
+footer {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px 64px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 12px;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--rule);
+  padding-top: 20px;
+}
+
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .doc-heading { font-size: 28px; }
+  .section-heading { grid-template-columns: 30px 1fr; column-gap: 10px; }
+  .section-num { font-size: 20px; }
+  .wordmark-text { font-size: 16px; letter-spacing: 0.4em; }
+}
+
+@media print {
+  .site-header, .doc-nav, footer { display: none; }
+  main { padding: 0; max-width: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}
