@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home Potential — ROQ</title>
+<meta name="description" content="Enter your address to see your home's estimated value, your neighborhood's price ceiling, and how much renovation headroom you actually have." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --panel: #1D1D1B;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --gold: #C8A882;
+    --border: rgba(255,255,255,0.08);
+    --danger: #C97A6A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--gold); color: #14110B; }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px clamp(24px, 5vw, 64px);
+    background: var(--bg);
+  }
+
+  .logo-mark { width: 30px; height: 30px; display: block; }
+  .logo-mark path { stroke: var(--ink); stroke-width: 8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .nav-wrap { position: relative; }
+
+  .nav-trigger {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s var(--ease);
+  }
+
+  .nav-trigger:hover,
+  .nav-trigger[aria-expanded="true"] { border-color: rgba(255,255,255,0.3); }
+
+  .nav-trigger span { position: relative; width: 16px; height: 10px; }
+
+  .nav-trigger span::before,
+  .nav-trigger span::after,
+  .nav-trigger span i {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--ink-dim);
+    transition: background 0.3s var(--ease);
+  }
+
+  .nav-trigger span::before { top: 0; }
+  .nav-trigger span i { top: 50%; margin-top: -0.5px; display: block; }
+  .nav-trigger span::after { bottom: 0; }
+
+  .nav-trigger:hover span::before,
+  .nav-trigger:hover span::after,
+  .nav-trigger:hover span i { background: var(--ink); }
+
+  .nav-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    background: rgba(13,13,12,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .nav-menu.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .nav-menu a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    border-radius: 8px;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .nav-menu a:hover,
+  .nav-menu a.active { background: rgba(255,255,255,0.06); color: var(--ink); }
+
+  /* ---------- Hero / intro ---------- */
+
+  main { flex: 1; }
+
+  .intro {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    padding: clamp(40px, 7vh, 80px) clamp(24px, 6vw, 64px) clamp(28px, 4vh, 40px);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 20px;
+  }
+
+  .intro-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(30px, 4.6vw, 48px);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+
+  .intro-sub {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- Form ---------- */
+
+  .form-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 64px) clamp(20px, 3vh, 32px);
+  }
+
+  .address-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .address-input {
+    flex: 1 1 260px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .address-input::placeholder { color: var(--ink-faint); }
+
+  .address-input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .address-submit {
+    background: var(--ink);
+    color: #14110B;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+
+  .address-submit:hover { background: var(--gold); }
+  .address-submit:active { transform: scale(0.97); }
+  .address-submit:disabled { opacity: 0.55; cursor: default; }
+
+  .form-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .form-error {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+
+  .form-error.visible { display: block; }
+
+  /* ---------- Loading ---------- */
+
+  .loading-row {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+
+  .loading-row.visible { display: flex; }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    border-top-color: var(--gold);
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Results ---------- */
+
+  .results {
+    display: none;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(12px, 2vh, 20px) clamp(24px, 6vw, 64px) clamp(80px, 10vh, 120px);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .results.visible { display: block; }
+  .results.in { opacity: 1; transform: translateY(0); }
+
+  .results-address {
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .stat-card.highlight { border-color: rgba(200,168,130,0.4); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+
+  .stat-value {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 3vw, 28px);
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .stat-value .gold { color: var(--gold); }
+
+  .stat-note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+
+  .risk-banner {
+    display: none;
+    background: rgba(200,122,106,0.1);
+    border: 1px solid rgba(200,122,106,0.3);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    margin-bottom: 24px;
+  }
+
+  .risk-banner.visible { display: block; }
+
+  .confidence-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 32px;
+  }
+
+  .confidence-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .confidence-dot.high { background: #8FBF8F; }
+  .confidence-dot.medium { background: var(--gold); }
+  .confidence-dot.low { background: var(--danger); }
+
+  .comps-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 14px;
+  }
+
+  .comps-list {
+    border-top: 1px solid var(--border);
+  }
+
+  .comp-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+
+  .comp-address { color: var(--ink-dim); }
+  .comp-meta { color: var(--ink-faint); white-space: nowrap; }
+  .comp-price { color: var(--ink); font-weight: 500; white-space: nowrap; }
+
+  .disclaimer {
+    margin-top: 28px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Waitlist strip ---------- */
+
+  .waitlist-strip {
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border);
+    padding: clamp(56px, 9vh, 90px) clamp(24px, 6vw, 64px);
+    text-align: center;
+  }
+
+  .waitlist-strip-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 2.8vw, 30px);
+    margin-bottom: 12px;
+  }
+
+  .waitlist-strip-sub {
+    font-size: 14px;
+    color: var(--ink-dim);
+    max-width: 44ch;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    margin: 0 auto;
+  }
+
+  .waitlist-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 15px 22px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .waitlist-input::placeholder { color: var(--ink-faint); }
+
+  .waitlist-input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .waitlist-btn {
+    background: var(--ink);
+    color: #14110B;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .waitlist-btn:hover { background: var(--gold); }
+  .waitlist-btn:active { transform: scale(0.97); }
+  .waitlist-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .waitlist-msg {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-dim);
+    min-height: 18px;
+  }
+
+  .waitlist-msg.success { color: var(--gold); }
+  .waitlist-msg.error { color: var(--danger); }
+
+  @media (max-width: 520px) {
+    .waitlist-form { flex-direction: column; }
+    .waitlist-btn { padding: 15px; }
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg-deep);
+    padding: 28px clamp(24px, 5vw, 64px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.7; }
+  .footer-left .logo-mark path { stroke: var(--ink-dim); }
+
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+
+  .footer-links { display: flex; gap: 28px; }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <div class="nav-wrap">
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+        <span><i></i></span>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="home-potential.html" class="active">Home Potential</a>
+        <a href="about.html">About</a>
+        <a href="https://jaredkobernat21.github.io/roq-legal/privacy.html" target="_blank" rel="noopener">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro">
+      <p class="eyebrow">Home Potential</p>
+      <h1 class="intro-title">How much room does your home actually have?</h1>
+      <p class="intro-sub">Enter your address to see your estimated value, your neighborhood's price ceiling, and how much renovation upside is realistic before you're paying for finishes the market won't pay back.</p>
+    </section>
+
+    <section class="form-wrap">
+      <form class="address-form" id="addressForm">
+        <input
+          type="text"
+          class="address-input"
+          id="addressInput"
+          placeholder="123 Main St, City, State ZIP"
+          autocomplete="street-address"
+          required
+        />
+        <button type="submit" class="address-submit" id="addressSubmit">See My Number</button>
+      </form>
+      <p class="form-hint">Include street, city, state, and ZIP for the most accurate read.</p>
+      <p class="form-error" id="formError"></p>
+      <div class="loading-row" id="loadingRow">
+        <span class="spinner"></span>
+        <span>Pulling comps for your block&hellip;</span>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <p class="results-address" id="resultAddress"></p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <p class="stat-label">Estimated Value</p>
+          <p class="stat-value" id="statValue">&mdash;</p>
+        </div>
+        <div class="stat-card highlight">
+          <p class="stat-label">Neighborhood Ceiling</p>
+          <p class="stat-value gold" id="statCeiling">&mdash;</p>
+          <p class="stat-note">Top of what buyers pay on this block, based on comparable listings</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Renovation Potential</p>
+          <p class="stat-value" id="statRenovation">&mdash;</p>
+          <p class="stat-note">Realistic headroom before you're over-improving for the block</p>
+        </div>
+      </div>
+
+      <p class="risk-banner" id="riskBanner">Heads up: closing this whole gap would mean spending more than about 30% of your home's current value on renovations. Past that point, most markets stop paying you back &mdash; the "30% rule" that keeps flippers and remodelers from over-capitalizing.</p>
+
+      <div class="confidence-row">
+        <span class="confidence-dot" id="confidenceDot"></span>
+        <span id="confidenceText"></span>
+      </div>
+
+      <div id="compsSection">
+        <p class="comps-title">Comparable listings used</p>
+        <div class="comps-list" id="compsList"></div>
+      </div>
+
+      <p class="disclaimer">This is an automated estimate built from nearby active and recently delisted listings, not a licensed appraisal. Renovation potential is a market ceiling, not a guaranteed return &mdash; actual resale value depends on the scope and quality of the work. Figures update as market data changes.</p>
+    </section>
+  </main>
+
+  <section class="waitlist-strip">
+    <h2 class="waitlist-strip-title">Track your home's number over time.</h2>
+    <p class="waitlist-strip-sub">ROQ is currently in private beta. Join the waitlist and we'll let you know the moment Home Potential is built into the app.</p>
+    <form class="waitlist-form" id="waitlistForm">
+      <input
+        type="email"
+        class="waitlist-input"
+        id="waitlistEmail"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit" class="waitlist-btn" id="waitlistBtn">Join the Waitlist</button>
+    </form>
+    <p class="waitlist-msg" id="waitlistMsg"></p>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Nav dropdown ----------
+    const navTrigger = document.getElementById('navTrigger');
+    const navMenu = document.getElementById('navMenu');
+
+    navTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      navTrigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    // ---------- Home Potential lookup ----------
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+
+    const form = document.getElementById('addressForm');
+    const addressInput = document.getElementById('addressInput');
+    const submitBtn = document.getElementById('addressSubmit');
+    const formError = document.getElementById('formError');
+    const loadingRow = document.getElementById('loadingRow');
+    const results = document.getElementById('results');
+
+    const money = (n) => {
+      if (n == null) return '—';
+      return '$' + Math.round(n).toLocaleString('en-US');
+    };
+
+    const moneyK = (n) => {
+      if (n == null) return '—';
+      const k = Math.round(n / 1000);
+      return '$' + k.toLocaleString('en-US') + 'K';
+    };
+
+    function showError(message) {
+      formError.textContent = message;
+      formError.classList.add('visible');
+    }
+
+    function clearError() {
+      formError.textContent = '';
+      formError.classList.remove('visible');
+    }
+
+    function renderResults(data, addressTyped) {
+      document.getElementById('resultAddress').textContent = data.subject?.address || addressTyped;
+      document.getElementById('statValue').textContent = money(data.estimatedValue);
+      document.getElementById('statCeiling').innerHTML =
+        moneyK(data.ceiling.low) + '&ndash;' + moneyK(data.ceiling.high);
+      document.getElementById('statRenovation').innerHTML =
+        moneyK(data.renovationPotential.low) + '&ndash;' + moneyK(data.renovationPotential.high);
+
+      const riskBanner = document.getElementById('riskBanner');
+      riskBanner.classList.toggle('visible', !!data.overCapitalizationRisk);
+
+      const confidenceDot = document.getElementById('confidenceDot');
+      const confidenceText = document.getElementById('confidenceText');
+      confidenceDot.className = 'confidence-dot ' + data.confidence;
+      const confidenceLabel = { high: 'High', medium: 'Medium', low: 'Low' }[data.confidence] || 'Low';
+      confidenceText.textContent = confidenceLabel + ' confidence · ' + data.compsUsed + ' comparable listings nearby';
+
+      const compsSection = document.getElementById('compsSection');
+      const compsList = document.getElementById('compsList');
+      compsList.innerHTML = '';
+      if (data.comps && data.comps.length) {
+        compsSection.style.display = '';
+        data.comps.forEach((c) => {
+          const row = document.createElement('div');
+          row.className = 'comp-row';
+          const sqftText = c.squareFootage ? c.squareFootage.toLocaleString('en-US') + ' sqft' : '';
+          const distText = c.distanceMiles != null ? c.distanceMiles.toFixed(1) + ' mi' : '';
+          row.innerHTML =
+            '<span class="comp-address">' + (c.address || 'Nearby listing') + '</span>' +
+            '<span class="comp-meta">' + [sqftText, distText].filter(Boolean).join(' · ') + '</span>' +
+            '<span class="comp-price">' + money(c.price) + '</span>';
+          compsList.appendChild(row);
+        });
+      } else {
+        compsSection.style.display = 'none';
+      }
+
+      results.classList.add('visible');
+      requestAnimationFrame(() => results.classList.add('in'));
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const address = addressInput.value.trim();
+      clearError();
+      results.classList.remove('visible', 'in');
+
+      if (address.length < 8 || !/\d/.test(address)) {
+        showError('Please enter a full street address, city, state, and ZIP.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Checking…';
+      loadingRow.classList.add('visible');
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/home-potential`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({ address }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showError(data.error || 'Something went wrong. Please try again.');
+          return;
+        }
+
+        renderResults(data, address);
+      } catch (err) {
+        showError('Something went wrong reaching the server. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'See My Number';
+        loadingRow.classList.remove('visible');
+      }
+    });
+
+    // ---------- Waitlist submit ----------
+    const wForm = document.getElementById('waitlistForm');
+    const wEmail = document.getElementById('waitlistEmail');
+    const wBtn = document.getElementById('waitlistBtn');
+    const wMsg = document.getElementById('waitlistMsg');
+
+    wForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = wEmail.value.trim();
+      if (!email) return;
+
+      wBtn.disabled = true;
+      wBtn.textContent = 'Joining…';
+      wMsg.textContent = '';
+      wMsg.className = 'waitlist-msg';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (res.ok) {
+          wMsg.textContent = "You're on the list. Welcome home.";
+          wMsg.className = 'waitlist-msg success';
+          wEmail.value = '';
+          wBtn.textContent = 'Join the Waitlist';
+        } else if (res.status === 409) {
+          wMsg.textContent = "You're already on the list.";
+          wMsg.className = 'waitlist-msg success';
+          wBtn.textContent = 'Join the Waitlist';
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch (err) {
+        wMsg.textContent = 'Something went wrong. Please try again.';
+        wMsg.className = 'waitlist-msg error';
+        wBtn.textContent = 'Join the Waitlist';
+      } finally {
+        wBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
