@@ -174,12 +174,27 @@
 
   .address-form {
     display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 14px;
   }
 
-  .address-input {
-    flex: 1 1 260px;
+  .field-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .field-row .optional-tag {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 10px;
+    color: var(--ink-faint);
+    opacity: 0.7;
+  }
+
+  .field-row input {
+    width: 100%;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border);
     border-radius: 14px;
@@ -191,19 +206,21 @@
     transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
   }
 
-  .address-input::placeholder { color: var(--ink-faint); }
+  .field-row input::placeholder { color: var(--ink-faint); }
 
-  .address-input:focus {
+  .field-row input:focus {
     border-color: rgba(200,168,130,0.5);
     background: rgba(255,255,255,0.06);
   }
 
   .address-submit {
+    margin-top: 4px;
+    width: 100%;
     background: var(--ink);
     color: #14110B;
     border: none;
     border-radius: 14px;
-    padding: 16px 26px;
+    padding: 17px 26px;
     font-family: 'Inter', sans-serif;
     font-size: 12px;
     font-weight: 600;
@@ -540,17 +557,32 @@
 
     <section class="form-wrap">
       <form class="address-form" id="addressForm">
-        <input
-          type="text"
-          class="address-input"
-          id="addressInput"
-          placeholder="123 Main St, City, State ZIP"
-          autocomplete="street-address"
-          required
-        />
+        <div class="field-row">
+          <label for="addressInput">Address</label>
+          <input
+            type="text"
+            id="addressInput"
+            placeholder="123 Main St, City, State ZIP"
+            autocomplete="street-address"
+            required
+          />
+        </div>
+        <div class="field-row">
+          <label for="refineBeds">Bedrooms <span class="optional-tag">Optional</span></label>
+          <input type="number" id="refineBeds" min="0" max="20" step="1" placeholder="e.g. 3" />
+        </div>
+        <div class="field-row">
+          <label for="refineBaths">Bathrooms <span class="optional-tag">Optional</span></label>
+          <input type="number" id="refineBaths" min="0" max="20" step="0.5" placeholder="e.g. 2.5" />
+        </div>
+        <div class="field-row">
+          <label for="refineSqft">Square footage <span class="optional-tag">Optional</span></label>
+          <input type="number" id="refineSqft" min="100" max="50000" step="1" placeholder="e.g. 1800" />
+        </div>
         <button type="submit" class="address-submit" id="addressSubmit">See My Number</button>
       </form>
-      <p class="form-hint">Include street, city, state, and ZIP for the most accurate read.</p>
+      <p class="form-hint">Adding your bed/bath/sqft helps most when public records are incomplete for your address.</p>
+
       <p class="form-error" id="formError"></p>
       <div class="loading-row" id="loadingRow">
         <span class="spinner"></span>
@@ -584,6 +616,8 @@
         <span class="confidence-dot" id="confidenceDot"></span>
         <span id="confidenceText"></span>
       </div>
+
+      <p class="risk-banner" id="sqftNote">Public records don't list a square footage for this property, so we can't size-match it against nearby comps. This estimate leans on the provider's broader valuation model instead &mdash; treat it as a rough starting point, not a precise ceiling.</p>
 
       <div id="compsSection">
         <p class="comps-title">Comparable listings used</p>
@@ -690,6 +724,8 @@
       const confidenceLabel = { high: 'High', medium: 'Medium', low: 'Low' }[data.confidence] || 'Low';
       confidenceText.textContent = confidenceLabel + ' confidence · ' + data.compsUsed + ' comparable listings nearby';
 
+      document.getElementById('sqftNote').classList.toggle('visible', data.squareFootageAvailable === false);
+
       const compsSection = document.getElementById('compsSection');
       const compsList = document.getElementById('compsList');
       compsList.innerHTML = '';
@@ -729,6 +765,15 @@
       submitBtn.textContent = 'Checking…';
       loadingRow.classList.add('visible');
 
+      const bedsVal = parseFloat(document.getElementById('refineBeds').value);
+      const bathsVal = parseFloat(document.getElementById('refineBaths').value);
+      const sqftVal = parseFloat(document.getElementById('refineSqft').value);
+
+      const payload = { address };
+      if (!Number.isNaN(bedsVal)) payload.bedrooms = bedsVal;
+      if (!Number.isNaN(bathsVal)) payload.bathrooms = bathsVal;
+      if (!Number.isNaN(sqftVal)) payload.squareFootage = sqftVal;
+
       try {
         const res = await fetch(`${SUPABASE_URL}/functions/v1/home-potential`, {
           method: 'POST',
@@ -737,7 +782,7 @@
             'apikey': SUPABASE_ANON_KEY,
             'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
           },
-          body: JSON.stringify({ address }),
+          body: JSON.stringify(payload),
         });
 
         const data = await res.json();
