@@ -305,6 +305,32 @@ async function logInterestRow(
   }
 }
 
+// Best-effort notification to hello@roqhome.com via Resend, same sender
+// convention as the existing notify-slates-lead function. Never blocks or
+// fails the customer-facing response -- a missed notification email is
+// recoverable (the data is already saved), so errors are swallowed.
+async function notifyRoq(opts: { subject: string; html: string }): Promise<void> {
+  const resendKey = Deno.env.get("RESEND_API_KEY");
+  if (!resendKey) return;
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "ROQ <notifications@roqhome.com>",
+        to: ["hello@roqhome.com"],
+        subject: opts.subject,
+        html: opts.html,
+      }),
+    });
+  } catch {
+    // Swallowed -- the underlying data is already saved either way.
+  }
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: CORS_HEADERS });
@@ -346,12 +372,30 @@ Deno.serve(async (req: Request) => {
           "Content-Type": "application/json",
           apikey: serviceRoleKey,
           Authorization: `Bearer ${serviceRoleKey}`,
+          Prefer: "return=representation",
         },
         body: JSON.stringify({ email, email_captured_at: new Date().toISOString() }),
       },
     );
     if (!patchRes.ok) {
       return jsonResponse({ error: "Could not save your request. Please try again." }, 502);
+    }
+
+    const updatedRows = await patchRes.json().catch(() => []);
+    const row = updatedRows?.[0];
+    if (row) {
+      await notifyRoq({
+        subject: `New Home Potential Strategy request: ${row.address ?? "unknown address"}`,
+        html: `
+          <h2>New $99 Strategy request</h2>
+          <p><strong>Address:</strong> ${row.address ?? "—"}</p>
+          <p><strong>Email:</strong> ${row.email ?? "—"}</p>
+          <p><strong>Estimated value:</strong> ${row.estimated_value ?? "—"}</p>
+          <p><strong>Neighborhood ceiling:</strong> ${row.ceiling_low ?? "—"} &ndash; ${row.ceiling_high ?? "—"}</p>
+          <p><strong>Gap:</strong> ${row.gap_bucket ?? "—"}</p>
+          <p>Send them the Stripe Payment Link to collect the $99, then follow up with the Strategy intake link once paid.</p>
+        `,
+      });
     }
     return jsonResponse({ ok: true }, 200);
   }

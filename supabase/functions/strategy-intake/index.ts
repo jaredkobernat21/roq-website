@@ -60,6 +60,32 @@ function sanitizeFields(fields: unknown): Record<string, unknown> {
   return out;
 }
 
+// Same Resend convention as the home-potential and notify-slates-lead
+// functions. Awaited (not fire-and-forget) since an Edge Function can be
+// torn down right after its response is sent, which would otherwise risk
+// killing the request mid-flight.
+async function notifyRoq(opts: { subject: string; html: string }): Promise<void> {
+  const resendKey = Deno.env.get("RESEND_API_KEY");
+  if (!resendKey) return;
+  try {
+    await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${resendKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: "ROQ <notifications@roqhome.com>",
+        to: ["hello@roqhome.com"],
+        subject: opts.subject,
+        html: opts.html,
+      }),
+    });
+  } catch {
+    // Swallowed -- the answers are already saved either way.
+  }
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: CORS_HEADERS });
@@ -150,11 +176,32 @@ Deno.serve(async (req: Request) => {
     }
     const res = await fetch(rowUrl, {
       method: "PATCH",
-      headers: restHeaders,
+      headers: { ...restHeaders, Prefer: "return=representation" },
       body: JSON.stringify({ ...fields, contact_name: name, email, intake_submitted_at: new Date().toISOString() }),
     });
     if (!res.ok) {
       return jsonResponse({ error: "Could not submit your answers. Please try again." }, 502);
+    }
+
+    const updatedRows = await res.json().catch(() => []);
+    const row = updatedRows?.[0];
+    if (row) {
+      const photoCount = Array.isArray(row.photo_paths) ? row.photo_paths.length : 0;
+      await notifyRoq({
+        subject: `Strategy questionnaire submitted: ${row.address ?? "unknown address"}`,
+        html: `
+          <h2>Strategy questionnaire completed</h2>
+          <p><strong>Address:</strong> ${row.address ?? "—"}</p>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Goals:</strong> ${(row.goals ?? []).join(", ") || "—"}</p>
+          <p><strong>Timeline:</strong> ${row.timeline ?? "—"}</p>
+          <p><strong>Budget:</strong> ${row.budget ?? "—"}</p>
+          <p><strong>Focus areas:</strong> ${(row.focus_areas ?? []).join(", ") || "—"}</p>
+          <p><strong>Photos uploaded:</strong> ${photoCount}</p>
+          <p>Full answers and photos are on this row in Supabase &mdash; time to build their $99 Strategy (24&ndash;48hr window started now).</p>
+        `,
+      });
     }
     return jsonResponse({ ok: true });
   }
