@@ -80,10 +80,21 @@ function round(n: number, step = 1000): number {
   return Math.round(n / step) * step;
 }
 
+const RECENT_SALE_WINDOW_DAYS = 270; // ~9 months
+
 /**
  * Builds the "neighborhood ceiling" and renovation-potential range from a
  * subject property and its RentCast comparables. Rules:
  *
+ * 0. If the subject property itself sold within the last ~9 months,
+ *    "Estimated Value" is anchored to that actual recorded sale price
+ *    instead of RentCast's model estimate -- a real arm's-length
+ *    transaction is stronger evidence of value than any model or neighbor
+ *    comp, and it's exactly what catches an inflated model estimate on a
+ *    home that just sold (e.g. a flip that closed at $280K shouldn't be
+ *    reported as "worth" $320K because a model said so). Public records
+ *    can lag 1-3 months behind closing, so a sale from last week may not
+ *    be reflected yet -- this only fires once RentCast's data has caught up.
  * 1. Comp pool = comparables of the same property type, within ~30% of the
  *    subject's square footage, within 2 miles. Size-matching only runs when
  *    the subject's own square footage is known -- if RentCast couldn't pull
@@ -93,8 +104,10 @@ function round(n: number, step = 1000): number {
  * 2. Ceiling low  = 75th-percentile $/sqft of that pool x subject sqft.
  *    Ceiling high = 90th-percentile $/sqft of that pool x subject sqft.
  * 3. The ceiling is floored at RentCast's own priceRangeHigh (their AVM's
- *    upper uncertainty band, grounded in recorded sales data) so it never
- *    sits below the model's own high estimate.
+ *    upper uncertainty band) so it never sits below the model's own high
+ *    estimate -- except when anchored to a recent actual sale (rule 0),
+ *    since that band is centered on the model estimate we're explicitly
+ *    overriding, and flooring against it would undo the anchor.
  * 4. Ceiling high is capped at 1.35x the current estimated value -- beyond
  *    that a "ceiling" isn't credible off a handful of listing comps.
  * 5. Renovation potential = ceiling minus current estimated value, floored
@@ -107,7 +120,19 @@ function round(n: number, step = 1000): number {
  */
 function computeHomePotential(avm: RentCastAvmResponse) {
   const subject = avm.subjectProperty ?? {};
-  const price = avm.price ?? 0;
+
+  const lastSaleDate = subject.lastSaleDate ? new Date(subject.lastSaleDate) : null;
+  const daysSinceLastSale =
+    lastSaleDate && !Number.isNaN(lastSaleDate.getTime())
+      ? (Date.now() - lastSaleDate.getTime()) / (1000 * 60 * 60 * 24)
+      : null;
+  const hasRecentSale = !!(
+    subject.lastSalePrice &&
+    daysSinceLastSale != null &&
+    daysSinceLastSale <= RECENT_SALE_WINDOW_DAYS
+  );
+
+  const price = hasRecentSale ? (subject.lastSalePrice as number) : avm.price ?? 0;
   const sqft = subject.squareFootage ?? 0;
   const hasSqft = sqft > 0;
   const comparables = avm.comparables ?? [];
@@ -138,10 +163,10 @@ function computeHomePotential(avm: RentCastAvmResponse) {
     ceilingHigh = Math.min(ceilingHigh, outerCap);
     ceilingLow = Math.min(ceilingLow, ceilingHigh);
 
-    if (avm.priceRangeHigh) {
+    if (!hasRecentSale && avm.priceRangeHigh) {
       ceilingLow = Math.max(ceilingLow, Math.min(avm.priceRangeHigh, ceilingHigh));
     }
-  } else if (avm.priceRangeHigh && avm.priceRangeHigh > price) {
+  } else if (!hasRecentSale && avm.priceRangeHigh && avm.priceRangeHigh > price) {
     // Not enough size-matched comps to trust a percentile calc -- fall back
     // to RentCast's own AVM uncertainty band instead of a comp-derived one.
     ceilingLow = avm.priceRangeHigh;
@@ -195,6 +220,8 @@ function computeHomePotential(avm: RentCastAvmResponse) {
 
   return {
     estimatedValue: round(price),
+    valueSource: hasRecentSale ? "recent_sale" : "model",
+    lastSaleDate: hasRecentSale ? subject.lastSaleDate ?? null : null,
     ceiling: { low: round(ceilingLow), high: round(ceilingHigh) },
     renovationPotential: { low: round(renovationLow), high: round(renovationHigh) },
     overCapitalizationRisk,
@@ -401,6 +428,8 @@ Deno.serve(async (req: Request) => {
       gap_bucket: gap.bucket,
       confidence: result.confidence,
       square_footage_available: result.squareFootageAvailable,
+      value_source: result.valueSource,
+      last_sale_date: result.lastSaleDate,
     });
   }
 
@@ -410,6 +439,8 @@ Deno.serve(async (req: Request) => {
   return jsonResponse(
     {
       estimatedValue: result.estimatedValue,
+      valueSource: result.valueSource,
+      lastSaleDate: result.lastSaleDate,
       ceiling: result.ceiling,
       renovationPotential: result.renovationPotential,
       overCapitalizationRisk: result.overCapitalizationRisk,

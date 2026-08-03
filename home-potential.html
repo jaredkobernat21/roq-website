@@ -756,6 +756,7 @@
         <div class="stat-card">
           <p class="stat-label">Estimated Value</p>
           <p class="stat-value" id="statValue">&mdash;</p>
+          <p class="stat-note" id="valueSourceNote"></p>
         </div>
         <div class="stat-card highlight">
           <p class="stat-label">Neighborhood Ceiling</p>
@@ -966,6 +967,15 @@
 
       document.getElementById('resultAddress').textContent = data.subject?.address || addressTyped;
       document.getElementById('statValue').textContent = money(data.estimatedValue);
+
+      const valueSourceNote = document.getElementById('valueSourceNote');
+      if (data.valueSource === 'recent_sale' && data.lastSaleDate) {
+        const saleMonth = new Date(data.lastSaleDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+        valueSourceNote.textContent = 'Based on this home’s recorded sale in ' + saleMonth;
+      } else {
+        valueSourceNote.textContent = 'Automated market estimate';
+      }
+
       document.getElementById('statCeiling').innerHTML =
         moneyK(data.ceiling.low) + '&ndash;' + moneyK(data.ceiling.high);
       document.getElementById('statRenovation').innerHTML =
