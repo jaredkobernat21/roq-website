@@ -33,6 +33,7 @@ interface RentCastComparable {
   bedrooms?: number;
   bathrooms?: number;
   squareFootage?: number;
+  yearBuilt?: number;
   price?: number;
   status?: string;
   distance?: number;
@@ -96,19 +97,26 @@ const RECENT_SALE_WINDOW_DAYS = 270; // ~9 months
  *    can lag 1-3 months behind closing, so a sale from last week may not
  *    be reflected yet -- this only fires once RentCast's data has caught up.
  * 1. Comp pool = comparables of the same property type, within ~30% of the
- *    subject's square footage, within 2 miles. Size-matching only runs when
- *    the subject's own square footage is known -- if RentCast couldn't pull
- *    it from public records, we can't tell a same-size comp from a comp
- *    half the size, so the pool (and any comp-based math) is skipped
- *    entirely rather than silently comparing against mismatched homes.
- * 2. Ceiling low  = 75th-percentile $/sqft of that pool x subject sqft.
- *    Ceiling high = 90th-percentile $/sqft of that pool x subject sqft.
+ *    subject's square footage, within 2 miles, within 20 years of the
+ *    subject's year built. Size-matching only runs when the subject's own
+ *    square footage is known -- if RentCast couldn't pull it from public
+ *    records, we can't tell a same-size comp from a comp half the size, so
+ *    the pool (and any comp-based math) is skipped entirely rather than
+ *    silently comparing against mismatched homes. The year-built filter
+ *    keeps new construction from inflating the ceiling for an older home
+ *    (and vice versa) when both happen to sit in the same radius.
+ * 2. Ceiling low  = 60th-percentile $/sqft of that pool x subject sqft.
+ *    Ceiling high = 80th-percentile $/sqft of that pool x subject sqft.
+ *    (Deliberately more conservative than a straight 75th/90th percentile
+ *    pull, since RentCast's comps are listing-based -- Active comps are
+ *    asking prices, not verified closes -- and the very top of an
+ *    unweighted pool is the most likely place for that to skew high.)
  * 3. The ceiling is floored at RentCast's own priceRangeHigh (their AVM's
  *    upper uncertainty band) so it never sits below the model's own high
  *    estimate -- except when anchored to a recent actual sale (rule 0),
  *    since that band is centered on the model estimate we're explicitly
  *    overriding, and flooring against it would undo the anchor.
- * 4. Ceiling high is capped at 1.35x the current estimated value -- beyond
+ * 4. Ceiling high is capped at 1.25x the current estimated value -- beyond
  *    that a "ceiling" isn't credible off a handful of listing comps.
  * 5. Renovation potential = ceiling minus current estimated value, floored
  *    at 0. Flagged as over-capitalization risk once it exceeds 30% of
@@ -144,6 +152,7 @@ function computeHomePotential(avm: RentCastAvmResponse) {
         if (Math.abs(c.squareFootage - sqft) / sqft > 0.3) return false;
         if (c.distance != null && c.distance > 2) return false;
         if (subject.bedrooms != null && c.bedrooms != null && Math.abs(c.bedrooms - subject.bedrooms) > 1) return false;
+        if (subject.yearBuilt != null && c.yearBuilt != null && Math.abs(c.yearBuilt - subject.yearBuilt) > 20) return false;
         return true;
       })
     : [];
@@ -156,10 +165,10 @@ function computeHomePotential(avm: RentCastAvmResponse) {
   let ceilingHigh: number;
 
   if (hasSqft && ppsfList.length >= 3) {
-    ceilingLow = percentile(ppsfList, 0.75) * sqft;
-    ceilingHigh = percentile(ppsfList, 0.9) * sqft;
+    ceilingLow = percentile(ppsfList, 0.6) * sqft;
+    ceilingHigh = percentile(ppsfList, 0.8) * sqft;
 
-    const outerCap = price > 0 ? price * 1.35 : ceilingHigh;
+    const outerCap = price > 0 ? price * 1.25 : ceilingHigh;
     ceilingHigh = Math.min(ceilingHigh, outerCap);
     ceilingLow = Math.min(ceilingLow, ceilingHigh);
 
