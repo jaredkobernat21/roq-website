@@ -786,13 +786,15 @@
 
       <div class="report-cta">
         <p class="report-cta-eyebrow">Home Potential Strategy &middot; $99</p>
-        <h3 class="report-cta-title">See what your home could be</h3>
+        <h3 class="report-cta-title">Unlock your home's full potential</h3>
         <ul class="report-cta-list">
+          <li>Prioritized improvement opportunities</li>
           <li>Personally reviewed comparable properties</li>
           <li>Refined home value &amp; neighborhood ceiling</li>
-          <li>Personalized renovation roadmap</li>
           <li>Project budget &amp; ROI estimates</li>
+          <li>5 year strategy</li>
           <li>Market ready checklist</li>
+          <li>Personalized home identity</li>
           <li>Home concept recommendations</li>
           <li>Rental income estimate</li>
           <li>Contractor matching (optional)</li>
@@ -806,7 +808,7 @@
             required
             autocomplete="email"
           />
-          <button type="submit" id="reportSubmit">Get My Strategy</button>
+          <button type="submit" id="reportSubmit">Build My Strategy</button>
         </form>
         <p class="report-cta-note">Your personalized Home Potential Strategy will be delivered within 24&ndash;48 hours.</p>
         <p class="report-cta-msg" id="reportMsg"></p>
@@ -1100,7 +1102,7 @@
         reportMsg.className = 'report-cta-msg error';
       } finally {
         reportSubmit.disabled = false;
-        reportSubmit.textContent = 'Get My Strategy';
+        reportSubmit.textContent = 'Build My Strategy';
       }
     });
 
