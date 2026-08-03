@@ -404,13 +404,17 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  // Free-tier response: qualitative only. The exact ceiling, renovation
-  // potential, and comps are the $99 report -- they never leave the server
-  // on this endpoint.
+  // Free-tier response: the headline ranges, clearly framed as a quick
+  // automated preview. The specific comps we'd personally review, the
+  // renovation roadmap, budgets, and ROI reasoning are the $99 report.
   return jsonResponse(
     {
       estimatedValue: result.estimatedValue,
+      ceiling: result.ceiling,
+      renovationPotential: result.renovationPotential,
+      overCapitalizationRisk: result.overCapitalizationRisk,
       confidence: result.confidence,
+      compsUsed: result.compsUsed,
       squareFootageAvailable: result.squareFootageAvailable,
       gapBucket: gap.bucket,
       gapHeadline: gap.headline,

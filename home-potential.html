@@ -364,6 +364,26 @@
     line-height: 1.5;
   }
 
+  .preview-tag {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 18px;
+  }
+
+  .preview-disclaimer {
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    text-align: center;
+    max-width: 52ch;
+    margin: 0 auto 24px;
+  }
+
   .risk-banner {
     display: none;
     background: rgba(200,122,106,0.1);
@@ -730,13 +750,28 @@
 
     <section class="results" id="results">
       <p class="results-address" id="resultAddress"></p>
+      <p class="preview-tag">Quick Automated Preview</p>
 
-      <div class="stat-grid single">
+      <div class="stat-grid">
         <div class="stat-card">
           <p class="stat-label">Estimated Value</p>
           <p class="stat-value" id="statValue">&mdash;</p>
         </div>
+        <div class="stat-card highlight">
+          <p class="stat-label">Neighborhood Ceiling</p>
+          <p class="stat-value gold" id="statCeiling">&mdash;</p>
+          <p class="stat-note">Top of what buyers pay on this block, based on comparable listings</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Renovation Potential</p>
+          <p class="stat-value" id="statRenovation">&mdash;</p>
+          <p class="stat-note">Realistic headroom before you're over-improving for the block</p>
+        </div>
       </div>
+
+      <p class="preview-disclaimer">This preview is generated from a quick, automated analysis of comparable listings and public property data. It's designed to give you an initial read &mdash; not a comprehensive valuation or appraisal.</p>
+
+      <p class="risk-banner" id="riskBanner">Heads up: closing this whole gap would mean spending more than about 30% of your home's current value on renovations. Past that point, most markets stop paying you back &mdash; the "30% rule" that keeps flippers and remodelers from over-capitalizing.</p>
 
       <div class="insight-card">
         <p class="insight-headline" id="insightHeadline"></p>
@@ -752,13 +787,13 @@
 
       <div class="report-cta">
         <p class="report-cta-eyebrow">Full Home Potential Report &middot; $99</p>
-        <h3 class="report-cta-title">See the exact numbers behind your ceiling</h3>
+        <h3 class="report-cta-title">Get a personally reviewed, in-depth analysis</h3>
         <ul class="report-cta-list">
-          <li>Your exact neighborhood ceiling</li>
-          <li>Full renovation potential breakdown</li>
-          <li>Prioritized improvement roadmap for highest ROI</li>
+          <li>Comparable properties personally reviewed &mdash; not just an automated pull</li>
+          <li>Refined value range with the reasoning behind our comp selection</li>
+          <li>Neighborhood-specific market analysis</li>
+          <li>Prioritized renovation roadmap with estimated budgets and ROI</li>
           <li>Rental estimate</li>
-          <li>Personalized using your home's specific details</li>
         </ul>
         <form class="report-cta-form" id="reportForm">
           <input
@@ -774,7 +809,7 @@
         <p class="report-cta-msg" id="reportMsg"></p>
       </div>
 
-      <p class="disclaimer">This free preview is an automated estimate built from public listing data, not a licensed appraisal. Figures update as market data changes.</p>
+      <p class="disclaimer">Renovation potential is a market ceiling, not a guaranteed return &mdash; actual resale value depends on the scope and quality of the work. Figures update as market data changes.</p>
     </section>
   </main>
 
@@ -908,6 +943,12 @@
       return '$' + Math.round(n).toLocaleString('en-US');
     };
 
+    const moneyK = (n) => {
+      if (n == null) return '—';
+      const k = Math.round(n / 1000);
+      return '$' + k.toLocaleString('en-US') + 'K';
+    };
+
     function showError(message) {
       formError.textContent = message;
       formError.classList.add('visible');
@@ -925,6 +966,13 @@
 
       document.getElementById('resultAddress').textContent = data.subject?.address || addressTyped;
       document.getElementById('statValue').textContent = money(data.estimatedValue);
+      document.getElementById('statCeiling').innerHTML =
+        moneyK(data.ceiling.low) + '&ndash;' + moneyK(data.ceiling.high);
+      document.getElementById('statRenovation').innerHTML =
+        moneyK(data.renovationPotential.low) + '&ndash;' + moneyK(data.renovationPotential.high);
+
+      const riskBanner = document.getElementById('riskBanner');
+      riskBanner.classList.toggle('visible', !!data.overCapitalizationRisk);
 
       document.getElementById('insightHeadline').textContent = data.gapHeadline || '';
       document.getElementById('insightMessage').textContent = data.gapMessage || '';
@@ -933,7 +981,7 @@
       const confidenceText = document.getElementById('confidenceText');
       confidenceDot.className = 'confidence-dot ' + data.confidence;
       const confidenceLabel = { high: 'High', medium: 'Medium', low: 'Low' }[data.confidence] || 'Low';
-      confidenceText.textContent = confidenceLabel + ' confidence estimate';
+      confidenceText.textContent = confidenceLabel + ' confidence · ' + data.compsUsed + ' comparable listings nearby';
 
       document.getElementById('sqftNote').classList.toggle('visible', data.squareFootageAvailable === false);
 
