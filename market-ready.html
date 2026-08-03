@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Market Ready — ROQ</title>
 <meta name="description" content="A personalized review & strategy to help prepare & present your home before selling." />
+<link rel="canonical" href="https://roqhome.com/market-ready.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="Market Ready — ROQ" />
+<meta property="og:description" content="A personalized review & strategy to help prepare & present your home before selling." />
+<meta property="og:url" content="https://roqhome.com/market-ready.html" />
+<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Market Ready — ROQ" />
+<meta name="twitter:description" content="A personalized review & strategy to help prepare & present your home before selling." />
+<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -677,7 +691,7 @@
         <a href="home-potential.html">Home Potential</a>
         <a href="market-ready.html" class="active">Market Ready</a>
         <a href="about.html">About</a>
-        <a href="https://jaredkobernat21.github.io/roq-legal/privacy.html" target="_blank" rel="noopener">Privacy</a>
+        <a href="legal/roq-privacy.html">Privacy</a>
       </nav>
     </div>
   </header>
@@ -732,7 +746,7 @@
         </div>
 
         <div class="center-panel" id="panelStartError">
-          <h1 class="center-title">Something went wrong</h1>
+          <h2 class="center-title">Something went wrong</h2>
           <p class="center-sub" id="startErrorMessage">We couldn't start your request. Please try again, or reach out to us directly.</p>
           <a class="center-sub" href="mailto:hello@roqhome.com" style="text-decoration:underline;">hello@roqhome.com</a>
         </div>
@@ -740,7 +754,7 @@
         <form id="wizardForm" style="display:contents;">
 
           <section class="step" data-step="property">
-            <h1 class="step-title">What's the property?</h1>
+            <h2 class="step-title">What's the property?</h2>
             <p class="step-sub">Share the address, or paste a listing link if it's already posted online.</p>
             <div class="field-row">
               <label for="propertyInfo">Address or Listing URL</label>
@@ -749,7 +763,7 @@
           </section>
 
           <section class="step" data-step="situation">
-            <h1 class="step-title">What best describes your situation?</h1>
+            <h2 class="step-title">What best describes your situation?</h2>
             <div class="chip-grid" data-field="situation" data-mode="single">
               <button type="button" class="chip" data-value="Currently listed FSBO">Currently listed FSBO</button>
               <button type="button" class="chip" data-value="Planning to list">Planning to list</button>
@@ -759,7 +773,7 @@
           </section>
 
           <section class="step" data-step="goal">
-            <h1 class="step-title">What's your biggest goal?</h1>
+            <h2 class="step-title">What's your biggest goal?</h2>
             <div class="chip-grid" data-field="goal" data-mode="single">
               <button type="button" class="chip" data-value="Sell quickly">Sell quickly</button>
               <button type="button" class="chip" data-value="Maximize sale price">Maximize sale price</button>
@@ -771,7 +785,7 @@
           </section>
 
           <section class="step" data-step="photos">
-            <h1 class="step-title">Upload photos of your home</h1>
+            <h2 class="step-title">Upload photos of your home</h2>
             <p class="step-sub">Since you didn't share a listing link, photos help us the most here.</p>
             <div class="photo-zone" id="photoZone">
               <p class="photo-zone-label">Tap to add photos</p>
@@ -782,13 +796,13 @@
           </section>
 
           <section class="step" data-step="attention">
-            <h1 class="step-title">Anything you'd like us to pay special attention to?</h1>
+            <h2 class="step-title">Anything you'd like us to pay special attention to?</h2>
             <p class="step-sub">Optional.</p>
             <textarea class="field-textarea" id="specialAttention" placeholder="Share whatever comes to mind&hellip;"></textarea>
           </section>
 
           <section class="step" data-step="services">
-            <h1 class="step-title">Any optional services you're interested in?</h1>
+            <h2 class="step-title">Any optional services you're interested in?</h2>
             <p class="step-sub">Select all that apply &mdash; these are add-ons we can coordinate, separate from the $149.</p>
             <div class="checkbox-list" data-field="optional_services">
               <label class="checkbox-item" data-value="Home website"><span class="checkbox-box">&#10003;</span><span class="checkbox-label">Home website</span></label>
@@ -800,7 +814,7 @@
           </section>
 
           <section class="step" data-step="contact">
-            <h1 class="step-title">Where should we send your Market Ready package?</h1>
+            <h2 class="step-title">Where should we send your Market Ready package?</h2>
             <div class="field-row">
               <label for="contactName">Name</label>
               <input type="text" id="contactName" placeholder="Your name" autocomplete="name" />
@@ -817,7 +831,7 @@
           </section>
 
           <section class="step" data-step="review">
-            <h1 class="step-title">Review your answers</h1>
+            <h2 class="step-title">Review your answers</h2>
             <p class="step-sub">Everything look right?</p>
             <div class="review-list" id="reviewList"></div>
             <p class="step-error" id="submitError"></p>
@@ -830,7 +844,7 @@
         </form>
 
         <div class="center-panel" id="panelThanks">
-          <h1 class="center-title">Thanks! We're reviewing your details now.</h1>
+          <h2 class="center-title">Thanks! We're reviewing your details now.</h2>
           <p class="center-sub">We'll follow up within 24&ndash;48 hours with your $149 payment link and next steps to get your home Market Ready.</p>
           <p class="center-reminder">Every Market Ready package is personally prepared &mdash; not automatically generated.</p>
         </div>
@@ -848,8 +862,8 @@
       <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
     </div>
     <div class="footer-links">
-      <a href="privacy.html">Privacy</a>
-      <a href="terms.html">Terms</a>
+      <a href="legal/roq-privacy.html">Privacy</a>
+      <a href="legal/roq-terms.html">Terms</a>
       <a href="mailto:support@roqhome.com">Contact</a>
     </div>
   </footer>

@@ -480,14 +480,14 @@
 
     <!-- Error state -->
     <div class="center-panel" id="panelError">
-      <h1 class="center-title">We couldn't find that request</h1>
+      <h2 class="center-title">We couldn't find that request</h2>
       <p class="center-sub" id="errorMessage">Please use the link from your confirmation email, or reach out to us and we'll help sort it out.</p>
       <a class="center-sub" href="mailto:support@roqhome.com" style="text-decoration:underline;">support@roqhome.com</a>
     </div>
 
     <!-- Already submitted state -->
     <div class="center-panel" id="panelAlready">
-      <h1 class="center-title">You're all set</h1>
+      <h2 class="center-title">You're all set</h2>
       <p class="center-sub">We already have your responses for this Home Potential Strategy &mdash; there's nothing more to do.</p>
       <p class="center-reminder">Every strategy is personally reviewed, not automatically generated. You'll receive your completed strategy within 24&ndash;48 hours.</p>
     </div>
@@ -497,7 +497,7 @@
 
       <section class="step" data-step="1">
         <div class="step-body">
-          <h1 class="step-title">What are you hoping to accomplish with your home?</h1>
+          <h2 class="step-title">What are you hoping to accomplish with your home?</h2>
           <p class="step-sub">Select all that apply.</p>
           <div class="chip-grid" data-field="goals" data-mode="multi">
             <button type="button" class="chip" data-value="Increase my home's value">Increase my home's value</button>
@@ -514,7 +514,7 @@
 
       <section class="step" data-step="2">
         <div class="step-body">
-          <h1 class="step-title">When are you hoping to complete improvements?</h1>
+          <h2 class="step-title">When are you hoping to complete improvements?</h2>
           <div class="chip-grid" data-field="timeline" data-mode="single">
             <button type="button" class="chip" data-value="Immediately">Immediately</button>
             <button type="button" class="chip" data-value="Within 3 months">Within 3 months</button>
@@ -528,7 +528,7 @@
 
       <section class="step" data-step="3">
         <div class="step-body">
-          <h1 class="step-title">Which areas of your home would you like us to focus on?</h1>
+          <h2 class="step-title">Which areas of your home would you like us to focus on?</h2>
           <p class="step-sub">Select all that apply.</p>
           <div class="chip-grid" data-field="focus_areas" data-mode="multi">
             <button type="button" class="chip" data-value="Whole Home">Whole Home</button>
@@ -549,7 +549,7 @@
 
       <section class="step" data-step="4">
         <div class="step-body">
-          <h1 class="step-title">What is your estimated renovation budget?</h1>
+          <h2 class="step-title">What is your estimated renovation budget?</h2>
           <div class="chip-grid" data-field="budget" data-mode="single">
             <button type="button" class="chip" data-value="Under $10,000">Under $10,000</button>
             <button type="button" class="chip" data-value="$10,000–25,000">$10,000&ndash;25,000</button>
@@ -563,7 +563,7 @@
 
       <section class="step" data-step="5">
         <div class="step-body">
-          <h1 class="step-title">Which design style best matches what you're looking for?</h1>
+          <h2 class="step-title">Which design style best matches what you're looking for?</h2>
           <p class="step-sub">Select all that apply.</p>
           <div class="chip-grid" data-field="design_styles" data-mode="multi">
             <button type="button" class="chip" data-value="Modern">Modern</button>
@@ -582,7 +582,7 @@
 
       <section class="step" data-step="6">
         <div class="step-body">
-          <h1 class="step-title">Upload photos of your home</h1>
+          <h2 class="step-title">Upload photos of your home</h2>
           <p class="step-sub">Optional, but it helps a lot.</p>
           <div class="photo-zone" id="photoZone">
             <p class="photo-zone-label">Tap to add photos</p>
@@ -600,7 +600,7 @@
 
       <section class="step" data-step="7">
         <div class="step-body">
-          <h1 class="step-title">What's most important to you?</h1>
+          <h2 class="step-title">What's most important to you?</h2>
           <p class="step-sub">Drag to reorder, or use the arrows &mdash; most important first.</p>
           <div class="rank-list" id="rankList"></div>
         </div>
@@ -608,14 +608,14 @@
 
       <section class="step" data-step="8">
         <div class="step-body">
-          <h1 class="step-title">If you could change one thing about your home tomorrow, what would it be?</h1>
+          <h2 class="step-title">If you could change one thing about your home tomorrow, what would it be?</h2>
           <textarea class="field-textarea" id="changeOneThing" placeholder="Share whatever comes to mind&hellip;"></textarea>
         </div>
       </section>
 
       <section class="step" data-step="9">
         <div class="step-body">
-          <h1 class="step-title">Is there anything else we should know about your home or goals?</h1>
+          <h2 class="step-title">Is there anything else we should know about your home or goals?</h2>
           <p class="step-sub">Optional.</p>
           <textarea class="field-textarea" id="additionalNotes" placeholder="Anything at all&hellip;"></textarea>
           <p class="field-examples">Examples: future addition &middot; family needs &middot; accessibility &middot; historic home &middot; budget concerns &middot; HOA restrictions</p>
@@ -624,7 +624,7 @@
 
       <section class="step" data-step="10">
         <div class="step-body">
-          <h1 class="step-title">Where should we send your Home Potential Strategy?</h1>
+          <h2 class="step-title">Where should we send your Home Potential Strategy?</h2>
           <div class="field-row">
             <label for="contactName">Name</label>
             <input type="text" id="contactName" placeholder="Your name" autocomplete="name" />
@@ -639,7 +639,7 @@
 
       <section class="step" data-step="review">
         <div class="step-body">
-          <h1 class="step-title">Review your answers</h1>
+          <h2 class="step-title">Review your answers</h2>
           <p class="step-sub">Everything look right?</p>
           <div class="review-list" id="reviewList"></div>
           <p class="step-error" id="submitError"></p>
@@ -654,7 +654,7 @@
 
     <!-- Thank you state -->
     <div class="center-panel" id="panelThanks">
-      <h1 class="center-title">Thanks! We're now creating your personalized Home Potential Strategy.</h1>
+      <h2 class="center-title">Thanks! We're now creating your personalized Home Potential Strategy.</h2>
       <p class="center-reminder">Every strategy is personally reviewed&mdash;not automatically generated. You'll receive your completed strategy within 24&ndash;48 hours.</p>
     </div>
 
