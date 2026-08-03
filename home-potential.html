@@ -322,6 +322,13 @@
     .stat-grid { grid-template-columns: 1fr; }
   }
 
+  .stat-grid.single {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .stat-card {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -391,31 +398,145 @@
   .confidence-dot.medium { background: var(--gold); }
   .confidence-dot.low { background: var(--danger); }
 
-  .comps-title {
+  .insight-card {
+    background: var(--panel);
+    border: 1px solid rgba(200,168,130,0.4);
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .insight-headline {
+    font-family: 'Lora', serif;
+    font-size: clamp(20px, 2.6vw, 26px);
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .insight-message {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 48ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- Report CTA ---------- */
+
+  .report-cta {
+    background: linear-gradient(180deg, rgba(200,168,130,0.08), rgba(200,168,130,0.02));
+    border: 1px solid rgba(200,168,130,0.35);
+    border-radius: 20px;
+    padding: clamp(28px, 4vw, 36px) clamp(22px, 4vw, 32px);
+    text-align: center;
+    margin: 8px 0 28px;
+  }
+
+  .report-cta-eyebrow {
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 14px;
+    color: var(--gold);
+    margin-bottom: 12px;
   }
 
-  .comps-list {
-    border-top: 1px solid var(--border);
+  .report-cta-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(19px, 2.4vw, 24px);
+    margin-bottom: 20px;
   }
 
-  .comp-row {
+  .report-cta-list {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 9px;
+    margin: 0 auto 26px;
+    text-align: left;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+
+  .report-cta-list li {
+    padding-left: 22px;
+    position: relative;
+  }
+
+  .report-cta-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .report-cta-form {
     display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 13px 0;
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
+    gap: 10px;
+    max-width: 420px;
+    margin: 0 auto;
   }
 
-  .comp-address { color: var(--ink-dim); }
-  .comp-meta { color: var(--ink-faint); white-space: nowrap; }
-  .comp-price { color: var(--ink); font-weight: 500; white-space: nowrap; }
+  .report-cta-form input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 14px 20px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .report-cta-form input::placeholder { color: var(--ink-faint); }
+
+  .report-cta-form input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .report-cta-form button {
+    background: var(--gold);
+    color: #14110B;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+
+  .report-cta-form button:hover { background: #ddc9a8; }
+  .report-cta-form button:active { transform: scale(0.97); }
+  .report-cta-form button:disabled { opacity: 0.6; cursor: default; }
+
+  .report-cta-note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .report-cta-msg {
+    margin-top: 12px;
+    font-size: 13px;
+    min-height: 16px;
+    color: var(--ink-dim);
+  }
+
+  .report-cta-msg.success { color: var(--gold); }
+  .report-cta-msg.error { color: var(--danger); }
+
+  @media (max-width: 520px) {
+    .report-cta-form { flex-direction: column; }
+  }
 
   .disclaimer {
     margin-top: 28px;
@@ -610,38 +731,50 @@
     <section class="results" id="results">
       <p class="results-address" id="resultAddress"></p>
 
-      <div class="stat-grid">
+      <div class="stat-grid single">
         <div class="stat-card">
           <p class="stat-label">Estimated Value</p>
           <p class="stat-value" id="statValue">&mdash;</p>
         </div>
-        <div class="stat-card highlight">
-          <p class="stat-label">Neighborhood Ceiling</p>
-          <p class="stat-value gold" id="statCeiling">&mdash;</p>
-          <p class="stat-note">Top of what buyers pay on this block, based on comparable listings</p>
-        </div>
-        <div class="stat-card">
-          <p class="stat-label">Renovation Potential</p>
-          <p class="stat-value" id="statRenovation">&mdash;</p>
-          <p class="stat-note">Realistic headroom before you're over-improving for the block</p>
-        </div>
       </div>
 
-      <p class="risk-banner" id="riskBanner">Heads up: closing this whole gap would mean spending more than about 30% of your home's current value on renovations. Past that point, most markets stop paying you back &mdash; the "30% rule" that keeps flippers and remodelers from over-capitalizing.</p>
+      <div class="insight-card">
+        <p class="insight-headline" id="insightHeadline"></p>
+        <p class="insight-message" id="insightMessage"></p>
+      </div>
 
       <div class="confidence-row">
         <span class="confidence-dot" id="confidenceDot"></span>
         <span id="confidenceText"></span>
       </div>
 
-      <p class="risk-banner" id="sqftNote">Public records don't list a square footage for this property, so we can't size-match it against nearby comps. This estimate leans on the provider's broader valuation model instead &mdash; treat it as a rough starting point, not a precise ceiling.</p>
+      <p class="risk-banner" id="sqftNote">Public records don't list a square footage for this property, so we can't size-match it against nearby comps. This estimate leans on the provider's broader valuation model instead &mdash; treat it as a rough starting point.</p>
 
-      <div id="compsSection">
-        <p class="comps-title">Comparable listings used</p>
-        <div class="comps-list" id="compsList"></div>
+      <div class="report-cta">
+        <p class="report-cta-eyebrow">Full Home Potential Report &middot; $99</p>
+        <h3 class="report-cta-title">See the exact numbers behind your ceiling</h3>
+        <ul class="report-cta-list">
+          <li>Your exact neighborhood ceiling</li>
+          <li>Full renovation potential breakdown</li>
+          <li>Prioritized improvement roadmap for highest ROI</li>
+          <li>Rental estimate</li>
+          <li>Personalized using your home's specific details</li>
+        </ul>
+        <form class="report-cta-form" id="reportForm">
+          <input
+            type="email"
+            id="reportEmail"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" id="reportSubmit">Get My Report</button>
+        </form>
+        <p class="report-cta-note">We'll follow up by email within 24&ndash;48 hours to complete your $99 report.</p>
+        <p class="report-cta-msg" id="reportMsg"></p>
       </div>
 
-      <p class="disclaimer">This is an automated estimate built from nearby active and recently delisted listings, not a licensed appraisal. Renovation potential is a market ceiling, not a guaranteed return &mdash; actual resale value depends on the scope and quality of the work. Figures update as market data changes.</p>
+      <p class="disclaimer">This free preview is an automated estimate built from public listing data, not a licensed appraisal. Figures update as market data changes.</p>
     </section>
   </main>
 
@@ -775,12 +908,6 @@
       return '$' + Math.round(n).toLocaleString('en-US');
     };
 
-    const moneyK = (n) => {
-      if (n == null) return '—';
-      const k = Math.round(n / 1000);
-      return '$' + k.toLocaleString('en-US') + 'K';
-    };
-
     function showError(message) {
       formError.textContent = message;
       formError.classList.add('visible');
@@ -791,44 +918,31 @@
       formError.classList.remove('visible');
     }
 
+    let currentPreviewId = null;
+
     function renderResults(data, addressTyped) {
+      currentPreviewId = data.previewId || null;
+
       document.getElementById('resultAddress').textContent = data.subject?.address || addressTyped;
       document.getElementById('statValue').textContent = money(data.estimatedValue);
-      document.getElementById('statCeiling').innerHTML =
-        moneyK(data.ceiling.low) + '&ndash;' + moneyK(data.ceiling.high);
-      document.getElementById('statRenovation').innerHTML =
-        moneyK(data.renovationPotential.low) + '&ndash;' + moneyK(data.renovationPotential.high);
 
-      const riskBanner = document.getElementById('riskBanner');
-      riskBanner.classList.toggle('visible', !!data.overCapitalizationRisk);
+      document.getElementById('insightHeadline').textContent = data.gapHeadline || '';
+      document.getElementById('insightMessage').textContent = data.gapMessage || '';
 
       const confidenceDot = document.getElementById('confidenceDot');
       const confidenceText = document.getElementById('confidenceText');
       confidenceDot.className = 'confidence-dot ' + data.confidence;
       const confidenceLabel = { high: 'High', medium: 'Medium', low: 'Low' }[data.confidence] || 'Low';
-      confidenceText.textContent = confidenceLabel + ' confidence · ' + data.compsUsed + ' comparable listings nearby';
+      confidenceText.textContent = confidenceLabel + ' confidence estimate';
 
       document.getElementById('sqftNote').classList.toggle('visible', data.squareFootageAvailable === false);
 
-      const compsSection = document.getElementById('compsSection');
-      const compsList = document.getElementById('compsList');
-      compsList.innerHTML = '';
-      if (data.comps && data.comps.length) {
-        compsSection.style.display = '';
-        data.comps.forEach((c) => {
-          const row = document.createElement('div');
-          row.className = 'comp-row';
-          const sqftText = c.squareFootage ? c.squareFootage.toLocaleString('en-US') + ' sqft' : '';
-          const distText = c.distanceMiles != null ? c.distanceMiles.toFixed(1) + ' mi' : '';
-          row.innerHTML =
-            '<span class="comp-address">' + (c.address || 'Nearby listing') + '</span>' +
-            '<span class="comp-meta">' + [sqftText, distText].filter(Boolean).join(' · ') + '</span>' +
-            '<span class="comp-price">' + money(c.price) + '</span>';
-          compsList.appendChild(row);
-        });
-      } else {
-        compsSection.style.display = 'none';
-      }
+      const reportForm = document.getElementById('reportForm');
+      const reportMsg = document.getElementById('reportMsg');
+      reportForm.reset();
+      reportForm.style.display = '';
+      reportMsg.textContent = '';
+      reportMsg.className = 'report-cta-msg';
 
       results.classList.add('visible');
       requestAnimationFrame(() => results.classList.add('in'));
@@ -883,6 +997,53 @@
         submitBtn.disabled = false;
         submitBtn.textContent = 'See Potential';
         loadingRow.classList.remove('visible');
+      }
+    });
+
+    // ---------- Full report request ----------
+    const reportForm = document.getElementById('reportForm');
+    const reportEmail = document.getElementById('reportEmail');
+    const reportSubmit = document.getElementById('reportSubmit');
+    const reportMsg = document.getElementById('reportMsg');
+
+    reportForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = reportEmail.value.trim();
+      if (!email || !currentPreviewId) return;
+
+      reportSubmit.disabled = true;
+      reportSubmit.textContent = 'Sending…';
+      reportMsg.textContent = '';
+      reportMsg.className = 'report-cta-msg';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/home-potential`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({ previewId: currentPreviewId, email }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          reportMsg.textContent = data.error || 'Something went wrong. Please try again.';
+          reportMsg.className = 'report-cta-msg error';
+          return;
+        }
+
+        reportMsg.textContent = "Got it — we'll follow up by email within 24–48 hours to complete your $99 report.";
+        reportMsg.className = 'report-cta-msg success';
+        reportForm.style.display = 'none';
+      } catch (err) {
+        reportMsg.textContent = 'Something went wrong reaching the server. Please try again.';
+        reportMsg.className = 'report-cta-msg error';
+      } finally {
+        reportSubmit.disabled = false;
+        reportSubmit.textContent = 'Get My Report';
       }
     });
 

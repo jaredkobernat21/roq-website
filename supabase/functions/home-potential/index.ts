@@ -5,8 +5,19 @@
 // rules-based "neighborhood ceiling" + renovation-potential calculation on
 // top of the raw comp data. The RentCast API key stays server-side only.
 //
-// Request:  POST { "address": "123 Main St, Springfield, IL 62704" }
-// Response: 200 HomePotentialResult | 4xx/5xx { error: string }
+// This function powers the FREE preview: it computes the full numbers
+// internally and logs them to `home_potential_interest` (service-role only,
+// never exposed to the anon key) for the future $99 manual report pipeline,
+// but only returns a qualitative "gap bucket" to the client -- the exact
+// ceiling/renovation-potential figures and comps are the paid product, so
+// they never go out over the wire on this free endpoint.
+//
+// Two request shapes:
+//   1. Lookup:        POST { address, bedrooms?, bathrooms?, squareFootage? }
+//      -> 200 { estimatedValue, confidence, gapBucket, gapHeadline,
+//               gapMessage, squareFootageAvailable, previewId, subject }
+//   2. Claim interest: POST { previewId, email }
+//      -> 200 { ok: true }
 
 const RENTCAST_BASE_URL = "https://api.rentcast.io/v1";
 
@@ -202,6 +213,62 @@ function computeHomePotential(avm: RentCastAvmResponse) {
   };
 }
 
+/**
+ * Buckets the gap between ceiling and current value into a qualitative
+ * headline/message -- this is what the free tier actually shows. The exact
+ * dollar figures behind it are the paid product.
+ */
+function gapBucket(estimatedValue: number, ceilingHigh: number) {
+  const gapPercent = estimatedValue > 0 ? (ceilingHigh - estimatedValue) / estimatedValue : 0;
+
+  if (gapPercent >= 0.15) {
+    return {
+      bucket: "significant",
+      headline: "Significant Renovation Room",
+      message:
+        "Your home's neighborhood ceiling sits notably above its estimated value — there may be real upside if you renovate strategically.",
+    };
+  }
+  if (gapPercent >= 0.05) {
+    return {
+      bucket: "moderate",
+      headline: "Some Renovation Room",
+      message:
+        "There's a modest gap between your home's value and what this neighborhood supports — worth understanding before you invest in upgrades.",
+    };
+  }
+  return {
+    bucket: "near_ceiling",
+    headline: "Near the Neighborhood Ceiling",
+    message:
+      "Your home is already close to the top of what buyers pay on this block. Be cautious about over-improving — the market may not pay back much more.",
+  };
+}
+
+async function logInterestRow(
+  supabaseUrl: string,
+  serviceRoleKey: string,
+  row: Record<string, unknown>,
+): Promise<string | null> {
+  try {
+    const res = await fetch(`${supabaseUrl}/rest/v1/home_potential_interest`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        apikey: serviceRoleKey,
+        Authorization: `Bearer ${serviceRoleKey}`,
+        Prefer: "return=representation",
+      },
+      body: JSON.stringify(row),
+    });
+    if (!res.ok) return null;
+    const inserted = await res.json();
+    return inserted?.[0]?.id ?? null;
+  } catch {
+    return null;
+  }
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: CORS_HEADERS });
@@ -211,10 +278,47 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ error: "Method not allowed" }, 405);
   }
 
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+
   const numberInRange = (value: unknown, min: number, max: number): number | undefined => {
     const n = typeof value === "number" ? value : NaN;
     return Number.isFinite(n) && n >= min && n <= max ? n : undefined;
   };
+
+  // Shape 2: claiming a previously-computed preview with an email address,
+  // for the $99 report follow-up. No RentCast call needed here.
+  let earlyBody: Record<string, unknown> | undefined;
+  try {
+    earlyBody = await req.clone().json();
+  } catch {
+    earlyBody = undefined;
+  }
+  if (earlyBody && typeof earlyBody.previewId === "string" && typeof earlyBody.email === "string" && !earlyBody.address) {
+    const email = earlyBody.email.trim();
+    if (!email || !email.includes("@")) {
+      return jsonResponse({ error: "Please enter a valid email address." }, 400);
+    }
+    if (!supabaseUrl || !serviceRoleKey) {
+      return jsonResponse({ error: "Server is not configured for this request." }, 500);
+    }
+    const patchRes = await fetch(
+      `${supabaseUrl}/rest/v1/home_potential_interest?id=eq.${encodeURIComponent(earlyBody.previewId)}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: serviceRoleKey,
+          Authorization: `Bearer ${serviceRoleKey}`,
+        },
+        body: JSON.stringify({ email, email_captured_at: new Date().toISOString() }),
+      },
+    );
+    if (!patchRes.ok) {
+      return jsonResponse({ error: "Could not save your request. Please try again." }, 502);
+    }
+    return jsonResponse({ ok: true }, 200);
+  }
 
   let address: string | undefined;
   let overrideBedrooms: number | undefined;
@@ -283,5 +387,37 @@ Deno.serve(async (req: Request) => {
   }
 
   const result = computeHomePotential(avm);
-  return jsonResponse(result, 200);
+  const gap = gapBucket(result.estimatedValue, result.ceiling.high);
+
+  let previewId: string | null = null;
+  if (supabaseUrl && serviceRoleKey) {
+    previewId = await logInterestRow(supabaseUrl, serviceRoleKey, {
+      address: result.subject.address ?? address,
+      estimated_value: result.estimatedValue,
+      ceiling_low: result.ceiling.low,
+      ceiling_high: result.ceiling.high,
+      renovation_low: result.renovationPotential.low,
+      renovation_high: result.renovationPotential.high,
+      gap_bucket: gap.bucket,
+      confidence: result.confidence,
+      square_footage_available: result.squareFootageAvailable,
+    });
+  }
+
+  // Free-tier response: qualitative only. The exact ceiling, renovation
+  // potential, and comps are the $99 report -- they never leave the server
+  // on this endpoint.
+  return jsonResponse(
+    {
+      estimatedValue: result.estimatedValue,
+      confidence: result.confidence,
+      squareFootageAvailable: result.squareFootageAvailable,
+      gapBucket: gap.bucket,
+      gapHeadline: gap.headline,
+      gapMessage: gap.message,
+      previewId,
+      subject: { address: result.subject.address },
+    },
+    200,
+  );
 });
