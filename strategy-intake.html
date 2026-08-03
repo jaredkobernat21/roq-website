@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Home Potential Strategy — ROQ</title>
+<meta name="description" content="Tell us about your home so we can build your personalized Home Potential Strategy." />
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --panel: #1D1D1B;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --gold: #C8A882;
+    --border: rgba(255,255,255,0.08);
+    --danger: #C97A6A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: #14110B; }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 26px clamp(24px, 5vw, 64px);
+  }
+
+  .logo-mark { width: 26px; height: 26px; display: block; }
+  .logo-mark path { stroke: var(--ink); stroke-width: 8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* ---------- Progress ---------- */
+
+  .progress-wrap {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 64px);
+  }
+
+  .progress-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .progress-track {
+    height: 3px;
+    border-radius: 3px;
+    background: var(--border);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    transition: width 0.4s var(--ease);
+    width: 0%;
+  }
+
+  /* ---------- Main / wizard ---------- */
+
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(28px, 5vh, 48px) clamp(24px, 6vw, 64px) clamp(40px, 6vh, 64px);
+  }
+
+  .step { display: none; flex: 1; flex-direction: column; }
+  .step.active { display: flex; animation: fadeUp 0.45s var(--ease); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .step-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(24px, 3.4vw, 32px);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .step-sub {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    margin-bottom: 28px;
+  }
+
+  .step-body { flex: 1; }
+
+  /* ---------- Chips ---------- */
+
+  .chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .chip {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .chip:hover { border-color: rgba(200,168,130,0.4); color: var(--ink); }
+
+  .chip.active {
+    border-color: var(--gold);
+    background: rgba(200,168,130,0.12);
+    color: var(--ink);
+  }
+
+  .other-input {
+    margin-top: 16px;
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    display: none;
+  }
+
+  .other-input.visible { display: block; }
+  .other-input:focus { border-color: rgba(200,168,130,0.5); }
+
+  /* ---------- Photo upload ---------- */
+
+  .photo-zone {
+    border: 1px dashed var(--border);
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+
+  .photo-zone:hover { border-color: rgba(200,168,130,0.4); background: rgba(255,255,255,0.02); }
+
+  .photo-zone-label {
+    font-size: 14px;
+    color: var(--ink-dim);
+    margin-bottom: 4px;
+  }
+
+  .photo-zone-hint { font-size: 12px; color: var(--ink-faint); }
+
+  .photo-suggestions {
+    margin-top: 18px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.8;
+  }
+
+  .photo-suggestions strong { color: var(--ink-dim); font-weight: 500; }
+
+  .photo-note {
+    margin-top: 14px;
+    font-size: 12px;
+    font-style: italic;
+    color: var(--ink-dim);
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .photo-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--border);
+  }
+
+  .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-thumb .photo-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(10,10,9,0.75);
+    color: var(--ink);
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-thumb .photo-status {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,10,9,0.55);
+    font-size: 11px;
+    color: var(--ink-dim);
+  }
+
+  /* ---------- Ranking ---------- */
+
+  .rank-list { display: flex; flex-direction: column; gap: 8px; }
+
+  .rank-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 14px;
+    cursor: grab;
+  }
+
+  .rank-item.dragging { opacity: 0.4; }
+
+  .rank-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: rgba(200,168,130,0.15);
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .rank-label { flex: 1; font-size: 14px; color: var(--ink); }
+
+  .rank-arrows { display: flex; flex-direction: column; gap: 2px; }
+
+  .rank-arrows button {
+    background: transparent;
+    border: none;
+    color: var(--ink-faint);
+    cursor: pointer;
+    font-size: 11px;
+    padding: 2px 6px;
+    line-height: 1;
+  }
+
+  .rank-arrows button:hover:not(:disabled) { color: var(--gold); }
+  .rank-arrows button:disabled { opacity: 0.25; cursor: default; }
+
+  /* ---------- Text areas & fields ---------- */
+
+  .field-textarea {
+    width: 100%;
+    min-height: 120px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    outline: none;
+    resize: vertical;
+  }
+
+  .field-textarea:focus { border-color: rgba(200,168,130,0.5); }
+  .field-textarea::placeholder { color: var(--ink-faint); }
+
+  .field-examples {
+    margin-top: 10px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .field-row { margin-bottom: 16px; }
+
+  .field-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .field-row input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+  }
+
+  .field-row input:focus { border-color: rgba(200,168,130,0.5); }
+  .field-row input::placeholder { color: var(--ink-faint); }
+
+  /* ---------- Nav buttons ---------- */
+
+  .wizard-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .nav-btn {
+    flex: 1;
+    border-radius: 14px;
+    padding: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+
+  .nav-btn:active { transform: scale(0.98); }
+
+  .nav-btn.primary { background: var(--gold); color: #14110B; border: none; flex: 2; }
+  .nav-btn.primary:hover { background: #ddc9a8; }
+  .nav-btn.primary:disabled { opacity: 0.4; cursor: default; }
+
+  .nav-btn.secondary { background: transparent; color: var(--ink-dim); border: 1px solid var(--border); }
+  .nav-btn.secondary:hover { border-color: rgba(255,255,255,0.2); color: var(--ink); }
+
+  .step-error {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+
+  .step-error.visible { display: block; }
+
+  /* ---------- Review ---------- */
+
+  .review-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 8px; }
+
+  .review-item .review-q {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+
+  .review-item .review-a {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+
+  /* ---------- Thank you / loading / error ---------- */
+
+  .center-panel {
+    flex: 1;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+  }
+
+  .center-panel.active { display: flex; }
+
+  .center-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(24px, 3.4vw, 30px);
+  }
+
+  .center-sub {
+    font-size: 14px;
+    color: var(--ink-dim);
+    max-width: 42ch;
+    line-height: 1.65;
+  }
+
+  .center-reminder {
+    margin-top: 8px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-faint);
+    max-width: 42ch;
+    line-height: 1.65;
+  }
+
+  .spinner {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    border-top-color: var(--gold);
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  @media (max-width: 480px) {
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+  </header>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <p class="progress-label" id="progressLabel">Step 1 of 10</p>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <main>
+
+    <!-- Loading state -->
+    <div class="center-panel active" id="panelLoading">
+      <div class="spinner"></div>
+      <p class="center-sub">Loading your Strategy questionnaire&hellip;</p>
+    </div>
+
+    <!-- Error state -->
+    <div class="center-panel" id="panelError">
+      <h1 class="center-title">We couldn't find that request</h1>
+      <p class="center-sub" id="errorMessage">Please use the link from your confirmation email, or reach out to us and we'll help sort it out.</p>
+      <a class="center-sub" href="mailto:support@roqhome.com" style="text-decoration:underline;">support@roqhome.com</a>
+    </div>
+
+    <!-- Already submitted state -->
+    <div class="center-panel" id="panelAlready">
+      <h1 class="center-title">You're all set</h1>
+      <p class="center-sub">We already have your responses for this Home Potential Strategy &mdash; there's nothing more to do.</p>
+      <p class="center-reminder">Every strategy is personally reviewed, not automatically generated. You'll receive your completed strategy within 24&ndash;48 hours.</p>
+    </div>
+
+    <!-- Wizard steps -->
+    <form id="wizardForm" style="display:contents;">
+
+      <section class="step" data-step="1">
+        <div class="step-body">
+          <h1 class="step-title">What are you hoping to accomplish with your home?</h1>
+          <p class="step-sub">Select all that apply.</p>
+          <div class="chip-grid" data-field="goals" data-mode="multi">
+            <button type="button" class="chip" data-value="Increase my home's value">Increase my home's value</button>
+            <button type="button" class="chip" data-value="Remodel for my family">Remodel for my family</button>
+            <button type="button" class="chip" data-value="Prepare to sell">Prepare to sell</button>
+            <button type="button" class="chip" data-value="Plan future projects">Plan future projects</button>
+            <button type="button" class="chip" data-value="Explore possibilities">Explore possibilities</button>
+            <button type="button" class="chip" data-value="Rental / Investment property">Rental / Investment property</button>
+            <button type="button" class="chip" data-value="Other">Other</button>
+          </div>
+          <input type="text" class="other-input" id="goalsOther" placeholder="Tell us more" />
+        </div>
+      </section>
+
+      <section class="step" data-step="2">
+        <div class="step-body">
+          <h1 class="step-title">When are you hoping to complete improvements?</h1>
+          <div class="chip-grid" data-field="timeline" data-mode="single">
+            <button type="button" class="chip" data-value="Immediately">Immediately</button>
+            <button type="button" class="chip" data-value="Within 3 months">Within 3 months</button>
+            <button type="button" class="chip" data-value="3–6 months">3&ndash;6 months</button>
+            <button type="button" class="chip" data-value="6–12 months">6&ndash;12 months</button>
+            <button type="button" class="chip" data-value="1–3 years">1&ndash;3 years</button>
+            <button type="button" class="chip" data-value="Just exploring ideas">Just exploring ideas</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step" data-step="3">
+        <div class="step-body">
+          <h1 class="step-title">Which areas of your home would you like us to focus on?</h1>
+          <p class="step-sub">Select all that apply.</p>
+          <div class="chip-grid" data-field="focus_areas" data-mode="multi">
+            <button type="button" class="chip" data-value="Whole Home">Whole Home</button>
+            <button type="button" class="chip" data-value="Kitchen">Kitchen</button>
+            <button type="button" class="chip" data-value="Bathrooms">Bathrooms</button>
+            <button type="button" class="chip" data-value="Living Room">Living Room</button>
+            <button type="button" class="chip" data-value="Bedrooms">Bedrooms</button>
+            <button type="button" class="chip" data-value="Basement">Basement</button>
+            <button type="button" class="chip" data-value="Exterior">Exterior</button>
+            <button type="button" class="chip" data-value="Landscaping">Landscaping</button>
+            <button type="button" class="chip" data-value="Garage">Garage</button>
+            <button type="button" class="chip" data-value="Outdoor Living">Outdoor Living</button>
+            <button type="button" class="chip" data-value="Other">Other</button>
+          </div>
+          <input type="text" class="other-input" id="focusOther" placeholder="Tell us more" />
+        </div>
+      </section>
+
+      <section class="step" data-step="4">
+        <div class="step-body">
+          <h1 class="step-title">What is your estimated renovation budget?</h1>
+          <div class="chip-grid" data-field="budget" data-mode="single">
+            <button type="button" class="chip" data-value="Under $10,000">Under $10,000</button>
+            <button type="button" class="chip" data-value="$10,000–25,000">$10,000&ndash;25,000</button>
+            <button type="button" class="chip" data-value="$25,000–50,000">$25,000&ndash;50,000</button>
+            <button type="button" class="chip" data-value="$50,000–100,000">$50,000&ndash;100,000</button>
+            <button type="button" class="chip" data-value="$100,000+">$100,000+</button>
+            <button type="button" class="chip" data-value="Not sure">Not sure</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step" data-step="5">
+        <div class="step-body">
+          <h1 class="step-title">Which design style best matches what you're looking for?</h1>
+          <p class="step-sub">Select all that apply.</p>
+          <div class="chip-grid" data-field="design_styles" data-mode="multi">
+            <button type="button" class="chip" data-value="Modern">Modern</button>
+            <button type="button" class="chip" data-value="Contemporary">Contemporary</button>
+            <button type="button" class="chip" data-value="Minimal">Minimal</button>
+            <button type="button" class="chip" data-value="Traditional">Traditional</button>
+            <button type="button" class="chip" data-value="Craftsman">Craftsman</button>
+            <button type="button" class="chip" data-value="Farmhouse">Farmhouse</button>
+            <button type="button" class="chip" data-value="Scandinavian">Scandinavian</button>
+            <button type="button" class="chip" data-value="Luxury">Luxury</button>
+            <button type="button" class="chip" data-value="Transitional">Transitional</button>
+            <button type="button" class="chip" data-value="Unsure">Unsure</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="step" data-step="6">
+        <div class="step-body">
+          <h1 class="step-title">Upload photos of your home</h1>
+          <p class="step-sub">Optional, but it helps a lot.</p>
+          <div class="photo-zone" id="photoZone">
+            <p class="photo-zone-label">Tap to add photos</p>
+            <p class="photo-zone-hint">JPG or PNG, multiple at once</p>
+          </div>
+          <input type="file" id="photoInput" accept="image/*" multiple hidden />
+          <div class="photo-grid" id="photoGrid"></div>
+          <p class="photo-suggestions">
+            <strong>Suggested uploads:</strong><br>
+            Front exterior &middot; Backyard &middot; Kitchen &middot; Living room &middot; Primary bathroom &middot; Any spaces you'd like recommendations for
+          </p>
+          <p class="photo-note">The more photos you provide, the more personalized your strategy can be.</p>
+        </div>
+      </section>
+
+      <section class="step" data-step="7">
+        <div class="step-body">
+          <h1 class="step-title">What's most important to you?</h1>
+          <p class="step-sub">Drag to reorder, or use the arrows &mdash; most important first.</p>
+          <div class="rank-list" id="rankList"></div>
+        </div>
+      </section>
+
+      <section class="step" data-step="8">
+        <div class="step-body">
+          <h1 class="step-title">If you could change one thing about your home tomorrow, what would it be?</h1>
+          <textarea class="field-textarea" id="changeOneThing" placeholder="Share whatever comes to mind&hellip;"></textarea>
+        </div>
+      </section>
+
+      <section class="step" data-step="9">
+        <div class="step-body">
+          <h1 class="step-title">Is there anything else we should know about your home or goals?</h1>
+          <p class="step-sub">Optional.</p>
+          <textarea class="field-textarea" id="additionalNotes" placeholder="Anything at all&hellip;"></textarea>
+          <p class="field-examples">Examples: future addition &middot; family needs &middot; accessibility &middot; historic home &middot; budget concerns &middot; HOA restrictions</p>
+        </div>
+      </section>
+
+      <section class="step" data-step="10">
+        <div class="step-body">
+          <h1 class="step-title">Where should we send your Home Potential Strategy?</h1>
+          <div class="field-row">
+            <label for="contactName">Name</label>
+            <input type="text" id="contactName" placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="field-row">
+            <label for="contactEmail">Email</label>
+            <input type="email" id="contactEmail" placeholder="your@email.com" autocomplete="email" />
+          </div>
+          <p class="step-error" id="contactError">Please enter your name and a valid email address.</p>
+        </div>
+      </section>
+
+      <section class="step" data-step="review">
+        <div class="step-body">
+          <h1 class="step-title">Review your answers</h1>
+          <p class="step-sub">Everything look right?</p>
+          <div class="review-list" id="reviewList"></div>
+          <p class="step-error" id="submitError"></p>
+        </div>
+      </section>
+
+      <div class="wizard-nav" id="wizardNav" style="display:none;">
+        <button type="button" class="nav-btn secondary" id="backBtn">Back</button>
+        <button type="button" class="nav-btn primary" id="nextBtn">Next</button>
+      </div>
+    </form>
+
+    <!-- Thank you state -->
+    <div class="center-panel" id="panelThanks">
+      <h1 class="center-title">Thanks! We're now creating your personalized Home Potential Strategy.</h1>
+      <p class="center-reminder">Every strategy is personally reviewed&mdash;not automatically generated. You'll receive your completed strategy within 24&ndash;48 hours.</p>
+    </div>
+
+  </main>
+
+  <script>
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+    const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/strategy-intake`;
+
+    const previewId = new URLSearchParams(window.location.search).get('id');
+
+    const TOTAL_STEPS = 10;
+    const STEP_ORDER = ['1','2','3','4','5','6','7','8','9','10','review'];
+
+    const PRIORITY_ITEMS = [
+      'Increase home value',
+      'Improve appearance',
+      'Improve functionality',
+      'Reduce maintenance',
+      'Energy efficiency',
+      'Better resale',
+      'Rental income',
+      'Long-term enjoyment',
+    ];
+
+    const state = {
+      goals: [],
+      goals_other: '',
+      timeline: '',
+      focus_areas: [],
+      focus_areas_other: '',
+      budget: '',
+      design_styles: [],
+      photo_paths: [],
+      priorities_ranked: [...PRIORITY_ITEMS],
+      change_one_thing: '',
+      additional_notes: '',
+      contact_name: '',
+      email: '',
+    };
+
+    let currentIndex = 0;
+    const pendingUploads = new Set();
+
+    function show(panelId) {
+      document.querySelectorAll('.center-panel').forEach((el) => el.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+    }
+
+    async function callFunction(payload) {
+      const res = await fetch(FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+      return data;
+    }
+
+    // ---------- Chip inputs ----------
+    document.querySelectorAll('.chip-grid').forEach((grid) => {
+      const field = grid.dataset.field;
+      const mode = grid.dataset.mode;
+      grid.querySelectorAll('.chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const value = chip.dataset.value;
+          if (mode === 'single') {
+            grid.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+            chip.classList.add('active');
+            state[field] = value;
+          } else {
+            const idx = state[field].indexOf(value);
+            if (idx === -1) {
+              state[field].push(value);
+              chip.classList.add('active');
+            } else {
+              state[field].splice(idx, 1);
+              chip.classList.remove('active');
+            }
+          }
+          if (field === 'goals') {
+            document.getElementById('goalsOther').classList.toggle('visible', state.goals.includes('Other'));
+          }
+          if (field === 'focus_areas') {
+            document.getElementById('focusOther').classList.toggle('visible', state.focus_areas.includes('Other'));
+          }
+        });
+      });
+    });
+
+    document.getElementById('goalsOther').addEventListener('input', (e) => { state.goals_other = e.target.value; });
+    document.getElementById('focusOther').addEventListener('input', (e) => { state.focus_areas_other = e.target.value; });
+    document.getElementById('changeOneThing').addEventListener('input', (e) => { state.change_one_thing = e.target.value; });
+    document.getElementById('additionalNotes').addEventListener('input', (e) => { state.additional_notes = e.target.value; });
+    document.getElementById('contactName').addEventListener('input', (e) => { state.contact_name = e.target.value; });
+    document.getElementById('contactEmail').addEventListener('input', (e) => { state.email = e.target.value; });
+
+    // ---------- Photo upload ----------
+    const photoZone = document.getElementById('photoZone');
+    const photoInput = document.getElementById('photoInput');
+    const photoGrid = document.getElementById('photoGrid');
+
+    photoZone.addEventListener('click', () => photoInput.click());
+
+    function renderPhotoThumb(previewUrl) {
+      const thumb = document.createElement('div');
+      thumb.className = 'photo-thumb';
+      const img = document.createElement('img');
+      img.src = previewUrl;
+      thumb.appendChild(img);
+      const status = document.createElement('div');
+      status.className = 'photo-status';
+      status.textContent = 'Uploading…';
+      thumb.appendChild(status);
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'photo-remove';
+      removeBtn.textContent = '×';
+      removeBtn.style.display = 'none';
+      thumb.appendChild(removeBtn);
+      photoGrid.appendChild(thumb);
+      return { thumb, status, removeBtn };
+    }
+
+    function refreshUploadGuard() {
+      if (STEP_ORDER[currentIndex] !== '6') return;
+      if (pendingUploads.size > 0) {
+        nextBtn.disabled = true;
+        nextBtn.textContent = 'Uploading…';
+      } else {
+        nextBtn.disabled = false;
+        nextBtn.textContent = 'Next';
+      }
+    }
+
+    async function uploadPhoto(file) {
+      const previewUrl = URL.createObjectURL(file);
+      const { thumb, status, removeBtn } = renderPhotoThumb(previewUrl);
+      const safeName = file.name.replace(/[^a-zA-Z0-9.\-]/g, '_');
+      const path = `${previewId}/${Date.now()}-${safeName}`;
+      pendingUploads.add(path);
+      refreshUploadGuard();
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/home-potential-photos/${path}`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          body: file,
+        });
+        if (!res.ok) throw new Error('upload failed');
+        state.photo_paths.push(path);
+        status.style.display = 'none';
+        removeBtn.style.display = 'flex';
+        removeBtn.addEventListener('click', () => {
+          const idx = state.photo_paths.indexOf(path);
+          if (idx !== -1) state.photo_paths.splice(idx, 1);
+          thumb.remove();
+        });
+      } catch (err) {
+        status.textContent = 'Failed';
+        thumb.style.opacity = '0.5';
+      } finally {
+        pendingUploads.delete(path);
+        refreshUploadGuard();
+      }
+    }
+
+    photoInput.addEventListener('change', () => {
+      Array.from(photoInput.files || []).forEach(uploadPhoto);
+      photoInput.value = '';
+    });
+
+    // ---------- Priority ranking ----------
+    const rankList = document.getElementById('rankList');
+    let dragSrcIndex = null;
+
+    function renderRankList() {
+      rankList.innerHTML = '';
+      state.priorities_ranked.forEach((label, i) => {
+        const item = document.createElement('div');
+        item.className = 'rank-item';
+        item.draggable = true;
+        item.dataset.index = i;
+
+        const num = document.createElement('div');
+        num.className = 'rank-num';
+        num.textContent = i + 1;
+
+        const text = document.createElement('div');
+        text.className = 'rank-label';
+        text.textContent = label;
+
+        const arrows = document.createElement('div');
+        arrows.className = 'rank-arrows';
+
+        const up = document.createElement('button');
+        up.type = 'button';
+        up.textContent = '▲';
+        up.disabled = i === 0;
+        up.addEventListener('click', () => {
+          [state.priorities_ranked[i - 1], state.priorities_ranked[i]] =
+            [state.priorities_ranked[i], state.priorities_ranked[i - 1]];
+          renderRankList();
+        });
+
+        const down = document.createElement('button');
+        down.type = 'button';
+        down.textContent = '▼';
+        down.disabled = i === state.priorities_ranked.length - 1;
+        down.addEventListener('click', () => {
+          [state.priorities_ranked[i + 1], state.priorities_ranked[i]] =
+            [state.priorities_ranked[i], state.priorities_ranked[i + 1]];
+          renderRankList();
+        });
+
+        arrows.appendChild(up);
+        arrows.appendChild(down);
+
+        item.addEventListener('dragstart', () => {
+          dragSrcIndex = i;
+          item.classList.add('dragging');
+        });
+        item.addEventListener('dragend', () => item.classList.remove('dragging'));
+        item.addEventListener('dragover', (e) => e.preventDefault());
+        item.addEventListener('drop', (e) => {
+          e.preventDefault();
+          if (dragSrcIndex === null || dragSrcIndex === i) return;
+          const [moved] = state.priorities_ranked.splice(dragSrcIndex, 1);
+          state.priorities_ranked.splice(i, 0, moved);
+          dragSrcIndex = null;
+          renderRankList();
+        });
+
+        item.appendChild(num);
+        item.appendChild(text);
+        item.appendChild(arrows);
+        rankList.appendChild(item);
+      });
+    }
+
+    // ---------- Step navigation ----------
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const wizardNav = document.getElementById('wizardNav');
+
+    function updateProgress() {
+      const stepKey = STEP_ORDER[currentIndex];
+      if (stepKey === 'review') {
+        document.getElementById('progressWrap').style.display = 'none';
+      } else {
+        document.getElementById('progressWrap').style.display = '';
+        const stepNum = currentIndex + 1;
+        document.getElementById('progressLabel').textContent = `Step ${stepNum} of ${TOTAL_STEPS}`;
+        document.getElementById('progressFill').style.width = `${(stepNum / TOTAL_STEPS) * 100}%`;
+      }
+    }
+
+    function renderReview() {
+      const rows = [
+        ['What you’re hoping to accomplish', state.goals.join(', ') + (state.goals.includes('Other') && state.goals_other ? ` (${state.goals_other})` : '') || '—'],
+        ['Timeline', state.timeline || '—'],
+        ['Focus areas', state.focus_areas.join(', ') + (state.focus_areas.includes('Other') && state.focus_areas_other ? ` (${state.focus_areas_other})` : '') || '—'],
+        ['Budget', state.budget || '—'],
+        ['Design style', state.design_styles.join(', ') || '—'],
+        ['Photos', state.photo_paths.length ? `${state.photo_paths.length} uploaded` : 'None uploaded'],
+        ['Top priority', state.priorities_ranked[0] || '—'],
+        ['If you could change one thing', state.change_one_thing || '—'],
+        ['Anything else', state.additional_notes || '—'],
+        ['Name', state.contact_name || '—'],
+        ['Email', state.email || '—'],
+      ];
+      const list = document.getElementById('reviewList');
+      list.innerHTML = '';
+      rows.forEach(([q, a]) => {
+        const item = document.createElement('div');
+        item.className = 'review-item';
+        item.innerHTML = `<p class="review-q">${q}</p><p class="review-a">${a}</p>`;
+        list.appendChild(item);
+      });
+    }
+
+    function goToStep(index) {
+      document.querySelectorAll('.step').forEach((el) => el.classList.remove('active'));
+      const stepKey = STEP_ORDER[index];
+      document.querySelector(`.step[data-step="${stepKey}"]`).classList.add('active');
+      currentIndex = index;
+      updateProgress();
+      backBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+
+      if (stepKey === 'review') {
+        renderReview();
+        nextBtn.textContent = 'Submit';
+      } else {
+        nextBtn.textContent = 'Next';
+      }
+    }
+
+    async function saveProgress() {
+      try {
+        await callFunction({ action: 'save', previewId, fields: { ...state } });
+      } catch {
+        // Non-blocking -- if a save fails we still let them continue locally.
+      }
+    }
+
+    backBtn.addEventListener('click', () => {
+      if (currentIndex > 0) goToStep(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', async () => {
+      const stepKey = STEP_ORDER[currentIndex];
+
+      if (stepKey === '10') {
+        const name = state.contact_name.trim();
+        const email = state.email.trim();
+        const errorEl = document.getElementById('contactError');
+        if (!name || !email || !email.includes('@')) {
+          errorEl.classList.add('visible');
+          return;
+        }
+        errorEl.classList.remove('visible');
+      }
+
+      if (stepKey === 'review') {
+        nextBtn.disabled = true;
+        nextBtn.textContent = 'Submitting…';
+        const errorEl = document.getElementById('submitError');
+        errorEl.textContent = '';
+        errorEl.classList.remove('visible');
+        try {
+          await callFunction({ action: 'submit', previewId, fields: { ...state } });
+          wizardNav.style.display = 'none';
+          document.querySelectorAll('.step').forEach((el) => el.classList.remove('active'));
+          document.getElementById('progressWrap').style.display = 'none';
+          show('panelThanks');
+        } catch (err) {
+          errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+          errorEl.classList.add('visible');
+          nextBtn.disabled = false;
+          nextBtn.textContent = 'Submit';
+        }
+        return;
+      }
+
+      await saveProgress();
+      goToStep(currentIndex + 1);
+    });
+
+    // ---------- Init ----------
+    (async () => {
+      if (!previewId) {
+        show('panelError');
+        return;
+      }
+      try {
+        const data = await callFunction({ action: 'load', previewId });
+        if (data.alreadySubmitted) {
+          show('panelAlready');
+          return;
+        }
+        Object.assign(state, data.answers);
+        if (!state.priorities_ranked || state.priorities_ranked.length !== PRIORITY_ITEMS.length) {
+          state.priorities_ranked = [...PRIORITY_ITEMS];
+        }
+        if (data.email && !state.email) state.email = data.email;
+
+        // Reflect any resumed answers back into the chip UI.
+        document.querySelectorAll('.chip-grid').forEach((grid) => {
+          const field = grid.dataset.field;
+          const val = state[field];
+          grid.querySelectorAll('.chip').forEach((chip) => {
+            const active = Array.isArray(val) ? val.includes(chip.dataset.value) : val === chip.dataset.value;
+            chip.classList.toggle('active', active);
+          });
+        });
+        document.getElementById('goalsOther').value = state.goals_other || '';
+        document.getElementById('goalsOther').classList.toggle('visible', state.goals.includes('Other'));
+        document.getElementById('focusOther').value = state.focus_areas_other || '';
+        document.getElementById('focusOther').classList.toggle('visible', state.focus_areas.includes('Other'));
+        document.getElementById('changeOneThing').value = state.change_one_thing || '';
+        document.getElementById('additionalNotes').value = state.additional_notes || '';
+        document.getElementById('contactName').value = state.contact_name || '';
+        document.getElementById('contactEmail').value = state.email || '';
+        // Previously uploaded photos are reviewed via the Storage dashboard,
+        // not re-fetched and re-rendered here -- the anon key is write-only.
+
+        renderRankList();
+        document.querySelectorAll('.center-panel').forEach((el) => el.classList.remove('active'));
+        wizardNav.style.display = '';
+        goToStep(0);
+      } catch (err) {
+        document.getElementById('errorMessage').textContent = err.message || 'Please use the link from your confirmation email.';
+        show('panelError');
+      }
+    })();
+  </script>
+</body>
+</html>
