@@ -772,8 +772,6 @@
 
       <p class="preview-disclaimer">This preview is generated from a quick, automated analysis of comparable listings and public property data. It's designed to give you an initial read &mdash; not a comprehensive valuation or appraisal.</p>
 
-      <p class="risk-banner" id="riskBanner">Heads up: closing this whole gap would mean spending more than about 30% of your home's current value on renovations. Past that point, most markets stop paying you back &mdash; the "30% rule" that keeps flippers and remodelers from over-capitalizing.</p>
-
       <div class="insight-card">
         <p class="insight-headline" id="insightHeadline"></p>
         <p class="insight-message" id="insightMessage"></p>
@@ -787,14 +785,18 @@
       <p class="risk-banner" id="sqftNote">Public records don't list a square footage for this property, so we can't size-match it against nearby comps. This estimate leans on the provider's broader valuation model instead &mdash; treat it as a rough starting point.</p>
 
       <div class="report-cta">
-        <p class="report-cta-eyebrow">Full Home Potential Report &middot; $99</p>
-        <h3 class="report-cta-title">Get a personally reviewed, in-depth analysis</h3>
+        <p class="report-cta-eyebrow">Home Potential Strategy &middot; $99</p>
+        <h3 class="report-cta-title">See what your home could be</h3>
         <ul class="report-cta-list">
-          <li>Comparable properties personally reviewed &mdash; not just an automated pull</li>
-          <li>Refined value range with the reasoning behind our comp selection</li>
-          <li>Neighborhood-specific market analysis</li>
-          <li>Prioritized renovation roadmap with estimated budgets and ROI</li>
-          <li>Rental estimate</li>
+          <li>Personally reviewed comparable properties</li>
+          <li>Refined home value &amp; neighborhood ceiling</li>
+          <li>Personalized renovation roadmap</li>
+          <li>Project budget &amp; ROI estimates</li>
+          <li>Market ready checklist</li>
+          <li>Home concept recommendations</li>
+          <li>Rental income estimate</li>
+          <li>Contractor matching (optional)</li>
+          <li>Recommended next steps</li>
         </ul>
         <form class="report-cta-form" id="reportForm">
           <input
@@ -804,9 +806,9 @@
             required
             autocomplete="email"
           />
-          <button type="submit" id="reportSubmit">Get My Report</button>
+          <button type="submit" id="reportSubmit">Get My Strategy</button>
         </form>
-        <p class="report-cta-note">We'll follow up by email within 24&ndash;48 hours to complete your $99 report.</p>
+        <p class="report-cta-note">Your personalized Home Potential Strategy will be delivered within 24&ndash;48 hours.</p>
         <p class="report-cta-msg" id="reportMsg"></p>
       </div>
 
@@ -981,9 +983,6 @@
       document.getElementById('statRenovation').innerHTML =
         moneyK(data.renovationPotential.low) + '&ndash;' + moneyK(data.renovationPotential.high);
 
-      const riskBanner = document.getElementById('riskBanner');
-      riskBanner.classList.toggle('visible', !!data.overCapitalizationRisk);
-
       document.getElementById('insightHeadline').textContent = data.gapHeadline || '';
       document.getElementById('insightMessage').textContent = data.gapMessage || '';
 
@@ -1093,7 +1092,7 @@
           return;
         }
 
-        reportMsg.textContent = "Got it — we'll follow up by email within 24–48 hours to complete your $99 report.";
+        reportMsg.textContent = "Got it — your personalized Home Potential Strategy will be delivered within 24–48 hours.";
         reportMsg.className = 'report-cta-msg success';
         reportForm.style.display = 'none';
       } catch (err) {
@@ -1101,7 +1100,7 @@
         reportMsg.className = 'report-cta-msg error';
       } finally {
         reportSubmit.disabled = false;
-        reportSubmit.textContent = 'Get My Report';
+        reportSubmit.textContent = 'Get My Strategy';
       }
     });
 
