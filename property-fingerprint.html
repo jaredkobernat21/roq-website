@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Property Fingerprint | ROQ</title>
+<meta name="description" content="Enter any address and get the most complete property research dossier available — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report." />
+<link rel="canonical" href="https://roqhome.com/property-fingerprint.html" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F6F5;
+    --surface:#FFFFFF;
+    --ink:#14171A;
+    --ink-soft:#5B6469;
+    --ink-faint:#8D969A;
+    --line:#E4E7E6;
+    --line-strong:#D2D7D6;
+    --accent:#2F6F5E;
+    --accent-soft:#E4EFEB;
+    --good:#2F7A4F; --good-soft:#E4F3E9;
+    --warn:#95661A; --warn-soft:#FBEFDD;
+    --critical:#B33B23; --critical-soft:#FBE6E1;
+    --shadow: 0 1px 2px rgba(20,23,26,.04), 0 6px 20px -10px rgba(20,23,26,.10);
+    --radius: 10px;
+    --sidebar-w: 220px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#101314; --surface:#171B1C; --ink:#EDEFEE; --ink-soft:#A2ACAE; --ink-faint:#6C7679;
+      --line:#262B2C; --line-strong:#343B3C;
+      --accent:#5FBFA0; --accent-soft:#1B2E28;
+      --good:#6BC290; --good-soft:#173226;
+      --warn:#E0AE5C; --warn-soft:#332812;
+      --critical:#E2836A; --critical-soft:#33201A;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:'Public Sans', sans-serif; font-size:14px; line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  .mono{ font-family:'IBM Plex Mono', monospace; font-variant-numeric:tabular-nums; }
+  :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  button, input{ font-family:inherit; }
+
+  /* ---------- sidebar ---------- */
+  .sidebar{
+    position:fixed; top:0; left:0; bottom:0; width:var(--sidebar-w);
+    background:var(--surface); border-right:1px solid var(--line);
+    display:flex; flex-direction:column; padding:20px 14px; z-index:50;
+  }
+  .brand{ padding:6px 8px 22px; }
+  .brand .name{ font:800 17px/1 'Public Sans'; letter-spacing:-.01em; }
+  .brand .tag{ font:700 10px/1 'Public Sans'; letter-spacing:.12em; color:var(--ink-faint); margin-top:4px; }
+  nav.sidenav{ display:flex; flex-direction:column; gap:2px; flex:1; }
+  nav.sidenav a{
+    display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--ink-soft);
+    font:600 13px/1 'Public Sans'; padding:9px 10px; border-radius:7px;
+  }
+  nav.sidenav a svg{ width:16px; height:16px; flex:none; }
+  nav.sidenav a:hover{ background:var(--bg); color:var(--ink); }
+  nav.sidenav a.active{ background:var(--accent-soft); color:var(--accent); }
+  .sidebar-foot{ font:12px/1.5 'Public Sans'; color:var(--ink-faint); padding:10px 8px 0; border-top:1px solid var(--line); margin-top:10px; }
+
+  /* ---------- main shell ---------- */
+  .main{ margin-left:var(--sidebar-w); min-height:100vh; }
+  .topbar{
+    position:sticky; top:0; z-index:40; display:flex; align-items:center; gap:12px;
+    padding:14px clamp(16px,3vw,32px); background:color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  }
+  form.search{ flex:1; max-width:520px; }
+  .search-field{
+    display:flex; align-items:center; gap:10px; background:var(--surface);
+    border:1px solid var(--line-strong); border-radius:8px; padding:10px 14px;
+  }
+  .search-field svg{ width:15px; height:15px; flex:none; color:var(--ink-faint); }
+  .search-field input{ border:0; outline:0; background:transparent; color:var(--ink); font:14px/1 'Public Sans'; width:100%; }
+  .topbar-actions{ margin-left:auto; display:flex; gap:8px; }
+  .btn{
+    font:600 13px/1 'Public Sans'; padding:10px 14px; border-radius:8px; cursor:pointer; white-space:nowrap;
+    border:1px solid var(--line-strong); background:var(--surface); color:var(--ink);
+  }
+  .btn:hover{ border-color:var(--ink-faint); }
+  .btn.primary{ background:var(--ink); border-color:var(--ink); color:var(--bg); }
+  .btn.accent{ background:var(--accent); border-color:var(--accent); color:#fff; }
+  .btn:disabled{ opacity:.55; cursor:default; }
+
+  .state-banner{ max-width:1280px; margin:0 auto; padding:14px clamp(16px,3vw,32px); display:none; }
+  .state-banner.visible{ display:block; }
+  .state-banner.error{ color:var(--critical); }
+  .state-banner.loading{ color:var(--ink-soft); }
+
+  #reportRoot{ display:none; padding:20px clamp(16px,3vw,32px) 60px; max-width:1400px; margin:0 auto; }
+  #reportRoot.visible{ display:block; }
+
+  .card{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+    scroll-margin-top:76px;
+  }
+
+  /* ---------- hero ---------- */
+  .hero{ display:grid; grid-template-columns: 220px 1fr; gap:22px; padding:20px; margin-bottom:16px; }
+  .hero-photo{
+    border-radius:8px; background:var(--bg); border:1px solid var(--line); overflow:hidden;
+    display:flex; align-items:center; justify-content:center; min-height:150px; position:relative;
+  }
+  .hero-photo svg{ width:56%; opacity:.35; }
+  .hero-photo .cap{
+    position:absolute; bottom:0; left:0; right:0; padding:6px 9px; font:11px/1.2 'Public Sans';
+    color:var(--ink-faint); background:color-mix(in srgb, var(--surface) 85%, transparent); border-top:1px solid var(--line);
+  }
+  .hero-main h1{ font:800 26px/1.15 'Public Sans'; letter-spacing:-.01em; margin:0 0 4px; }
+  .hero-main .loc{ font:14px/1 'Public Sans'; color:var(--ink-soft); margin:0 0 16px; }
+  .hero-facts{ display:flex; flex-wrap:wrap; gap:10px 26px; }
+  .hero-fact{ display:flex; align-items:center; gap:7px; font:13px/1 'Public Sans'; color:var(--ink-soft); }
+  .hero-fact svg{ width:14px; height:14px; color:var(--ink-faint); flex:none; }
+  .hero-fact strong{ color:var(--ink); font-weight:600; }
+
+  /* ---------- stat tiles ---------- */
+  .stat-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:14px; margin-bottom:16px; }
+  .stat-tile{ padding:16px 18px; }
+  .stat-tile .sk{ font:600 11px/1 'Public Sans'; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); }
+  .stat-tile .sv{ font:800 22px/1.2 'Public Sans'; margin-top:8px; letter-spacing:-.01em; }
+  .stat-tile .ss{ font:12px/1.4 'Public Sans'; color:var(--ink-faint); margin-top:6px; }
+
+  /* ---------- two/three col grids ---------- */
+  .row2{ display:grid; grid-template-columns:1.3fr 1fr; gap:14px; margin-bottom:16px; align-items:start; }
+  .row3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:16px; align-items:start; }
+  @media (max-width:980px){ .row2, .row3{ grid-template-columns:1fr; } }
+
+  .card-head{ display:flex; align-items:center; justify-content:space-between; padding:16px 18px 0; }
+  .card-head h2{ font:700 13px/1 'Public Sans'; letter-spacing:.04em; text-transform:uppercase; color:var(--ink-soft); margin:0; }
+  .card-body{ padding:14px 18px 18px; }
+  .unavailable{ font:13px/1.5 'Public Sans'; color:var(--ink-faint); font-style:italic; }
+
+  /* timeline */
+  .timeline{ list-style:none; margin:0; padding:0; position:relative; }
+  .timeline::before{ content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line-strong); }
+  .timeline li{ position:relative; padding:0 0 16px 26px; }
+  .timeline li:last-child{ padding-bottom:0; }
+  .timeline li::before{ content:''; position:absolute; left:0; top:4px; width:11px; height:11px; border-radius:50%; background:var(--dot,var(--accent)); }
+  .timeline .t-date{ font:12px/1 'IBM Plex Mono'; color:var(--ink-faint); }
+  .timeline .t-label{ font:600 13.5px/1.3 'Public Sans'; color:var(--ink); margin-top:3px; }
+
+  /* map */
+  .map-frame{ width:100%; height:100%; min-height:260px; border:0; display:block; border-radius:0 0 var(--radius) var(--radius); }
+
+  /* value range */
+  .range-track{ position:relative; height:8px; border-radius:4px; background:var(--bg); border:1px solid var(--line); margin-top:4px; }
+  .range-fill{ position:absolute; top:-1px; bottom:-1px; left:8%; right:8%; background:var(--accent-soft); border:1px solid var(--accent); border-radius:4px; }
+  .range-labels{ display:flex; justify-content:space-between; margin-top:8px; font:12px/1 'IBM Plex Mono'; color:var(--ink-faint); }
+  .range-labels .mid{ color:var(--accent); font-weight:700; }
+
+  /* neighborhood stats */
+  .n-item{ display:flex; align-items:flex-start; gap:10px; padding:9px 0; border-bottom:1px solid var(--line); }
+  .n-item:last-child{ border-bottom:none; }
+  .n-item svg{ width:16px; height:16px; color:var(--accent); flex:none; margin-top:1px; }
+  .n-item .nt{ font:600 13px/1.3 'Public Sans'; color:var(--ink); }
+  .n-item .ns{ font:12px/1.3 'Public Sans'; color:var(--ink-faint); margin-top:2px; }
+
+  /* risk checklist */
+  .r-item{ display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-bottom:1px solid var(--line); }
+  .r-item:last-child{ border-bottom:none; }
+  .r-item .rn{ font:13px/1.3 'Public Sans'; color:var(--ink); }
+  .r-item .rd{ font:11.5px/1.3 'Public Sans'; color:var(--ink-faint); }
+  .pill{ font:700 11px/1 'Public Sans'; padding:5px 9px; border-radius:99px; white-space:nowrap; }
+  .pill.Low{ background:var(--good-soft); color:var(--good); }
+  .pill.Moderate{ background:var(--warn-soft); color:var(--warn); }
+  .pill.High{ background:var(--critical-soft); color:var(--critical); }
+  .pill.none{ background:var(--bg); color:var(--ink-faint); border:1px solid var(--line); }
+
+  /* documents */
+  .doc{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:10px 0; border-bottom:1px solid var(--line); }
+  .doc:last-child{ border-bottom:none; }
+  .doc .dn{ font:13px/1.3 'Public Sans'; color:var(--ink); }
+  .doc .dm{ font:11px/1.3 'IBM Plex Mono'; color:var(--ink-faint); margin-top:2px; }
+  .doc .dd{ font:12px/1 'IBM Plex Mono'; color:var(--ink-soft); white-space:nowrap; }
+
+  /* insights */
+  .insight{ display:flex; gap:9px; padding:8px 0; }
+  .insight .bullet{ width:5px; height:5px; border-radius:50%; background:var(--accent); flex:none; margin-top:7px; }
+  .insight p{ margin:0; font:13.5px/1.5 'Public Sans'; color:var(--ink); }
+
+  /* comparables */
+  .comp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
+  .comp-card{ border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  .comp-swatch{ height:64px; background:linear-gradient(135deg, var(--accent-soft), var(--bg)); }
+  .comp-body{ padding:12px 14px; }
+  .comp-body .ca{ font:600 13px/1.3 'Public Sans'; color:var(--ink); }
+  .comp-body .cd{ font:11.5px/1.3 'Public Sans'; color:var(--ink-faint); margin-top:2px; }
+  .comp-body .cp{ font:700 15px/1 'Public Sans'; color:var(--ink); margin-top:8px; }
+  .comp-body .cs{ font:11.5px/1.3 'Public Sans'; color:var(--ink-faint); margin-top:3px; }
+
+  table{ width:100%; border-collapse:collapse; }
+  .tbl-wrap{ overflow-x:auto; }
+  table th{ text-align:left; font:600 11px/1 'Public Sans'; letter-spacing:.03em; text-transform:uppercase; color:var(--ink-faint); padding:0 10px 8px 0; border-bottom:1px solid var(--line-strong); white-space:nowrap; }
+  table td{ padding:9px 10px 9px 0; border-bottom:1px solid var(--line); font-size:13px; }
+  table td.num{ font-family:'IBM Plex Mono'; font-variant-numeric:tabular-nums; white-space:nowrap; }
+  table tr:last-child td{ border-bottom:none; }
+
+  @media (max-width:860px){
+    .sidebar{ display:none; }
+    .main{ margin-left:0; }
+    .hero{ grid-template-columns:1fr; }
+  }
+  @media print{
+    .sidebar, .topbar, .state-banner{ display:none !important; }
+    .main{ margin-left:0; }
+    body{ background:#fff; }
+    .card{ box-shadow:none; break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <a class="brand" href="index.html" style="text-decoration:none; color:inherit;"><div class="name">ROQ</div><div class="tag">FINGERPRINT</div></a>
+  <nav class="sidenav" id="sideNav">
+    <a href="#overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Overview</a>
+    <a href="#timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Timeline</a>
+    <a href="#property"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V4h8v3"/></svg>Property</a>
+    <a href="#value"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V10M10 20V4M17 20v-7"/></svg>Value</a>
+    <a href="#neighborhood"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>Neighborhood</a>
+    <a href="#risks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg>Risks</a>
+    <a href="#documents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Documents</a>
+    <a href="#insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>Insights</a>
+    <a href="#comparables"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>Comparables</a>
+    <a href="#potential"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"/></svg>Potential</a>
+  </nav>
+  <div class="sidebar-foot" id="sidebarFoot"></div>
+</aside>
+
+<div class="main">
+  <header class="topbar">
+    <form class="search" id="lookupForm">
+      <label class="search-field">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input type="text" id="addressInput" placeholder="Search any address…" autocomplete="street-address" required />
+      </label>
+    </form>
+    <div class="topbar-actions">
+      <button class="btn" id="refreshBtn" type="button" style="display:none;" title="Something look wrong? Pull fresh data instead of the cached report.">Refresh data</button>
+      <button class="btn" id="saveBtn" type="button">Save report</button>
+      <button class="btn primary" id="exportBtn" type="button">Export PDF</button>
+    </div>
+  </header>
+
+  <div class="state-banner loading" id="loadingBanner">Pulling records — this can take up to a minute on a first lookup…</div>
+  <div class="state-banner error" id="errorBanner"></div>
+
+  <div id="reportRoot">
+
+    <section class="card hero" id="overview">
+      <div class="hero-photo">
+        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M15 55 L50 25 L85 55 V85 H15 Z"/><rect x="42" y="60" width="16" height="25"/></svg>
+        <div class="cap">Photo unavailable</div>
+      </div>
+      <div class="hero-main">
+        <h1 id="heroAddress"></h1>
+        <p class="loc" id="heroLoc"></p>
+        <div class="hero-facts" id="heroFacts"></div>
+      </div>
+    </section>
+
+    <div class="stat-row" id="statRow"></div>
+
+    <div class="row2">
+      <section class="card" id="timeline">
+        <div class="card-head"><h2>Property Timeline</h2></div>
+        <div class="card-body" id="timelineBody"></div>
+      </section>
+      <section class="card" style="overflow:hidden;">
+        <div class="card-head"><h2>Property Map</h2></div>
+        <div id="mapBody" style="padding-top:10px;"></div>
+      </section>
+    </div>
+
+    <div class="row3">
+      <section class="card" id="value">
+        <div class="card-head"><h2>Value</h2></div>
+        <div class="card-body" id="valueBody"></div>
+      </section>
+      <section class="card" id="neighborhood">
+        <div class="card-head"><h2>Neighborhood</h2></div>
+        <div class="card-body" id="neighborhoodBody"></div>
+      </section>
+      <section class="card" id="risks">
+        <div class="card-head"><h2>Risk overview</h2></div>
+        <div class="card-body" id="riskBody"></div>
+      </section>
+    </div>
+
+    <div class="row2" id="property">
+      <section class="card" id="documents">
+        <div class="card-head"><h2>Documents &amp; permits</h2></div>
+        <div class="card-body" id="documentsBody"></div>
+      </section>
+      <section class="card" id="insights">
+        <div class="card-head"><h2>Insights</h2></div>
+        <div class="card-body" id="insightsBody"></div>
+      </section>
+    </div>
+
+    <section class="card" id="comparables" style="margin-bottom:16px;">
+      <div class="card-head"><h2>Comparable sales</h2></div>
+      <div class="card-body" id="comparablesBody"></div>
+    </section>
+
+    <section class="card" id="potential" style="margin-bottom:16px;">
+      <div class="card-head"><h2>Potential</h2></div>
+      <div class="card-body" id="potentialBody"></div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+  const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+  const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+
+  const form = document.getElementById('lookupForm');
+  const addressInput = document.getElementById('addressInput');
+  const loadingBanner = document.getElementById('loadingBanner');
+  const errorBanner = document.getElementById('errorBanner');
+  const reportRoot = document.getElementById('reportRoot');
+  const saveBtn = document.getElementById('saveBtn');
+  const exportBtn = document.getElementById('exportBtn');
+  const refreshBtn = document.getElementById('refreshBtn');
+  let currentAddress = null;
+
+  function showError(message) { errorBanner.textContent = message; errorBanner.classList.add('visible'); }
+  function clearBanners() { errorBanner.classList.remove('visible'); errorBanner.textContent = ''; }
+  function money(n) { return typeof n === 'number' ? '$' + Math.round(n).toLocaleString() : null; }
+  function esc(s) { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; }
+  function unavailableHtml(section) {
+    const reason = section && section.reason ? section.reason : 'No data available for this property yet.';
+    return `<p class="unavailable">${esc(reason)}</p>`;
+  }
+
+  function factRow(items) {
+    return `<div class="hero-facts">${items.filter(i => i[1] != null && i[1] !== '').map(([label, val]) => `
+      <div class="hero-fact"><strong>${esc(val)}</strong> ${esc(label)}</div>
+    `).join('')}</div>`;
+  }
+
+  function renderStatTiles(report) {
+    const tiles = [];
+    if (report.market?.available && report.market.estimatedValue) {
+      tiles.push(['Estimated value', money(report.market.estimatedValue), report.market.valueRangeLow && report.market.valueRangeHigh ? `${money(report.market.valueRangeLow)} – ${money(report.market.valueRangeHigh)} range` : '']);
+    }
+    if (report.finance?.available) {
+      if (report.finance.originalLoanAmount) {
+        tiles.push(['Est. equity', money(report.finance.estimatedEquity), 'Based on original loan amount']);
+        if (report.finance.estimatedMonthlyPI) {
+          tiles.push(['Est. monthly P&I', money(report.finance.estimatedMonthlyPI), `Assumes ${report.finance.assumedRatePct}% · ${report.finance.assumedTermYears}-yr fixed`]);
+        }
+      } else {
+        tiles.push(['Est. equity', money(report.finance.estimatedEquity), 'No mortgage on record']);
+      }
+    }
+    if (report.records?.available && report.records.taxAmount) {
+      tiles.push(['Property tax', money(report.records.taxAmount), 'Last assessed amount']);
+    }
+    document.getElementById('statRow').innerHTML = tiles.map(([k, v, s]) => `
+      <div class="card stat-tile"><div class="sk">${esc(k)}</div><div class="sv">${v == null ? '—' : esc(v)}</div><div class="ss">${esc(s || '')}</div></div>
+    `).join('');
+  }
+
+  function renderTimeline(items) {
+    if (!items || items.length === 0) return unavailableHtml(null);
+    return `<ul class="timeline">${items.map(t => {
+      const label = t.label || '';
+      const dot = /sold/i.test(label) ? '#2F7A4F' : /permit/i.test(label) ? '#95661A' : '#2F6F5E';
+      return `<li style="--dot:${dot}"><div class="t-date mono">${esc(t.date || '—')}</div><div class="t-label">${esc(label)}</div></li>`;
+    }).join('')}</ul>`;
+  }
+
+  function renderMap(identity) {
+    const el = document.getElementById('mapBody');
+    if (!identity?.latitude || !identity?.longitude) {
+      el.innerHTML = `<div class="card-body">${unavailableHtml(null)}</div>`;
+      return;
+    }
+    const lat = parseFloat(identity.latitude), lon = parseFloat(identity.longitude);
+    const d = 0.004;
+    const bbox = [lon - d, lat - d * 0.7, lon + d, lat + d * 0.7].join('%2C');
+    el.innerHTML = `<iframe class="map-frame" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lon}"></iframe>`;
+  }
+
+  function renderValue(market) {
+    if (!market || !market.available) return unavailableHtml(market);
+    let html = '';
+    if (market.valueRangeLow && market.valueRangeHigh) {
+      html += `<div class="range-track"><div class="range-fill"></div></div>
+        <div class="range-labels"><span>${esc(money(market.valueRangeLow))}</span><span class="mid">Estimated range</span><span>${esc(money(market.valueRangeHigh))}</span></div>`;
+    }
+    if (market.rentEstimate) {
+      html += `<div class="n-item" style="margin-top:16px; border-top:1px solid var(--line); padding-top:14px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7"/><path d="M5 9v11h14V9"/></svg>
+        <div><div class="nt">${esc(money(market.rentEstimate))}/mo</div><div class="ns">Estimated rent</div></div>
+      </div>`;
+    }
+    return html || unavailableHtml(market);
+  }
+
+  function renderNeighborhood(n) {
+    if (!n || !n.available) return unavailableHtml(n);
+    let html = '';
+    (n.schools || []).slice(0, 3).forEach(s => {
+      html += `<div class="n-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10L12 4 2 10l10 6 10-6z"/><path d="M6 12v5c0 1.5 2.7 3 6 3s6-1.5 6-3v-5"/></svg>
+        <div><div class="nt">${esc(s.name)}${s.rating ? ' · ' + esc(s.rating) : ''}</div><div class="ns">${s.distanceMiles != null ? esc(s.distanceMiles.toFixed(1)) + ' mi away' : ''}</div></div>
+      </div>`;
+    });
+    if (n.crimeIndex != null) {
+      html += `<div class="n-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg>
+        <div><div class="nt">Crime index ${esc(n.crimeIndex)}</div><div class="ns">ATTOM Community data</div></div>
+      </div>`;
+    }
+    if (n.medianHouseholdIncome) {
+      html += `<div class="n-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <div><div class="nt">${esc(money(n.medianHouseholdIncome))}</div><div class="ns">Median household income</div></div>
+      </div>`;
+    }
+    return html || unavailableHtml(n);
+  }
+
+  function renderRisk(risk) {
+    if (!risk || !risk.items) return unavailableHtml(risk);
+    return risk.items.map(item => `
+      <div class="r-item">
+        <div><div class="rn">${esc(item.label)}</div><div class="rd">${esc(item.detail)}</div></div>
+        <span class="pill ${item.level || 'none'}">${esc(item.level || 'Not tracked')}</span>
+      </div>
+    `).join('');
+  }
+
+  function renderDocuments(records) {
+    if (!records || !records.available || !records.permits || records.permits.length === 0) return unavailableHtml(records);
+    return records.permits.slice(0, 12).map(p => `
+      <div class="doc"><div><div class="dn">${esc(p.type || 'Permit')}</div><div class="dm">${esc(p.number || '')}</div></div><div class="dd">${esc(p.date || '')}</div></div>
+    `).join('');
+  }
+
+  function renderInsights(insights) {
+    if (!insights || insights.length === 0) return unavailableHtml(null);
+    return insights.map(text => `<div class="insight"><div class="bullet"></div><p>${esc(text)}</p></div>`).join('');
+  }
+
+  function renderComparables(market) {
+    if (!market || !market.available || !market.comps || market.comps.length === 0) return unavailableHtml(market);
+    return `<div class="comp-grid">${market.comps.map(c => `
+      <div class="comp-card">
+        <div class="comp-swatch"></div>
+        <div class="comp-body">
+          <div class="ca">${esc(c.address)}</div>
+          <div class="cd">${c.distanceMiles != null ? esc(c.distanceMiles.toFixed(1)) + ' mi away' : ''}</div>
+          <div class="cp">${esc(money(c.price))}</div>
+          <div class="cs">${c.squareFootage ? esc(Math.round(c.squareFootage).toLocaleString()) + ' sq ft' : ''}</div>
+        </div>
+      </div>
+    `).join('')}</div>`;
+  }
+
+  function renderPotential(potential) {
+    if (!potential || !potential.available) return unavailableHtml(potential);
+    let html = '';
+
+    if (potential.neighborhoodCeiling) {
+      const c = potential.compsUsed || {};
+      html += `<div style="margin-bottom:18px;">
+        <div class="range-track"><div class="range-fill"></div></div>
+        <div class="range-labels"><span>${esc(money(potential.neighborhoodCeiling.low))}</span><span class="mid">Neighborhood ceiling</span><span>${esc(money(potential.neighborhoodCeiling.high))}</span></div>
+      </div>`;
+
+      html += `<div class="stat-row" style="margin-bottom:16px;">
+        <div class="stat-tile" style="border:1px solid var(--line); border-radius:8px;">
+          <div class="sk">Renovation potential</div>
+          <div class="sv">${esc(money(potential.renovationPotential.low))} – ${esc(money(potential.renovationPotential.high))}</div>
+          <div class="ss">Gap between ceiling and current value</div>
+        </div>
+        <div class="stat-tile" style="border:1px solid var(--line); border-radius:8px;">
+          <div class="sk">Confidence</div>
+          <div class="sv" style="text-transform:capitalize;">${esc(potential.confidence)}</div>
+          <div class="ss">${esc(c.sold || 0)} verified sales · ${esc(c.pending || 0)} pending · ${esc(c.active || 0)} active nearby</div>
+        </div>
+      </div>`;
+
+      if (potential.overCapitalizationRisk) {
+        html += `<div class="r-item" style="margin-bottom:12px;"><div class="rn">Over-capitalization risk</div><span class="pill Moderate">Flagged</span></div>`;
+      }
+
+      html += `<p class="unavailable" style="margin-top:4px;">${esc(potential.methodologyNote)}</p>`;
+    }
+
+    if (potential.nearbyDecisions && potential.nearbyDecisions.length > 0) {
+      html += `<div style="margin-top:18px; padding-top:14px; border-top:1px solid var(--line);">
+        <div class="sk" style="text-transform:uppercase; font:600 11px/1 'Public Sans'; color:var(--ink-faint); letter-spacing:.05em; margin-bottom:10px;">Nearby zoning &amp; planning decisions</div>
+        ${potential.nearbyDecisions.map(d => `
+          <div class="insight"><div class="bullet"></div><p><strong>${esc(d.title || d.category || 'Decision')}</strong>${d.date ? ' — ' + esc(d.date) : ''}${d.description ? ': ' + esc(d.description) : ''}</p></div>
+        `).join('')}
+      </div>`;
+    }
+
+    return html || unavailableHtml(potential);
+  }
+
+  function renderReport(report) {
+    document.getElementById('heroAddress').textContent = report.identity?.address?.split(',')[0] || report.address?.formatted || report.address?.input || '';
+    const rest = (report.address?.formatted || '').split(',').slice(1).join(',').trim();
+    document.getElementById('heroLoc').textContent = rest || (report.identity?.county ? report.identity.county : '');
+
+    const facts = [];
+    if (report.identity?.propertyType) facts.push([report.identity.propertyType, null]);
+    if (report.systems?.yearBuilt) facts.push(['Built in ' + report.systems.yearBuilt, null]);
+    if (report.systems?.livingAreaSqft) facts.push([Math.round(report.systems.livingAreaSqft).toLocaleString() + ' Sq Ft', null]);
+    if (report.systems?.bedrooms) facts.push([report.systems.bedrooms + ' Beds', null]);
+    if (report.systems?.bathrooms) facts.push([report.systems.bathrooms + ' Baths', null]);
+    if (report.land?.lotSizeSqft) facts.push([(report.land.lotSizeSqft / 43560).toFixed(2) + ' Acres', null]);
+    if (report.land?.zoning) facts.push(['Zoned ' + report.land.zoning, null]);
+    document.getElementById('heroFacts').innerHTML = facts.map(([label]) => `<div class="hero-fact">${esc(label)}</div>`).join('') || '<div class="hero-fact unavailable">No property specs on file</div>';
+
+    renderStatTiles(report);
+    document.getElementById('timelineBody').innerHTML = renderTimeline(report.timeline);
+    renderMap(report.identity);
+    document.getElementById('valueBody').innerHTML = renderValue(report.market);
+    document.getElementById('neighborhoodBody').innerHTML = renderNeighborhood(report.neighborhood);
+    document.getElementById('riskBody').innerHTML = renderRisk(report.risk);
+    document.getElementById('documentsBody').innerHTML = renderDocuments(report.records);
+    document.getElementById('insightsBody').innerHTML = renderInsights(report.insights);
+    document.getElementById('comparablesBody').innerHTML = renderComparables(report.market);
+    document.getElementById('potentialBody').innerHTML = renderPotential(report.potential);
+
+    document.getElementById('sidebarFoot').textContent = 'Generated ' + new Date().toLocaleDateString();
+
+    reportRoot.classList.add('visible');
+  }
+
+  async function runLookup(address, refresh) {
+    clearBanners();
+    form.querySelector('.search-field').style.pointerEvents = 'none';
+    refreshBtn.disabled = true;
+    loadingBanner.textContent = refresh ? 'Re-pulling fresh records — this can take up to a minute…' : 'Pulling records — this can take up to a minute on a first lookup…';
+    loadingBanner.classList.add('visible');
+    reportRoot.classList.remove('visible');
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/property-fingerprint`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
+        body: JSON.stringify({ address, refresh: !!refresh }),
+      });
+      const data = await res.json();
+      if (!res.ok) { showError(data.error || 'Something went wrong. Please try again.'); return; }
+      currentAddress = address;
+      refreshBtn.style.display = '';
+      renderReport(data.report);
+      const url = new URL(window.location.href);
+      url.searchParams.set('address', address);
+      window.history.replaceState({}, '', url);
+    } catch (err) {
+      showError('Something went wrong reaching the server. Please try again.');
+    } finally {
+      form.querySelector('.search-field').style.pointerEvents = '';
+      refreshBtn.disabled = false;
+      loadingBanner.classList.remove('visible');
+    }
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const address = addressInput.value.trim();
+    if (address.length < 8 || !/\d/.test(address)) { showError('Please enter a full street address, city, state, and ZIP.'); return; }
+    runLookup(address, false);
+  });
+
+  refreshBtn.addEventListener('click', () => {
+    if (currentAddress) runLookup(currentAddress, true);
+  });
+
+  exportBtn.addEventListener('click', () => window.print());
+
+  saveBtn.addEventListener('click', async () => {
+    if (!reportRoot.classList.contains('visible')) return;
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      const original = saveBtn.textContent;
+      saveBtn.textContent = 'Link copied';
+      setTimeout(() => { saveBtn.textContent = original; }, 1800);
+    } catch {
+      showError('Could not copy the link — copy it from your address bar instead.');
+    }
+  });
+
+  // Scroll-spy for the sidebar nav.
+  (function () {
+    const links = Array.from(document.querySelectorAll('nav.sidenav a'));
+    const sections = links.map(l => document.querySelector(l.getAttribute('href')));
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((en) => {
+        const idx = sections.indexOf(en.target);
+        if (idx === -1 || !en.isIntersecting) return;
+        links.forEach(l => l.classList.remove('active'));
+        links[idx].classList.add('active');
+      });
+    }, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+    sections.forEach(s => { if (s) io.observe(s); });
+  })();
+
+  // Re-run a lookup automatically if the page was opened via a shared link.
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const address = params.get('address');
+    if (address) { addressInput.value = address; runLookup(address); }
+  })();
+</script>
+</body>
+</html>
