@@ -3,12 +3,31 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Property Fingerprint | ROQ</title>
-<meta name="description" content="Enter any address and get the most complete property research dossier available — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report." />
+<title>Home Fingerprint — ROQ Home</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Enter any address and get the most complete digital profile of any home — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report." />
 <link rel="canonical" href="https://roqhome.com/property-fingerprint.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ Home" />
+<meta property="og:title" content="Home Fingerprint — ROQ Home" />
+<meta property="og:description" content="Enter any address and get the most complete digital profile of any home — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report." />
+<meta property="og:url" content="https://roqhome.com/property-fingerprint.html" />
+<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Home Fingerprint — ROQ Home" />
+<meta name="twitter:description" content="Enter any address and get the most complete digital profile of any home — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report." />
+<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <style>
   :root{
     --bg:#F5F6F5;
@@ -27,17 +46,6 @@
     --radius: 10px;
     --sidebar-w: 220px;
   }
-  @media (prefers-color-scheme: dark){
-    :root{
-      --bg:#101314; --surface:#171B1C; --ink:#EDEFEE; --ink-soft:#A2ACAE; --ink-faint:#6C7679;
-      --line:#262B2C; --line-strong:#343B3C;
-      --accent:#5FBFA0; --accent-soft:#1B2E28;
-      --good:#6BC290; --good-soft:#173226;
-      --warn:#E0AE5C; --warn-soft:#332812;
-      --critical:#E2836A; --critical-soft:#33201A;
-      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
-    }
-  }
   *{ box-sizing:border-box; }
   body{
     margin:0; background:var(--bg); color:var(--ink);
@@ -48,6 +56,129 @@
   .mono{ font-family:'IBM Plex Mono', monospace; font-variant-numeric:tabular-nums; }
   :focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
   button, input{ font-family:inherit; }
+
+  /* ================= Landing / marketing view ================= */
+  #landingShell{
+    --bg:#171716; --bg-deep:#0D0D0C; --panel:#1D1D1B;
+    --ink:#FFFFFF; --ink-dim:#A8A6A2; --ink-faint:#6B6966;
+    --gold:#C8A882; --border:rgba(255,255,255,0.08); --danger:#C97A6A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    display:flex; flex-direction:column; min-height:100vh;
+    background:var(--bg); color:var(--ink);
+    font-family:'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  #landingShell *{ box-sizing:border-box; }
+  #landingShell a{ color:inherit; text-decoration:none; }
+  #landingShell :focus-visible{ outline-color:var(--gold); }
+  #landingShell h1, #landingShell p, #landingShell ul{ margin:0; }
+
+  #landingShell header{
+    position:sticky; top:0; z-index:100; display:flex; align-items:center; justify-content:space-between;
+    padding:32px clamp(24px,5vw,64px); background:var(--bg);
+  }
+  #landingShell .logo-mark{ width:30px; height:30px; display:block; }
+  #landingShell .logo-mark path{ stroke:var(--ink); stroke-width:8; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  #landingShell .nav-wrap{ position:relative; }
+  #landingShell .nav-trigger{
+    width:40px; height:40px; background:transparent; border:1px solid var(--border); border-radius:50%;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .3s var(--ease);
+  }
+  #landingShell .nav-trigger:hover, #landingShell .nav-trigger[aria-expanded="true"]{ border-color:rgba(255,255,255,.3); }
+  #landingShell .nav-trigger span{ position:relative; width:16px; height:10px; }
+  #landingShell .nav-trigger span::before, #landingShell .nav-trigger span::after, #landingShell .nav-trigger span i{
+    content:''; position:absolute; left:0; width:100%; height:1px; background:var(--ink-dim); transition:background .3s var(--ease);
+  }
+  #landingShell .nav-trigger span::before{ top:0; }
+  #landingShell .nav-trigger span i{ top:50%; margin-top:-.5px; display:block; }
+  #landingShell .nav-trigger span::after{ bottom:0; }
+  #landingShell .nav-trigger:hover span::before, #landingShell .nav-trigger:hover span::after, #landingShell .nav-trigger:hover span i{ background:var(--ink); }
+  #landingShell .nav-menu{
+    position:absolute; top:calc(100% + 10px); right:0; min-width:170px;
+    background:rgba(13,13,12,0.92); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px);
+    border:1px solid var(--border); border-radius:14px; padding:8px;
+    opacity:0; transform:translateY(-6px); pointer-events:none; transition:opacity .25s var(--ease), transform .25s var(--ease);
+  }
+  #landingShell .nav-menu.open{ opacity:1; transform:translateY(0); pointer-events:auto; }
+  #landingShell .nav-menu a{ display:block; padding:12px 14px; font-size:13px; letter-spacing:.04em; color:var(--ink-dim); border-radius:8px; transition:background .2s var(--ease), color .2s var(--ease); }
+  #landingShell .nav-menu a:hover, #landingShell .nav-menu a.active{ background:rgba(255,255,255,.06); color:var(--ink); }
+
+  #landingShell main{ flex:1; }
+
+  #landingShell .intro{ max-width:640px; margin:0 auto; text-align:center; padding:clamp(40px,7vh,76px) clamp(24px,6vw,64px) clamp(24px,4vh,36px); }
+
+  /* ---- house / fingerprint mark (static, transparent) ---- */
+  .fp-icon-wrap{ width:clamp(108px,14vw,148px); height:clamp(124px,16vw,170px); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; opacity:0; transform:translateY(10px); animation:fpFadeUp .9s cubic-bezier(.16,1,.3,1) .1s forwards; }
+  @keyframes fpFadeUp{ from{ opacity:0; transform:translateY(10px); } to{ opacity:1; transform:translateY(0); } }
+  .fp-icon{ width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 0 26px rgba(255,255,255,.14)); }
+  @media (prefers-reduced-motion: reduce){
+    .fp-icon-wrap{ animation:none; opacity:1; transform:none; }
+  }
+
+  #landingShell .intro-title{ font-family:'Lora', serif; font-size:clamp(30px,4.6vw,48px); line-height:1.2; margin-bottom:16px; }
+  #landingShell .intro-sub{ font-size:clamp(14px,1.6vw,16px); line-height:1.65; color:var(--ink-dim); max-width:44ch; margin:0 auto; }
+
+  /* ---- sample preview ---- */
+  #landingShell .preview{ max-width:640px; margin:0 auto; padding:clamp(8px,2vh,16px) clamp(24px,6vw,64px) clamp(28px,4vh,40px); }
+  #landingShell .preview-tag{ text-align:center; font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px; }
+  #landingShell .preview-card{ background:var(--panel); border:1px solid var(--border); border-radius:20px; padding:clamp(20px,3vw,28px); }
+  #landingShell .preview-card-head{ display:flex; align-items:center; gap:14px; padding-bottom:18px; margin-bottom:18px; border-bottom:1px solid var(--border); }
+  #landingShell .preview-avatar{ width:38px; height:38px; border-radius:10px; background:rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; flex:none; color:var(--ink-dim); }
+  #landingShell .preview-avatar svg{ width:18px; height:18px; }
+  #landingShell .preview-address{ font-size:15px; font-weight:600; }
+  #landingShell .preview-loc{ font-size:12.5px; color:var(--ink-faint); margin-top:2px; }
+  #landingShell .preview-badge{ margin-left:auto; font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--gold); border:1px solid rgba(200,168,130,.4); border-radius:99px; padding:5px 10px; flex:none; }
+  #landingShell .preview-stats{ display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:18px; }
+  #landingShell .ps-label{ font-size:10.5px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:8px; }
+  #landingShell .ps-value{ font-family:'Lora', serif; font-size:clamp(17px,2.2vw,20px); }
+  #landingShell .ps-note{ font-size:11.5px; color:var(--ink-faint); margin-top:5px; line-height:1.4; }
+  #landingShell .preview-chips{ display:flex; flex-wrap:wrap; gap:8px; }
+  #landingShell .p-chip{ font-size:12px; color:var(--ink-dim); background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:99px; padding:6px 12px; }
+  #landingShell .p-chip.good{ color:#9FCB9F; border-color:rgba(159,203,159,.3); background:rgba(159,203,159,.08); }
+  #landingShell .preview-note{ font-size:12.5px; line-height:1.6; color:var(--ink-faint); text-align:center; max-width:52ch; margin:16px auto 0; }
+  @media (max-width:560px){ #landingShell .preview-stats{ grid-template-columns:1fr 1fr; } }
+
+  /* ---- address form / CTA ---- */
+  #landingShell .form-wrap{ max-width:480px; margin:0 auto; padding:clamp(8px,2vh,16px) clamp(24px,6vw,64px) clamp(48px,7vh,72px); }
+  #landingShell .address-form{ display:flex; flex-direction:column; gap:14px; }
+  #landingShell .field-row label{ display:block; font-size:12px; color:var(--ink-faint); margin-bottom:8px; }
+  #landingShell .field-row input{
+    width:100%; background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:14px; padding:16px 18px;
+    color:var(--ink); font-family:'Inter',sans-serif; font-size:15px; outline:none; transition:border-color .25s var(--ease), background .25s var(--ease);
+  }
+  #landingShell .field-row input::placeholder{ color:var(--ink-faint); }
+  #landingShell .field-row input:focus{ border-color:rgba(200,168,130,.5); background:rgba(255,255,255,.06); }
+  #landingShell .address-submit{
+    margin-top:4px; width:100%; background:var(--ink); color:#14110B; border:none; border-radius:14px; padding:17px 26px;
+    font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
+    transition:background .25s var(--ease), transform .25s var(--ease), opacity .25s var(--ease);
+  }
+  #landingShell .address-submit:hover{ background:var(--gold); }
+  #landingShell .address-submit:active{ transform:scale(.97); }
+  #landingShell .address-submit:disabled{ opacity:.55; cursor:default; }
+  #landingShell .form-hint{ margin-top:12px; font-size:12px; color:var(--ink-faint); text-align:center; }
+  #landingShell .form-error{ margin-top:14px; font-size:13px; color:var(--danger); text-align:center; display:none; }
+  #landingShell .form-error.visible{ display:block; }
+  #landingShell .loading-row{ display:none; align-items:center; justify-content:center; gap:10px; margin-top:16px; font-size:13px; color:var(--ink-dim); }
+  #landingShell .loading-row.visible{ display:flex; }
+  #landingShell .spinner{ width:15px; height:15px; border-radius:50%; border:2px solid var(--border); border-top-color:var(--gold); animation:fpSpin .8s linear infinite; }
+  @keyframes fpSpin{ to{ transform:rotate(360deg); } }
+
+  /* ---- footer ---- */
+  #landingShell footer{
+    background:var(--bg-deep); padding:28px clamp(24px,5vw,64px) 40px; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:20px; border-top:1px solid var(--border);
+  }
+  #landingShell .footer-left{ display:flex; align-items:center; gap:14px; }
+  #landingShell .footer-left .logo-mark{ width:20px; height:20px; opacity:.7; }
+  #landingShell .footer-left .logo-mark path{ stroke:var(--ink-dim); }
+  #landingShell .footer-copy{ font-size:12px; color:var(--ink-faint); }
+  #landingShell .footer-links{ display:flex; gap:28px; }
+  #landingShell .footer-links a{ font-size:12px; color:var(--ink-faint); letter-spacing:.02em; transition:color .2s var(--ease); }
+  #landingShell .footer-links a:hover{ color:var(--ink-dim); }
+  @media (max-width:520px){ #landingShell header{ padding:24px 20px; } }
+
+  /* ================= Report (post-payment) view ================= */
 
   /* ---------- sidebar ---------- */
   .sidebar{
@@ -75,14 +206,8 @@
     padding:14px clamp(16px,3vw,32px); background:color-mix(in srgb, var(--bg) 85%, transparent);
     backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
   }
-  form.search{ flex:1; max-width:520px; }
-  .search-field{
-    display:flex; align-items:center; gap:10px; background:var(--surface);
-    border:1px solid var(--line-strong); border-radius:8px; padding:10px 14px;
-  }
-  .search-field svg{ width:15px; height:15px; flex:none; color:var(--ink-faint); }
-  .search-field input{ border:0; outline:0; background:transparent; color:var(--ink); font:14px/1 'Public Sans'; width:100%; }
-  .topbar-actions{ margin-left:auto; display:flex; gap:8px; }
+  .topbar-address{ flex:1; font:13px/1 'IBM Plex Mono'; color:var(--ink-soft); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .topbar-actions{ margin-left:auto; display:flex; gap:8px; flex:none; }
   .btn{
     font:600 13px/1 'Public Sans'; padding:10px 14px; border-radius:8px; cursor:pointer; white-space:nowrap;
     border:1px solid var(--line-strong); background:var(--surface); color:var(--ink);
@@ -108,13 +233,14 @@
   /* ---------- hero ---------- */
   .hero{ display:grid; grid-template-columns: 220px 1fr; gap:22px; padding:20px; margin-bottom:16px; }
   .hero-photo{
-    border-radius:8px; background:var(--bg); border:1px solid var(--line); overflow:hidden;
+    border-radius:8px; overflow:hidden; border:1px solid var(--line);
+    background:radial-gradient(120% 140% at 30% 20%, #2B2E32 0%, #1A1C1F 55%, #101113 100%);
     display:flex; align-items:center; justify-content:center; min-height:150px; position:relative;
   }
-  .hero-photo svg{ width:56%; opacity:.35; }
+  .hero-photo svg{ width:30%; filter:drop-shadow(0 2px 14px rgba(0,0,0,.5)) drop-shadow(0 0 20px rgba(255,255,255,.1)); }
   .hero-photo .cap{
     position:absolute; bottom:0; left:0; right:0; padding:6px 9px; font:11px/1.2 'Public Sans';
-    color:var(--ink-faint); background:color-mix(in srgb, var(--surface) 85%, transparent); border-top:1px solid var(--line);
+    color:rgba(255,255,255,.5); background:rgba(0,0,0,.32); border-top:1px solid rgba(255,255,255,.08);
   }
   .hero-main h1{ font:800 26px/1.15 'Public Sans'; letter-spacing:-.01em; margin:0 0 4px; }
   .hero-main .loc{ font:14px/1 'Public Sans'; color:var(--ink-soft); margin:0 0 16px; }
@@ -150,7 +276,8 @@
   .timeline .t-label{ font:600 13.5px/1.3 'Public Sans'; color:var(--ink); margin-top:3px; }
 
   /* map */
-  .map-frame{ width:100%; height:100%; min-height:260px; border:0; display:block; border-radius:0 0 var(--radius) var(--radius); }
+  .map-frame{ width:100%; height:260px; border:0; display:block; border-radius:0 0 var(--radius) var(--radius); background:var(--bg); }
+  .leaflet-control-attribution{ font-size:10px; }
 
   /* value range */
   .range-track{ position:relative; height:8px; border-radius:4px; background:var(--bg); border:1px solid var(--line); margin-top:4px; }
@@ -191,7 +318,11 @@
   /* comparables */
   .comp-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; }
   .comp-card{ border:1px solid var(--line); border-radius:8px; overflow:hidden; }
-  .comp-swatch{ height:64px; background:linear-gradient(135deg, var(--accent-soft), var(--bg)); }
+  .comp-swatch{
+    height:64px; display:flex; align-items:center; justify-content:center;
+    background:radial-gradient(120% 160% at 30% 20%, #2B2E32 0%, #1A1C1F 55%, #101113 100%);
+  }
+  .comp-swatch svg{ width:22px; filter:drop-shadow(0 0 10px rgba(255,255,255,.12)); }
   .comp-body{ padding:12px 14px; }
   .comp-body .ca{ font:600 13px/1.3 'Public Sans'; color:var(--ink); }
   .comp-body .cd{ font:11.5px/1.3 'Public Sans'; color:var(--ink-faint); margin-top:2px; }
@@ -220,114 +351,243 @@
 </head>
 <body>
 
-<aside class="sidebar">
-  <a class="brand" href="index.html" style="text-decoration:none; color:inherit;"><div class="name">ROQ</div><div class="tag">FINGERPRINT</div></a>
-  <nav class="sidenav" id="sideNav">
-    <a href="#overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Overview</a>
-    <a href="#timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Timeline</a>
-    <a href="#property"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V4h8v3"/></svg>Property</a>
-    <a href="#value"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V10M10 20V4M17 20v-7"/></svg>Value</a>
-    <a href="#neighborhood"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>Neighborhood</a>
-    <a href="#risks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg>Risks</a>
-    <a href="#documents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Documents</a>
-    <a href="#insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>Insights</a>
-    <a href="#comparables"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>Comparables</a>
-    <a href="#potential"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"/></svg>Potential</a>
-  </nav>
-  <div class="sidebar-foot" id="sidebarFoot"></div>
-</aside>
-
-<div class="main">
-  <header class="topbar">
-    <form class="search" id="lookupForm" style="display:flex; align-items:center; gap:10px;">
-      <label class="search-field" style="flex:1;">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-        <input type="text" id="addressInput" placeholder="Search any address…" autocomplete="street-address" required />
-      </label>
-      <button class="btn accent" type="submit">Generate report — $10</button>
-    </form>
-    <div class="topbar-actions">
-      <button class="btn" id="refreshBtn" type="button" style="display:none;" title="Something look wrong? Pull fresh data instead of the cached report.">Refresh data</button>
-      <button class="btn" id="saveBtn" type="button">Save report</button>
-      <button class="btn primary" id="exportBtn" type="button">Export PDF</button>
+<div id="landingShell">
+  <header>
+    <a href="index.html" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+    <div class="nav-wrap">
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+        <span><i></i></span>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Home</a>
+        <a href="home-potential.html">Home Potential</a>
+        <a href="market-ready.html">Home Passport</a>
+        <a href="property-fingerprint.html" class="active">Home Fingerprint</a>
+        <a href="about.html">About</a>
+        <a href="legal/roq-privacy.html">Privacy</a>
+      </nav>
     </div>
   </header>
 
-  <div class="state-banner loading" id="loadingBanner">Pulling records — this can take up to a minute on a first lookup…</div>
-  <div class="state-banner error" id="errorBanner"></div>
-
-  <div id="reportRoot">
-
-    <section class="card hero" id="overview">
-      <div class="hero-photo">
-        <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"><path d="M15 55 L50 25 L85 55 V85 H15 Z"/><rect x="42" y="60" width="16" height="25"/></svg>
-        <div class="cap">Photo unavailable</div>
+  <main>
+    <section class="intro">
+      <div class="fp-icon-wrap">
+        <img class="fp-icon" src="assets/logo/home-fingerprint-icon.png" alt="" aria-hidden="true" />
       </div>
-      <div class="hero-main">
-        <h1 id="heroAddress"></h1>
-        <p class="loc" id="heroLoc"></p>
-        <div class="hero-facts" id="heroFacts"></div>
+      <h1 class="intro-title">Home Fingerprint</h1>
+      <p class="intro-sub">A complete digital profile of any property.</p>
+    </section>
+
+    <section class="preview">
+      <p class="preview-tag">Sample Output</p>
+      <div class="preview-card">
+        <div class="preview-card-head">
+          <div class="preview-avatar" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
+          </div>
+          <div>
+            <p class="preview-address">428 Larkspur Lane</p>
+            <p class="preview-loc">Austin, TX 78704</p>
+          </div>
+          <span class="preview-badge">Sample</span>
+        </div>
+        <div class="preview-stats">
+          <div class="preview-stat">
+            <p class="ps-label">Estimated Value</p>
+            <p class="ps-value">$612,400</p>
+            <p class="ps-note">$580K&ndash;$645K range</p>
+          </div>
+          <div class="preview-stat">
+            <p class="ps-label">Est. Equity</p>
+            <p class="ps-value">$214,000</p>
+            <p class="ps-note">Based on loan history</p>
+          </div>
+          <div class="preview-stat">
+            <p class="ps-label">Built</p>
+            <p class="ps-value">1998</p>
+            <p class="ps-note">2,340 sq ft &middot; 4 bd / 2.5 ba</p>
+          </div>
+        </div>
+        <div class="preview-chips">
+          <span class="p-chip good">Flood risk &mdash; Low</span>
+          <span class="p-chip">Schools 8/10</span>
+          <span class="p-chip">3 permits on file</span>
+          <span class="p-chip">2 owners since 2004</span>
+        </div>
+      </div>
+      <p class="preview-note">Sample data shown for illustration &mdash; your report is generated from live public records, ownership history, permits, risk, and more for the address you search.</p>
+    </section>
+
+    <section class="form-wrap">
+      <form class="address-form" id="addressForm">
+        <div class="field-row">
+          <label for="addressInput">Address</label>
+          <input
+            type="text"
+            id="addressInput"
+            placeholder="123 Main St, City, State ZIP"
+            autocomplete="street-address"
+            required
+          />
+        </div>
+        <button type="submit" class="address-submit" id="addressSubmit">Get Fingerprint &mdash; $10</button>
+      </form>
+      <p class="form-hint">Secure checkout via Stripe &mdash; your report unlocks immediately after payment.</p>
+      <p class="form-error" id="formError"></p>
+      <div class="loading-row" id="loadingRow">
+        <span class="spinner"></span>
+        <span id="loadingText">Redirecting to secure checkout&hellip;</span>
       </div>
     </section>
+  </main>
 
-    <div class="stat-row" id="statRow"></div>
-
-    <div class="row2">
-      <section class="card" id="timeline">
-        <div class="card-head"><h2>Property Timeline</h2></div>
-        <div class="card-body" id="timelineBody"></div>
-      </section>
-      <section class="card" style="overflow:hidden;">
-        <div class="card-head"><h2>Property Map</h2></div>
-        <div id="mapBody" style="padding-top:10px;"></div>
-      </section>
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
     </div>
-
-    <div class="row3">
-      <section class="card" id="value">
-        <div class="card-head"><h2>Value</h2></div>
-        <div class="card-body" id="valueBody"></div>
-      </section>
-      <section class="card" id="neighborhood">
-        <div class="card-head"><h2>Neighborhood</h2></div>
-        <div class="card-body" id="neighborhoodBody"></div>
-      </section>
-      <section class="card" id="risks">
-        <div class="card-head"><h2>Risk overview</h2></div>
-        <div class="card-body" id="riskBody"></div>
-      </section>
+    <div class="footer-links">
+      <a href="legal/roq-privacy.html">Privacy</a>
+      <a href="legal/roq-terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
     </div>
+  </footer>
+</div>
 
-    <div class="row2" id="property">
-      <section class="card" id="documents">
-        <div class="card-head"><h2>Documents &amp; permits</h2></div>
-        <div class="card-body" id="documentsBody"></div>
+<div id="reportShell" style="display:none;">
+  <aside class="sidebar">
+    <a class="brand" href="index.html" style="text-decoration:none; color:inherit;"><div class="name">ROQ</div><div class="tag">HOME FINGERPRINT</div></a>
+    <nav class="sidenav" id="sideNav">
+      <a href="#overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>Overview</a>
+      <a href="#timeline"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>Timeline</a>
+      <a href="#property"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="13" rx="1"/><path d="M8 7V4h8v3"/></svg>Property</a>
+      <a href="#value"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 20V10M10 20V4M17 20v-7"/></svg>Value</a>
+      <a href="#neighborhood"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M5 21c0-4 3-6 7-6s7 2 7 6"/></svg>Neighborhood</a>
+      <a href="#risks"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7z"/></svg>Risks</a>
+      <a href="#documents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>Documents</a>
+      <a href="#insights"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l2 5 5 2-5 2-2 5-2-5-5-2 5-2z"/></svg>Insights</a>
+      <a href="#comparables"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>Comparables</a>
+      <a href="#potential"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"/></svg>Potential</a>
+    </nav>
+    <div class="sidebar-foot" id="sidebarFoot"></div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="topbar-address mono" id="topbarAddress"></div>
+      <div class="topbar-actions">
+        <a class="btn" href="property-fingerprint.html">New search</a>
+        <button class="btn" id="refreshBtn" type="button" style="display:none;" title="Something look wrong? Pull fresh data instead of the cached report.">Refresh data</button>
+        <button class="btn" id="saveBtn" type="button">Save report</button>
+        <button class="btn primary" id="exportBtn" type="button">Export PDF</button>
+      </div>
+    </header>
+
+    <div class="state-banner loading" id="loadingBanner">Pulling records — this can take up to a minute on a first lookup…</div>
+    <div class="state-banner error" id="errorBanner"></div>
+
+    <div id="reportRoot">
+
+      <section class="card hero" id="overview">
+        <div class="hero-photo">
+          <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 70 L32 42 L50 25 Q74 40 67 70" /></svg>
+          <div class="cap">No photo on file</div>
+        </div>
+        <div class="hero-main">
+          <h1 id="heroAddress"></h1>
+          <p class="loc" id="heroLoc"></p>
+          <div class="hero-facts" id="heroFacts"></div>
+        </div>
       </section>
-      <section class="card" id="insights">
-        <div class="card-head"><h2>Insights</h2></div>
-        <div class="card-body" id="insightsBody"></div>
+
+      <div class="stat-row" id="statRow"></div>
+
+      <div class="row2">
+        <section class="card" id="timeline">
+          <div class="card-head"><h2>Property Timeline</h2></div>
+          <div class="card-body" id="timelineBody"></div>
+        </section>
+        <section class="card" style="overflow:hidden;">
+          <div class="card-head"><h2>Property Map</h2></div>
+          <div id="mapBody" style="padding-top:10px;"></div>
+        </section>
+      </div>
+
+      <div class="row3">
+        <section class="card" id="value">
+          <div class="card-head"><h2>Value</h2></div>
+          <div class="card-body" id="valueBody"></div>
+        </section>
+        <section class="card" id="neighborhood">
+          <div class="card-head"><h2>Neighborhood</h2></div>
+          <div class="card-body" id="neighborhoodBody"></div>
+        </section>
+        <section class="card" id="risks">
+          <div class="card-head"><h2>Risk overview</h2></div>
+          <div class="card-body" id="riskBody"></div>
+        </section>
+      </div>
+
+      <div class="row2" id="property">
+        <section class="card" id="documents">
+          <div class="card-head"><h2>Documents &amp; permits</h2></div>
+          <div class="card-body" id="documentsBody"></div>
+        </section>
+        <section class="card" id="insights">
+          <div class="card-head"><h2>Insights</h2></div>
+          <div class="card-body" id="insightsBody"></div>
+        </section>
+      </div>
+
+      <section class="card" id="comparables" style="margin-bottom:16px;">
+        <div class="card-head"><h2>Comparable sales</h2></div>
+        <div class="card-body" id="comparablesBody"></div>
       </section>
+
+      <section class="card" id="potential" style="margin-bottom:16px;">
+        <div class="card-head"><h2>Potential</h2></div>
+        <div class="card-body" id="potentialBody"></div>
+      </section>
+
     </div>
-
-    <section class="card" id="comparables" style="margin-bottom:16px;">
-      <div class="card-head"><h2>Comparable sales</h2></div>
-      <div class="card-body" id="comparablesBody"></div>
-    </section>
-
-    <section class="card" id="potential" style="margin-bottom:16px;">
-      <div class="card-head"><h2>Potential</h2></div>
-      <div class="card-body" id="potentialBody"></div>
-    </section>
-
   </div>
 </div>
 
 <script>
+  // ---------- Nav dropdown (landing) ----------
+  const navTrigger = document.getElementById('navTrigger');
+  const navMenu = document.getElementById('navMenu');
+  if (navTrigger && navMenu) {
+    navTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      navTrigger.setAttribute('aria-expanded', isOpen);
+    });
+    document.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    });
+  }
+
   const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
   const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
 
-  const form = document.getElementById('lookupForm');
+  const landingShell = document.getElementById('landingShell');
+  const reportShell = document.getElementById('reportShell');
+
+  const addressForm = document.getElementById('addressForm');
   const addressInput = document.getElementById('addressInput');
+  const addressSubmit = document.getElementById('addressSubmit');
+  const formError = document.getElementById('formError');
+  const loadingRow = document.getElementById('loadingRow');
+  const loadingText = document.getElementById('loadingText');
+
   const loadingBanner = document.getElementById('loadingBanner');
   const errorBanner = document.getElementById('errorBanner');
   const reportRoot = document.getElementById('reportRoot');
@@ -335,6 +595,14 @@
   const exportBtn = document.getElementById('exportBtn');
   const refreshBtn = document.getElementById('refreshBtn');
   let currentAddress = null;
+  let currentSessionId = null;
+  let leafletMapInstance = null;
+
+  function showLanding() { landingShell.style.display = ''; reportShell.style.display = 'none'; }
+  function showReportShell() { landingShell.style.display = 'none'; reportShell.style.display = ''; }
+
+  function showFormError(message) { formError.textContent = message; formError.classList.add('visible'); }
+  function clearFormError() { formError.classList.remove('visible'); formError.textContent = ''; }
 
   function showError(message) { errorBanner.textContent = message; errorBanner.classList.add('visible'); }
   function clearBanners() { errorBanner.classList.remove('visible'); errorBanner.textContent = ''; }
@@ -343,12 +611,6 @@
   function unavailableHtml(section) {
     const reason = section && section.reason ? section.reason : 'No data available for this property yet.';
     return `<p class="unavailable">${esc(reason)}</p>`;
-  }
-
-  function factRow(items) {
-    return `<div class="hero-facts">${items.filter(i => i[1] != null && i[1] !== '').map(([label, val]) => `
-      <div class="hero-fact"><strong>${esc(val)}</strong> ${esc(label)}</div>
-    `).join('')}</div>`;
   }
 
   function renderStatTiles(report) {
@@ -385,14 +647,24 @@
 
   function renderMap(identity) {
     const el = document.getElementById('mapBody');
+    if (leafletMapInstance) { leafletMapInstance.remove(); leafletMapInstance = null; }
     if (!identity?.latitude || !identity?.longitude) {
       el.innerHTML = `<div class="card-body">${unavailableHtml(null)}</div>`;
       return;
     }
     const lat = parseFloat(identity.latitude), lon = parseFloat(identity.longitude);
-    const d = 0.004;
-    const bbox = [lon - d, lat - d * 0.7, lon + d, lat + d * 0.7].join('%2C');
-    el.innerHTML = `<iframe class="map-frame" loading="lazy" src="https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat}%2C${lon}"></iframe>`;
+    el.innerHTML = `<div class="map-frame" id="mapCanvas"></div>`;
+    const map = L.map('mapCanvas', { zoomControl: false, attributionControl: true }).setView([lat, lon], 19);
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
+    // Esri World Imagery -- aerial/satellite tiles give a much closer read on the
+    // actual lot and structures than a road map. No true parcel-line overlay is
+    // wired up yet; that needs a dedicated cadastral data vendor (e.g. Regrid).
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 20,
+      attribution: 'Tiles &copy; Esri',
+    }).addTo(map);
+    L.marker([lat, lon]).addTo(map);
+    leafletMapInstance = map;
   }
 
   function renderValue(market) {
@@ -461,7 +733,7 @@
     if (!market || !market.available || !market.comps || market.comps.length === 0) return unavailableHtml(market);
     return `<div class="comp-grid">${market.comps.map(c => `
       <div class="comp-card">
-        <div class="comp-swatch"></div>
+        <div class="comp-swatch"><svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 70 L32 42 L50 25 Q74 40 67 70" /></svg></div>
         <div class="comp-body">
           <div class="ca">${esc(c.address)}</div>
           <div class="cd">${c.distanceMiles != null ? esc(c.distanceMiles.toFixed(1)) + ' mi away' : ''}</div>
@@ -519,6 +791,7 @@
     document.getElementById('heroAddress').textContent = report.identity?.address?.split(',')[0] || report.address?.formatted || report.address?.input || '';
     const rest = (report.address?.formatted || '').split(',').slice(1).join(',').trim();
     document.getElementById('heroLoc').textContent = rest || (report.identity?.county ? report.identity.county : '');
+    document.getElementById('topbarAddress').textContent = report.address?.formatted || currentAddress || '';
 
     const facts = [];
     if (report.identity?.propertyType) facts.push([report.identity.propertyType, null]);
@@ -546,11 +819,8 @@
     reportRoot.classList.add('visible');
   }
 
-  let currentSessionId = null;
-
   async function runLookup(address, refresh, sessionId) {
     clearBanners();
-    form.querySelector('.search-field').style.pointerEvents = 'none';
     refreshBtn.disabled = true;
     loadingBanner.textContent = refresh ? 'Re-pulling fresh records — this can take up to a minute…' : 'Payment confirmed — pulling your report now, this can take up to a minute…';
     loadingBanner.classList.add('visible');
@@ -564,7 +834,7 @@
       const data = await res.json();
       if (!res.ok) {
         showError(res.status === 402
-          ? (data.error || 'Payment required to view this report.') + ' Click "Generate report" to pay and try again.'
+          ? (data.error || 'Payment required to view this report.') + ' Return to the search page to pay and try again.'
           : (data.error || 'Something went wrong. Please try again.'));
         return;
       }
@@ -580,17 +850,16 @@
     } catch (err) {
       showError('Something went wrong reaching the server. Please try again.');
     } finally {
-      form.querySelector('.search-field').style.pointerEvents = '';
       refreshBtn.disabled = false;
       loadingBanner.classList.remove('visible');
     }
   }
 
   async function startCheckout(address) {
-    clearBanners();
-    form.querySelector('.search-field').style.pointerEvents = 'none';
-    loadingBanner.textContent = 'Redirecting to secure checkout…';
-    loadingBanner.classList.add('visible');
+    clearFormError();
+    addressSubmit.disabled = true;
+    loadingText.textContent = 'Redirecting to secure checkout…';
+    loadingRow.classList.add('visible');
     try {
       const res = await fetch(`${SUPABASE_URL}/functions/v1/property-fingerprint-checkout`, {
         method: 'POST',
@@ -598,20 +867,20 @@
         body: JSON.stringify({ address, origin: window.location.origin }),
       });
       const data = await res.json();
-      if (!res.ok || !data.url) { showError(data.error || 'Could not start checkout. Please try again.'); return; }
+      if (!res.ok || !data.url) { showFormError(data.error || 'Could not start checkout. Please try again.'); return; }
       window.location.href = data.url;
     } catch (err) {
-      showError('Something went wrong starting checkout. Please try again.');
+      showFormError('Something went wrong starting checkout. Please try again.');
     } finally {
-      form.querySelector('.search-field').style.pointerEvents = '';
-      loadingBanner.classList.remove('visible');
+      addressSubmit.disabled = false;
+      loadingRow.classList.remove('visible');
     }
   }
 
-  form.addEventListener('submit', (e) => {
+  addressForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const address = addressInput.value.trim();
-    if (address.length < 8 || !/\d/.test(address)) { showError('Please enter a full street address, city, state, and ZIP.'); return; }
+    if (address.length < 8 || !/\d/.test(address)) { showFormError('Please enter a full street address, city, state, and ZIP.'); return; }
     startCheckout(address);
   });
 
@@ -660,9 +929,13 @@
     const sessionId = params.get('session_id');
     if (address) addressInput.value = address;
     if (address && sessionId) {
+      showReportShell();
       runLookup(address, false, sessionId);
-    } else if (params.get('checkout') === 'cancelled') {
-      showError('Checkout was cancelled — no charge was made. Click "Generate report" whenever you\'re ready.');
+    } else {
+      showLanding();
+      if (params.get('checkout') === 'cancelled') {
+        showFormError('Checkout was cancelled — no charge was made. Enter your address and click "Get Fingerprint" whenever you\'re ready.');
+      }
     }
   })();
 </script>
