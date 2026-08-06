@@ -9,12 +9,14 @@
 //   - RentCast: AVM/comps/rent estimate (Market), subject property basics
 //     (Identity, Timeline, Property Systems). Same vendor already used by
 //     the home-potential function.
-//   - ATTOM: ownership, tax/assessment, lot/land characteristics, basic
-//     building permits, school profiles, and neighborhood crime/demographics
-//     (via its Community API, chained off the geoIdV4 the Property API
-//     returns). Estated no longer exists as a separate company -- it was
-//     folded into ATTOM.
-//   - Shovels.ai: deeper permit history, plus government/planning decisions
+//   - ATTOM: ownership, tax/assessment, lot/land characteristics, sale
+//     history, school profiles, and neighborhood crime/demographics (via its
+//     Community API, chained off the geoIdV4 the Property API returns).
+//     Estated no longer exists as a separate company -- it was folded into
+//     ATTOM. Deliberately does NOT call ATTOM's own buildingpermits endpoint
+//     -- it was thin-to-empty in testing and costs a flat +$100/mo add-on;
+//     Shovels.ai is the sole permits source instead.
+//   - Shovels.ai: permit history, plus government/planning decisions
 //     (rezonings, variances) for the Potential category -- nothing else we
 //     evaluated has this data at all.
 //   - FEMA NFHL: flood zone, free public API, no key.
@@ -134,8 +136,9 @@ async function fetchRentCast(address: string, apiKey: string) {
 }
 
 // ---------------------------------------------------------------------------
-// ATTOM -- Ownership, Land, Public Records/permits (basic), Property Systems,
-// Neighborhood (schools + crime/demographics via the Community API)
+// ATTOM -- Ownership, Land, Public Records (assessment/tax/sale history),
+// Property Systems, Neighborhood (schools + crime/demographics via the
+// Community API). Permits come from Shovels.ai only -- see fetchShovels.
 // ---------------------------------------------------------------------------
 
 async function attomGet(path: string, params: Record<string, string>, apiKey: string, baseUrl = ATTOM_BASE_URL) {
@@ -156,17 +159,22 @@ async function fetchAttom(address: string, apiKey: string) {
   // assessment, lot, and building detail; detailwithschools is the only one
   // that includes the school/schoolDistrict arrays. Both happen to include
   // location.geoIdV4, so either can drive the Community API chain below.
-  const [expanded, schools, permits, mortgage, saleHistory] = await Promise.allSettled([
+  // Building permits deliberately dropped from this fan-out: ATTOM's
+  // /property/buildingpermits was thin-to-empty in every address we tested
+  // and costs a flat +$100/mo add-on on top of the base plan, while
+  // Shovels.ai (already called separately, see fetchShovels) is a dedicated
+  // permits product with far richer fields and is the only source we found
+  // for the Potential category's zoning/planning decisions data. One vendor
+  // being the clear authority beats paying two for the same weaker one.
+  const [expanded, schools, mortgage, saleHistory] = await Promise.allSettled([
     attomGet("/property/expandedprofile", params, apiKey),
     attomGet("/property/detailwithschools", params, apiKey),
-    attomGet("/property/buildingpermits", params, apiKey),
     attomGet("/property/detailmortgage", params, apiKey),
     attomGet("/saleshistory/expandedhistory", params, apiKey),
   ]);
 
   const expandedData = expanded.status === "fulfilled" ? expanded.value : null;
   const schoolsData = schools.status === "fulfilled" ? schools.value : null;
-  const permitsData = permits.status === "fulfilled" ? permits.value : null;
   const mortgageData = mortgage.status === "fulfilled" ? mortgage.value : null;
   const saleHistoryData = saleHistory.status === "fulfilled" ? saleHistory.value : null;
 
@@ -186,7 +194,6 @@ async function fetchAttom(address: string, apiKey: string) {
   return {
     detail: expandedData,
     schools: schoolsData,
-    permits: permitsData,
     mortgage: mortgageData,
     saleHistory: saleHistoryData,
     community,
@@ -533,18 +540,13 @@ function assembleReport(address: string, rentcast: any, attom: any, shovels: any
     number: p.number ?? null,
     date: p.file_date ?? p.issue_date ?? null,
   }));
-  const attomPermits = (attom.permits?.property?.[0]?.buildingPermits ?? []).map((p: any) => ({
-    type: p?.type ?? p?.description ?? "Permit",
-    number: p?.permitNumber ?? null,
-    date: p?.effectiveDate ?? null,
-  }));
   const records =
-    permitRecords.length > 0 || attomPermits.length > 0 || attomProp?.assessment
+    permitRecords.length > 0 || attomProp?.assessment
       ? {
           available: true,
           assessedValue: attomProp?.assessment?.assessed?.assdTtlValue ?? null,
           taxAmount: attomProp?.assessment?.tax?.taxAmt ?? null,
-          permits: permitRecords.length > 0 ? permitRecords : attomPermits,
+          permits: permitRecords,
         }
       : unavailable("No permit or assessment records found");
 
