@@ -239,11 +239,12 @@
 
 <div class="main">
   <header class="topbar">
-    <form class="search" id="lookupForm">
-      <label class="search-field">
+    <form class="search" id="lookupForm" style="display:flex; align-items:center; gap:10px;">
+      <label class="search-field" style="flex:1;">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
         <input type="text" id="addressInput" placeholder="Search any address…" autocomplete="street-address" required />
       </label>
+      <button class="btn accent" type="submit">Generate report — $10</button>
     </form>
     <div class="topbar-actions">
       <button class="btn" id="refreshBtn" type="button" style="display:none;" title="Something look wrong? Pull fresh data instead of the cached report.">Refresh data</button>
@@ -545,26 +546,36 @@
     reportRoot.classList.add('visible');
   }
 
-  async function runLookup(address, refresh) {
+  let currentSessionId = null;
+
+  async function runLookup(address, refresh, sessionId) {
     clearBanners();
     form.querySelector('.search-field').style.pointerEvents = 'none';
     refreshBtn.disabled = true;
-    loadingBanner.textContent = refresh ? 'Re-pulling fresh records — this can take up to a minute…' : 'Pulling records — this can take up to a minute on a first lookup…';
+    loadingBanner.textContent = refresh ? 'Re-pulling fresh records — this can take up to a minute…' : 'Payment confirmed — pulling your report now, this can take up to a minute…';
     loadingBanner.classList.add('visible');
     reportRoot.classList.remove('visible');
     try {
       const res = await fetch(`${SUPABASE_URL}/functions/v1/property-fingerprint`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
-        body: JSON.stringify({ address, refresh: !!refresh }),
+        body: JSON.stringify({ address, refresh: !!refresh, sessionId }),
       });
       const data = await res.json();
-      if (!res.ok) { showError(data.error || 'Something went wrong. Please try again.'); return; }
+      if (!res.ok) {
+        showError(res.status === 402
+          ? (data.error || 'Payment required to view this report.') + ' Click "Generate report" to pay and try again.'
+          : (data.error || 'Something went wrong. Please try again.'));
+        return;
+      }
       currentAddress = address;
+      currentSessionId = sessionId;
       refreshBtn.style.display = '';
       renderReport(data.report);
       const url = new URL(window.location.href);
       url.searchParams.set('address', address);
+      url.searchParams.set('session_id', sessionId);
+      url.searchParams.delete('checkout');
       window.history.replaceState({}, '', url);
     } catch (err) {
       showError('Something went wrong reaching the server. Please try again.');
@@ -575,15 +586,37 @@
     }
   }
 
+  async function startCheckout(address) {
+    clearBanners();
+    form.querySelector('.search-field').style.pointerEvents = 'none';
+    loadingBanner.textContent = 'Redirecting to secure checkout…';
+    loadingBanner.classList.add('visible');
+    try {
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/property-fingerprint-checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
+        body: JSON.stringify({ address, origin: window.location.origin }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.url) { showError(data.error || 'Could not start checkout. Please try again.'); return; }
+      window.location.href = data.url;
+    } catch (err) {
+      showError('Something went wrong starting checkout. Please try again.');
+    } finally {
+      form.querySelector('.search-field').style.pointerEvents = '';
+      loadingBanner.classList.remove('visible');
+    }
+  }
+
   form.addEventListener('submit', (e) => {
     e.preventDefault();
     const address = addressInput.value.trim();
     if (address.length < 8 || !/\d/.test(address)) { showError('Please enter a full street address, city, state, and ZIP.'); return; }
-    runLookup(address, false);
+    startCheckout(address);
   });
 
   refreshBtn.addEventListener('click', () => {
-    if (currentAddress) runLookup(currentAddress, true);
+    if (currentAddress && currentSessionId) runLookup(currentAddress, true, currentSessionId);
   });
 
   exportBtn.addEventListener('click', () => window.print());
@@ -616,11 +649,21 @@
     sections.forEach(s => { if (s) io.observe(s); });
   })();
 
-  // Re-run a lookup automatically if the page was opened via a shared link.
+  // Landing back here from Stripe (or a previously bookmarked/shared report
+  // link) carries session_id -- that's the only case we auto-run a lookup,
+  // since it's the only case we actually have proof of payment. A bare
+  // ?address= with no session_id (e.g. someone hand-edited the URL) just
+  // prefills the search box instead of silently trying to bill nobody.
   (function () {
     const params = new URLSearchParams(window.location.search);
     const address = params.get('address');
-    if (address) { addressInput.value = address; runLookup(address); }
+    const sessionId = params.get('session_id');
+    if (address) addressInput.value = address;
+    if (address && sessionId) {
+      runLookup(address, false, sessionId);
+    } else if (params.get('checkout') === 'cancelled') {
+      showError('Checkout was cancelled — no charge was made. Click "Generate report" whenever you\'re ready.');
+    }
   })();
 </script>
 </body>

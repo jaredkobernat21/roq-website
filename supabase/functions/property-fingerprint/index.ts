@@ -702,10 +702,12 @@ Deno.serve(async (req: Request) => {
 
   let address: string | undefined;
   let forceRefresh = false;
+  let sessionId: string | undefined;
   try {
     const body = await req.json();
     address = typeof body?.address === "string" ? body.address.trim() : undefined;
     forceRefresh = body?.refresh === true;
+    sessionId = typeof body?.sessionId === "string" ? body.sessionId.trim() : undefined;
   } catch {
     return jsonResponse({ error: "Invalid request body" }, 400);
   }
@@ -713,12 +715,66 @@ Deno.serve(async (req: Request) => {
   if (!address || address.length < 8 || !/\d/.test(address)) {
     return jsonResponse({ error: "Please enter a full street address, city, state, and ZIP." }, 400);
   }
+  if (!sessionId) {
+    return jsonResponse({ error: "Payment required." }, 402);
+  }
 
   const restHeaders = {
     "Content-Type": "application/json",
     apikey: serviceRoleKey,
     Authorization: `Bearer ${serviceRoleKey}`,
   };
+
+  // Payment gate. Every request -- including a cache hit -- needs a session
+  // that genuinely paid for *this* address. A cached report is a cost
+  // optimization for us, not a free-access loophole for whoever guesses an
+  // address someone else already paid to look up.
+  //
+  // Fast path: this exact session has already been recorded (a repeat visit
+  // via a saved/bookmarked link, or the "Refresh data" button). Slow path:
+  // first time seeing this session_id, so verify it against Stripe directly
+  // and record it if it checks out.
+  const purchaseRes = await fetch(
+    `${supabaseUrl}/rest/v1/property_fingerprint_purchases?stripe_session_id=eq.${encodeURIComponent(sessionId)}&limit=1`,
+    { headers: restHeaders },
+  );
+  const existingPurchase = purchaseRes.ok ? (await safeJson(purchaseRes))?.[0] : null;
+
+  if (existingPurchase) {
+    if (existingPurchase.address_input.toLowerCase() !== address.toLowerCase()) {
+      return jsonResponse({ error: "This payment does not match the requested address." }, 402);
+    }
+  } else {
+    const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
+    if (!stripeKey) {
+      return jsonResponse({ error: "Server is not configured for this request." }, 500);
+    }
+    const stripeRes = await fetch(`https://api.stripe.com/v1/checkout/sessions/${encodeURIComponent(sessionId)}`, {
+      headers: { Authorization: `Bearer ${stripeKey}` },
+    });
+    if (!stripeRes.ok) {
+      return jsonResponse({ error: "We couldn't verify that payment. Please pay again to view this report." }, 402);
+    }
+    const session = await safeJson(stripeRes);
+    const paidAddress = typeof session?.metadata?.address === "string" ? session.metadata.address : "";
+    if (session?.payment_status !== "paid" || paidAddress.toLowerCase() !== address.toLowerCase()) {
+      return jsonResponse({ error: "Payment for this report has not completed yet." }, 402);
+    }
+    // The webhook may have already recorded this exact session between the
+    // customer paying and their browser finishing the redirect back here --
+    // ignore-on-conflict so neither path errors when the other already won.
+    await fetch(`${supabaseUrl}/rest/v1/property_fingerprint_purchases?on_conflict=stripe_session_id`, {
+      method: "POST",
+      headers: { ...restHeaders, Prefer: "resolution=ignore-duplicates,return=minimal" },
+      body: JSON.stringify({
+        address_input: address,
+        email: session.customer_details?.email ?? null,
+        stripe_session_id: sessionId,
+        stripe_payment_intent_id: session.payment_intent ?? null,
+        amount_cents: session.amount_total ?? null,
+      }),
+    });
+  }
 
   // Cache check -- exact (case-insensitive) match on the raw input string.
   // Good enough for now; a fuzzier normalized-address match can follow once
