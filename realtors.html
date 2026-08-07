@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROQ for Realtors — Market &amp; Property Intelligence</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="ROQ gives realtors the market intelligence and property insights to list with confidence, advise with authority, and win more business." />
+<link rel="canonical" href="https://roqhome.com/realtors.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="ROQ for Realtors — Market &amp; Property Intelligence" />
+<meta property="og:description" content="ROQ gives realtors the market intelligence and property insights to list with confidence, advise with authority, and win more business." />
+<meta property="og:url" content="https://roqhome.com/realtors.html" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ROQ for Realtors — Market &amp; Property Intelligence" />
+<meta name="twitter:description" content="ROQ gives realtors the market intelligence and property insights to list with confidence, advise with authority, and win more business." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --gold: #C8A882;
+    --border: rgba(255,255,255,0.10);
+    --border-soft: rgba(255,255,255,0.06);
+    --panel-bg: #F7F6F2;
+    --panel-ink: #14130F;
+    --panel-ink-dim: #5C594F;
+    --panel-ink-faint: #948F82;
+    --panel-border: rgba(20,19,15,0.10);
+    --panel-card: #FFFFFF;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: #14110B; }
+  img, svg { display: block; max-width: 100%; }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px clamp(20px, 5vw, 64px);
+    gap: 24px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Lora', serif;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+  }
+
+  .brand .logo-mark { width: 22px; height: 22px; }
+  .brand .logo-mark path {
+    stroke: var(--ink);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .primary-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 3vw, 40px);
+  }
+
+  .primary-nav a {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    padding-bottom: 6px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .primary-nav a:hover { color: var(--ink); }
+  .primary-nav a.active { color: var(--ink); border-bottom-color: var(--gold); }
+
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 26px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: transform 0.2s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .btn:hover { transform: translateY(-1px); }
+
+  .btn-solid-light { background: var(--ink); color: #14130F; }
+  .btn-solid-light:hover { background: #EDECE7; }
+
+  .btn-outline-dark { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn-outline-dark:hover { border-color: rgba(255,255,255,0.3); }
+
+  .btn-gold { background: var(--gold); color: #201A10; }
+  .btn-gold:hover { background: #D4B896; }
+
+  .btn-outline-panel { background: transparent; color: var(--panel-ink); border-color: rgba(20,19,15,0.18); }
+  .btn-outline-panel:hover { border-color: rgba(20,19,15,0.35); }
+
+  .btn-icon-circle {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1px solid currentColor;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .btn-icon-circle svg { width: 9px; height: 9px; }
+
+  .header-actions .btn-outline-dark { display: inline-flex; }
+
+  .nav-trigger {
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-trigger span { position: relative; width: 16px; height: 10px; display: block; }
+  .nav-trigger span::before, .nav-trigger span::after, .nav-trigger span i {
+    content: ''; position: absolute; left: 0; width: 100%; height: 1px; background: var(--ink-dim);
+  }
+  .nav-trigger span::before { top: 0; }
+  .nav-trigger span i { top: 50%; margin-top: -0.5px; display: block; }
+  .nav-trigger span::after { bottom: 0; }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    padding: clamp(24px, 5vw, 48px) clamp(20px, 5vw, 64px) clamp(64px, 8vw, 96px);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: clamp(32px, 6vw, 64px);
+    align-items: center;
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  .hero-copy h1 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(34px, 4.6vw, 56px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 16px 0 22px;
+  }
+
+  .hero-copy h1 .accent { color: var(--gold); font-style: italic; }
+
+  .hero-copy p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin-bottom: 34px;
+  }
+
+  .hero-ctas { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+
+  /* ---- Hero report-card illustration ---- */
+
+  .report-card {
+    background: var(--panel-bg);
+    color: var(--panel-ink);
+    border-radius: 20px;
+    padding: 26px 26px 22px;
+    box-shadow: 0 40px 80px -30px rgba(0,0,0,0.55);
+    position: relative;
+  }
+
+  .report-card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 18px;
+    margin-bottom: 18px;
+    border-bottom: 1px solid var(--panel-border);
+  }
+
+  .report-card-head .rc-loc { font-size: 17px; font-weight: 600; }
+  .report-card-head .rc-sub { font-size: 12px; color: var(--panel-ink-faint); margin-top: 4px; }
+  .report-card-head .rc-updated { font-size: 10px; color: var(--panel-ink-faint); text-align: right; }
+
+  .report-grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .rc-panel {
+    background: var(--panel-card);
+    border: 1px solid var(--panel-border);
+    border-radius: 12px;
+    padding: 14px 16px;
+  }
+
+  .rc-label { font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--panel-ink-faint); }
+  .rc-score { font-family: 'Lora', serif; font-size: 34px; font-weight: 600; margin-top: 6px; line-height: 1; }
+  .rc-score span { font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--panel-ink-faint); }
+  .rc-score-tag { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 600; color: #4E8B5A; }
+
+  .rc-chart-label { display: flex; align-items: center; justify-content: space-between; }
+  .rc-chart-badge { font-size: 10px; font-weight: 700; background: var(--panel-bg); border: 1px solid var(--panel-border); border-radius: 6px; padding: 3px 7px; }
+
+  .rc-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .rc-stat { background: var(--panel-card); border: 1px solid var(--panel-border); border-radius: 10px; padding: 10px 10px; }
+  .rc-stat-label { font-size: 9px; color: var(--panel-ink-faint); line-height: 1.3; }
+  .rc-stat-val { font-size: 15px; font-weight: 700; margin-top: 4px; }
+
+  .rc-opps { background: var(--panel-card); border: 1px solid var(--panel-border); border-radius: 12px; padding: 14px 16px; }
+  .rc-opps-title { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .rc-opps-row { display: flex; align-items: center; justify-content: space-between; padding: 6px 0; font-size: 12px; border-top: 1px solid var(--panel-border); }
+  .rc-opps-row:first-of-type { border-top: none; }
+  .rc-opps-rank { color: var(--panel-ink-faint); width: 18px; }
+  .rc-opps-name { flex: 1; }
+  .rc-opps-score { font-weight: 700; }
+
+  .report-card-note { font-size: 10px; color: var(--panel-ink-faint); text-align: center; margin-top: 4px; }
+
+  /* ---------- Feature section (light) ---------- */
+
+  .panel-section {
+    background: var(--panel-bg);
+    color: var(--panel-ink);
+    padding: clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px);
+  }
+
+  .section-heading { text-align: center; max-width: 720px; margin: 0 auto 48px; }
+  .section-heading .eyebrow { display: block; margin-bottom: 14px; }
+  .section-heading h2 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3.4vw, 38px);
+    line-height: 1.25;
+    color: var(--panel-ink);
+  }
+
+  .feature-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: var(--panel-card);
+    border: 1px solid var(--panel-border);
+    border-radius: 16px;
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .feature-icon {
+    width: 34px; height: 34px;
+    border-radius: 9px;
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .feature-icon svg { width: 16px; height: 16px; stroke: var(--panel-ink); fill: none; stroke-width: 1.6; }
+
+  .feature-card h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.02em; margin-bottom: 8px; }
+  .feature-card p { font-size: 13px; line-height: 1.6; color: var(--panel-ink-dim); margin-bottom: 18px; }
+
+  .feature-visual { margin-top: auto; }
+  .fv-box {
+    background: var(--panel-bg);
+    border: 1px solid var(--panel-border);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 11px;
+  }
+
+  /* mini market card */
+  .fv-mini-score { font-family: 'Lora', serif; font-size: 20px; font-weight: 600; color: #4E8B5A; }
+  .fv-mini-score span { font-family: 'Inter', sans-serif; font-size: 10px; color: var(--panel-ink-faint); font-weight: 500; }
+  .fv-sparkline { margin-top: 8px; }
+
+  /* mini property card */
+  .fv-photo { height: 74px; border-radius: 6px; background: linear-gradient(135deg, #DCD4C2, #B9AC8E); margin-bottom: 8px; }
+  .fv-addr { font-weight: 700; font-size: 12px; }
+  .fv-addr-sub { color: var(--panel-ink-faint); font-size: 10px; margin-bottom: 8px; }
+  .fv-specs { display: flex; gap: 14px; font-size: 10px; color: var(--panel-ink-dim); }
+  .fv-specs b { display: block; font-size: 12px; color: var(--panel-ink); }
+  .fv-link { display: block; margin-top: 10px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--panel-ink); }
+
+  /* mini map */
+  .fv-map {
+    height: 118px;
+    border-radius: 6px;
+    background-image: linear-gradient(rgba(20,19,15,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(20,19,15,0.06) 1px, transparent 1px);
+    background-size: 16px 16px;
+    background-color: #EEEAE0;
+    position: relative;
+    overflow: hidden;
+  }
+  .fv-map-tag {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--panel-card); border: 1px solid var(--panel-border);
+    border-radius: 6px; padding: 4px 8px; font-size: 9px; font-weight: 700;
+    display: flex; align-items: center; gap: 5px;
+  }
+  .fv-map-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #4E8B5A; }
+  .fv-map-pin { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: var(--gold); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.25); }
+
+  /* mini checklist */
+  .fv-checklist-title { font-weight: 700; font-size: 11px; margin-bottom: 8px; }
+  .fv-check-row { display: flex; align-items: center; gap: 8px; font-size: 11px; padding: 4px 0; color: var(--panel-ink-dim); }
+  .fv-check-row svg { width: 12px; height: 12px; stroke: #4E8B5A; stroke-width: 2.4; fill: none; flex-shrink: 0; }
+  .fv-checklist-btn {
+    margin-top: 10px; width: 100%; text-align: center; padding: 9px;
+    border-radius: 7px; background: var(--panel-ink); color: var(--panel-bg);
+    font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  }
+
+  /* ---------- Pricing (dark) ---------- */
+
+  .pricing-section {
+    background: var(--bg-deep);
+    padding: clamp(64px, 8vw, 100px) clamp(20px, 5vw, 64px);
+  }
+
+  .pricing-wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: clamp(32px, 6vw, 72px);
+    align-items: center;
+  }
+
+  .pricing-copy .eyebrow { display: block; margin-bottom: 14px; }
+  .pricing-copy h2 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3.2vw, 36px);
+    line-height: 1.25;
+    margin-bottom: 16px;
+  }
+  .pricing-copy p { color: var(--ink-dim); font-size: 14px; line-height: 1.7; max-width: 42ch; margin-bottom: 18px; }
+
+  .cancel-note { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--ink-faint); }
+  .cancel-note svg { width: 14px; height: 14px; stroke: var(--ink-faint); fill: none; stroke-width: 1.6; }
+
+  .price-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+
+  .price-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 22px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .price-card.featured { background: rgba(200,168,130,0.07); border-color: rgba(200,168,130,0.4); }
+
+  .popular-badge {
+    position: absolute; top: -13px; right: 22px;
+    background: var(--gold); color: #201A10;
+    font-size: 9px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+  }
+
+  .price-card .eyebrow { margin-bottom: 12px; }
+  .price-amount { display: flex; align-items: baseline; gap: 6px; margin-bottom: 20px; }
+  .price-amount .num { font-family: 'Lora', serif; font-size: 38px; font-weight: 600; }
+  .price-amount .per { font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); }
+
+  .price-features { list-style: none; margin-bottom: 24px; flex: 1; }
+  .price-features li {
+    display: flex; align-items: flex-start; gap: 9px;
+    font-size: 12.5px; color: var(--ink-dim); line-height: 1.5;
+    padding: 6px 0;
+  }
+  .price-features li svg { width: 13px; height: 13px; margin-top: 2px; stroke: var(--gold); stroke-width: 2.4; fill: none; flex-shrink: 0; }
+
+  .price-card .btn { width: 100%; }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 36px clamp(20px, 5vw, 64px) 44px;
+    border-top: 1px solid var(--border-soft);
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 12px; }
+  .footer-left .logo-mark { width: 18px; height: 18px; }
+  .footer-left .logo-mark path { stroke: var(--ink-faint); stroke-width: 8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: var(--ink-dim); letter-spacing: 0.02em; }
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ---------- Reveal ---------- */
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; }
+    .feature-grid { grid-template-columns: 1fr 1fr; }
+    .pricing-wrap { grid-template-columns: 1fr; }
+    .price-cards { max-width: 520px; }
+  }
+
+  @media (max-width: 760px) {
+    .primary-nav { display: none; position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; align-items: flex-start; gap: 4px; background: var(--bg); border-bottom: 1px solid var(--border); padding: 12px clamp(20px, 5vw, 64px) 20px; }
+    .primary-nav.open { display: flex; }
+    .primary-nav a { padding: 10px 0; width: 100%; }
+    .nav-trigger { display: inline-flex; }
+    .header-actions .btn-outline-dark span.btn-label { display: none; }
+    .feature-grid { grid-template-columns: 1fr; }
+    .price-cards { grid-template-columns: 1fr; }
+    .rc-stats { grid-template-columns: repeat(2, 1fr); }
+    .report-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a class="brand" href="index.html" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      ROQ
+    </a>
+
+    <nav class="primary-nav" id="navMenu">
+      <a href="index.html">Homeowners</a>
+      <a href="realtors.html" class="active">Realtors</a>
+      <a href="#" aria-disabled="true">Investors</a>
+      <a href="about.html">About</a>
+    </nav>
+
+    <div class="header-actions">
+      <a class="btn btn-outline-dark" href="mailto:support@roqhome.com?subject=Book%20a%20Demo%20%E2%80%94%20ROQ%20for%20Realtors">
+        <span class="btn-label">Book a Demo</span>
+      </a>
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+        <span><i></i></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-copy reveal">
+      <p class="eyebrow">For Realtors</p>
+      <h1>Intelligence that <span class="accent">elevates</span> every client conversation.</h1>
+      <p>ROQ gives you the market intelligence and property insights you need to list with confidence, advise with authority, and win more business.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-solid-light" href="#pricing">Start with ROQ →</a>
+        <a class="btn btn-outline-dark" href="mailto:support@roqhome.com?subject=Book%20a%20Demo%20%E2%80%94%20ROQ%20for%20Realtors">
+          Book a Demo
+          <span class="btn-icon-circle"><svg viewBox="0 0 12 12"><path d="M2 6h8M6 2l4 4-4 4" stroke="currentColor" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="report-card">
+        <div class="report-card-head">
+          <div>
+            <div class="rc-loc">Sample Market</div>
+            <div class="rc-sub">5-Year Market Outlook</div>
+          </div>
+          <div class="rc-updated">Sample report<br />Illustrative data</div>
+        </div>
+        <div class="report-grid">
+          <div class="rc-panel">
+            <div class="rc-label">Overall Outlook</div>
+            <div class="rc-score">78<span>/100</span></div>
+            <div class="rc-score-tag">Positive</div>
+          </div>
+          <div class="rc-panel">
+            <div class="rc-chart-label">
+              <div class="rc-label">Market Outlook Score</div>
+              <div class="rc-chart-badge">78</div>
+            </div>
+            <svg viewBox="0 0 220 70" width="100%" height="60" preserveAspectRatio="none">
+              <polyline points="4,58 40,50 76,44 112,34 148,26 184,16 216,10" fill="none" stroke="#C8A882" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+              <circle cx="216" cy="10" r="3.5" fill="#C8A882" />
+            </svg>
+          </div>
+        </div>
+        <div class="rc-stats">
+          <div class="rc-stat"><div class="rc-stat-label">Population Growth</div><div class="rc-stat-val">+11.2%</div></div>
+          <div class="rc-stat"><div class="rc-stat-label">Job Growth</div><div class="rc-stat-val">+9.3%</div></div>
+          <div class="rc-stat"><div class="rc-stat-label">Median Income</div><div class="rc-stat-val">+16.8%</div></div>
+          <div class="rc-stat"><div class="rc-stat-label">Home Price Growth</div><div class="rc-stat-val">+27.4%</div></div>
+        </div>
+        <div class="rc-opps">
+          <div class="rc-opps-title"><span class="rc-label">Top Opportunity Areas</span><span class="rc-label">Outlook</span></div>
+          <div class="rc-opps-row"><span class="rc-opps-rank">01</span><span class="rc-opps-name">Area A</span><span class="rc-opps-score">86</span></div>
+          <div class="rc-opps-row"><span class="rc-opps-rank">02</span><span class="rc-opps-name">Area B</span><span class="rc-opps-score">84</span></div>
+          <div class="rc-opps-row"><span class="rc-opps-rank">03</span><span class="rc-opps-name">Area C</span><span class="rc-opps-score">81</span></div>
+          <div class="rc-opps-row"><span class="rc-opps-rank">04</span><span class="rc-opps-name">Area D</span><span class="rc-opps-score">78</span></div>
+          <div class="rc-opps-row"><span class="rc-opps-rank">05</span><span class="rc-opps-name">Area E</span><span class="rc-opps-score">76</span></div>
+        </div>
+        <div class="report-card-note">For illustration only — figures shown are not real market data.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel-section">
+    <div class="section-heading reveal">
+      <span class="eyebrow">Built for Realtors</span>
+      <h2>Impress your clients. Win more listings. Close with confidence.</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5M6 10v10h12V10" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Market Intelligence</h3>
+        <p>Know where the market is heading so you can guide your clients with confidence.</p>
+        <div class="feature-visual">
+          <div class="fv-box">
+            <div class="rc-label">5-Year Market Outlook</div>
+            <div class="fv-mini-score">78<span>/100 Positive</span></div>
+            <svg class="fv-sparkline" viewBox="0 0 200 40" width="100%" height="34" preserveAspectRatio="none">
+              <polyline points="4,32 40,28 76,24 112,18 148,12 184,6" fill="none" stroke="#4E8B5A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round"/></svg></div>
+        <h3>Property Deep Dive</h3>
+        <p>Uncover everything about a property in seconds — from history to future potential.</p>
+        <div class="feature-visual">
+          <div class="fv-box">
+            <div class="fv-photo"></div>
+            <div class="fv-addr">1234 Oakridge Dr</div>
+            <div class="fv-addr-sub">Sample City, ST</div>
+            <div class="fv-specs">
+              <div>Built<b>1998</b></div>
+              <div>Beds<b>3</b></div>
+              <div>Baths<b>2</b></div>
+              <div>Sq Ft<b>1,842</b></div>
+            </div>
+            <span class="fv-link">View Full Report →</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3"/><path d="M12 21s7-6.5 7-11.5A7 7 0 0 0 5 9.5C5 14.5 12 21 12 21Z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Neighborhood Insights</h3>
+        <p>Understand neighborhood trends, schools, development, and what's driving value.</p>
+        <div class="feature-visual">
+          <div class="fv-map">
+            <div class="fv-map-tag">Strong Momentum</div>
+            <div class="fv-map-pin" style="top: 58%; left: 34%;"></div>
+            <div class="fv-map-pin" style="top: 40%; left: 62%;"></div>
+            <div class="fv-map-pin" style="top: 72%; left: 70%;"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature-card reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 4h11l5 5v11H4V4Z" stroke-linejoin="round"/><path d="M15 4v5h5" stroke-linejoin="round"/></svg></div>
+        <h3>List &amp; Sell with Authority</h3>
+        <p>Walk into every appointment with the data and insights that set you apart.</p>
+        <div class="feature-visual">
+          <div class="fv-box">
+            <div class="fv-checklist-title">Listing Presentation</div>
+            <div class="fv-check-row"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Market Outlook</div>
+            <div class="fv-check-row"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Property Analysis</div>
+            <div class="fv-check-row"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Neighborhood Insights</div>
+            <div class="fv-check-row"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Value Range &amp; Strategy</div>
+            <div class="fv-checklist-btn">Create Presentation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section" id="pricing">
+    <div class="pricing-wrap">
+      <div class="pricing-copy reveal">
+        <span class="eyebrow">Get Started</span>
+        <h2>Start with intelligence. Stay ahead of the market.</h2>
+        <p>Start with a Market Outlook and 3 Property Deep Dives. Then get ongoing updates, alerts, and monthly property analyses to stay ahead of every opportunity.</p>
+        <div class="cancel-note">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Cancel anytime
+        </div>
+      </div>
+
+      <div class="price-cards reveal">
+        <div class="price-card">
+          <span class="eyebrow">Start with ROQ</span>
+          <div class="price-amount"><span class="num">$299</span><span class="per">One-Time</span></div>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>1 Market Outlook (5-Year Forecast)</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>3 Property Deep Dives</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Neighborhood Rankings</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Key Opportunities &amp; Risks</li>
+          </ul>
+          <a class="btn btn-solid-light" href="mailto:support@roqhome.com?subject=Start%20with%20ROQ%20(%24299)">Get Started</a>
+        </div>
+
+        <div class="price-card featured">
+          <span class="popular-badge">Most Popular</span>
+          <span class="eyebrow">ROQ Intelligence</span>
+          <div class="price-amount"><span class="num">$99</span><span class="per">Per Month</span></div>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly Market Outlook Updates</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Development &amp; Signal Alerts</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>5 Property Deep Dives / Month</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg>Ongoing Market Monitoring</li>
+          </ul>
+          <a class="btn btn-gold" href="mailto:support@roqhome.com?subject=ROQ%20Intelligence%20Subscription%20(%2499%2Fmo)">Subscribe Now</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="legal/roq-privacy.html">Privacy</a>
+      <a href="legal/roq-terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    const navTrigger = document.getElementById('navTrigger');
+    const navMenu = document.getElementById('navMenu');
+
+    navTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      navTrigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

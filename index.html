@@ -4,6 +4,10 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ROQ Home — Experience Your Entire Home in One App</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
 <link rel="canonical" href="https://roqhome.com/" />
 
@@ -198,7 +202,8 @@
     transition: background 0.2s var(--ease), color 0.2s var(--ease);
   }
 
-  .nav-menu a:hover {
+  .nav-menu a:hover,
+  .nav-menu a.active {
     background: rgba(255,255,255,0.06);
     color: var(--ink);
   }
@@ -463,11 +468,12 @@
         <span><i></i></span>
       </button>
       <nav class="nav-menu" id="navMenu">
-        <a href="home-potential.html">Home Potential</a>
-        <a href="market-ready.html">Home Passport</a>
-        <a href="property-fingerprint.html">Home Fingerprint</a>
+        <a href="index.html" class="active">Homeowners</a>
+        <a href="realtors.html">Realtors</a>
+        <a href="#">Investors</a>
         <a href="about.html">About</a>
         <a href="legal/roq-privacy.html">Privacy</a>
+        <a href="mailto:support@roqhome.com?subject=Book%20a%20Demo">Book a Demo</a>
       </nav>
     </div>
   </header>
@@ -476,7 +482,7 @@
     <div class="close-orb-wrap" id="closeOrbWrap">
       <canvas class="close-orb" id="closeOrb" width="96" height="96"></canvas>
     </div>
-    <h1 class="close-headline" id="closeHeadline">Welcome to the future of homeownership.</h1>
+    <h1 class="close-headline" id="closeHeadline">Welcome to the future of real estate.</h1>
   </section>
 
   <section class="showcase">
