@@ -119,8 +119,22 @@ async function safeJson(res: Response): Promise<any> {
 // RentCast -- Market, plus subject-property basics for Identity/Timeline/Systems
 // ---------------------------------------------------------------------------
 
-async function fetchRentCast(address: string, apiKey: string) {
-  const params = new URLSearchParams({ address, compCount: "10" });
+async function fetchRentCast(
+  address: string,
+  apiKey: string,
+  overrides?: { bedrooms?: number; bathrooms?: number; squareFootage?: number },
+) {
+  // compCount matches Home Potential's -- same AVM endpoint, same address
+  // should not quietly return two different valuations depending on which
+  // of our tools asked. Bed/bath/sqft overrides (when the homeowner
+  // supplied them) go to RentCast too, same as Home Potential: public
+  // records can be missing or stale, and this is what actually drives
+  // RentCast's own comp-matching.
+  const params = new URLSearchParams({ address, compCount: "25" });
+  if (overrides?.bedrooms != null) params.set("bedrooms", String(overrides.bedrooms));
+  if (overrides?.bathrooms != null) params.set("bathrooms", String(overrides.bathrooms));
+  if (overrides?.squareFootage != null) params.set("squareFootage", String(overrides.squareFootage));
+
   const [avmRes, rentRes] = await Promise.allSettled([
     fetch(`${RENTCAST_BASE_URL}/avm/value?${params.toString()}`, {
       headers: { "X-Api-Key": apiKey, Accept: "application/json" },
@@ -132,6 +146,16 @@ async function fetchRentCast(address: string, apiKey: string) {
 
   const avm = avmRes.status === "fulfilled" && avmRes.value.ok ? await safeJson(avmRes.value) : null;
   const rent = rentRes.status === "fulfilled" && rentRes.value.ok ? await safeJson(rentRes.value) : null;
+
+  // Same reasoning as the query params above: trust the homeowner's numbers
+  // over whatever RentCast echoes back in subjectProperty, since that's what
+  // the rest of this report reads for Systems/Identity.
+  if (avm?.subjectProperty) {
+    if (overrides?.bedrooms != null) avm.subjectProperty.bedrooms = overrides.bedrooms;
+    if (overrides?.bathrooms != null) avm.subjectProperty.bathrooms = overrides.bathrooms;
+    if (overrides?.squareFootage != null) avm.subjectProperty.squareFootage = overrides.squareFootage;
+  }
+
   return { avm, rent };
 }
 
@@ -365,7 +389,15 @@ async function generateInsights(report: Record<string, unknown>, apiKey: string)
 // Report assembly
 // ---------------------------------------------------------------------------
 
-function assembleReport(address: string, rentcast: any, attom: any, shovels: any, flood: any, soldComps: any[]) {
+function assembleReport(
+  address: string,
+  rentcast: any,
+  attom: any,
+  shovels: any,
+  flood: any,
+  soldComps: any[],
+  overrides?: { bedrooms?: number; bathrooms?: number; squareFootage?: number },
+) {
   const avmSubject = rentcast.avm?.subjectProperty ?? {};
   const attomProp = attom.detail?.property?.[0] ?? null;
   const attomSchools: any[] = attom.schools?.property?.[0]?.school ?? [];
@@ -523,17 +555,27 @@ function assembleReport(address: string, rentcast: any, attom: any, shovels: any
       }
     : unavailable("No school or community data returned for this location");
 
+  // A homeowner-supplied override outranks both ATTOM and RentCast here --
+  // same reasoning as fetchRentCast merging it into subjectProperty: public
+  // records can be missing or stale, and this is what the homeowner told us
+  // is actually true about their own house.
   const systems = attomProp?.building
     ? {
         available: true,
-        livingAreaSqft: attomProp.building.size?.universalSize ?? null,
-        bedrooms: attomProp.building.rooms?.beds ?? null,
-        bathrooms: attomProp.building.rooms?.bathsTotal ?? null,
+        livingAreaSqft: overrides?.squareFootage ?? attomProp.building.size?.universalSize ?? null,
+        bedrooms: overrides?.bedrooms ?? attomProp.building.rooms?.beds ?? null,
+        bathrooms: overrides?.bathrooms ?? attomProp.building.rooms?.bathsTotal ?? null,
         stories: attomProp.building.summary?.levels ?? null,
         construction: attomProp.building.construction?.wallType ?? null,
         yearBuilt: attomProp.summary?.yearBuilt ?? attomProp.summary?.yearbuilt ?? avmSubject.yearBuilt ?? null,
       }
-    : { available: !!avmSubject.squareFootage, livingAreaSqft: avmSubject.squareFootage ?? null, bedrooms: avmSubject.bedrooms ?? null, bathrooms: avmSubject.bathrooms ?? null, yearBuilt: avmSubject.yearBuilt ?? null };
+    : {
+        available: !!(overrides?.squareFootage ?? avmSubject.squareFootage),
+        livingAreaSqft: overrides?.squareFootage ?? avmSubject.squareFootage ?? null,
+        bedrooms: overrides?.bedrooms ?? avmSubject.bedrooms ?? null,
+        bathrooms: overrides?.bathrooms ?? avmSubject.bathrooms ?? null,
+        yearBuilt: avmSubject.yearBuilt ?? null,
+      };
 
   const permitRecords = (shovels.permits?.items ?? []).map((p: any) => ({
     type: p.description_derived ?? p.type ?? "Permit",
@@ -702,6 +744,11 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ error: "Server is not configured for this request." }, 500);
   }
 
+  const numberInRange = (value: unknown, min: number, max: number): number | undefined => {
+    const n = typeof value === "number" ? value : NaN;
+    return Number.isFinite(n) && n >= min && n <= max ? n : undefined;
+  };
+
   let address: string | undefined;
   let forceRefresh = false;
   let sessionId: string | undefined;
@@ -742,10 +789,17 @@ Deno.serve(async (req: Request) => {
   );
   const existingPurchase = purchaseRes.ok ? (await safeJson(purchaseRes))?.[0] : null;
 
+  let overrides: { bedrooms?: number; bathrooms?: number; squareFootage?: number } | undefined;
+
   if (existingPurchase) {
     if (existingPurchase.address_input.toLowerCase() !== address.toLowerCase()) {
       return jsonResponse({ error: "This payment does not match the requested address." }, 402);
     }
+    overrides = {
+      bedrooms: numberInRange(existingPurchase.override_bedrooms, 0, 20),
+      bathrooms: numberInRange(existingPurchase.override_bathrooms, 0, 20),
+      squareFootage: numberInRange(existingPurchase.override_square_footage, 100, 50000),
+    };
   } else {
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) {
@@ -766,6 +820,11 @@ Deno.serve(async (req: Request) => {
     if (!paymentOk || paidAddress.toLowerCase() !== address.toLowerCase()) {
       return jsonResponse({ error: "Payment for this report has not completed yet." }, 402);
     }
+    overrides = {
+      bedrooms: numberInRange(Number(session?.metadata?.bedrooms), 0, 20),
+      bathrooms: numberInRange(Number(session?.metadata?.bathrooms), 0, 20),
+      squareFootage: numberInRange(Number(session?.metadata?.squareFootage), 100, 50000),
+    };
     // The webhook may have already recorded this exact session between the
     // customer paying and their browser finishing the redirect back here --
     // ignore-on-conflict so neither path errors when the other already won.
@@ -778,14 +837,22 @@ Deno.serve(async (req: Request) => {
         stripe_session_id: sessionId,
         stripe_payment_intent_id: session.payment_intent ?? null,
         amount_cents: session.amount_total ?? null,
+        override_bedrooms: overrides.bedrooms ?? null,
+        override_bathrooms: overrides.bathrooms ?? null,
+        override_square_footage: overrides.squareFootage ?? null,
       }),
     });
   }
 
+  const hasOverrides = overrides != null && (overrides.bedrooms != null || overrides.bathrooms != null || overrides.squareFootage != null);
+
   // Cache check -- exact (case-insensitive) match on the raw input string.
   // Good enough for now; a fuzzier normalized-address match can follow once
-  // there's real repeat-lookup traffic to justify it.
-  if (!forceRefresh) {
+  // there's real repeat-lookup traffic to justify it. Skipped entirely when
+  // overrides are in play: the cache is address-keyed only, so serving from
+  // it (or writing to it) would leak one buyer's corrected bed/bath/sqft
+  // numbers into another buyer's report for the same address, or vice versa.
+  if (!forceRefresh && !hasOverrides) {
     const cacheRes = await fetch(
       `${supabaseUrl}/rest/v1/property_fingerprint_reports?address_input=ilike.${encodeURIComponent(address)}&order=created_at.desc&limit=1`,
       { headers: restHeaders },
@@ -807,7 +874,7 @@ Deno.serve(async (req: Request) => {
   }
 
   const [rentcastResult, attomResult, shovelsResult] = await Promise.allSettled([
-    rentcastKey ? fetchRentCast(address, rentcastKey) : Promise.resolve({ avm: null, rent: null }),
+    rentcastKey ? fetchRentCast(address, rentcastKey, overrides) : Promise.resolve({ avm: null, rent: null }),
     attomKey ? fetchAttom(address, attomKey) : Promise.resolve({ detail: null, permits: null, community: null }),
     shovelsKey ? fetchShovels(address, shovelsKey) : Promise.resolve({ permits: null, decisions: null }),
   ]);
@@ -828,7 +895,7 @@ Deno.serve(async (req: Request) => {
   const flood = floodResult.status === "fulfilled" ? floodResult.value : null;
   const soldComps = soldCompsResult.status === "fulfilled" ? soldCompsResult.value : [];
 
-  const report = assembleReport(address, rentcast, attom, shovels, flood, soldComps);
+  const report = assembleReport(address, rentcast, attom, shovels, flood, soldComps, overrides);
 
   if (anthropicKey) {
     const insights = await generateInsights(report, anthropicKey);
@@ -836,7 +903,11 @@ Deno.serve(async (req: Request) => {
   }
 
   // Cache the result. Best-effort -- a failed write shouldn't fail the
-  // response, since the report was already successfully assembled.
+  // response, since the report was already successfully assembled. Skipped
+  // for override-adjusted reports -- see the cache-read comment above.
+  if (hasOverrides) {
+    return jsonResponse({ report });
+  }
   try {
     await fetch(`${supabaseUrl}/rest/v1/property_fingerprint_reports`, {
       method: "POST",

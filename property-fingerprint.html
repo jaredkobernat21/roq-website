@@ -134,6 +134,19 @@
   }
   #landingShell .field-row input::placeholder{ color:var(--ink-faint); }
   #landingShell .field-row input:focus{ border-color:rgba(200,168,130,.5); background:rgba(255,255,255,.06); }
+  #landingShell .optional-tag{ text-transform:uppercase; letter-spacing:.06em; font-size:10px; color:var(--ink-faint); opacity:.7; }
+  #landingShell .details-toggle{
+    align-self:flex-start; background:none; border:none; padding:0; margin-top:-2px;
+    color:var(--ink-dim); font-family:'Inter',sans-serif; font-size:12.5px; cursor:pointer;
+    display:flex; align-items:center; gap:6px; transition:color .2s var(--ease);
+  }
+  #landingShell .details-toggle:hover{ color:var(--ink); }
+  #landingShell .details-toggle[hidden]{ display:none; }
+  #landingShell .details-fields{
+    display:flex; flex-direction:column; gap:14px; overflow:hidden;
+    max-height:0; opacity:0; transition:max-height .35s var(--ease), opacity .25s var(--ease), margin-top .35s var(--ease);
+  }
+  #landingShell .details-fields.open{ max-height:400px; opacity:1; margin-top:2px; }
   #landingShell .address-submit{
     margin-top:4px; width:100%; background:var(--ink); color:#14110B; border:none; border-radius:14px; padding:17px 26px;
     font-family:'Inter',sans-serif; font-size:12px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; cursor:pointer;
@@ -385,6 +398,24 @@
             required
           />
         </div>
+        <button type="button" class="details-toggle" id="detailsToggle" hidden>
+          <span id="detailsToggleIcon">+</span> Add property details <span class="optional-tag">Optional</span>
+        </button>
+        <div class="details-fields" id="detailsFields">
+          <div class="field-row">
+            <label for="refineBeds">Bedrooms <span class="optional-tag">Optional</span></label>
+            <input type="number" id="refineBeds" min="0" max="20" step="1" placeholder="3" />
+          </div>
+          <div class="field-row">
+            <label for="refineBaths">Bathrooms <span class="optional-tag">Optional</span></label>
+            <input type="number" id="refineBaths" min="0" max="20" step="0.5" placeholder="2.5" />
+          </div>
+          <div class="field-row">
+            <label for="refineSqft">Square footage <span class="optional-tag">Optional</span></label>
+            <input type="number" id="refineSqft" min="100" max="50000" step="1" placeholder="1800" />
+          </div>
+          <p class="form-hint" style="margin-top:-4px;">Helps most when public records are incomplete or out of date for this address.</p>
+        </div>
         <button type="submit" class="address-submit" id="addressSubmit">Get Fingerprint &mdash; $10</button>
       </form>
       <p class="form-hint">Secure checkout via Stripe &mdash; your report unlocks immediately after payment.</p>
@@ -535,6 +566,12 @@
   const addressForm = document.getElementById('addressForm');
   const addressInput = document.getElementById('addressInput');
   const addressSubmit = document.getElementById('addressSubmit');
+  const detailsToggle = document.getElementById('detailsToggle');
+  const detailsToggleIcon = document.getElementById('detailsToggleIcon');
+  const detailsFields = document.getElementById('detailsFields');
+  const refineBeds = document.getElementById('refineBeds');
+  const refineBaths = document.getElementById('refineBaths');
+  const refineSqft = document.getElementById('refineSqft');
   const formError = document.getElementById('formError');
   const loadingRow = document.getElementById('loadingRow');
   const loadingText = document.getElementById('loadingText');
@@ -806,7 +843,7 @@
     }
   }
 
-  async function startCheckout(address) {
+  async function startCheckout(address, refinements) {
     clearFormError();
     addressSubmit.disabled = true;
     loadingText.textContent = 'Redirecting to secure checkout…';
@@ -815,7 +852,7 @@
       const res = await fetch(`${SUPABASE_URL}/functions/v1/property-fingerprint-checkout`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_ANON_KEY, 'Authorization': `Bearer ${SUPABASE_ANON_KEY}` },
-        body: JSON.stringify({ address, origin: window.location.origin }),
+        body: JSON.stringify({ address, origin: window.location.origin, ...refinements }),
       });
       const data = await res.json();
       if (!res.ok || !data.url) { showFormError(data.error || 'Could not start checkout. Please try again.'); return; }
@@ -828,11 +865,26 @@
     }
   }
 
+  // Reveal the optional bed/bath/sqft refinements once there's an address
+  // to attach them to, rather than cluttering the form from the start.
+  addressInput.addEventListener('input', () => {
+    detailsToggle.hidden = addressInput.value.trim().length === 0;
+  });
+
+  detailsToggle.addEventListener('click', () => {
+    const open = detailsFields.classList.toggle('open');
+    detailsToggleIcon.textContent = open ? '−' : '+';
+  });
+
   addressForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const address = addressInput.value.trim();
     if (address.length < 8 || !/\d/.test(address)) { showFormError('Please enter a full street address, city, state, and ZIP.'); return; }
-    startCheckout(address);
+    const refinements = {};
+    if (refineBeds.value !== '') refinements.bedrooms = Number(refineBeds.value);
+    if (refineBaths.value !== '') refinements.bathrooms = Number(refineBaths.value);
+    if (refineSqft.value !== '') refinements.squareFootage = Number(refineSqft.value);
+    startCheckout(address, refinements);
   });
 
   refreshBtn.addEventListener('click', () => {

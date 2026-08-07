@@ -23,6 +23,11 @@ function jsonResponse(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), { status, headers: { "Content-Type": "application/json" } });
 }
 
+function numberInRange(value: unknown, min: number, max: number): number | null {
+  const n = typeof value === "number" ? value : NaN;
+  return Number.isFinite(n) && n >= min && n <= max ? n : null;
+}
+
 // Manual Stripe webhook signature verification (HMAC-SHA256 over
 // "{timestamp}.{rawBody}"), using Deno's Web Crypto rather than pulling in
 // the Stripe SDK for one operation. Rejects stale signatures (>5 min old) to
@@ -108,6 +113,9 @@ Deno.serve(async (req: Request) => {
           stripe_session_id: session.id,
           stripe_payment_intent_id: session.payment_intent ?? null,
           amount_cents: session.amount_total ?? null,
+          override_bedrooms: numberInRange(Number(session?.metadata?.bedrooms), 0, 20),
+          override_bathrooms: numberInRange(Number(session?.metadata?.bathrooms), 0, 20),
+          override_square_footage: numberInRange(Number(session?.metadata?.squareFootage), 100, 50000),
         }),
       });
     }

@@ -37,12 +37,23 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ error: "Server is not configured for this request." }, 500);
   }
 
+  const numberInRange = (value: unknown, min: number, max: number): number | undefined => {
+    const n = typeof value === "number" ? value : NaN;
+    return Number.isFinite(n) && n >= min && n <= max ? n : undefined;
+  };
+
   let address: string | undefined;
   let origin: string | undefined;
+  let bedrooms: number | undefined;
+  let bathrooms: number | undefined;
+  let squareFootage: number | undefined;
   try {
     const body = await req.json();
     address = typeof body?.address === "string" ? body.address.trim() : undefined;
     origin = typeof body?.origin === "string" ? body.origin.replace(/\/$/, "") : undefined;
+    bedrooms = numberInRange(body?.bedrooms, 0, 20);
+    bathrooms = numberInRange(body?.bathrooms, 0, 20);
+    squareFootage = numberInRange(body?.squareFootage, 100, 50000);
   } catch {
     return jsonResponse({ error: "Invalid request body" }, 400);
   }
@@ -67,6 +78,9 @@ Deno.serve(async (req: Request) => {
   params.set("line_items[0][price_data][product_data][name]", "Property Fingerprint Report");
   params.set("line_items[0][price_data][product_data][description]", address);
   params.set("metadata[address]", address);
+  if (bedrooms != null) params.set("metadata[bedrooms]", String(bedrooms));
+  if (bathrooms != null) params.set("metadata[bathrooms]", String(bathrooms));
+  if (squareFootage != null) params.set("metadata[squareFootage]", String(squareFootage));
   params.set("customer_creation", "if_required");
   params.set("allow_promotion_codes", "true");
 
