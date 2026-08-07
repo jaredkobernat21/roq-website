@@ -759,7 +759,11 @@ Deno.serve(async (req: Request) => {
     }
     const session = await safeJson(stripeRes);
     const paidAddress = typeof session?.metadata?.address === "string" ? session.metadata.address : "";
-    if (session?.payment_status !== "paid" || paidAddress.toLowerCase() !== address.toLowerCase()) {
+    // "no_payment_required" is what Stripe returns for a session that was
+    // fully covered by a 100%-off promotion code -- still a completed
+    // checkout, just $0 due. Treat it the same as "paid".
+    const paymentOk = session?.payment_status === "paid" || session?.payment_status === "no_payment_required";
+    if (!paymentOk || paidAddress.toLowerCase() !== address.toLowerCase()) {
       return jsonResponse({ error: "Payment for this report has not completed yet." }, 402);
     }
     // The webhook may have already recorded this exact session between the

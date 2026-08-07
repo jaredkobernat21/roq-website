@@ -68,6 +68,7 @@ Deno.serve(async (req: Request) => {
   params.set("line_items[0][price_data][product_data][description]", address);
   params.set("metadata[address]", address);
   params.set("customer_creation", "if_required");
+  params.set("allow_promotion_codes", "true");
 
   let res: Response;
   try {

@@ -90,7 +90,10 @@ Deno.serve(async (req: Request) => {
   if (event.type === "checkout.session.completed") {
     const session = event.data?.object;
     const address = typeof session?.metadata?.address === "string" ? session.metadata.address : null;
-    if (address && session.payment_status === "paid") {
+    // "no_payment_required" covers a session fully covered by a 100%-off
+    // promotion code -- still a completed checkout, just $0 due.
+    const paymentOk = session.payment_status === "paid" || session.payment_status === "no_payment_required";
+    if (address && paymentOk) {
       await fetch(`${supabaseUrl}/rest/v1/property_fingerprint_purchases?on_conflict=stripe_session_id`, {
         method: "POST",
         headers: {
