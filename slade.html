@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Slade — Local Market Intelligence | ROQ</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Slade is local market intelligence for real estate investors — permits, development pipeline, infrastructure, zoning, demand, schools, risk, and signals in one place." />
+<link rel="canonical" href="https://roqhome.com/slade.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="Slade — Local Market Intelligence" />
+<meta property="og:description" content="Slade is local market intelligence for real estate investors — permits, development pipeline, infrastructure, zoning, demand, schools, risk, and signals in one place." />
+<meta property="og:url" content="https://roqhome.com/slade.html" />
+<meta property="og:image" content="https://roqhome.com/Slade/Sladedesktop.PNG" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Slade — Local Market Intelligence" />
+<meta name="twitter:description" content="Slade is local market intelligence for real estate investors — permits, development pipeline, infrastructure, zoning, demand, schools, risk, and signals in one place." />
+<meta name="twitter:image" content="https://roqhome.com/Slade/Sladedesktop.PNG" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --bg-soft: #F7F6F2;
+    --ink: #14130F;
+    --ink-dim: #5C594F;
+    --ink-faint: #948F82;
+    --border: rgba(20,19,15,0.10);
+    --border-soft: rgba(20,19,15,0.07);
+    --accent: #5B3FE0;
+    --accent-dim: rgba(91,63,224,0.08);
+    --danger: #B5473A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--accent); color: #fff; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 28px clamp(24px, 5vw, 64px);
+  }
+
+  .logo-mark { width: 28px; height: 28px; display: block; }
+  .logo-mark path {
+    stroke: var(--ink);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-wrap { position: relative; }
+
+  .nav-trigger {
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s var(--ease);
+  }
+
+  .nav-trigger:hover,
+  .nav-trigger[aria-expanded="true"] { border-color: rgba(20,19,15,0.3); }
+
+  .nav-trigger span { position: relative; width: 16px; height: 10px; }
+  .nav-trigger span::before,
+  .nav-trigger span::after,
+  .nav-trigger span i {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--ink-dim);
+  }
+  .nav-trigger span::before { top: 0; }
+  .nav-trigger span i { top: 50%; margin-top: -0.5px; display: block; }
+  .nav-trigger span::after { bottom: 0; }
+
+  .nav-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    background: #fff;
+    box-shadow: 0 20px 50px rgba(20,19,15,0.14);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .nav-menu.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+
+  .nav-menu a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    border-radius: 8px;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .nav-menu a:hover,
+  .nav-menu a.active { background: var(--bg-soft); color: var(--ink); }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    min-height: 92vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px clamp(24px, 6vw, 64px) 80px;
+    background: var(--bg);
+  }
+
+  .hero-orb-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+
+  .hero-orb {
+    width: clamp(72px, 9vw, 96px);
+    height: clamp(72px, 9vw, 96px);
+    filter: drop-shadow(0 0 20px rgba(91,63,224,0.16));
+  }
+
+  .hero-wordmark {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: clamp(40px, 7vw, 72px);
+    letter-spacing: 0.16em;
+    padding-left: 0.16em;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.05s, transform 0.9s var(--ease) 0.05s;
+  }
+
+  .hero-subtitle {
+    margin-top: 14px;
+    font-size: clamp(12px, 1.4vw, 14px);
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--accent);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.15s, transform 0.9s var(--ease) 0.15s;
+  }
+
+  .hero-orb-wrap.in-view,
+  .hero-wordmark.in-view,
+  .hero-subtitle.in-view { opacity: 1; transform: translateY(0); }
+
+  /* ---------- Promo ---------- */
+
+  .promo {
+    background: var(--bg-soft);
+    padding: clamp(56px, 8vw, 96px) clamp(24px, 5vw, 64px) clamp(72px, 9vw, 110px);
+  }
+
+  .promo-media {
+    max-width: 1180px;
+    margin: 0 auto clamp(56px, 8vw, 88px);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 40px 90px -40px rgba(20,19,15,0.35);
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  }
+
+  .promo-media.in-view { opacity: 1; transform: translateY(0); }
+  .promo-media img { width: 100%; height: auto; }
+
+  .feature-list-heading {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 40px;
+  }
+
+  .feature-list-heading .eyebrow {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 12px;
+  }
+
+  .feature-list-heading h2 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(24px, 3.2vw, 34px);
+    line-height: 1.3;
+  }
+
+  .feature-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .feature-item {
+    background: #fff;
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .feature-item.in-view { opacity: 1; transform: translateY(0); }
+
+  .feature-icon {
+    width: 36px; height: 36px;
+    border-radius: 10px;
+    background: var(--accent-dim);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .feature-icon svg { width: 17px; height: 17px; stroke: var(--accent); fill: none; stroke-width: 1.6; }
+
+  .feature-item h3 { font-size: 13.5px; font-weight: 700; letter-spacing: 0.01em; }
+
+  /* ---------- CTA ---------- */
+
+  .cta-section {
+    background: var(--bg);
+    padding: clamp(72px, 10vw, 120px) clamp(24px, 6vw, 64px);
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3.4vw, 38px);
+    max-width: 22ch;
+    margin: 0 auto 16px;
+    line-height: 1.3;
+  }
+
+  .cta-section p {
+    color: var(--ink-dim);
+    font-size: 15px;
+    max-width: 44ch;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+
+  .btn-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--ink);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 17px 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .btn-preview:hover { background: var(--accent); }
+  .btn-preview:active { transform: scale(0.97); }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding: 36px clamp(24px, 5vw, 64px) 44px;
+    border-top: 1px solid var(--border-soft);
+    background: var(--bg);
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 12px; }
+  .footer-left .logo-mark { width: 18px; height: 18px; opacity: 0.6; }
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: var(--ink-dim); }
+  .footer-links a:hover { color: var(--ink); }
+
+  /* ---------- Preview Modal ---------- */
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(20,19,15,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .modal-panel {
+    background: #fff;
+    border-radius: 22px;
+    width: 100%;
+    max-width: 480px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: clamp(28px, 5vw, 40px);
+    position: relative;
+    transform: translateY(14px);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .modal-overlay.open .modal-panel { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim);
+    font-size: 15px;
+    line-height: 1;
+  }
+  .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+
+  .progress-track {
+    height: 3px;
+    border-radius: 3px;
+    background: var(--border-soft);
+    overflow: hidden;
+    margin-bottom: 28px;
+    margin-top: 6px;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--accent);
+    border-radius: 3px;
+    transition: width 0.4s var(--ease);
+    width: 16.66%;
+  }
+
+  .q-step { display: none; }
+  .q-step.active { display: block; animation: fadeUp 0.4s var(--ease); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .q-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(20px, 3vw, 24px);
+    line-height: 1.35;
+    margin-bottom: 6px;
+  }
+
+  .q-sub { font-size: 13px; color: var(--ink-faint); margin-bottom: 20px; }
+
+  .q-input {
+    width: 100%;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+  }
+  .q-input:focus { border-color: var(--accent); }
+  .q-input::placeholder { color: var(--ink-faint); }
+
+  .q-textarea {
+    width: 100%;
+    min-height: 100px;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    outline: none;
+    resize: vertical;
+  }
+  .q-textarea:focus { border-color: var(--accent); }
+  .q-textarea::placeholder { color: var(--ink-faint); }
+
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .chip {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 11px 18px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .chip:hover { border-color: rgba(91,63,224,0.4); }
+
+  .chip.active {
+    border-color: var(--accent);
+    background: var(--accent-dim);
+    color: var(--ink);
+  }
+
+  .field-row { margin-bottom: 16px; }
+  .field-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+  .field-row input { width: 100%; }
+  .field-row:last-of-type { margin-bottom: 0; }
+
+  .q-error {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+  .q-error.visible { display: block; }
+
+  .q-nav {
+    display: flex;
+    gap: 12px;
+    margin-top: 28px;
+  }
+
+  .q-btn {
+    flex: 1;
+    border-radius: 14px;
+    padding: 15px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .q-btn:active { transform: scale(0.98); }
+
+  .q-btn.primary { background: var(--ink); color: #fff; border: none; flex: 2; }
+  .q-btn.primary:hover { background: var(--accent); }
+  .q-btn.primary:disabled { opacity: 0.5; cursor: default; }
+
+  .q-btn.secondary { background: transparent; color: var(--ink-dim); border: 1px solid var(--border); }
+  .q-btn.secondary:hover { border-color: rgba(20,19,15,0.3); color: var(--ink); }
+
+  .q-thanks {
+    display: none;
+    text-align: center;
+    padding: 20px 0 4px;
+  }
+  .q-thanks.active { display: block; animation: fadeUp 0.4s var(--ease); }
+  .q-thanks-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--accent-dim);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .q-thanks-icon svg { width: 22px; height: 22px; stroke: var(--accent); fill: none; stroke-width: 2; }
+  .q-thanks h3 {
+    font-family: 'Lora', serif;
+    font-size: 21px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+  .q-thanks p { font-size: 14px; color: var(--ink-dim); line-height: 1.6; }
+
+  /* ---------- Reveal ---------- */
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  /* ---------- Responsive ---------- */
+
+  @media (max-width: 900px) {
+    .feature-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .hero { padding-top: 120px; }
+    .q-nav { flex-direction: column; }
+    .q-btn.secondary { order: 2; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-orb-wrap, .hero-wordmark, .hero-subtitle, .promo-media, .feature-item, .reveal {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <div class="nav-wrap">
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+        <span><i></i></span>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">Homeowners</a>
+        <a href="slade.html" class="active">Slade</a>
+        <a href="about.html">About</a>
+        <a href="legal/roq-privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-orb-wrap" id="heroOrbWrap">
+      <canvas class="hero-orb" id="heroOrb" width="96" height="96"></canvas>
+    </div>
+    <h1 class="hero-wordmark" id="heroWordmark">Slade</h1>
+    <p class="hero-subtitle" id="heroSubtitle">Local Market Intelligence</p>
+  </section>
+
+  <section class="promo">
+    <div class="promo-media" id="promoMedia">
+      <picture>
+        <source media="(max-width: 760px)" srcset="Slade/Slademobile.PNG">
+        <img src="Slade/Sladedesktop.PNG" alt="Slade local market intelligence dashboard showing a market map, key metrics, and the eight drivers Slade tracks" loading="lazy">
+      </picture>
+    </div>
+
+    <div class="feature-list-heading reveal">
+      <span class="eyebrow">What Slade Tracks</span>
+      <h2>Every signal that moves a market, in one place.</h2>
+    </div>
+
+    <div class="feature-grid">
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M7 3h7l5 5v13H7V3Z" stroke-linejoin="round"/><path d="M14 3v5h5M9 12h6M9 16h6" stroke-linecap="round"/></svg></div>
+        <h3>Permits &amp; Plans</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M4 21V10l6-4 6 4v11M10 21v-6h4v6" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 6l6-2v17" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Development Pipeline</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 18h18M5 18V9l4-3 4 3v9M13 18v-5h6v5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Infrastructure</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3Z" stroke-linejoin="round"/><path d="M9 3v15M15 6v15" /></svg></div>
+        <h3>Zoning &amp; Land</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3.1-6 7-6s7 2.7 7 6" stroke-linecap="round"/><circle cx="17" cy="9" r="2.4"/><path d="M16 20c0-2.6 2-4.6 5-4.6" stroke-linecap="round"/></svg></div>
+        <h3>Population &amp; Demand</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 4 2 9l10 5 10-5-10-5Z" stroke-linejoin="round"/><path d="M6 11.5V16c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Schools &amp; Amenities</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3Z" stroke-linejoin="round"/><path d="M12 8v5" stroke-linecap="round"/><circle cx="12" cy="15.5" r="0.6" fill="currentColor"/></svg></div>
+        <h3>Risk &amp; Resilience</h3>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M3 17l5-6 4 3 5-7 4 5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="8" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="14" r="1" fill="currentColor" stroke="none"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Insights &amp; Signals</h3>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section reveal">
+    <h2>Get a free preview of your market.</h2>
+    <p>Tell us where you're looking and what you're after — we'll put together a personalized preview of what Slade sees there.</p>
+    <button type="button" class="btn-preview" id="openPreviewBtn">Free Market Preview</button>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="legal/roq-privacy.html">Privacy</a>
+      <a href="legal/roq-terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <!-- ---------- Free Market Preview modal ---------- -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel">
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+      <div id="wizardWrap">
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+        <form id="previewForm">
+          <section class="q-step active" data-step="1">
+            <h2 class="q-title">What market are you interested in?</h2>
+            <p class="q-sub">City, state.</p>
+            <input type="text" class="q-input" id="qMarket" placeholder="e.g. Topeka, KS" autocomplete="off">
+          </section>
+
+          <section class="q-step" data-step="2">
+            <h2 class="q-title">What are your target property types?</h2>
+            <p class="q-sub">Select all that apply.</p>
+            <div class="chip-grid" data-field="property_types" data-mode="multi">
+              <button type="button" class="chip" data-value="Single family">Single Family</button>
+              <button type="button" class="chip" data-value="Multifamily">Multifamily</button>
+              <button type="button" class="chip" data-value="Commercial">Commercial</button>
+              <button type="button" class="chip" data-value="Land/development">Land/Development</button>
+              <button type="button" class="chip" data-value="Other">Other</button>
+            </div>
+          </section>
+
+          <section class="q-step" data-step="3">
+            <h2 class="q-title">What's your strategy?</h2>
+            <div class="chip-grid" data-field="strategy" data-mode="single">
+              <button type="button" class="chip" data-value="Buy & hold">Buy &amp; Hold</button>
+              <button type="button" class="chip" data-value="Fix & flip">Fix &amp; Flip</button>
+              <button type="button" class="chip" data-value="Development">Development</button>
+              <button type="button" class="chip" data-value="Value-add">Value-Add</button>
+              <button type="button" class="chip" data-value="Not sure">Not Sure</button>
+            </div>
+          </section>
+
+          <section class="q-step" data-step="4">
+            <h2 class="q-title">What's your typical price range?</h2>
+            <div class="chip-grid" data-field="price_range" data-mode="single">
+              <button type="button" class="chip" data-value="Under $150K">Under $150K</button>
+              <button type="button" class="chip" data-value="$150K–$300K">$150K&ndash;$300K</button>
+              <button type="button" class="chip" data-value="$300K–$500K">$300K&ndash;$500K</button>
+              <button type="button" class="chip" data-value="$500K–$1M">$500K&ndash;$1M</button>
+              <button type="button" class="chip" data-value="$1M+">$1M+</button>
+              <button type="button" class="chip" data-value="Flexible">Flexible</button>
+            </div>
+          </section>
+
+          <section class="q-step" data-step="5">
+            <h2 class="q-title">What would be most valuable for you to know?</h2>
+            <p class="q-sub">Optional.</p>
+            <textarea class="q-textarea" id="qValuable" placeholder="Areas starting to grow, upcoming developments, neighborhoods to avoid"></textarea>
+          </section>
+
+          <section class="q-step" data-step="6">
+            <h2 class="q-title">Where should we send your preview?</h2>
+            <div class="field-row">
+              <label for="qFirstName">First name</label>
+              <input type="text" class="q-input" id="qFirstName" placeholder="Your first name" autocomplete="given-name">
+            </div>
+            <div class="field-row">
+              <label for="qEmail">Email</label>
+              <input type="email" class="q-input" id="qEmail" placeholder="your@email.com" autocomplete="email">
+            </div>
+            <div class="field-row">
+              <label for="qPhone">Phone <span style="opacity:.6;">(optional)</span></label>
+              <input type="tel" class="q-input" id="qPhone" placeholder="(555) 555-5555" autocomplete="tel">
+            </div>
+            <p class="q-error" id="qError">Please enter your first name and a valid email address.</p>
+          </section>
+
+          <div class="q-nav" id="wizardNav">
+            <button type="button" class="q-btn secondary" id="qBack">Back</button>
+            <button type="button" class="q-btn primary" id="qNext">Next</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="q-thanks" id="qThanks">
+        <div class="q-thanks-icon"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Your market is on our radar.</h3>
+        <p>We'll review your goals and prepare a personalized market preview for you.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Nav dropdown ----------
+    const navTrigger = document.getElementById('navTrigger');
+    const navMenu = document.getElementById('navMenu');
+
+    navTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      navTrigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    // ---------- Scroll reveal ----------
+    const revealEls = [
+      document.getElementById('heroOrbWrap'),
+      document.getElementById('heroWordmark'),
+      document.getElementById('heroSubtitle'),
+      document.getElementById('promoMedia'),
+      ...document.querySelectorAll('.reveal'),
+      ...document.querySelectorAll('.feature-item'),
+    ];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('in-view');
+      });
+    }, { threshold: 0.2 });
+
+    revealEls.forEach(el => el && observer.observe(el));
+
+    // ---------- Black particle orb ----------
+    (function initOrb() {
+      const canvas = document.getElementById('heroOrb');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const size = canvas.width;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      ctx.scale(dpr, dpr);
+
+      const center = size / 2;
+      const radius = size * 0.46;
+      const count = Math.round(24 + size * 0.9);
+
+      const particles = [];
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.pow(Math.random(), 0.55) * radius;
+        particles.push({
+          x: Math.cos(angle) * r,
+          y: Math.sin(angle) * r,
+          size: Math.random() * 1.6 + 0.7,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.0007 + Math.random() * 0.0012,
+          minOpacity: 0.35,
+          maxOpacity: 1,
+        });
+      }
+
+      const breatheDuration = 3200;
+      const rotateDuration = 26000;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function frame(t) {
+        ctx.clearRect(0, 0, size, size);
+
+        const breatheT = (t % (breatheDuration * 2)) / (breatheDuration * 2);
+        const breathe = (Math.sin(breatheT * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+        const scale = 0.94 + breathe * (1.06 - 0.94);
+
+        const rotateT = (t % rotateDuration) / rotateDuration;
+        const rotation = rotateT * Math.PI * 2;
+
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate(rotation);
+        ctx.scale(scale, scale);
+
+        particles.forEach((p) => {
+          const shimmer = (Math.sin(t * p.speed + p.phase) + 1) / 2;
+          const opacity = p.minOpacity + shimmer * (p.maxOpacity - p.minOpacity);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(20,19,15,${opacity})`;
+          ctx.fill();
+        });
+
+        ctx.restore();
+        if (!reduceMotion) requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    })();
+
+    // ---------- Free Market Preview questionnaire ----------
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+    const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/market-preview-request`;
+
+    const STEP_COUNT = 6;
+    const state = {
+      market: '',
+      property_types: [],
+      strategy: '',
+      price_range: '',
+      most_valuable_info: '',
+      first_name: '',
+      email: '',
+      phone: '',
+    };
+
+    let currentStep = 1;
+
+    const overlay = document.getElementById('modalOverlay');
+    const openBtn = document.getElementById('openPreviewBtn');
+    const closeBtn = document.getElementById('modalClose');
+    const wizardWrap = document.getElementById('wizardWrap');
+    const thanksPanel = document.getElementById('qThanks');
+    const progressFill = document.getElementById('progressFill');
+    const backBtn = document.getElementById('qBack');
+    const nextBtn = document.getElementById('qNext');
+    const errorEl = document.getElementById('qError');
+
+    function openModal() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+    function goToStep(step) {
+      document.querySelectorAll('.q-step').forEach(el => el.classList.remove('active'));
+      document.querySelector(`.q-step[data-step="${step}"]`).classList.add('active');
+      currentStep = step;
+      progressFill.style.width = `${(step / STEP_COUNT) * 100}%`;
+      backBtn.style.visibility = step === 1 ? 'hidden' : 'visible';
+      nextBtn.textContent = step === STEP_COUNT ? 'Get My Preview' : 'Next';
+      errorEl.classList.remove('visible');
+    }
+
+    document.querySelectorAll('.chip-grid').forEach((grid) => {
+      const field = grid.dataset.field;
+      const mode = grid.dataset.mode;
+      grid.querySelectorAll('.chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const value = chip.dataset.value;
+          if (mode === 'single') {
+            grid.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            state[field] = value;
+          } else {
+            const idx = state[field].indexOf(value);
+            if (idx === -1) {
+              state[field].push(value);
+              chip.classList.add('active');
+            } else {
+              state[field].splice(idx, 1);
+              chip.classList.remove('active');
+            }
+          }
+        });
+      });
+    });
+
+    document.getElementById('qMarket').addEventListener('input', e => { state.market = e.target.value; });
+    document.getElementById('qValuable').addEventListener('input', e => { state.most_valuable_info = e.target.value; });
+    document.getElementById('qFirstName').addEventListener('input', e => { state.first_name = e.target.value; });
+    document.getElementById('qEmail').addEventListener('input', e => { state.email = e.target.value; });
+    document.getElementById('qPhone').addEventListener('input', e => { state.phone = e.target.value; });
+
+    backBtn.addEventListener('click', () => {
+      if (currentStep > 1) goToStep(currentStep - 1);
+    });
+
+    nextBtn.addEventListener('click', async () => {
+      if (currentStep < STEP_COUNT) {
+        goToStep(currentStep + 1);
+        return;
+      }
+
+      const firstName = state.first_name.trim();
+      const email = state.email.trim();
+      if (!firstName || !email || !email.includes('@')) {
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Sending…';
+      errorEl.classList.remove('visible');
+
+      try {
+        const res = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            ...state,
+            first_name: firstName,
+            email,
+            phone: state.phone.trim(),
+          }),
+        });
+
+        if (!res.ok) throw new Error('Request failed');
+
+        wizardWrap.style.display = 'none';
+        thanksPanel.classList.add('active');
+      } catch (err) {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.classList.add('visible');
+        nextBtn.disabled = false;
+        nextBtn.textContent = 'Get My Preview';
+      }
+    });
+  </script>
+
+</body>
+</html>
