@@ -3,24 +3,24 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>About ROQ Home — Our Mission for Homeowners</title>
+<title>About ROQ — Real Estate Should Be Easier to Understand</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Every home deserves a strategy. ROQ Home helps homeowners understand, improve, and enjoy their homes." />
+<meta name="description" content="ROQ is building a new kind of real estate company — helping homeowners understand what they own and helping real estate professionals understand what's coming next." />
 <link rel="canonical" href="https://roqhome.com/about.html" />
 
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="ROQ Home" />
-<meta property="og:title" content="About ROQ Home — Our Mission for Homeowners" />
-<meta property="og:description" content="Every home deserves a strategy. ROQ Home helps homeowners understand, improve, and enjoy their homes." />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="About ROQ — Real Estate Should Be Easier to Understand" />
+<meta property="og:description" content="ROQ is building a new kind of real estate company — helping homeowners understand what they own and helping real estate professionals understand what's coming next." />
 <meta property="og:url" content="https://roqhome.com/about.html" />
 <meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="About ROQ Home — Our Mission for Homeowners" />
-<meta name="twitter:description" content="Every home deserves a strategy. ROQ Home helps homeowners understand, improve, and enjoy their homes." />
+<meta name="twitter:title" content="About ROQ — Real Estate Should Be Easier to Understand" />
+<meta name="twitter:description" content="ROQ is building a new kind of real estate company — helping homeowners understand what they own and helping real estate professionals understand what's coming next." />
 <meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,17 +29,18 @@
 <style>
   :root {
     --bg: #FFFFFF;
-    --ink: #14130F;
-    --ink-dim: #5C594F;
-    --ink-faint: #948F82;
-    --border: rgba(20,19,15,0.12);
-    --border-soft: rgba(20,19,15,0.08);
-    --gold: #C8A882;
+    --bg-soft: #F6F6F4;
+    --ink: #111111;
+    --ink-dim: #5A5A57;
+    --ink-faint: #8C8A84;
+    --border: rgba(17,17,17,0.16);
+    --border-soft: rgba(17,17,17,0.10);
+    --black: #0B0B0A;
+    --on-black-dim: rgba(255,255,255,0.68);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -51,18 +52,19 @@
   }
 
   a { color: inherit; text-decoration: none; }
+  img, svg { display: block; max-width: 100%; }
+  ::selection { background: var(--ink); color: var(--bg); }
 
-  ::selection { background: var(--gold); color: #14110B; }
+  em, i, .serif { font-family: 'Lora', Georgia, serif; font-style: italic; font-weight: 400; }
 
-  section { padding: clamp(64px, 9vw, 120px) clamp(24px, 6vw, 96px); }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
 
   .eyebrow {
     font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.24em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink-faint);
-    margin-bottom: 18px;
   }
 
   /* ---------- Header ---------- */
@@ -74,36 +76,53 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 32px clamp(24px, 5vw, 64px);
-    background: rgba(255,255,255,0.9);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    padding: 26px clamp(24px, 5vw, 64px);
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-soft);
   }
 
-  .logo-mark { width: 30px; height: 30px; display: block; }
-  .logo-mark path { stroke: var(--ink); stroke-width: 8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .wordmark {
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+  }
 
-  .nav-wrap { position: relative; }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 3vw, 40px);
+  }
+
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    padding-bottom: 6px;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .nav-links a:hover { color: var(--ink); }
+  .nav-links a.active { color: var(--ink); border-bottom-color: var(--ink); }
 
   .nav-trigger {
+    display: none;
     width: 40px;
     height: 40px;
     background: transparent;
     border: 1px solid var(--border);
     border-radius: 50%;
     cursor: pointer;
-    display: flex;
     align-items: center;
     justify-content: center;
-    transition: border-color 0.3s var(--ease);
   }
 
-  .nav-trigger:hover,
-  .nav-trigger[aria-expanded="true"] { border-color: rgba(20,19,15,0.4); }
-
   .nav-trigger span { position: relative; width: 16px; height: 10px; }
-
   .nav-trigger span::before,
   .nav-trigger span::after,
   .nav-trigger span i {
@@ -113,29 +132,21 @@
     width: 100%;
     height: 1px;
     background: var(--ink-dim);
-    transition: background 0.3s var(--ease);
   }
-
   .nav-trigger span::before { top: 0; }
   .nav-trigger span i { top: 50%; margin-top: -0.5px; display: block; }
   .nav-trigger span::after { bottom: 0; }
 
-  .nav-trigger:hover span::before,
-  .nav-trigger:hover span::after,
-  .nav-trigger:hover span i { background: var(--ink); }
-
   .nav-menu {
     position: absolute;
     top: calc(100% + 10px);
-    right: 0;
-    min-width: 170px;
-    background: rgba(255,255,255,0.96);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    right: clamp(24px, 5vw, 64px);
+    min-width: 200px;
+    background: #fff;
     border: 1px solid var(--border);
-    border-radius: 14px;
+    border-radius: 4px;
     padding: 8px;
-    box-shadow: 0 20px 40px rgba(20,19,15,0.08);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.10);
     opacity: 0;
     transform: translateY(-6px);
     pointer-events: none;
@@ -147,105 +158,130 @@
   .nav-menu a {
     display: block;
     padding: 12px 14px;
-    font-size: 13px;
-    letter-spacing: 0.04em;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
     color: var(--ink-dim);
-    border-radius: 8px;
-    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+    border-radius: 2px;
   }
 
   .nav-menu a:hover,
-  .nav-menu a.active { background: rgba(20,19,15,0.06); color: var(--ink); }
+  .nav-menu a.active { background: var(--bg-soft); color: var(--ink); }
+
+  @media (max-width: 700px) {
+    .nav-links { display: none; }
+    .nav-trigger { display: flex; }
+  }
 
   /* ---------- Hero ---------- */
 
   .hero {
-    padding-top: clamp(80px, 12vw, 140px);
-    padding-bottom: clamp(80px, 12vw, 140px);
-    text-align: center;
+    padding: clamp(48px, 8vw, 88px) clamp(24px, 5vw, 64px) 0;
+  }
+
+  .hero-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: center;
+    padding-bottom: clamp(48px, 7vw, 80px);
   }
 
   .hero-title {
-    font-size: clamp(28px, 4.2vw, 44px);
-    font-weight: 700;
-    line-height: 1.3;
+    font-size: clamp(38px, 5.4vw, 58px);
+    font-weight: 800;
+    line-height: 1.08;
     letter-spacing: -0.01em;
-    max-width: 20ch;
-    margin: 0 auto;
+    max-width: 11ch;
+    margin-bottom: 26px;
   }
 
-  /* ---------- Why ROQ exists ---------- */
-
-  .why {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: clamp(40px, 6vw, 80px);
-    align-items: center;
-    border-top: 1px solid var(--border-soft);
-  }
-
-  .why h2 {
-    font-size: clamp(26px, 3.4vw, 38px);
-    font-weight: 700;
-    line-height: 1.2;
-    max-width: 14ch;
-    margin-bottom: 24px;
-  }
-
-  .why p {
+  .hero-copy {
     font-size: 15.5px;
-    line-height: 1.75;
+    line-height: 1.7;
     color: var(--ink-dim);
-    max-width: 46ch;
+    max-width: 42ch;
+    margin-bottom: 28px;
   }
 
-  .why p + p { margin-top: 18px; }
-
-  .why-art { display: flex; align-items: center; justify-content: center; }
-  .why-art svg { width: 100%; max-width: 200px; height: auto; }
-
-  /* ---------- What we believe ---------- */
-
-  .believe { border-top: 1px solid var(--border-soft); text-align: center; }
-
-  .believe-heading { text-align: center; margin-bottom: clamp(40px, 6vw, 64px); }
-
-  .believe-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(32px, 5vw, 0px);
-    max-width: 900px;
-    margin: 0 auto;
-  }
-
-  .believe-item {
-    padding: 0 24px;
-    position: relative;
-  }
-
-  .believe-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    top: 8px;
-    right: 0;
-    bottom: 8px;
-    width: 1px;
-    background: var(--border-soft);
-  }
-
-  .believe-icon {
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
+  .hero-links {
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin: 0 auto 22px;
+    gap: 14px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink);
   }
 
-  .believe-icon svg { width: 26px; height: 26px; }
-  .believe-icon path, .believe-icon circle, .believe-icon polyline {
+  .hero-links a { border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
+  .hero-links a:hover { opacity: 0.6; }
+  .hero-links .dot { color: var(--ink-faint); }
+
+  .hero-art {
+    aspect-ratio: 3 / 2;
+    border: 1px solid var(--border);
+    background: var(--bg-soft);
+    overflow: hidden;
+  }
+
+  .hero-art img { width: 100%; height: 100%; object-fit: cover; }
+
+  @media (max-width: 860px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { order: -1; aspect-ratio: 3 / 2; }
+    .hero-title { max-width: none; }
+  }
+
+  /* ---------- Section shell ---------- */
+
+  section { padding: clamp(56px, 8vw, 100px) clamp(24px, 5vw, 64px); }
+  .rule-top { border-top: 1px solid var(--border-soft); }
+
+  /* ---------- Understanding / Cards ---------- */
+
+  .understand-head { max-width: 700px; margin: 0 auto 44px; text-align: center; }
+
+  .understand-head h2 {
+    font-size: clamp(30px, 4vw, 42px);
+    font-weight: 800;
+    line-height: 1.18;
+  }
+
+  .understand-head h2 .line-2 {
+    display: block;
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    color: var(--ink-dim);
+  }
+
+  .understand-body { max-width: 640px; margin: 0 auto 44px; text-align: center; }
+  .understand-body p { font-size: 15px; line-height: 1.75; color: var(--ink-dim); }
+  .understand-body p + p { margin-top: 18px; }
+  .understand-body .strong { color: var(--ink); font-weight: 700; margin-top: 18px; }
+
+  .cards {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--border);
+  }
+
+  .card {
+    padding: clamp(28px, 4vw, 40px);
+    border-right: 1px solid var(--border);
+  }
+
+  .card:last-child { border-right: none; }
+
+  .card-icon { width: 40px; height: 40px; margin-bottom: 30px; }
+  .card-icon path, .card-icon rect, .card-icon line {
     stroke: var(--ink);
     stroke-width: 1.6;
     fill: none;
@@ -253,233 +289,194 @@
     stroke-linejoin: round;
   }
 
-  .believe-item h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
-  .believe-item p { font-size: 14.5px; line-height: 1.6; color: var(--ink-dim); }
+  .card h3 { font-size: 23px; font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
 
-  @media (max-width: 700px) {
-    .believe-grid { grid-template-columns: 1fr; gap: 40px; }
-    .believe-item:not(:last-child)::after { display: none; }
-  }
-
-  /* ---------- What we do ---------- */
-
-  .steps { border-top: 1px solid var(--border-soft); }
-
-  .steps-heading { text-align: center; margin-bottom: clamp(40px, 6vw, 56px); }
-
-  .steps-row {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    max-width: 980px;
-    margin: 0 auto;
-  }
-
-  .step {
-    flex: 1;
-    text-align: center;
-    padding: 0 12px;
-    max-width: 230px;
-  }
-
-  .step-num {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: var(--ink);
-    color: var(--bg);
-    font-size: 13px;
-    font-weight: 700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 18px;
-  }
-
-  .step-connector {
-    flex: 0 0 auto;
-    width: clamp(20px, 6vw, 64px);
-    height: 1px;
-    margin-top: 16px;
-    background-image: linear-gradient(to right, var(--ink-faint) 40%, transparent 0%);
-    background-size: 6px 1px;
-    background-repeat: repeat-x;
-  }
-
-  .step h4 { font-size: 15.5px; font-weight: 700; line-height: 1.35; margin-bottom: 8px; }
-  .step h4 span { display: block; font-weight: 500; color: var(--ink-dim); }
-  .step p { font-size: 13.5px; line-height: 1.6; color: var(--ink-dim); }
-
-  @media (max-width: 760px) {
-    .steps-row { flex-direction: column; align-items: center; gap: 32px; }
-    .step-connector { display: none; }
-    .step { max-width: 280px; }
-  }
-
-  /* ---------- Difference / Founder ---------- */
-
-  .split {
-    border-top: 1px solid var(--border-soft);
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(40px, 6vw, 80px);
-  }
-
-  .split-col:first-child { border-right: 1px solid var(--border-soft); padding-right: clamp(24px, 4vw, 56px); }
-  .split-col:last-child { padding-left: clamp(24px, 4vw, 56px); }
-
-  .split h3 {
-    font-size: clamp(22px, 2.8vw, 28px);
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 22px;
-  }
-
-  .split p { font-size: 15px; line-height: 1.7; color: var(--ink-dim); }
-
-  .bubbles {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-
-  .bubble {
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    padding: 12px 18px;
-    font-size: 13.5px;
+  .card .sub {
+    font-family: 'Lora', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 16px;
     color: var(--ink-dim);
-    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.4;
   }
 
-  .founder-rule { width: 32px; height: 2px; background: var(--ink); margin-bottom: 22px; }
+  .card p.desc { font-size: 14px; line-height: 1.7; color: var(--ink-dim); margin-bottom: 28px; }
 
-  .split p + p { margin-top: 14px; }
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transition: gap 0.2s var(--ease);
+  }
+
+  .card-link:hover { gap: 12px; }
 
   @media (max-width: 760px) {
-    .split { grid-template-columns: 1fr; }
-    .split-col:first-child { border-right: none; border-bottom: 1px solid var(--border-soft); padding-right: 0; padding-bottom: 48px; margin-bottom: 8px; }
-    .split-col:last-child { padding-left: 0; }
-    .bubbles { grid-template-columns: 1fr 1fr; }
+    .cards { grid-template-columns: 1fr; }
+    .card { border-right: none; border-bottom: 1px solid var(--border); }
+    .card:last-child { border-bottom: none; }
   }
 
-  /* ---------- Future ---------- */
+  /* ---------- Black band ---------- */
 
-  .future { border-top: 1px solid var(--border-soft); text-align: left; }
-
-  .future h2 {
-    font-size: clamp(24px, 3.2vw, 34px);
-    font-weight: 700;
-    line-height: 1.25;
-    max-width: 18ch;
-    margin-bottom: 20px;
+  .band {
+    background: var(--black);
+    color: #fff;
   }
 
-  .future p { font-size: 15.5px; line-height: 1.75; color: var(--ink-dim); max-width: 62ch; }
+  .band-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
 
-  /* ---------- CTA ---------- */
+  .band h2 {
+    font-size: clamp(28px, 3.8vw, 40px);
+    font-weight: 800;
+    line-height: 1.2;
+  }
 
-  .cta-wrap { padding-top: 0; padding-bottom: clamp(64px, 9vw, 120px); }
+  .band p { font-size: 15px; line-height: 1.75; color: var(--on-black-dim); }
+  .band p + p { margin-top: 16px; }
+  .band .strong { color: #fff; font-weight: 700; margin-top: 16px; }
 
-  .cta-box {
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: clamp(28px, 4vw, 40px);
+  @media (max-width: 760px) {
+    .band-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+
+  /* ---------- Approach (collect / interpret / act) ---------- */
+
+  .approach-head {
     display: flex;
     align-items: center;
     gap: 24px;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    max-width: 1180px;
+    margin: 0 auto clamp(36px, 5vw, 56px);
   }
 
-  .cta-left { display: flex; align-items: center; gap: 20px; }
+  .approach-head .eyebrow { white-space: nowrap; }
+  .approach-head .rule { flex: 1; height: 1px; background: var(--border-soft); }
 
-  .cta-icon {
-    flex: 0 0 auto;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
+  .approach-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(28px, 5vw, 40px);
+  }
+
+  .approach-icon { width: 30px; height: 30px; margin-bottom: 20px; }
+  .approach-icon path, .approach-icon circle, .approach-icon line {
+    stroke: var(--ink);
+    stroke-width: 1.6;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .approach-item h3 { font-size: 20px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 8px; }
+  .approach-item p { font-size: 14px; line-height: 1.65; color: var(--ink-dim); max-width: 26ch; }
+
+  @media (max-width: 760px) {
+    .approach-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  /* ---------- Topeka / Founder ---------- */
+
+  .topeka-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.3fr 0.7fr;
+    gap: clamp(32px, 6vw, 72px);
+    align-items: center;
+  }
+
+  .topeka-grid h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; margin-bottom: 20px; }
+  .topeka-grid p { font-size: 15px; line-height: 1.7; color: var(--ink-dim); }
+  .topeka-grid p + p { margin-top: 16px; }
+  .topeka-grid .pull { font-family: 'Lora', Georgia, serif; font-style: italic; color: var(--ink); }
+  .topeka-grid .and { font-weight: 700; color: var(--ink); }
+
+  .founder-block { display: flex; align-items: center; gap: 20px; }
+
+  .founder-name { font-size: 15px; font-weight: 800; margin-bottom: 2px; }
+  .founder-title { font-size: 13.5px; color: var(--ink-dim); }
+
+  @media (max-width: 760px) {
+    .topeka-grid { grid-template-columns: 1fr; gap: 32px; }
+    .founder-block { margin-top: 8px; }
+  }
+
+  /* ---------- Future / final CTA ---------- */
+
+  .future-grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: center;
+  }
+
+  .future-grid h2 { font-size: clamp(28px, 3.6vw, 38px); font-weight: 800; line-height: 1.2; max-width: 15ch; margin-bottom: 14px; }
+  .future-grid .sub { font-size: 15px; color: var(--ink-dim); }
+
+  .future-links { display: flex; flex-direction: column; gap: 14px; }
+
+  .btn-outline {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    gap: 12px;
+    border: 1px solid var(--border);
+    padding: 18px 22px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
   }
 
-  .cta-icon svg { width: 22px; height: 22px; }
-  .cta-icon path { stroke: var(--ink); stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  .btn-outline:hover { background: var(--bg-soft); border-color: var(--ink); }
 
-  .cta-title { font-size: 19px; font-weight: 700; line-height: 1.3; margin-bottom: 4px; }
-  .cta-sub { font-size: 14px; color: var(--ink-dim); }
-
-  .cta-btn {
-    flex: 0 0 auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--ink);
-    color: var(--bg);
-    border: none;
-    border-radius: 30px;
-    padding: 15px 26px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .cta-btn:hover { background: #2b2820; }
-  .cta-btn:active { transform: scale(0.97); }
-
-  @media (max-width: 560px) {
-    .cta-box { flex-direction: column; align-items: flex-start; }
-    .cta-btn { width: 100%; justify-content: center; }
+  @media (max-width: 760px) {
+    .future-grid { grid-template-columns: 1fr; }
   }
 
   /* ---------- Footer ---------- */
 
   footer {
-    background: var(--bg);
-    border-top: 1px solid var(--border-soft);
-    padding: 40px clamp(24px, 5vw, 64px) 40px;
+    background: var(--black);
+    color: rgba(255,255,255,0.55);
+    padding: 36px clamp(24px, 5vw, 64px);
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 16px;
   }
 
-  .footer-left { display: flex; align-items: center; gap: 14px; }
-  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.6; }
+  .footer-left { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; color: #fff; }
 
-  .footer-copy { font-size: 12px; color: var(--ink-faint); }
-
-  .footer-links { display: flex; gap: 28px; }
-
-  .footer-links a {
-    font-size: 12px;
-    color: var(--ink-faint);
-    letter-spacing: 0.02em;
-    transition: color 0.2s var(--ease);
-  }
-
-  .footer-links a:hover { color: var(--ink-dim); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: rgba(255,255,255,0.55); transition: color 0.2s var(--ease); }
+  .footer-links a:hover { color: #fff; }
 
   /* ---------- Reveal ---------- */
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
-  }
-
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
   .reveal.in-view { opacity: 1; transform: translateY(0); }
-
-  @media (max-width: 900px) {
-    .why { grid-template-columns: 1fr; }
-    .why-art { order: -1; max-width: 260px; margin: 0 auto; }
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
@@ -489,19 +486,21 @@
 <body>
 
   <header>
-    <a href="index.html" aria-label="ROQ home">
-      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
-      </svg>
-    </a>
+    <a class="wordmark" href="index.html" aria-label="ROQ home">ROQ</a>
+
+    <nav class="nav-links">
+      <a href="index.html">ROQ Home</a>
+      <a href="development-intelligence.html">Development Intelligence</a>
+      <a href="about.html" class="active">About</a>
+    </nav>
 
     <div class="nav-wrap">
       <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
         <span><i></i></span>
       </button>
       <nav class="nav-menu" id="navMenu">
-        <a href="index.html">Homeowners</a>
-        <a href="development-intelligence.html">Intelligence</a>
+        <a href="index.html">ROQ Home</a>
+        <a href="development-intelligence.html">Development Intelligence</a>
         <a href="about.html" class="active">About</a>
         <a href="legal/roq-privacy.html">Privacy</a>
       </nav>
@@ -509,132 +508,119 @@
   </header>
 
   <section class="hero">
-    <h1 class="hero-title">We exist to help homeowners understand, improve, and enjoy their homes.</h1>
-  </section>
-
-  <section class="why reveal">
-    <div>
-      <p class="eyebrow">Why ROQ Home exists</p>
-      <h2>Better decisions start with better information.</h2>
-      <p>Homeownership is one of the biggest investments most people will ever make. Yet many of the decisions homeowners face &mdash; whether to renovate, prepare to sell, or simply maintain their home &mdash; are often made with incomplete information.</p>
-      <p>ROQ was created to help homeowners make those decisions with greater clarity and confidence.</p>
-    </div>
-    <div class="why-art">
-      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" fill="none" stroke="#14130F" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
-      </svg>
-    </div>
-  </section>
-
-  <section class="believe reveal">
-    <div class="believe-heading">
-      <p class="eyebrow">What we believe</p>
-    </div>
-    <div class="believe-grid">
-      <div class="believe-item">
-        <div class="believe-icon">
-          <svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M20 20 L15.2 15.2" /></svg>
+    <div class="hero-grid reveal">
+      <div>
+        <h1 class="hero-title">Real estate should be easier to understand.</h1>
+        <p class="hero-copy">We&rsquo;re building a new kind of real estate company&mdash;helping homeowners understand what they own and helping real estate professionals understand what&rsquo;s coming next.</p>
+        <div class="hero-links">
+          <a href="index.html">Home Intelligence</a>
+          <span class="dot">&bull;</span>
+          <a href="development-intelligence.html">Development Intelligence</a>
         </div>
-        <h3>Understand</h3>
-        <p>Know your home's value, strengths, opportunities, and potential.</p>
       </div>
-      <div class="believe-item">
-        <div class="believe-icon">
-          <svg viewBox="0 0 24 24"><polyline points="3,17 9,11 13,15 21,6" /><polyline points="15,6 21,6 21,12" /></svg>
-        </div>
-        <h3>Improve</h3>
-        <p>Plan projects with confidence and prioritize the improvements that matter most.</p>
-      </div>
-      <div class="believe-item">
-        <div class="believe-icon">
-          <svg viewBox="0 0 24 24"><path d="M12 20.5s-8-5.1-8-11.2A4.8 4.8 0 0 1 12 6.4a4.8 4.8 0 0 1 8 2.9c0 6.1-8 11.2-8 11.2z" /></svg>
-        </div>
-        <h3>Enjoy</h3>
-        <p>Spend less time wondering what to do and more time enjoying the place you call home.</p>
+      <div class="hero-art">
+        <img src="assets/about/hero-cover.jpg" alt="Close-up of a house gable against the sky" width="1400" height="933" />
       </div>
     </div>
   </section>
 
-  <section class="steps reveal">
-    <div class="steps-heading">
-      <p class="eyebrow">What we do</p>
+  <section class="rule-top reveal">
+    <div class="understand-head">
+      <h2>More information isn&rsquo;t the answer.<span class="line-2">Better understanding is.</span></h2>
     </div>
-    <div class="steps-row">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h4>Discover<span>Home Potential</span></h4>
-        <p>Understand your home's value, opportunities, and what's possible.</p>
+    <div class="understand-body">
+      <p>Real estate is full of information&mdash;property records, permits, plans, projects, values, documents, maintenance, market activity and public data.</p>
+      <p>The problem is that much of it is fragmented, difficult to navigate, or disconnected from the decisions people actually need to make.</p>
+      <p class="strong">ROQ exists to make it useful.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <svg class="card-icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" /><path d="M6 10v10h12V10" /><path d="M10 20v-6h4v6" /></svg>
+        <h3>ROQ Home</h3>
+        <p class="sub">Intelligence for the home you own.</p>
+        <p class="desc">A simpler way for homeowners to understand, manage and improve their home&mdash;from projects and documents to maintenance, finances and the story of the property.</p>
+        <a class="card-link" href="index.html">Explore ROQ Home &rarr;</a>
       </div>
-      <div class="step-connector"></div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h4>Prepare<span>Home Passport</span></h4>
-        <p>Get your home ready for the market and attract more value.</p>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h4>Build<span>Projects</span></h4>
-        <p>Plan and execute improvements with confidence.</p>
-      </div>
-      <div class="step-connector"></div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h4>Manage<span>ROQ App</span></h4>
-        <p>Stay organized and in control of your home &mdash; all in one place.</p>
+      <div class="card">
+        <svg class="card-icon" viewBox="0 0 24 24"><line x1="4" y1="20" x2="20" y2="20" /><rect x="6" y="14" width="3" height="6" /><rect x="11" y="10" width="3" height="10" /><rect x="16" y="6" width="3" height="14" /></svg>
+        <h3>Development Intelligence</h3>
+        <p class="sub">Intelligence for what&rsquo;s coming next.</p>
+        <p class="desc">ROQ researches public development signals&mdash;projects, permits, plans, infrastructure, investment and other market-changing activity&mdash;and turns them into clear intelligence for investors, developers, real estate professionals and businesses.</p>
+        <a class="card-link" href="development-intelligence.html">Explore Development Intelligence &rarr;</a>
       </div>
     </div>
   </section>
 
-  <section class="split reveal">
-    <div class="split-col">
-      <p class="eyebrow">The difference</p>
-      <h3>Most homeowners ask the same questions.</h3>
-      <div class="bubbles">
-        <div class="bubble">&ldquo;Should I remodel?&rdquo;</div>
-        <div class="bubble">&ldquo;Should I sell?&rdquo;</div>
-        <div class="bubble">&ldquo;Is this worth it?&rdquo;</div>
-        <div class="bubble">&ldquo;Where do I start?&rdquo;</div>
+  <section class="band reveal">
+    <div class="band-grid">
+      <h2>Understand what is. See what could be.</h2>
+      <div>
+        <p>Homes aren&rsquo;t static. Neither are cities.</p>
+        <p>A house changes through projects, maintenance, ownership and investment.</p>
+        <p>A city changes through development, infrastructure, policy and capital.</p>
+        <p class="strong">ROQ is being built to make both easier to understand.</p>
       </div>
-      <p>ROQ helps answer those questions through data, thoughtful analysis, and practical guidance tailored to your home.</p>
-    </div>
-    <div class="split-col">
-      <p class="eyebrow">Meet the founder</p>
-      <h3>Hi, I&rsquo;m Jared.</h3>
-      <div class="founder-rule"></div>
-      <p>I started ROQ because I believe homeowners deserve better tools for making important decisions about their homes.</p>
-      <p>My goal is simple: help homeowners understand, improve, and enjoy their homes.</p>
     </div>
   </section>
 
-  <section class="future reveal">
-    <p class="eyebrow">The future of homeownership</p>
-    <h2>A better experience for every homeowner.</h2>
-    <p>We believe homeownership should be simpler, more informed, and more enjoyable. ROQ is building tools, strategies, and services that help homeowners make better decisions throughout every stage of owning a home.</p>
+  <section class="reveal">
+    <div class="approach-head">
+      <p class="eyebrow">How ROQ approaches intelligence</p>
+      <div class="rule"></div>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M12 3v13" /><path d="M6 11l6 6 6-6" /><path d="M4 20h16" /></svg>
+        <h3>Collect</h3>
+        <p>Bring fragmented information together.</p>
+      </div>
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M20 20 L15.2 15.2" /></svg>
+        <h3>Interpret</h3>
+        <p>Identify what actually matters.</p>
+      </div>
+      <div class="approach-item">
+        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M6 18 18 6" /><path d="M9 6h9v9" /></svg>
+        <h3>Act</h3>
+        <p>Turn information into better decisions.</p>
+      </div>
+    </div>
   </section>
 
-  <section class="cta-wrap reveal">
-    <div class="cta-box">
-      <div class="cta-left">
-        <div class="cta-icon">
-          <svg viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" /><path d="M6 10v10h12V10" /></svg>
-        </div>
+  <section class="rule-top reveal">
+    <div class="topeka-grid">
+      <div>
+        <h2>Built differently.</h2>
+        <p>ROQ was founded in Topeka, Kansas around a simple question:</p>
+        <p class="pull">What if understanding real estate didn&rsquo;t require digging through dozens of disconnected sources?</p>
+        <p>What started with tools for understanding individual homes has expanded into a broader mission: making the information surrounding homes, property and development easier to understand <span class="and">and</span> act on.</p>
+      </div>
+      <div class="founder-block">
         <div>
-          <p class="cta-title">Ready to discover your home&rsquo;s potential?</p>
-          <p class="cta-sub">Start with a free Home Potential Preview.</p>
+          <p class="founder-name">Jared Kobernat</p>
+          <p class="founder-title">Founder, ROQ</p>
         </div>
       </div>
-      <a class="cta-btn" href="home-potential.html">Get Your Free Preview &rarr;</a>
+    </div>
+  </section>
+
+  <section class="rule-top reveal">
+    <div class="future-grid">
+      <div>
+        <h2>The future of real estate will belong to people who understand it.</h2>
+        <p class="sub">We&rsquo;re building the tools to help them do that.</p>
+      </div>
+      <div class="future-links">
+        <a class="btn-outline" href="index.html">Explore ROQ Home <span>&rarr;</span></a>
+        <a class="btn-outline" href="development-intelligence.html">Explore Development Intelligence <span>&rarr;</span></a>
+      </div>
     </div>
   </section>
 
   <footer>
-    <div class="footer-left">
-      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
-      </svg>
-      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
-    </div>
+    <div class="footer-left">ROQ</div>
+    <span style="font-size:12px;">&copy; 2026 ROQ Innovation LLC</span>
     <div class="footer-links">
       <a href="legal/roq-privacy.html">Privacy</a>
       <a href="legal/roq-terms.html">Terms</a>
@@ -662,7 +648,7 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) entry.target.classList.add('in-view');
       });
-    }, { threshold: 0.15 });
+    }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));
   </script>
 
