@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROQ Home — Experience Your Entire Home in One App</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
+<link rel="canonical" href="https://roqhome.com/home.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ Home" />
+<meta property="og:title" content="ROQ Home — Experience Your Entire Home in One App" />
+<meta property="og:description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
+<meta property="og:url" content="https://roqhome.com/home.html" />
+<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ROQ Home — Experience Your Entire Home in One App" />
+<meta name="twitter:description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
+<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "ROQ",
+  "alternateName": ["ROQ Home", "ROQ Innovation LLC"],
+  "legalName": "ROQ Innovation LLC",
+  "url": "https://roqhome.com/",
+  "logo": "https://roqhome.com/assets/screen-1-home.jpg",
+  "description": "ROQ Home is a premium app that helps homeowners understand, improve, and enjoy their homes — home valuation, renovation planning, and market-ready preparation in one place.",
+  "sameAs": []
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is ROQ Home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ROQ Home is a premium app for homeowners that helps you understand your home's value, plan improvements, and prepare your home for the market — all in one place."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is ROQ Home the same as ROQ International or ROQ.US screen printing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. ROQ Home (roqhome.com), made by ROQ Innovation LLC, is a homeownership app unrelated to ROQ International or ROQ.US, which manufacture screen printing equipment."
+      }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --gold: #C8A882;
+    --border: rgba(255,255,255,0.08);
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--gold); color: #14110B; }
+
+  /* ---------- Header ---------- */
+
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px clamp(24px, 5vw, 64px);
+    mix-blend-mode: normal;
+  }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--ink);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .nav-wrap {
+    position: relative;
+  }
+
+  .nav-trigger {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s var(--ease);
+  }
+
+  .nav-trigger:hover,
+  .nav-trigger[aria-expanded="true"] {
+    border-color: rgba(255,255,255,0.3);
+  }
+
+  .nav-trigger span {
+    position: relative;
+    width: 16px;
+    height: 10px;
+  }
+
+  .nav-trigger span::before,
+  .nav-trigger span::after,
+  .nav-trigger span i {
+    content: '';
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--ink-dim);
+    transition: background 0.3s var(--ease);
+  }
+
+  .nav-trigger span::before { top: 0; }
+  .nav-trigger span i { top: 50%; margin-top: -0.5px; display: block; }
+  .nav-trigger span::after { bottom: 0; }
+
+  .nav-trigger:hover span::before,
+  .nav-trigger:hover span::after,
+  .nav-trigger:hover span i {
+    background: var(--ink);
+  }
+
+  .nav-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 160px;
+    background: rgba(10,14,20,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 8px;
+    opacity: 0;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .nav-menu.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .nav-menu a {
+    display: block;
+    padding: 12px 14px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    color: var(--ink-dim);
+    border-radius: 8px;
+    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .nav-menu a:hover,
+  .nav-menu a.active {
+    background: rgba(255,255,255,0.06);
+    color: var(--ink);
+  }
+
+  /* ---------- Statement ---------- */
+
+  .showcase {
+    background: var(--bg);
+    padding: clamp(140px, 22vh, 200px) 0 clamp(80px, 12vh, 120px);
+    overflow: hidden;
+  }
+
+  .showcase-headline {
+    font-family: 'Inter', sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 6vw, 60px);
+    line-height: 1.1;
+    color: var(--ink);
+    padding: 0 clamp(24px, 5vw, 64px);
+    margin-bottom: clamp(40px, 6vw, 64px);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s var(--ease), transform 1s var(--ease);
+  }
+
+  .showcase-headline.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .showcase-carousel {
+    width: 100%;
+    overflow: hidden;
+    padding-left: clamp(24px, 5vw, 64px);
+  }
+
+  .showcase-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.7s var(--ease);
+  }
+
+  .showcase-slide {
+    flex: 0 0 auto;
+    width: min(240px, 62vw);
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  }
+
+  .showcase-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ---------- Beta note ---------- */
+
+  .beta-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(64px, 10vh, 100px) clamp(24px, 6vw, 64px);
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border);
+  }
+
+  .close-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    color: var(--ink-dim);
+    max-width: 40ch;
+    margin-bottom: 32px;
+    line-height: 1.6;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  }
+
+  .close-sub.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .waitlist-form {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 440px;
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.9s var(--ease) 0.3s, transform 0.9s var(--ease) 0.3s;
+  }
+
+  .waitlist-form.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .waitlist-input {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 15px 22px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .waitlist-input::placeholder { color: var(--ink-faint); }
+
+  .waitlist-input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .waitlist-btn {
+    background: var(--ink);
+    color: #14110B;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .waitlist-btn:hover { background: var(--gold); }
+  .waitlist-btn:active { transform: scale(0.97); }
+  .waitlist-btn:disabled { opacity: 0.6; cursor: default; }
+
+  .waitlist-msg {
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-dim);
+    min-height: 18px;
+  }
+
+  .waitlist-msg.success { color: var(--gold); }
+  .waitlist-msg.error { color: #C97A6A; }
+
+  @media (max-width: 520px) {
+    .waitlist-form { flex-direction: column; }
+    .waitlist-btn { padding: 15px; }
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg-deep);
+    padding: 48px clamp(24px, 5vw, 64px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.7; }
+  .footer-left .logo-mark path { stroke: var(--ink-dim); }
+
+  .footer-copy {
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 28px;
+  }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-headline, .close-sub, .waitlist-form {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" aria-label="ROQ home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <div class="nav-wrap">
+      <button class="nav-trigger" id="navTrigger" aria-haspopup="true" aria-expanded="false" aria-label="Menu">
+        <span><i></i></span>
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html">ROQ</a>
+        <a href="home.html" class="active">Home</a>
+        <a href="business.html">Business</a>
+        <a href="about.html">Story</a>
+        <a href="legal/roq-privacy.html">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="showcase" id="app">
+    <h2 class="showcase-headline" id="showcaseHeadline">ROQ Home — your home app</h2>
+    <div class="showcase-carousel">
+      <div class="showcase-track" id="showcaseTrack">
+        <div class="showcase-slide"><img src="assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-6-slade.jpg" alt="SLADE AI home advisor chat screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="beta-note">
+    <p class="close-sub" id="closeSub">ROQ is currently in private beta. Leave your email and we'll let you know the moment it's ready for you.</p>
+
+    <form class="waitlist-form" id="waitlistForm">
+      <input
+        type="email"
+        class="waitlist-input"
+        id="waitlistEmail"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+      />
+      <button type="submit" class="waitlist-btn" id="waitlistBtn">Experience Home</button>
+    </form>
+    <p class="waitlist-msg" id="waitlistMsg"></p>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="legal/roq-privacy.html">Privacy</a>
+      <a href="legal/roq-terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Screenshot showcase carousel ----------
+    (function initShowcase() {
+      const track = document.getElementById('showcaseTrack');
+      if (!track) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const realSlides = Array.from(track.children);
+      if (!realSlides.length) return;
+
+      // Clone the first slide onto the end so the loop can reset invisibly.
+      const clone = realSlides[0].cloneNode(true);
+      track.appendChild(clone);
+
+      if (reduceMotion) return; // leave it static on the first screenshot
+
+      let index = 0;
+      const total = realSlides.length;
+
+      function slideStep() {
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 0;
+        return track.children[0].getBoundingClientRect().width + gap;
+      }
+
+      function goTo(i, animate) {
+        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
+        track.style.transform = `translateX(-${i * slideStep()}px)`;
+      }
+
+      // When the animated step onto the cloned first slide finishes, snap
+      // back to the real first slide with no transition. Since the clone
+      // is pixel-identical, the reset is invisible — and tying it to the
+      // transition's actual end (rather than a guessed setTimeout) keeps
+      // it from drifting out of sync and producing a visible chop.
+      track.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'transform' || index !== total) return;
+        index = 0;
+        track.style.transition = 'none';
+        void track.offsetWidth; // force reflow so 'none' commits before the jump
+        track.style.transform = 'translateX(0px)';
+      });
+
+      const timer = setInterval(() => {
+        index++;
+        goTo(index, true);
+      }, 2600);
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => goTo(index, false), 120);
+      });
+    })();
+
+    // ---------- Nav dropdown ----------
+    const navTrigger = document.getElementById('navTrigger');
+    const navMenu = document.getElementById('navMenu');
+
+    navTrigger.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = navMenu.classList.toggle('open');
+      navTrigger.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      navMenu.classList.remove('open');
+      navTrigger.setAttribute('aria-expanded', 'false');
+    });
+
+    // ---------- Scroll reveal ----------
+    const revealEls = [
+      document.getElementById('showcaseHeadline'),
+      document.getElementById('closeSub'),
+      document.getElementById('waitlistForm'),
+    ];
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+        }
+      });
+    }, { threshold: 0.4 });
+
+    revealEls.forEach(el => el && observer.observe(el));
+
+    // ---------- Waitlist submit ----------
+    // Fill these in with your actual Supabase project values before deploying.
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+
+    const form = document.getElementById('waitlistForm');
+    const emailInput = document.getElementById('waitlistEmail');
+    const btn = document.getElementById('waitlistBtn');
+    const msg = document.getElementById('waitlistMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Joining…';
+      msg.textContent = '';
+      msg.className = 'waitlist-msg';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({ email }),
+        });
+
+        if (res.ok) {
+          msg.textContent = "You're on the list. Welcome home.";
+          msg.className = 'waitlist-msg success';
+          emailInput.value = '';
+          btn.textContent = 'Experience Home';
+        } else if (res.status === 409) {
+          msg.textContent = "You're already on the list.";
+          msg.className = 'waitlist-msg success';
+          btn.textContent = 'Experience Home';
+        } else {
+          throw new Error('Request failed');
+        }
+      } catch (err) {
+        msg.textContent = 'Something went wrong. Please try again.';
+        msg.className = 'waitlist-msg error';
+        btn.textContent = 'Experience Home';
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+
+</body>
+</html>

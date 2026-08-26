@@ -3,36 +3,36 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ROQ Home — Experience Your Entire Home in One App</title>
+<title>ROQ — The Future of Ownership</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
+<meta name="description" content="ROQ is innovating new ways to understand, manage, and improve your home and business — meet ROQ Home for homeowners and ROQ Business for service businesses." />
 <link rel="canonical" href="https://roqhome.com/" />
 
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="ROQ Home" />
-<meta property="og:title" content="ROQ Home — Experience Your Entire Home in One App" />
-<meta property="og:description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="ROQ — The Future of Ownership" />
+<meta property="og:description" content="ROQ is innovating new ways to understand, manage, and improve your home and business — meet ROQ Home for homeowners and ROQ Business for service businesses." />
 <meta property="og:url" content="https://roqhome.com/" />
-<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+<meta property="og:image" content="https://roqhome.com/assets/roq-share.png" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="ROQ Home — Experience Your Entire Home in One App" />
-<meta name="twitter:description" content="ROQ Home is the premium app for homeowners — understand your home's value, plan improvements, and manage your entire home in one place." />
-<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+<meta name="twitter:title" content="ROQ — The Future of Ownership" />
+<meta name="twitter:description" content="ROQ is innovating new ways to understand, manage, and improve your home and business — meet ROQ Home for homeowners and ROQ Business for service businesses." />
+<meta name="twitter:image" content="https://roqhome.com/assets/roq-share.png" />
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "ROQ",
-  "alternateName": ["ROQ Home", "ROQ Innovation LLC"],
+  "alternateName": ["ROQ Home", "ROQ Business", "ROQ Innovation LLC"],
   "legalName": "ROQ Innovation LLC",
   "url": "https://roqhome.com/",
-  "logo": "https://roqhome.com/assets/screen-1-home.jpg",
-  "description": "ROQ Home is a premium app that helps homeowners understand, improve, and enjoy their homes — home valuation, renovation planning, and market-ready preparation in one place.",
+  "logo": "https://roqhome.com/assets/roq-share.png",
+  "description": "ROQ is innovating new ways for people to understand, manage, and improve their home and business — ROQ Home for homeowners and ROQ Business for local service businesses.",
   "sameAs": []
 }
 </script>
@@ -43,18 +43,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is ROQ Home?",
+      "name": "What is ROQ?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "ROQ Home is a premium app for homeowners that helps you understand your home's value, plan improvements, and prepare your home for the market — all in one place."
+        "text": "ROQ is a company building software for owners — ROQ Home, a premium app for homeowners, and ROQ Business, an all-in-one system for local service businesses."
       }
     },
     {
       "@type": "Question",
-      "name": "Is ROQ Home the same as ROQ International or ROQ.US screen printing?",
+      "name": "Is ROQ the same as ROQ International or ROQ.US screen printing?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. ROQ Home (roqhome.com), made by ROQ Innovation LLC, is a homeownership app unrelated to ROQ International or ROQ.US, which manufacture screen printing equipment."
+        "text": "No. ROQ (roqhome.com), made by ROQ Innovation LLC, is unrelated to ROQ International or ROQ.US, which manufacture screen printing equipment."
       }
     }
   ]
@@ -63,7 +63,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #171716;
@@ -208,59 +208,6 @@
     color: var(--ink);
   }
 
-  /* ---------- Statement ---------- */
-
-  .showcase {
-    background: var(--bg);
-    padding: clamp(80px, 14vh, 140px) 0 clamp(80px, 12vh, 120px);
-    overflow: hidden;
-  }
-
-  .showcase-headline {
-    font-family: 'Inter', sans-serif;
-    font-weight: 800;
-    font-size: clamp(32px, 6vw, 60px);
-    line-height: 1.1;
-    color: var(--ink);
-    padding: 0 clamp(24px, 5vw, 64px);
-    margin-bottom: clamp(40px, 6vw, 64px);
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s var(--ease), transform 1s var(--ease);
-  }
-
-  .showcase-headline.in-view {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .showcase-carousel {
-    width: 100%;
-    overflow: hidden;
-    padding-left: clamp(24px, 5vw, 64px);
-  }
-
-  .showcase-track {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.7s var(--ease);
-  }
-
-  .showcase-slide {
-    flex: 0 0 auto;
-    width: min(240px, 62vw);
-    border-radius: 22px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  }
-
-  .showcase-slide img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
   /* ---------- Close / CTA ---------- */
 
   .close {
@@ -295,7 +242,7 @@
     font-family: 'Lora', serif;
     font-size: clamp(28px, 3.8vw, 46px);
     color: var(--ink);
-    margin-bottom: 32px;
+    margin-bottom: 0;
     max-width: 20ch;
     opacity: 0;
     transform: translateY(14px);
@@ -303,105 +250,77 @@
   }
 
   .close-orb-wrap.in-view,
-  .close-headline.in-view,
-  .waitlist-form.in-view {
+  .close-headline.in-view {
     opacity: 1;
     transform: translateY(0);
   }
 
-  /* ---------- Beta note ---------- */
+  /* ---------- Intro / choice ---------- */
 
-  .beta-note {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  .intro {
+    background: #FFFFFF;
+    color: #1C1C1A;
+    padding: clamp(90px, 14vh, 140px) clamp(24px, 6vw, 64px);
     text-align: center;
-    padding: clamp(64px, 10vh, 100px) clamp(24px, 6vw, 64px);
-    background: var(--bg-deep);
-    border-top: 1px solid var(--border);
   }
 
-  .close-sub {
+  .intro-text {
     font-family: 'Inter', sans-serif;
-    font-size: 15px;
-    color: var(--ink-dim);
-    max-width: 40ch;
-    margin-bottom: 32px;
-    line-height: 1.6;
+    font-weight: 700;
+    font-size: clamp(22px, 2.8vw, 32px);
+    line-height: 1.4;
+    max-width: 32ch;
+    margin: 0 auto clamp(56px, 8vw, 80px);
+    color: #0B0B0A;
     opacity: 0;
     transform: translateY(14px);
     transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
   }
 
-  .close-sub.in-view {
+  .intro-text.in-view {
     opacity: 1;
     transform: translateY(0);
   }
 
-  .waitlist-form {
+  .intro-choices {
     display: flex;
-    gap: 10px;
-    width: 100%;
-    max-width: 440px;
+    justify-content: center;
+    gap: clamp(20px, 3vw, 32px);
+    max-width: 720px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+  }
+
+  .intro-choice {
+    flex: 1 1 260px;
+    max-width: 320px;
+    display: block;
+    padding: clamp(36px, 5vw, 48px) 28px;
+    border: 1px solid rgba(28,28,26,0.14);
+    border-radius: 18px;
+    color: #1C1C1A;
     opacity: 0;
     transform: translateY(14px);
-    transition: opacity 0.9s var(--ease) 0.3s, transform 0.9s var(--ease) 0.3s;
+    transition: opacity 0.9s var(--ease), transform 0.9s var(--ease),
+      border-color 0.25s var(--ease), background 0.25s var(--ease);
   }
 
-  .waitlist-input {
-    flex: 1;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    padding: 15px 22px;
-    color: var(--ink);
+  .intro-choice.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .intro-choice:hover {
+    border-color: var(--gold);
+    background: rgba(200,168,130,0.06);
+  }
+
+  .intro-choice-label {
+    display: block;
     font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
-  }
-
-  .waitlist-input::placeholder { color: var(--ink-faint); }
-
-  .waitlist-input:focus {
-    border-color: rgba(200,168,130,0.5);
-    background: rgba(255,255,255,0.06);
-  }
-
-  .waitlist-btn {
-    background: var(--ink);
-    color: #14110B;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 26px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
     font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .waitlist-btn:hover { background: var(--gold); }
-  .waitlist-btn:active { transform: scale(0.97); }
-  .waitlist-btn:disabled { opacity: 0.6; cursor: default; }
-
-  .waitlist-msg {
-    margin-top: 18px;
-    font-size: 13px;
-    color: var(--ink-dim);
-    min-height: 18px;
-  }
-
-  .waitlist-msg.success { color: var(--gold); }
-  .waitlist-msg.error { color: #C97A6A; }
-
-  @media (max-width: 520px) {
-    .waitlist-form { flex-direction: column; }
-    .waitlist-btn { padding: 15px; }
+    font-size: 20px;
+    letter-spacing: 0.01em;
   }
 
   /* ---------- Footer ---------- */
@@ -445,7 +364,7 @@
   .footer-links a:hover { color: var(--ink-dim); }
 
   @media (prefers-reduced-motion: reduce) {
-    .showcase-headline, .close-orb-wrap, .close-headline, .close-sub, .waitlist-form {
+    .close-orb-wrap, .close-headline, .intro-text, .intro-choice {
       animation: none !important;
       transition: none !important;
       opacity: 1 !important;
@@ -468,9 +387,8 @@
         <span><i></i></span>
       </button>
       <nav class="nav-menu" id="navMenu">
-        <a href="index.html" class="active">Home</a>
-        <a href="index.html#app">App</a>
-        <a href="groundbreakable.html">Groundbreakable</a>
+        <a href="index.html" class="active">ROQ</a>
+        <a href="home.html">Home</a>
         <a href="business.html">Business</a>
         <a href="about.html">Story</a>
         <a href="legal/roq-privacy.html">Privacy</a>
@@ -482,39 +400,19 @@
     <div class="close-orb-wrap" id="closeOrbWrap">
       <canvas class="close-orb" id="closeOrb" width="96" height="96"></canvas>
     </div>
-    <h1 class="close-headline" id="closeHeadline">Welcome to the future of homeownership.</h1>
+    <h1 class="close-headline" id="closeHeadline">Welcome to the future of ownership.</h1>
   </section>
 
-  <section class="showcase" id="app">
-    <h2 class="showcase-headline" id="showcaseHeadline">ROQ Home — your home app</h2>
-    <div class="showcase-carousel">
-      <div class="showcase-track" id="showcaseTrack">
-        <div class="showcase-slide"><img src="assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="assets/screen-6-slade.jpg" alt="SLADE AI home advisor chat screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
-      </div>
+  <section class="intro" id="introSection">
+    <p class="intro-text" id="introText">A new way to operate your home and business.</p>
+    <div class="intro-choices">
+      <a class="intro-choice" id="introChoiceHome" href="home.html">
+        <span class="intro-choice-label">Home</span>
+      </a>
+      <a class="intro-choice" id="introChoiceBusiness" href="business.html">
+        <span class="intro-choice-label">Business</span>
+      </a>
     </div>
-  </section>
-
-  <section class="beta-note">
-    <p class="close-sub" id="closeSub">ROQ is currently in private beta. Leave your email and we'll let you know the moment it's ready for you.</p>
-
-    <form class="waitlist-form" id="waitlistForm">
-      <input
-        type="email"
-        class="waitlist-input"
-        id="waitlistEmail"
-        placeholder="your@email.com"
-        required
-        autocomplete="email"
-      />
-      <button type="submit" class="waitlist-btn" id="waitlistBtn">Experience Home</button>
-    </form>
-    <p class="waitlist-msg" id="waitlistMsg"></p>
   </section>
 
   <footer>
@@ -532,60 +430,6 @@
   </footer>
 
   <script>
-    // ---------- Screenshot showcase carousel ----------
-    (function initShowcase() {
-      const track = document.getElementById('showcaseTrack');
-      if (!track) return;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const realSlides = Array.from(track.children);
-      if (!realSlides.length) return;
-
-      // Clone the first slide onto the end so the loop can reset invisibly.
-      const clone = realSlides[0].cloneNode(true);
-      track.appendChild(clone);
-
-      if (reduceMotion) return; // leave it static on the first screenshot
-
-      let index = 0;
-      const total = realSlides.length;
-
-      function slideStep() {
-        const style = getComputedStyle(track);
-        const gap = parseFloat(style.gap) || 0;
-        return track.children[0].getBoundingClientRect().width + gap;
-      }
-
-      function goTo(i, animate) {
-        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
-        track.style.transform = `translateX(-${i * slideStep()}px)`;
-      }
-
-      // When the animated step onto the cloned first slide finishes, snap
-      // back to the real first slide with no transition. Since the clone
-      // is pixel-identical, the reset is invisible — and tying it to the
-      // transition's actual end (rather than a guessed setTimeout) keeps
-      // it from drifting out of sync and producing a visible chop.
-      track.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'transform' || index !== total) return;
-        index = 0;
-        track.style.transition = 'none';
-        void track.offsetWidth; // force reflow so 'none' commits before the jump
-        track.style.transform = 'translateX(0px)';
-      });
-
-      const timer = setInterval(() => {
-        index++;
-        goTo(index, true);
-      }, 2600);
-
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => goTo(index, false), 120);
-      });
-    })();
-
     // ---------- Nav dropdown ----------
     const navTrigger = document.getElementById('navTrigger');
     const navMenu = document.getElementById('navMenu');
@@ -603,11 +447,11 @@
 
     // ---------- Scroll reveal ----------
     const revealEls = [
-      document.getElementById('showcaseHeadline'),
       document.getElementById('closeOrbWrap'),
       document.getElementById('closeHeadline'),
-      document.getElementById('closeSub'),
-      document.getElementById('waitlistForm'),
+      document.getElementById('introText'),
+      document.getElementById('introChoiceHome'),
+      document.getElementById('introChoiceBusiness'),
     ];
 
     const observer = new IntersectionObserver((entries) => {
@@ -687,59 +531,6 @@
 
       requestAnimationFrame(frame);
     })();
-
-    // ---------- Waitlist submit ----------
-    // Fill these in with your actual Supabase project values before deploying.
-    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
-    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
-
-    const form = document.getElementById('waitlistForm');
-    const emailInput = document.getElementById('waitlistEmail');
-    const btn = document.getElementById('waitlistBtn');
-    const msg = document.getElementById('waitlistMsg');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      if (!email) return;
-
-      btn.disabled = true;
-      btn.textContent = 'Joining…';
-      msg.textContent = '';
-      msg.className = 'waitlist-msg';
-
-      try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'Prefer': 'return=minimal',
-          },
-          body: JSON.stringify({ email }),
-        });
-
-        if (res.ok) {
-          msg.textContent = "You're on the list. Welcome home.";
-          msg.className = 'waitlist-msg success';
-          emailInput.value = '';
-          btn.textContent = 'Experience Home';
-        } else if (res.status === 409) {
-          msg.textContent = "You're already on the list.";
-          msg.className = 'waitlist-msg success';
-          btn.textContent = 'Experience Home';
-        } else {
-          throw new Error('Request failed');
-        }
-      } catch (err) {
-        msg.textContent = 'Something went wrong. Please try again.';
-        msg.className = 'waitlist-msg error';
-        btn.textContent = 'Experience Home';
-      } finally {
-        btn.disabled = false;
-      }
-    });
   </script>
 
 </body>
