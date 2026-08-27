@@ -1,8 +1,5 @@
 User-agent: *
 Allow: /
 Disallow: /strategy-intake.html
-Disallow: /property-fingerprint.html
-Disallow: /home-potential.html
-Disallow: /market-ready.html
 
 Sitemap: https://roqhome.com/sitemap.xml
