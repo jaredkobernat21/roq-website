@@ -248,6 +248,86 @@
     .site-tabs a.active::after { display: none; }
   }
 
+  /* ---------- Opening hero ---------- */
+
+  /* The header floats transparent over the render, then takes the page's own
+     cream once you scroll past it — so the tabs stay legible on both. */
+  .site-header.scrolled {
+    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg-strong: #14130F;
+    --nav-accent: var(--gold);
+    --nav-solid: rgba(248,245,239,0.92);
+    --nav-border: var(--border);
+    --nav-shadow: none;
+  }
+
+  .buildhero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .buildhero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 58%;
+  }
+
+  /* The sun sits top-left and the ground reads warm and busy, so the scrim
+     holds both ends and stays lightest across the middle where the house is. */
+  .buildhero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(20,18,14,0.62) 0%,
+      rgba(20,18,14,0.34) 30%,
+      rgba(20,18,14,0.52) 60%,
+      rgba(20,18,14,0.86) 100%
+    );
+  }
+
+  .buildhero-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.72);
+    margin-bottom: 20px;
+    text-shadow: 0 1px 14px rgba(0,0,0,0.6);
+  }
+
+  .buildhero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    max-width: 17ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+  }
+
+  @media (max-width: 640px) {
+    .buildhero { padding: 104px 24px 84px; }
+    .buildhero-headline { font-size: 31px; max-width: 14ch; }
+    .buildhero-img { object-position: 52% 60%; }
+  }
+
   /* ---------- Hero ---------- */
 
   .hero {
@@ -785,7 +865,7 @@
 </head>
 <body>
 
-  <header class="site-header inflow on-light">
+  <header class="site-header">
     <a class="site-logo" href="/" aria-label="ROQ Home">
       <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
@@ -805,14 +885,19 @@
             aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
 
+  <section class="buildhero">
+    <img class="buildhero-img" src="/assets/hero/build-hero.jpg"
+         alt="A home under construction at sunset on a ridge above a lake" />
+    <div class="buildhero-scrim"></div>
+    <div>
+      <p class="buildhero-eyebrow">Groundbreakable by ROQ</p>
+      <h1 class="buildhero-headline">Build your forever home with confidence</h1>
+    </div>
+  </section>
+
   <section class="hero">
     <div>
-      <div class="hero-eyebrow-block">
-        <span class="hero-eyebrow">Groundbreakable</span>
-        <span class="hero-eyebrow-by">by ROQ</span>
-        <span class="hero-eyebrow-rule"></span>
-      </div>
-      <h1 class="hero-headline">Know before<br>you build.</h1>
+      <h2 class="hero-headline">Know before<br>you build.</h2>
       <p class="hero-sub">You bought the land. Now get ready to build.</p>
       <p class="hero-desc">Groundbreakable helps homeowners understand their property, site requirements, permits, costs, design direction, and next steps before hiring the build team.</p>
       <div class="hero-actions">
@@ -995,9 +1080,17 @@
       }
 
       if (header) {
-        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+        // This page opens on a full-height dark render, so the header holds its
+        // transparent treatment until the hero has passed under it — switching
+        // at a few pixels would drop a cream bar over the photo.
+        const hero = document.querySelector('.buildhero');
+        const threshold = () =>
+          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
       }
     })();
 
