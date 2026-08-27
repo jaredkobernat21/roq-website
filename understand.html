@@ -557,7 +557,22 @@
     #landingShell .intro { padding: 36px 24px 22px; }
     #landingShell .intro-title { font-size: 30px; line-height: 1.15; }
     #landingShell .intro-sub { font-size: 15.5px; line-height: 1.6; }
-    #landingShell .preview { padding-left: 24px; padding-right: 24px; }
+    #landingShell .preview { padding: 8px 24px 4px; }
+
+    /* The wide dashboard shot needed a card frame to sit in. The phone mock
+       already reads as a device, so the border and drop shadow only muddy it. */
+    #landingShell .preview-shot {
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+
+    #landingShell .preview-shot picture,
+    #landingShell .preview-shot img { display: block; width: 100%; height: auto; }
+
+    #landingShell .preview-note { font-size: 12.5px; margin-top: 12px; }
     #landingShell .form-wrap { padding-left: 24px; padding-right: 24px; }
   }
 </style>
@@ -595,7 +610,12 @@
     </section>
 
     <section class="preview">
-      <div class="preview-shot"><img src="/assets/showcase/fingerprintwide1.jpg" alt="Home Fingerprint report dashboard for a sample property, showing value, timeline, and comparable sales" loading="lazy" /></div>
+      <div class="preview-shot">
+        <picture>
+          <source media="(max-width: 640px)" srcset="/assets/showcase/fingerprint-mobile.jpg" width="461" height="820">
+          <img src="/assets/showcase/fingerprintwide1.jpg" alt="Home Fingerprint report for a sample property, showing value, equity, potential and neighbourhood detail" loading="lazy" />
+        </picture>
+      </div>
       <p class="preview-note">Sample data shown for illustration &mdash; your report is generated from live public records, ownership history, permits, risk, and more for the address you search.</p>
     </section>
 

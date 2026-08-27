@@ -592,11 +592,47 @@
       max-width: 13ch;
     }
 
-    /* Portrait crop suits the source image and the device far better than the
-       4:3 the desktop split collapsed into. */
-    .home-hero-visual { aspect-ratio: 3 / 4; }
+    /* Stacked, the photo scrolled past before the headline arrived, so the
+       section read as copy alone. Full-bleed instead: the render sits behind
+       the words the way it does in the opening section, and the two are seen
+       together. */
+    .home-hero {
+      position: relative;
+      display: block;
+      min-height: 100svh;
+      isolation: isolate;
+      background: var(--bg-deep);
+    }
 
-    .home-hero-copy { padding: 44px 24px 56px; }
+    .home-hero-visual {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      aspect-ratio: auto;
+    }
+
+    .home-hero-visual img { object-position: 62% 38%; }
+
+    .home-hero-visual::after {
+      background: linear-gradient(
+        to bottom,
+        rgba(13,13,12,0.55) 0%,
+        rgba(13,13,12,0.22) 26%,
+        rgba(13,13,12,0.78) 62%,
+        rgba(13,13,12,0.96) 100%
+      );
+    }
+
+    .home-hero-copy {
+      position: relative;
+      z-index: 1;
+      min-height: 100svh;
+      justify-content: flex-end;
+      padding: 128px 24px 60px;
+    }
+
+    .home-hero-headline,
+    .home-hero-sub { text-shadow: 0 2px 24px rgba(0,0,0,0.55); }
 
     .home-hero-headline {
       font-size: 31px;
