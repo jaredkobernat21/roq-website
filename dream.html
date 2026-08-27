@@ -705,69 +705,6 @@
     line-height: 1.6;
   }
 
-  .waitlist-form {
-    display: flex;
-    gap: 10px;
-    width: 100%;
-    max-width: 440px;
-    margin: 0 auto;
-  }
-
-  .waitlist-input {
-    flex: 1;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
-    border-radius: 30px;
-    padding: 15px 22px;
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
-  }
-
-  .waitlist-input::placeholder { color: var(--ink-faint); }
-
-  .waitlist-input:focus {
-    border-color: rgba(200,168,130,0.5);
-    background: rgba(255,255,255,0.06);
-  }
-
-  .waitlist-btn {
-    background: var(--ink);
-    color: #14110B;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 26px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .waitlist-btn:hover { background: var(--gold); }
-  .waitlist-btn:active { transform: scale(0.97); }
-  .waitlist-btn:disabled { opacity: 0.6; cursor: default; }
-
-  .waitlist-msg {
-    margin-top: 18px;
-    font-size: 13px;
-    color: var(--ink-dim);
-    min-height: 18px;
-  }
-
-  .waitlist-msg.success { color: var(--gold); }
-  .waitlist-msg.error { color: var(--danger); }
-
-  @media (max-width: 520px) {
-    .waitlist-form { flex-direction: column; }
-    .waitlist-btn { padding: 15px; }
-  }
-
   /* ---------- Footer ---------- */
 
   footer {
@@ -810,10 +747,10 @@
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/manage.html">Manage</a>
-      <a href="/move.html">Move</a>
       <a href="/understand.html">Understand</a>
       <a href="/build.html">Build</a>
       <a href="/dream.html" class="active" aria-current="page">Dream</a>
+      <a href="/move.html">Move</a>
       <a href="/about.html">Story</a>
     </nav>
 
@@ -936,20 +873,12 @@
   </main>
 
   <section class="waitlist-strip">
-    <h2 class="waitlist-strip-title">Track your home's number over time.</h2>
-    <p class="waitlist-strip-sub">ROQ is currently in private beta. Join the waitlist and we'll let you know the moment Home Potential is built into the app.</p>
-    <form class="waitlist-form" id="waitlistForm">
-      <input
-        type="email"
-        class="waitlist-input"
-        id="waitlistEmail"
-        placeholder="your@email.com"
-        required
-        autocomplete="email"
-      />
-      <button type="submit" class="waitlist-btn" id="waitlistBtn">Join the Waitlist</button>
-    </form>
-    <p class="waitlist-msg" id="waitlistMsg"></p>
+    <h2 class="waitlist-strip-title">Track your home’s number over time.</h2>
+    <p class="waitlist-strip-sub">Home Potential lives inside the ROQ app — free on iPhone.</p>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
   </section>
 
   <footer>
@@ -1234,54 +1163,6 @@
       }
     });
 
-    // ---------- Waitlist submit ----------
-    const wForm = document.getElementById('waitlistForm');
-    const wEmail = document.getElementById('waitlistEmail');
-    const wBtn = document.getElementById('waitlistBtn');
-    const wMsg = document.getElementById('waitlistMsg');
-
-    wForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const email = wEmail.value.trim();
-      if (!email) return;
-
-      wBtn.disabled = true;
-      wBtn.textContent = 'Joining…';
-      wMsg.textContent = '';
-      wMsg.className = 'waitlist-msg';
-
-      try {
-        const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_ANON_KEY,
-            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-            'Prefer': 'return=minimal',
-          },
-          body: JSON.stringify({ email }),
-        });
-
-        if (res.ok) {
-          wMsg.textContent = "You're on the list. Welcome home.";
-          wMsg.className = 'waitlist-msg success';
-          wEmail.value = '';
-          wBtn.textContent = 'Join the Waitlist';
-        } else if (res.status === 409) {
-          wMsg.textContent = "You're already on the list.";
-          wMsg.className = 'waitlist-msg success';
-          wBtn.textContent = 'Join the Waitlist';
-        } else {
-          throw new Error('Request failed');
-        }
-      } catch (err) {
-        wMsg.textContent = 'Something went wrong. Please try again.';
-        wMsg.className = 'waitlist-msg error';
-        wBtn.textContent = 'Join the Waitlist';
-      } finally {
-        wBtn.disabled = false;
-      }
-    });
   </script>
 </body>
 </html>

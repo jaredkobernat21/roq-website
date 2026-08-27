@@ -241,7 +241,6 @@
     .site-tabs a.active::after { display: none; }
   }
 
-
   /* ---------- Hero ---------- */
 
   .home-hero {
@@ -256,7 +255,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: clamp(140px, 17vh, 185px) clamp(24px, 5vw, 72px) clamp(72px, 10vh, 100px);
+    padding: clamp(72px, 10vh, 110px) clamp(24px, 5vw, 72px);
   }
 
   .home-hero-eyebrow {
@@ -336,102 +335,16 @@
     }
   }
 
-  /* ---------- Paths ---------- */
-
-  .paths {
-    padding: clamp(80px, 12vh, 120px) clamp(24px, 5vw, 64px) clamp(90px, 13vh, 130px);
-    background: var(--bg);
-  }
-
-  .paths-intro { max-width: 620px; margin-bottom: clamp(44px, 6vw, 64px); }
-
-  .paths-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 18px;
-  }
-
-  .paths-headline {
-    font-family: 'Lora', serif;
-    font-weight: 400;
-    font-size: clamp(26px, 3.4vw, 40px);
-    line-height: 1.2;
-    margin-bottom: 16px;
-  }
-
-  .paths-sub { font-size: 15px; line-height: 1.65; color: var(--ink-dim); }
-
-  .paths-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 18px;
-  }
-
-  .path-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 30px 28px 64px;
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    background: rgba(255,255,255,0.02);
-    opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease),
-      border-color 0.25s var(--ease), background 0.25s var(--ease);
-  }
-
-  .path-card.in-view { opacity: 1; transform: translateY(0); }
-
-  .path-card:hover {
-    border-color: rgba(200,168,130,0.45);
-    background: rgba(200,168,130,0.05);
-  }
-
-  .path-card-name {
-    font-family: 'Lora', serif;
-    font-size: 26px;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .path-card-product {
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 16px;
-  }
-
-  .path-card-desc { font-size: 14px; line-height: 1.6; color: var(--ink-dim); }
-
-  .path-card-go {
-    position: absolute;
-    left: 28px;
-    bottom: 26px;
-    color: var(--ink-faint);
-    transition: color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .path-card-go svg { width: 20px; height: 20px; display: block; }
-
-  .path-card:hover .path-card-go { color: var(--gold); transform: translateX(4px); }
-
-
   /* ---------- Statement band ---------- */
 
   .statement {
     position: relative;
-    min-height: clamp(420px, 72vh, 620px);
+    min-height: 100vh;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     text-align: center;
-    padding: clamp(80px, 12vh, 120px) clamp(24px, 6vw, 64px) clamp(56px, 9vh, 88px);
+    padding: clamp(150px, 20vh, 210px) clamp(24px, 6vw, 64px) clamp(72px, 11vh, 110px);
     background: #050505;
     overflow: hidden;
     isolation: isolate;
@@ -465,23 +378,13 @@
   .statement-text {
     font-family: 'Lora', serif;
     font-weight: 400;
-    font-size: clamp(26px, 3.6vw, 44px);
-    line-height: 1.18;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
     letter-spacing: -0.01em;
     max-width: 22ch;
-    margin: 0 auto 16px;
-    text-wrap: balance;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
-  }
-
-  .statement-sub {
-    font-size: clamp(14px, 1.3vw, 16px);
-    line-height: 1.6;
-    color: var(--ink-dim);
-    max-width: 46ch;
     margin: 0 auto;
     text-wrap: balance;
-    text-shadow: 0 1px 16px rgba(0,0,0,0.6);
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
   }
 
   @media (max-width: 600px) {
@@ -514,56 +417,30 @@
     line-height: 1.6;
   }
 
-  .waitlist-form { display: flex; gap: 10px; width: 100%; max-width: 440px; }
+  /* ---------- App Store CTA ---------- */
 
-  .waitlist-input {
-    flex: 1;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--border);
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 26px 14px 22px;
     border-radius: 30px;
-    padding: 15px 22px;
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    outline: none;
-    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
-  }
-
-  .waitlist-input::placeholder { color: var(--ink-faint); }
-
-  .waitlist-input:focus {
-    border-color: rgba(200,168,130,0.5);
-    background: rgba(255,255,255,0.06);
-  }
-
-  .waitlist-btn {
     background: var(--ink);
     color: #14110B;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 26px;
-    font-family: 'Inter', sans-serif;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+    border: 1px solid var(--ink);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
   }
 
-  .waitlist-btn:hover { background: var(--gold); }
-  .waitlist-btn:active { transform: scale(0.97); }
-  .waitlist-btn:disabled { opacity: 0.6; cursor: default; }
+  .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .appstore-btn:active { transform: scale(0.98); }
 
-  .waitlist-msg { margin-top: 18px; font-size: 13px; color: var(--ink-dim); min-height: 18px; }
-  .waitlist-msg.success { color: var(--gold); }
-  .waitlist-msg.error { color: #C97A6A; }
+  .appstore-btn svg { width: 22px; height: 22px; flex: none; fill: currentColor; }
 
-  @media (max-width: 520px) {
-    .waitlist-form { flex-direction: column; }
-    .waitlist-btn { padding: 15px; }
-  }
+  .appstore-btn-label { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+  .appstore-btn-label small { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
+  .appstore-btn-label b { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .appstore-meta { margin-top: 18px; font-size: 12.5px; color: var(--ink-faint); }
 
   /* ---------- Footer ---------- */
 
@@ -599,14 +476,6 @@
   }
 
   .footer-links a:hover { color: var(--ink-dim); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .path-card {
-      transition: none !important;
-      opacity: 1 !important;
-      transform: none !important;
-    }
-  }
 </style>
 </head>
 <body>
@@ -620,10 +489,10 @@
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/manage.html">Manage</a>
-      <a href="/move.html">Move</a>
       <a href="/understand.html">Understand</a>
       <a href="/build.html">Build</a>
       <a href="/dream.html">Dream</a>
+      <a href="/move.html">Move</a>
       <a href="/about.html">Story</a>
     </nav>
 
@@ -631,14 +500,24 @@
             aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
 
+
+
+  <section class="statement">
+    <img class="statement-img" src="/assets/hero/roq-hero.jpg"
+         alt="A modern home at night, its arched roofline traced in light above a still reflecting pool" />
+    <div class="statement-scrim"></div>
+    <div>
+      <p class="statement-text">Welcome to the future of homeownership.</p>
+    </div>
+  </section>
+
   <section class="home-hero">
     <div class="home-hero-copy">
       <p class="home-hero-eyebrow">ROQ Home</p>
-      <h1 class="home-hero-headline">Feel like an owner.</h1>
-      <p class="home-hero-sub">Owning a home should feel like command, not guesswork. ROQ Home gives you the full picture of what you own — what it's worth, what it needs, what it could become — and the tools to act on it.</p>
+      <h2 class="home-hero-headline">Feel like an owner.</h2>
+      <p class="home-hero-sub">You bought the home! So why does it feel like everyone else understands it and benefits more from it than you do? Find your way home…</p>
       <div class="home-hero-actions">
         <a class="btn-primary" href="/manage.html">Explore the app</a>
-        <a class="btn-ghost" href="#paths">See what's inside</a>
       </div>
     </div>
     <div class="home-hero-visual">
@@ -647,83 +526,16 @@
     </div>
   </section>
 
-  <section class="paths" id="paths">
-    <div class="paths-intro">
-      <p class="paths-eyebrow">Five ways in</p>
-      <h2 class="paths-headline">Wherever you are with your home, start here.</h2>
-      <p class="paths-sub">Every home is somewhere on a path — settled, selling, questioned, unbuilt, or waiting to become something more. Each of these meets you where you are.</p>
-    </div>
 
-    <div class="paths-grid">
-      <a class="path-card" href="/manage.html">
-        <span class="path-card-name">Manage</span>
-        <span class="path-card-product">ROQ App</span>
-        <p class="path-card-desc">Your whole home in one app — its systems, its story, its upkeep, and what it's worth.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/move.html">
-        <span class="path-card-name">Move</span>
-        <span class="path-card-product">Home Passport</span>
-        <p class="path-card-desc">A personally prepared review and strategy to present your home before you sell.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/understand.html">
-        <span class="path-card-name">Understand</span>
-        <span class="path-card-product">Home Fingerprint</span>
-        <p class="path-card-desc">The full record of your property — value, history, risks, neighborhood, and documents.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/build.html">
-        <span class="path-card-name">Build</span>
-        <span class="path-card-product">Groundbreakable</span>
-        <p class="path-card-desc">You bought the land. Know the site, permits, costs, and design direction before you hire a build team.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/dream.html">
-        <span class="path-card-name">Dream</span>
-        <span class="path-card-product">Home Potential</span>
-        <p class="path-card-desc">Your neighborhood ceiling, renovation headroom, and concept designs — what your home could become.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-    </div>
-  </section>
-
-  <section class="statement">
-    <img class="statement-img" src="/assets/hero/roq-hero.jpg"
-         alt="A modern home at night, its arched roofline traced in light above a still reflecting pool" />
-    <div class="statement-scrim"></div>
-    <div>
-      <p class="statement-text">A new way to operate your home.</p>
-      <p class="statement-sub">Built by ROQ, for the people who actually live with the decisions.</p>
-    </div>
-  </section>
 
   <section class="beta-note">
-    <h2 class="beta-headline">ROQ Home is in private beta.</h2>
-    <p class="close-sub">Leave your email and we'll let you know the moment it's ready for you.</p>
-
-    <form class="waitlist-form" id="waitlistForm">
-      <input
-        type="email"
-        class="waitlist-input"
-        id="waitlistEmail"
-        placeholder="your@email.com"
-        required
-        autocomplete="email"
-      />
-      <button type="submit" class="waitlist-btn" id="waitlistBtn">Experience Home</button>
-    </form>
-    <p class="waitlist-msg" id="waitlistMsg"></p>
+    <h2 class="beta-headline">ROQ Home is here.</h2>
+    <p class="close-sub">Your whole home in one app — what it’s worth, what it needs, and what it could become.</p>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
+    <p class="appstore-meta">Free on iPhone · Requires iOS 15.1 or later</p>
   </section>
 
   <footer>
@@ -767,69 +579,6 @@
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
-    })();
-
-    // ---------- Scroll reveal ----------
-    (function initReveal() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) observer.unobserve(entry.target), entry.target.classList.add('in-view');
-        });
-      }, { threshold: 0.2 });
-      document.querySelectorAll('.path-card').forEach(el => observer.observe(el));
-    })();
-
-    // ---------- Waitlist submit ----------
-    (function initWaitlist() {
-      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
-
-      const form = document.getElementById('waitlistForm');
-      const emailInput = document.getElementById('waitlistEmail');
-      const btn = document.getElementById('waitlistBtn');
-      const msg = document.getElementById('waitlistMsg');
-      if (!form) return;
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const email = emailInput.value.trim();
-        if (!email) return;
-
-        btn.disabled = true;
-        btn.textContent = 'Joining…';
-        msg.textContent = '';
-        msg.className = 'waitlist-msg';
-
-        try {
-          const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'apikey': SUPABASE_ANON_KEY,
-              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-              'Prefer': 'return=minimal',
-            },
-            body: JSON.stringify({ email }),
-          });
-
-          if (res.ok) {
-            msg.textContent = "You're on the list. Welcome home.";
-            msg.className = 'waitlist-msg success';
-            emailInput.value = '';
-          } else if (res.status === 409) {
-            msg.textContent = "You're already on the list.";
-            msg.className = 'waitlist-msg success';
-          } else {
-            throw new Error('Request failed');
-          }
-        } catch (err) {
-          msg.textContent = 'Something went wrong. Please try again.';
-          msg.className = 'waitlist-msg error';
-        } finally {
-          btn.disabled = false;
-          btn.textContent = 'Experience Home';
-        }
-      });
     })();
   </script>
 
