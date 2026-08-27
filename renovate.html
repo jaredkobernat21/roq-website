@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Manage — ROQ Home</title>
+<title>Renovate — ROQ Home</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="The ROQ app puts your entire home in one place — its health, its projects, its story, its worth, and an AI advisor that knows your specific house." />
-<link rel="canonical" href="https://roqhome.com/manage.html" />
+<meta name="description" content="Know what a renovation is worth before you start — what your block will carry, and where the money stops coming back." />
+<link rel="canonical" href="https://roqhome.com/renovate.html" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ROQ Home" />
-<meta property="og:title" content="Manage — ROQ Home" />
-<meta property="og:description" content="Your entire home in one app — health, projects, story, worth, and an AI advisor that knows your house." />
-<meta property="og:url" content="https://roqhome.com/manage.html" />
-<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+<meta property="og:title" content="Renovate — ROQ Home" />
+<meta property="og:description" content="Know what a renovation is worth before you start — what your block will carry, and where the money stops coming back." />
+<meta property="og:url" content="https://roqhome.com/renovate.html" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/renovate-hero.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Manage — ROQ Home" />
-<meta name="twitter:description" content="Your entire home in one app — health, projects, story, worth, and an AI advisor that knows your house." />
-<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+<meta name="twitter:title" content="Renovate — ROQ Home" />
+<meta name="twitter:description" content="Know what a renovation is worth before you start — what your block will carry, and where the money stops coming back." />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/renovate-hero.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -246,113 +246,58 @@
 
   /* ---------- Page hero ---------- */
 
-  .page-hero {
-    padding: clamp(148px, 20vh, 200px) clamp(24px, 5vw, 64px) clamp(50px, 7vh, 70px);
-    background: var(--bg-deep);
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
   }
 
-  .page-hero-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 20px;
+  .pagehero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .page-hero-headline {
+  .pagehero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(18,16,13,0.62) 0%,
+      rgba(18,16,13,0.34) 30%,
+      rgba(18,16,13,0.54) 60%,
+      rgba(18,16,13,0.86) 100%
+    );
+  }
+
+  .pagehero-headline {
     font-family: 'Lora', serif;
     font-weight: 400;
-    font-size: clamp(34px, 5vw, 60px);
-    line-height: 1.1;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
     letter-spacing: -0.01em;
-    max-width: 16ch;
-    margin-bottom: 22px;
+    color: #FFFFFF;
+    max-width: 17ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
   }
 
-  .page-hero-sub {
-    font-size: clamp(15px, 1.3vw, 17px);
-    line-height: 1.65;
-    color: var(--ink-dim);
-    max-width: 52ch;
+  @media (max-width: 640px) {
+    .pagehero { padding: 104px 24px 84px; }
+    .pagehero-headline { font-size: 31px; max-width: 14ch; }
   }
-
-  /* ---------- Screenshot carousel ---------- */
-
-  .showcase {
-    background: var(--bg-deep);
-    padding: 0 0 clamp(80px, 12vh, 120px);
-    overflow: hidden;
-  }
-
-  .showcase-carousel {
-    width: 100%;
-    overflow: hidden;
-    padding-left: clamp(24px, 5vw, 64px);
-  }
-
-  .showcase-track {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.7s var(--ease);
-  }
-
-  .showcase-slide {
-    flex: 0 0 auto;
-    width: min(240px, 62vw);
-    border-radius: 22px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-  }
-
-  .showcase-slide img { display: block; width: 100%; height: auto; }
-
-  /* ---------- Feature list ---------- */
-
-  .features {
-    padding: clamp(64px, 10vh, 100px) clamp(24px, 5vw, 64px) clamp(80px, 12vh, 120px);
-    background: var(--bg);
-  }
-
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    border-radius: 18px;
-    overflow: hidden;
-  }
-
-  .feature {
-    background: var(--bg);
-    padding: 32px 28px 36px;
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), background 0.25s var(--ease);
-  }
-
-  .feature.in-view { opacity: 1; transform: translateY(0); }
-  .feature:hover { background: rgba(255,255,255,0.02); }
-
-  .feature-name {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 14px;
-  }
-
-  .feature-title {
-    font-family: 'Lora', serif;
-    font-size: 21px;
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-
-  .feature-desc { font-size: 14px; line-height: 1.6; color: var(--ink-dim); }
 
   /* ---------- Waitlist ---------- */
 
@@ -528,28 +473,6 @@
     .footer-links a:last-child { border-bottom: none; }
   }
 
-  @media (max-width: 640px) {
-    /* The hero was clearing a two-row fixed header that no longer exists,
-       leaving ~150px of empty screen before any content. */
-    .page-hero { padding: 104px 24px 40px; }
-    .page-hero-eyebrow { margin-bottom: 14px; }
-    .page-hero-headline { font-size: 31px; line-height: 1.12; margin-bottom: 16px; }
-    .page-hero-sub { font-size: 15.5px; line-height: 1.6; }
-
-    .showcase { padding-bottom: 64px; }
-    .showcase-carousel { padding-left: 24px; }
-    .showcase-slide { width: min(200px, 56vw); border-radius: 18px; }
-
-    .features { padding: 64px 24px 72px; }
-    .features-grid { border-radius: 14px; }
-    .feature { padding: 26px 22px 28px; }
-    .feature-title { font-size: 19px; }
-
-    .beta-note { padding: 64px 24px 72px; }
-    .beta-headline { font-size: 25px; line-height: 1.2; }
-    .close-sub { font-size: 15px; margin-bottom: 28px; }
-    .appstore-btn { padding: 15px 28px 15px 24px; }
-  }
 </style>
 </head>
 <body>
@@ -562,9 +485,9 @@
     </a>
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
-      <a href="/manage.html" class="active" aria-current="page">Manage</a>
+      <a href="/manage.html">Manage</a>
       <a href="/understand.html">Understand</a>
-      <a href="/renovate.html">Renovate</a>
+      <a href="/renovate.html" class="active" aria-current="page">Renovate</a>
       <a href="/build.html">Build</a>
       <a href="/dream.html">Dream</a>
       <a href="/experience.html">Experience</a>
@@ -576,74 +499,21 @@
             aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
 
-  <section class="page-hero">
-    <p class="page-hero-eyebrow">ROQ App</p>
-    <h1 class="page-hero-headline">Run your home from one place.</h1>
-    <p class="page-hero-sub">Most of what you know about your home lives in drawers, inboxes, and memory. The ROQ app gathers it — every system, every project, every document, every dollar — into something you can actually use.</p>
-  </section>
 
-  <section class="showcase">
-    <div class="showcase-carousel">
-      <div class="showcase-track" id="showcaseTrack">
-        <div class="showcase-slide"><img src="/assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-6-slade.jpg" alt="SLADE AI home advisor chat screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="features-grid">
-      <div class="feature">
-        <p class="feature-name">Home</p>
-        <h3 class="feature-title">A living tour</h3>
-        <p class="feature-desc">Your house, room by room — what's in it, when it was last touched, and what it's made of.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Pulse</p>
-        <h3 class="feature-title">Home health</h3>
-        <p class="feature-desc">What needs attention, what can wait, and what will cost you if it keeps waiting.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Studio</p>
-        <h3 class="feature-title">Projects &amp; plans</h3>
-        <p class="feature-desc">Every improvement in one thread — scope, budget, quotes, and progress.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Story</p>
-        <h3 class="feature-title">The timeline</h3>
-        <p class="feature-desc">Everything that's happened to your home, in order — and the record to prove it.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Worth</p>
-        <h3 class="feature-title">Value &amp; equity</h3>
-        <p class="feature-desc">What it's worth, what you owe, what you've put in, and what ownership actually costs.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">SLADE</p>
-        <h3 class="feature-title">Your home's advisor</h3>
-        <p class="feature-desc">An AI that knows your specific house — not houses in general — and answers accordingly.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Personality</p>
-        <h3 class="feature-title">What makes it yours</h3>
-        <p class="feature-desc">Materials, finishes, light, and character — the details that make it this home and no other.</p>
-      </div>
-    </div>
+  <section class="pagehero">
+    <img class="pagehero-img" src="/assets/hero/renovate-hero.jpg" alt="A home mid-renovation, floor plans and material samples on the table" style="object-position: 50% 55%" />
+    <div class="pagehero-scrim"></div>
+    <h1 class="pagehero-headline">Don&rsquo;t over renovate your home</h1>
   </section>
 
   <section class="beta-note">
-    <h2 class="beta-headline">The ROQ app is out now.</h2>
-    <p class="close-sub">Every system, project, document and dollar, gathered into something you can actually use.</p>
+    <h2 class="beta-headline">Renovation planning lives in the ROQ app.</h2>
+    <p class="close-sub">See what your block will carry before you commit to the spend.</p>
     <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
       <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
       <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
     </a>
-    <p class="appstore-meta">Free on iPhone · Requires iOS 15.1 or later</p>
+    <p class="appstore-meta">Free on iPhone &middot; Requires iOS 15.1 or later</p>
   </section>
 
   <footer>
@@ -662,6 +532,7 @@
       <a href="mailto:support@roqhome.com">Contact</a>
     </div>
   </footer>
+
 
   <script>
     // ---------- Header: tabs + scroll scrim ----------
@@ -683,76 +554,19 @@
       }
 
       if (header) {
-        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+        // The page opens on a full-height render, so the header keeps its
+        // transparent treatment until the hero has passed under it.
+        const hero = document.querySelector('.pagehero');
+        const threshold = () =>
+          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
       }
     })();
 
-    // ---------- Screenshot showcase carousel ----------
-    (function initShowcase() {
-      const track = document.getElementById('showcaseTrack');
-      if (!track) return;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const realSlides = Array.from(track.children);
-      if (!realSlides.length) return;
-
-      // Clone the first slide onto the end so the loop can reset invisibly.
-      const clone = realSlides[0].cloneNode(true);
-      track.appendChild(clone);
-
-      if (reduceMotion) return; // leave it static on the first screenshot
-
-      let index = 0;
-      const total = realSlides.length;
-
-      function slideStep() {
-        const style = getComputedStyle(track);
-        const gap = parseFloat(style.gap) || 0;
-        return track.children[0].getBoundingClientRect().width + gap;
-      }
-
-      function goTo(i, animate) {
-        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
-        track.style.transform = `translateX(-${i * slideStep()}px)`;
-      }
-
-      // When the animated step onto the cloned first slide finishes, snap
-      // back to the real first slide with no transition. Since the clone
-      // is pixel-identical, the reset is invisible.
-      track.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'transform' || index !== total) return;
-        index = 0;
-        track.style.transition = 'none';
-        void track.offsetWidth; // force reflow so 'none' commits before the jump
-        track.style.transform = 'translateX(0px)';
-      });
-
-      setInterval(() => {
-        index++;
-        goTo(index, true);
-      }, 2600);
-
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => goTo(index, false), 120);
-      });
-    })();
-
-    // ---------- Scroll reveal ----------
-    (function initReveal() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            observer.unobserve(entry.target);
-            entry.target.classList.add('in-view');
-          }
-        });
-      }, { threshold: 0.2 });
-      document.querySelectorAll('.feature').forEach(el => observer.observe(el));
-    })();
   </script>
 
 </body>

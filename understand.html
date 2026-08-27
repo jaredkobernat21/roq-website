@@ -171,7 +171,7 @@
   .site-tabs {
     display: flex;
     align-items: center;
-    gap: clamp(20px, 3.2vw, 44px);
+    gap: clamp(14px, 2.1vw, 30px);
   }
 
   .site-tabs a {
@@ -180,8 +180,9 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    white-space: nowrap;
     color: var(--nav-fg);
     text-shadow: var(--nav-shadow);
     transition: color 0.25s var(--nav-ease);
@@ -265,6 +266,61 @@
   #landingShell main{ flex:1; }
 
   #landingShell .intro{ max-width:640px; margin:0 auto; text-align:center; padding:clamp(40px,7vh,76px) clamp(24px,6vw,64px) clamp(24px,4vh,36px); }
+
+  /* ---------- Page hero ---------- */
+
+  #landingShell .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  #landingShell .pagehero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #landingShell .pagehero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(18,16,13,0.62) 0%,
+      rgba(18,16,13,0.34) 30%,
+      rgba(18,16,13,0.54) 60%,
+      rgba(18,16,13,0.86) 100%
+    );
+  }
+
+  #landingShell .pagehero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    max-width: 17ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+  }
+
+  @media (max-width: 640px) {
+    .pagehero { padding: 104px 24px 84px; }
+    .pagehero-headline { font-size: 31px; max-width: 14ch; }
+  }
 
   /* ---- house / fingerprint mark (static, transparent) ---- */
   .fp-icon-wrap{ width:clamp(108px,14vw,148px); height:clamp(124px,16vw,170px); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; opacity:0; transform:translateY(10px); animation:fpFadeUp .9s cubic-bezier(.16,1,.3,1) .1s forwards; }
@@ -580,7 +636,7 @@
 <body>
 
 <div id="landingShell">
-  <header class="site-header inflow">
+  <header class="site-header">
     <a class="site-logo" href="/" aria-label="ROQ Home">
       <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
@@ -590,8 +646,10 @@
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/manage.html">Manage</a>
       <a href="/understand.html" class="active" aria-current="page">Understand</a>
+      <a href="/renovate.html">Renovate</a>
       <a href="/build.html">Build</a>
       <a href="/dream.html">Dream</a>
+      <a href="/experience.html">Experience</a>
       <a href="/move.html">Move</a>
       <a href="/about.html">Story</a>
     </nav>
@@ -601,11 +659,17 @@
   </header>
 
   <main>
+    <section class="pagehero">
+      <img class="pagehero-img" src="/assets/hero/understand-hero.jpg" alt="Two homeowners reviewing floor plans and material samples in a bright living room" style="object-position: 50% 42%" />
+      <div class="pagehero-scrim"></div>
+      <h1 class="pagehero-headline">Understand your home</h1>
+    </section>
+
     <section class="intro">
       <div class="fp-icon-wrap">
         <img class="fp-icon" src="/assets/logo/home-fingerprint-icon.png" alt="" aria-hidden="true" />
       </div>
-      <h1 class="intro-title">Home Fingerprint</h1>
+      <h2 class="intro-title">Home Fingerprint</h2>
       <p class="intro-sub">The most complete digital profile of any property.</p>
     </section>
 
@@ -795,9 +859,16 @@
     }
 
     if (header) {
-      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+      // The page opens on a full-height render, so the header keeps its
+      // transparent treatment until the hero has passed under it.
+      const hero = document.querySelector('.pagehero');
+      const threshold = () =>
+        hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+      const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll, { passive: true });
     }
   })();
 

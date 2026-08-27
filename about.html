@@ -165,7 +165,7 @@
   .site-tabs {
     display: flex;
     align-items: center;
-    gap: clamp(20px, 3.2vw, 44px);
+    gap: clamp(14px, 2.1vw, 30px);
   }
 
   .site-tabs a {
@@ -174,8 +174,9 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.16em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
+    white-space: nowrap;
     color: var(--nav-fg);
     text-shadow: var(--nav-shadow);
     transition: color 0.25s var(--nav-ease);
@@ -616,8 +617,10 @@
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/manage.html">Manage</a>
       <a href="/understand.html">Understand</a>
+      <a href="/renovate.html">Renovate</a>
       <a href="/build.html">Build</a>
       <a href="/dream.html">Dream</a>
+      <a href="/experience.html">Experience</a>
       <a href="/move.html">Move</a>
       <a href="/about.html" class="active" aria-current="page">Story</a>
     </nav>
