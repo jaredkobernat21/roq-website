@@ -1,0 +1,27 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "roq-static",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8123"
+      ],
+      "port": 8123
+    },
+    {
+      "name": "doc-preview",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "8199",
+        "--directory",
+        "/private/tmp/claude-501/-Users-jaredkobernat-Desktop-ROQ-website/a3cda868-7571-48a8-8583-1bb05d2e31af/scratchpad"
+      ],
+      "port": 8199
+    }
+  ]
+}

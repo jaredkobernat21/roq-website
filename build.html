@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Build — ROQ Home</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Groundbreakable by ROQ helps homeowners understand their property, site requirements, permits, costs, and design direction before hiring a build team." />
+<link rel="canonical" href="https://roqhome.com/build.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="Build — ROQ Home" />
+<meta property="og:description" content="You bought the land. Now get ready to build. Groundbreakable turns your goals, budget, and site into a clear, personalized build plan before you hire a build team." />
+<meta property="og:url" content="https://roqhome.com/build.html" />
+<meta property="og:image" content="https://roqhome.com/assets/groundbreakable/hero-house.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Build — ROQ Home" />
+<meta name="twitter:description" content="You bought the land. Now get ready to build. Groundbreakable turns your goals, budget, and site into a clear, personalized build plan." />
+<meta name="twitter:image" content="https://roqhome.com/assets/groundbreakable/hero-house.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F8F5EF;
+    --bg-soft: #F2EEE4;
+    --bg-panel: #FFFFFF;
+    --ink: #1C1B18;
+    --ink-dim: #5B5A54;
+    --ink-faint: #948F83;
+    --border: rgba(28,27,24,0.10);
+    --border-soft: rgba(28,27,24,0.07);
+    --gold: #C2873F;
+    --gold-dark: #A66F30;
+    --gold-dim: rgba(194,135,63,0.12);
+    --dark: #14120E;
+    --dark-ink: #F5F1E9;
+    --danger: #B5473A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: #fff; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ---------- Site header ----------
+     Self-contained: every value it needs is declared here, so the same
+     block drops onto the dark pages and the light ones alike. Pages with
+     a light background add class="on-light" to <header>. */
+
+  .site-header {
+    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
+  }
+
+  .site-header.on-light {
+    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg-strong: #14130F;
+    --nav-accent: #A66F30;
+    --nav-scrim: 255,255,255;
+    --nav-solid: rgba(255,255,255,0.90);
+    --nav-border: rgba(20,19,15,0.12);
+    --nav-panel: rgba(255,255,255,0.98);
+    --nav-shadow: none;
+  }
+
+  /* The tabs sit over whatever the hero is — a dusk sky, a night render, a
+     cream panel. A top-down scrim keeps them legible on all of them, and
+     fades out once the solid scrolled background takes over. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
+  }
+
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  /* Pages whose content starts below the header — rather than running under
+     a floating one — hold their own space and keep a background at all times. */
+  .site-header.inflow {
+    position: sticky;
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-header.inflow::before { display: none; }
+
+  .site-logo { display: flex; }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--nav-fg-strong);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(20px, 3.2vw, 44px);
+  }
+
+  .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
+  }
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+
+  .site-tabs a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1px;
+    background: var(--nav-accent);
+  }
+
+  .site-tabs-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+
+    .site-tabs-toggle span::before,
+    .site-tabs-toggle span::after,
+    .site-tabs-toggle span i {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--nav-fg-strong);
+    }
+
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+
+    .site-tabs {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: clamp(24px, 5vw, 64px);
+      min-width: 170px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--nav-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border);
+      border-radius: 14px;
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+
+    .site-tabs.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 460px) 1fr;
+    align-items: center;
+    gap: clamp(32px, 5vw, 64px);
+    padding: clamp(24px, 4vw, 48px) clamp(24px, 6vw, 72px) clamp(56px, 7vw, 96px);
+    max-width: 1360px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow-block { margin-bottom: 22px; }
+
+  .hero-eyebrow {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .hero-eyebrow-by {
+    display: block;
+    font-family: 'Lora', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-dim);
+    margin-bottom: 10px;
+  }
+
+  .hero-eyebrow-rule {
+    width: 34px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+
+  .hero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(38px, 5.2vw, 58px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 22px;
+  }
+
+  .hero-sub {
+    font-size: 16px;
+    color: var(--ink-dim);
+    margin-bottom: 16px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin-bottom: 32px;
+  }
+
+  .hero-actions { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; }
+
+  .btn-gold {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    padding: 16px 30px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .btn-gold:hover { background: var(--gold-dark); }
+  .btn-gold:active { transform: scale(0.98); }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: var(--ink-dim);
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .link-arrow:hover { color: var(--ink); border-color: var(--border); }
+  .link-arrow svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  .hero-visual img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ---------- Features ---------- */
+
+  .features {
+    background: var(--bg-soft);
+    padding: clamp(48px, 7vw, 80px) clamp(24px, 6vw, 72px);
+  }
+
+  .feature-grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .feature-item {
+    text-align: center;
+    padding: 8px clamp(16px, 3vw, 40px);
+    border-left: 1px solid var(--border-soft);
+  }
+  .feature-item:first-child { border-left: none; }
+
+  .feature-icon {
+    width: 44px;
+    height: 44px;
+    margin: 0 auto 18px;
+  }
+  .feature-icon svg { width: 44px; height: 44px; stroke: var(--gold); fill: none; stroke-width: 1.4; }
+
+  .feature-item h3 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .feature-item p {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+  }
+
+  @media (max-width: 760px) {
+    .feature-grid { grid-template-columns: 1fr; gap: 36px; }
+    .feature-item { border-left: none; border-top: 1px solid var(--border-soft); padding-top: 32px; }
+    .feature-item:first-child { border-top: none; padding-top: 8px; }
+  }
+
+  /* ---------- Pricing ---------- */
+
+  .pricing {
+    background: var(--bg-panel);
+    padding: clamp(56px, 8vw, 96px) clamp(24px, 6vw, 72px);
+  }
+
+  .pricing-wrap {
+    max-width: 1140px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: minmax(0, 480px) 1fr;
+    align-items: center;
+    gap: clamp(36px, 6vw, 72px);
+  }
+
+  .pricing-visual img { border-radius: 14px; }
+
+  .pricing-title {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(26px, 3vw, 32px);
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+
+  .pricing-rule {
+    width: 34px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-bottom: 22px;
+  }
+
+  .pricing-desc {
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--ink-dim);
+    max-width: 44ch;
+    margin-bottom: 26px;
+  }
+
+  .pricing-checklist { display: flex; flex-direction: column; gap: 14px; }
+
+  .pricing-checklist li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14.5px;
+    color: var(--ink);
+    list-style: none;
+  }
+
+  .pricing-checklist svg {
+    width: 19px; height: 19px;
+    flex-shrink: 0;
+    stroke: var(--gold);
+    fill: none;
+    stroke-width: 1.6;
+  }
+
+  @media (max-width: 780px) {
+    .pricing-wrap { grid-template-columns: 1fr; }
+  }
+
+  /* ---------- CTA (dark) ---------- */
+
+  .cta-dark {
+    position: relative;
+    background: var(--dark);
+    color: var(--dark-ink);
+    padding: clamp(72px, 11vw, 130px) clamp(24px, 6vw, 72px);
+    overflow: hidden;
+  }
+
+  .cta-particles {
+    position: absolute;
+    z-index: 0;
+    left: clamp(-140px, -8vw, -40px);
+    bottom: clamp(-120px, -8vw, -40px);
+    width: clamp(340px, 34vw, 560px);
+    height: auto;
+    opacity: 0.9;
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .cta-dark h2 {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(30px, 4vw, 46px);
+    line-height: 1.2;
+    max-width: 14ch;
+    margin-bottom: 26px;
+  }
+
+  .cta-dark h2 .gold { color: var(--gold); }
+
+  .cta-rule {
+    width: 34px;
+    height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+    margin-bottom: 30px;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--dark);
+    padding: 0 clamp(24px, 6vw, 72px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid rgba(245,241,233,0.08);
+    margin: 0 clamp(24px, 6vw, 72px);
+    padding-top: 28px;
+  }
+
+  .footer-copy { font-size: 12px; color: rgba(245,241,233,0.5); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: rgba(245,241,233,0.6); }
+  .footer-links a:hover { color: var(--dark-ink); }
+
+  /* ---------- Reveal ---------- */
+
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: none; }
+
+  /* ---------- Responsive hero ---------- */
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-visual { order: -1; }
+  }
+
+  /* ---------- Modal ---------- */
+
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    background: rgba(20,19,15,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .modal-panel {
+    background: #fff;
+    border-radius: 22px;
+    width: 100%;
+    max-width: 540px;
+    max-height: 88vh;
+    overflow-y: auto;
+    padding: clamp(28px, 5vw, 44px);
+    position: relative;
+    transform: translateY(14px);
+    transition: transform 0.3s var(--ease);
+  }
+
+  .modal-overlay.open .modal-panel { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute;
+    top: 18px; right: 18px;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: transparent;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim);
+    font-size: 15px;
+    line-height: 1;
+  }
+  .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+
+  .modal-title {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: clamp(22px, 3vw, 26px);
+    line-height: 1.3;
+    margin-bottom: 6px;
+    padding-right: 30px;
+  }
+
+  .modal-sub {
+    font-size: 13.5px;
+    color: var(--ink-faint);
+    margin-bottom: 28px;
+  }
+
+  .q-block { margin-bottom: 26px; }
+
+  .q-label {
+    font-family: 'Lora', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .q-hint { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 12px; }
+
+  .q-input {
+    width: 100%;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14.5px;
+    outline: none;
+  }
+  .q-input:focus { border-color: var(--gold); }
+  .q-input::placeholder { color: var(--ink-faint); }
+
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 9px; }
+
+  .chip {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 10px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .chip:hover { border-color: rgba(194,135,63,0.4); }
+
+  .chip.active {
+    border-color: var(--gold);
+    background: var(--gold-dim);
+    color: var(--ink);
+  }
+
+  .other-input {
+    margin-top: 10px;
+    width: 100%;
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 16px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    display: none;
+  }
+  .other-input.visible { display: block; }
+  .other-input:focus { border-color: var(--gold); }
+
+  .field-row { margin-bottom: 14px; }
+  .field-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+  .field-row:last-of-type { margin-bottom: 0; }
+
+  .q-error {
+    margin-top: 4px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+  .q-error.visible { display: block; }
+
+  .modal-submit {
+    width: 100%;
+    border-radius: 14px;
+    padding: 16px;
+    border: none;
+    background: var(--gold);
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    margin-top: 6px;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .modal-submit:hover { background: var(--gold-dark); }
+  .modal-submit:active { transform: scale(0.99); }
+  .modal-submit:disabled { opacity: 0.5; cursor: default; }
+
+  .q-thanks { display: none; text-align: center; padding: 20px 0 4px; }
+  .q-thanks.active { display: block; animation: fadeUp 0.4s var(--ease); }
+  .q-thanks-icon {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--gold-dim);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+  }
+  .q-thanks-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 2; }
+  .q-thanks h3 { font-family: 'Lora', serif; font-size: 21px; line-height: 1.4; margin-bottom: 10px; }
+  .q-thanks p { font-size: 14px; color: var(--ink-dim); line-height: 1.6; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { transition: none !important; opacity: 1 !important; transform: none !important; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header inflow on-light">
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/manage.html">Manage</a>
+      <a href="/move.html">Move</a>
+      <a href="/understand.html">Understand</a>
+      <a href="/build.html" class="active" aria-current="page">Build</a>
+      <a href="/dream.html">Dream</a>
+      <a href="/about.html">Story</a>
+    </nav>
+
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
+            aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
+  </header>
+
+  <section class="hero">
+    <div>
+      <div class="hero-eyebrow-block">
+        <span class="hero-eyebrow">Groundbreakable</span>
+        <span class="hero-eyebrow-by">by ROQ</span>
+        <span class="hero-eyebrow-rule"></span>
+      </div>
+      <h1 class="hero-headline">Know before<br>you build.</h1>
+      <p class="hero-sub">You bought the land. Now get ready to build.</p>
+      <p class="hero-desc">Groundbreakable helps homeowners understand their property, site requirements, permits, costs, design direction, and next steps before hiring the build team.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn-gold" id="heroCtaBtn">Start My Build Plan</button>
+        <a class="link-arrow" href="#pricing">See What's Included
+          <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img src="/assets/groundbreakable/hero-house.jpg" alt="Modern home concept rendered over a property site plan showing buildable areas and driveway access" loading="eager">
+    </div>
+  </section>
+
+  <section class="features">
+    <div class="feature-grid">
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 3 3 6v15l6-3 6 3 6-3V3l-6 3-6-3Z" stroke-linejoin="round"/><path d="M9 3v15M15 6v15" /><circle cx="10.5" cy="9.5" r="2.6"/><path d="M10.5 15.5v-3.4" stroke-linecap="round"/></svg>
+        </div>
+        <h3>Know the Land</h3>
+        <p>Zoning, utilities, access, and potential site issues before they become expensive surprises.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M4 12 12 5l8 7" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.5V20h12v-9.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Define the Build</h3>
+        <p>Turn your goals, space needs, and budget into a clearer direction for your future home.</p>
+      </div>
+      <div class="feature-item reveal">
+        <div class="feature-icon">
+          <svg viewBox="0 0 24 24"><path d="M5 21V4" stroke-linecap="round"/><path d="M5 4h13l-3 4 3 4H5" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>Know the Path</h3>
+        <p>Get a personalized roadmap for permits, professionals, planning, and next steps.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="pricing-wrap">
+      <div class="pricing-visual reveal">
+        <img src="/assets/groundbreakable/build-plan-tablet.jpg" alt="Groundbreakable Build Plan property analysis shown on a tablet alongside a site summary and roadmap">
+      </div>
+      <div class="reveal">
+        <h2 class="pricing-title">Groundbreakable<br>Build Plan &mdash; $499</h2>
+        <div class="pricing-rule"></div>
+        <p class="pricing-desc">Everything you need to move forward with clarity before you hire a build team.</p>
+        <ul class="pricing-checklist">
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Property + zoning review</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Utility and site research</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Permit / process roadmap</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Major cost and risk flags</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Home requirements + concept direction</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Design, floor plan, and architectural concepts</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>Prioritized next steps</li>
+          <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12.5l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/></svg>30-minute walkthrough call</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-dark">
+    <img class="cta-particles" src="/assets/groundbreakable/cta-particles.jpg" alt="" role="presentation">
+    <div class="cta-inner reveal">
+      <h2>Turn your land<br>into a <span class="gold">build plan.</span></h2>
+      <div class="cta-rule"></div>
+      <button type="button" class="btn-gold" id="ctaBtn">Get Started</button>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    <div class="footer-links">
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/legal/roq-terms.html">Terms</a>
+      <a href="https://roqbusiness.com">ROQ Business</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <!-- ---------- Build Plan intake modal ---------- -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel">
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+      <div id="formWrap">
+        <h2 class="modal-title">Let's start your Build Plan.</h2>
+        <p class="modal-sub">A few quick questions &mdash; takes about a minute.</p>
+
+        <form id="intakeForm">
+          <div class="q-block">
+            <p class="q-label">Where are you building?</p>
+            <p class="q-hint">Property address or parcel location.</p>
+            <input type="text" class="q-input" id="qLocation" placeholder="e.g. 1420 County Road 12, Topeka, KS" autocomplete="off">
+          </div>
+
+          <div class="q-block">
+            <p class="q-label">What are you planning to build?</p>
+            <div class="chip-grid" data-field="build_type" data-mode="single">
+              <button type="button" class="chip" data-value="Custom home">Custom Home</button>
+              <button type="button" class="chip" data-value="Barndominium">Barndominium</button>
+              <button type="button" class="chip" data-value="Cabin">Cabin</button>
+              <button type="button" class="chip" data-value="Other">Other</button>
+            </div>
+            <input type="text" class="other-input" id="buildTypeOther" placeholder="Tell us more">
+          </div>
+
+          <div class="q-block">
+            <p class="q-label">Where are you in the process?</p>
+            <div class="chip-grid" data-field="stage" data-mode="single">
+              <button type="button" class="chip" data-value="Just bought the land">Just bought the land</button>
+              <button type="button" class="chip" data-value="Planning now">Planning now</button>
+              <button type="button" class="chip" data-value="Already talking to architects/builders">Already talking to architects/builders</button>
+              <button type="button" class="chip" data-value="Hoping to build in 6-12 months">Hoping to build in 6&ndash;12 months</button>
+            </div>
+          </div>
+
+          <div class="q-block">
+            <p class="q-label">What are you most unsure about?</p>
+            <p class="q-hint">Select all that apply.</p>
+            <div class="chip-grid" data-field="unsure_about" data-mode="multi">
+              <button type="button" class="chip" data-value="Zoning/buildability">Zoning/Buildability</button>
+              <button type="button" class="chip" data-value="Utilities">Utilities</button>
+              <button type="button" class="chip" data-value="Permits">Permits</button>
+              <button type="button" class="chip" data-value="Site costs">Site costs</button>
+              <button type="button" class="chip" data-value="Overall budget">Overall budget</button>
+              <button type="button" class="chip" data-value="Home design/layout">Home design/layout</button>
+              <button type="button" class="chip" data-value="What to do next">What to do next</button>
+            </div>
+          </div>
+
+          <div class="q-block">
+            <p class="q-label">Where should we send your Build Plan?</p>
+            <div class="field-row">
+              <label for="qName">Name</label>
+              <input type="text" class="q-input" id="qName" placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="field-row">
+              <label for="qEmail">Email</label>
+              <input type="email" class="q-input" id="qEmail" placeholder="your@email.com" autocomplete="email">
+            </div>
+            <div class="field-row">
+              <label for="qPhone">Phone <span style="opacity:.6;">(optional)</span></label>
+              <input type="tel" class="q-input" id="qPhone" placeholder="(555) 555-5555" autocomplete="tel">
+            </div>
+          </div>
+
+          <p class="q-error" id="qError">Please enter your build location, name, and a valid email address.</p>
+          <button type="submit" class="modal-submit" id="submitBtn">Get My Build Plan</button>
+        </form>
+      </div>
+
+      <div class="q-thanks" id="qThanks">
+        <div class="q-thanks-icon"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>You're on your way.</h3>
+        <p>We're reviewing your answers now. Your personalized Groundbreakable Build Plan will be ready within 24&ndash;48 hours.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Header: tabs + scroll scrim ----------
+    (function initHeader() {
+      const header = document.querySelector('.site-header');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('siteTabsToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      if (header) {
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    })();
+
+    // ---------- Scroll reveal ----------
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
+    }, { threshold: 0.2 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ---------- Chips ----------
+    const state = {
+      location: '',
+      build_type: '',
+      build_type_other: '',
+      stage: '',
+      unsure_about: [],
+      name: '',
+      email: '',
+      phone: '',
+    };
+
+    document.querySelectorAll('.chip-grid').forEach((grid) => {
+      const field = grid.dataset.field;
+      const mode = grid.dataset.mode;
+      grid.querySelectorAll('.chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const value = chip.dataset.value;
+          if (mode === 'single') {
+            grid.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+            chip.classList.add('active');
+            state[field] = value;
+          } else {
+            const idx = state[field].indexOf(value);
+            if (idx === -1) { state[field].push(value); chip.classList.add('active'); }
+            else { state[field].splice(idx, 1); chip.classList.remove('active'); }
+          }
+
+          if (field === 'build_type') {
+            const otherInput = document.getElementById('buildTypeOther');
+            const isOther = value === 'Other' && chip.classList.contains('active');
+            otherInput.classList.toggle('visible', isOther);
+            if (!isOther) { otherInput.value = ''; state.build_type_other = ''; }
+          }
+        });
+      });
+    });
+
+    document.getElementById('buildTypeOther').addEventListener('input', e => { state.build_type_other = e.target.value; });
+    document.getElementById('qLocation').addEventListener('input', e => { state.location = e.target.value; });
+    document.getElementById('qName').addEventListener('input', e => { state.name = e.target.value; });
+    document.getElementById('qEmail').addEventListener('input', e => { state.email = e.target.value; });
+    document.getElementById('qPhone').addEventListener('input', e => { state.phone = e.target.value; });
+
+    // ---------- Modal open/close ----------
+    const overlay = document.getElementById('modalOverlay');
+    const closeBtn = document.getElementById('modalClose');
+    const formWrap = document.getElementById('formWrap');
+    const thanksPanel = document.getElementById('qThanks');
+
+    function openModal() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('heroCtaBtn').addEventListener('click', openModal);
+    document.getElementById('ctaBtn').addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+    // ---------- Submit ----------
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+    const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/groundbreakable-intake`;
+
+    const form = document.getElementById('intakeForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorEl = document.getElementById('qError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const location = state.location.trim();
+      const name = state.name.trim();
+      const email = state.email.trim();
+      if (!location || !name || !email || !email.includes('@')) {
+        errorEl.textContent = 'Please enter your build location, name, and a valid email address.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      errorEl.classList.remove('visible');
+
+      try {
+        const res = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            ...state,
+            location,
+            name,
+            email,
+            phone: state.phone.trim(),
+          }),
+        });
+
+        if (!res.ok) throw new Error('Request failed');
+
+        formWrap.style.display = 'none';
+        thanksPanel.classList.add('active');
+      } catch (err) {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Get My Build Plan';
+      }
+    });
+  </script>
+
+</body>
+</html>

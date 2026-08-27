@@ -1,2 +1,9 @@
 .DS_Store
 supabase/.temp/
+internal/
+
+# Next.js build cache — no source in this repo
+dashboard/
+
+# Local Claude Code permissions
+.claude/settings.local.json

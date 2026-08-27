@@ -3,29 +3,29 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ROQ Home — Feel Like an Owner</title>
+<title>Manage — ROQ Home</title>
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="ROQ Home is how you understand, manage, and improve what you own — manage your home, move with confidence, understand its full record, plan a build, and see its potential." />
-<link rel="canonical" href="https://roqhome.com/" />
+<meta name="description" content="The ROQ app puts your entire home in one place — its health, its projects, its story, its worth, and an AI advisor that knows your specific house." />
+<link rel="canonical" href="https://roqhome.com/manage.html" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ROQ Home" />
-<meta property="og:title" content="ROQ Home — Feel Like an Owner" />
-<meta property="og:description" content="Understand, manage, and improve what you own — in one place." />
-<meta property="og:url" content="https://roqhome.com/" />
-<meta property="og:image" content="https://roqhome.com/assets/hero/home-hero.jpg" />
+<meta property="og:title" content="Manage — ROQ Home" />
+<meta property="og:description" content="Your entire home in one app — health, projects, story, worth, and an AI advisor that knows your house." />
+<meta property="og:url" content="https://roqhome.com/manage.html" />
+<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="ROQ Home — Feel Like an Owner" />
-<meta name="twitter:description" content="Understand, manage, and improve what you own — in one place." />
-<meta name="twitter:image" content="https://roqhome.com/assets/hero/home-hero.jpg" />
+<meta name="twitter:title" content="Manage — ROQ Home" />
+<meta name="twitter:description" content="Your entire home in one app — health, projects, story, worth, and an AI advisor that knows your house." />
+<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #171716;
@@ -242,251 +242,124 @@
   }
 
 
-  /* ---------- Hero ---------- */
+  /* ---------- Page hero ---------- */
 
-  .home-hero {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: stretch;
-    min-height: 100vh;
+  .page-hero {
+    padding: clamp(148px, 20vh, 200px) clamp(24px, 5vw, 64px) clamp(50px, 7vh, 70px);
     background: var(--bg-deep);
   }
 
-  .home-hero-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: clamp(140px, 17vh, 185px) clamp(24px, 5vw, 72px) clamp(72px, 10vh, 100px);
-  }
-
-  .home-hero-eyebrow {
+  .page-hero-eyebrow {
     font-size: 11px;
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .page-hero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(34px, 5vw, 60px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    max-width: 16ch;
     margin-bottom: 22px;
   }
 
-  .home-hero-headline {
-    font-family: 'Lora', serif;
-    font-weight: 400;
-    font-size: clamp(38px, 5.2vw, 68px);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    margin-bottom: 24px;
-    text-wrap: balance;
-  }
-
-  .home-hero-sub {
+  .page-hero-sub {
     font-size: clamp(15px, 1.3vw, 17px);
     line-height: 1.65;
     color: var(--ink-dim);
-    max-width: 46ch;
-    margin-bottom: 40px;
+    max-width: 52ch;
   }
 
-  .home-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+  /* ---------- Screenshot carousel ---------- */
 
-  .btn-primary, .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 28px;
-    border-radius: 30px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
+  .showcase {
+    background: var(--bg-deep);
+    padding: 0 0 clamp(80px, 12vh, 120px);
+    overflow: hidden;
   }
 
-  .btn-primary { background: var(--ink); color: #14110B; border: 1px solid var(--ink); }
-  .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
-
-  .btn-ghost { border: 1px solid var(--border); color: var(--ink-dim); }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.28); color: var(--ink); }
-
-  .home-hero-visual { position: relative; overflow: hidden; }
-
-  .home-hero-visual img {
-    position: absolute;
-    inset: 0;
+  .showcase-carousel {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 50%;
+    overflow: hidden;
+    padding-left: clamp(24px, 5vw, 64px);
   }
 
-  /* Feathers the render into the copy column so the split reads as one image,
-     not two panels butted together. */
-  .home-hero-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, var(--bg-deep) 0%, rgba(13,13,12,0) 26%);
+  .showcase-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.7s var(--ease);
   }
 
-  @media (max-width: 900px) {
-    .home-hero { grid-template-columns: 1fr; min-height: 0; }
-    .home-hero-copy { order: 2; padding: clamp(48px, 8vw, 72px) clamp(24px, 6vw, 64px) clamp(56px, 9vw, 80px); }
-    .home-hero-visual { order: 1; aspect-ratio: 4 / 3; }
-    .home-hero-visual::after {
-      background: linear-gradient(to bottom, rgba(13,13,12,0.55) 0%, rgba(13,13,12,0) 34%, rgba(13,13,12,0.2) 72%, var(--bg-deep) 100%);
-    }
+  .showcase-slide {
+    flex: 0 0 auto;
+    width: min(240px, 62vw);
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
   }
 
-  /* ---------- Paths ---------- */
+  .showcase-slide img { display: block; width: 100%; height: auto; }
 
-  .paths {
-    padding: clamp(80px, 12vh, 120px) clamp(24px, 5vw, 64px) clamp(90px, 13vh, 130px);
+  /* ---------- Feature list ---------- */
+
+  .features {
+    padding: clamp(80px, 12vh, 120px) clamp(24px, 5vw, 64px);
     background: var(--bg);
   }
 
-  .paths-intro { max-width: 620px; margin-bottom: clamp(44px, 6vw, 64px); }
-
-  .paths-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-    margin-bottom: 18px;
-  }
-
-  .paths-headline {
+  .features-headline {
     font-family: 'Lora', serif;
     font-weight: 400;
     font-size: clamp(26px, 3.4vw, 40px);
     line-height: 1.2;
-    margin-bottom: 16px;
+    max-width: 20ch;
+    margin-bottom: clamp(44px, 6vw, 64px);
   }
 
-  .paths-sub { font-size: 15px; line-height: 1.65; color: var(--ink-dim); }
-
-  .paths-grid {
+  .features-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 18px;
-  }
-
-  .path-card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    padding: 30px 28px 64px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
     border: 1px solid var(--border);
     border-radius: 18px;
-    background: rgba(255,255,255,0.02);
+    overflow: hidden;
+  }
+
+  .feature {
+    background: var(--bg);
+    padding: 32px 28px 36px;
     opacity: 0;
-    transform: translateY(16px);
-    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease),
-      border-color 0.25s var(--ease), background 0.25s var(--ease);
+    transform: translateY(14px);
+    transition: opacity 0.8s var(--ease), transform 0.8s var(--ease), background 0.25s var(--ease);
   }
 
-  .path-card.in-view { opacity: 1; transform: translateY(0); }
+  .feature.in-view { opacity: 1; transform: translateY(0); }
+  .feature:hover { background: rgba(255,255,255,0.02); }
 
-  .path-card:hover {
-    border-color: rgba(200,168,130,0.45);
-    background: rgba(200,168,130,0.05);
-  }
-
-  .path-card-name {
-    font-family: 'Lora', serif;
-    font-size: 26px;
-    line-height: 1.1;
-    margin-bottom: 8px;
-  }
-
-  .path-card-product {
-    font-size: 10px;
+  .feature-name {
+    font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
-  .path-card-desc { font-size: 14px; line-height: 1.6; color: var(--ink-dim); }
-
-  .path-card-go {
-    position: absolute;
-    left: 28px;
-    bottom: 26px;
-    color: var(--ink-faint);
-    transition: color 0.25s var(--ease), transform 0.25s var(--ease);
-  }
-
-  .path-card-go svg { width: 20px; height: 20px; display: block; }
-
-  .path-card:hover .path-card-go { color: var(--gold); transform: translateX(4px); }
-
-
-  /* ---------- Statement band ---------- */
-
-  .statement {
-    position: relative;
-    min-height: clamp(420px, 72vh, 620px);
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
-    text-align: center;
-    padding: clamp(80px, 12vh, 120px) clamp(24px, 6vw, 64px) clamp(56px, 9vh, 88px);
-    background: #050505;
-    overflow: hidden;
-    isolation: isolate;
-  }
-
-  .statement-img {
-    position: absolute;
-    inset: 0;
-    z-index: -2;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 58% 42%;
-  }
-
-  /* Holds the type without flattening the render — the house stays lit
-     through the middle, the copy sits in the darkened base. */
-  .statement-scrim {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: linear-gradient(
-      to bottom,
-      rgba(5,5,5,0.70) 0%,
-      rgba(5,5,5,0.24) 32%,
-      rgba(5,5,5,0.74) 70%,
-      rgba(5,5,5,0.94) 100%
-    );
-  }
-
-  .statement-text {
+  .feature-title {
     font-family: 'Lora', serif;
-    font-weight: 400;
-    font-size: clamp(26px, 3.6vw, 44px);
-    line-height: 1.18;
-    letter-spacing: -0.01em;
-    max-width: 22ch;
-    margin: 0 auto 16px;
-    text-wrap: balance;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    font-size: 21px;
+    line-height: 1.25;
+    margin-bottom: 10px;
   }
 
-  .statement-sub {
-    font-size: clamp(14px, 1.3vw, 16px);
-    line-height: 1.6;
-    color: var(--ink-dim);
-    max-width: 46ch;
-    margin: 0 auto;
-    text-wrap: balance;
-    text-shadow: 0 1px 16px rgba(0,0,0,0.6);
-  }
-
-  @media (max-width: 600px) {
-    .statement-img { object-position: 62% 45%; }
-  }
+  .feature-desc { font-size: 14px; line-height: 1.6; color: var(--ink-dim); }
 
   /* ---------- Waitlist ---------- */
 
@@ -601,7 +474,7 @@
   .footer-links a:hover { color: var(--ink-dim); }
 
   @media (prefers-reduced-motion: reduce) {
-    .path-card {
+    .feature {
       transition: none !important;
       opacity: 1 !important;
       transform: none !important;
@@ -619,7 +492,7 @@
     </a>
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
-      <a href="/manage.html">Manage</a>
+      <a href="/manage.html" class="active" aria-current="page">Manage</a>
       <a href="/move.html">Move</a>
       <a href="/understand.html">Understand</a>
       <a href="/build.html">Build</a>
@@ -631,85 +504,69 @@
             aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
 
-  <section class="home-hero">
-    <div class="home-hero-copy">
-      <p class="home-hero-eyebrow">ROQ Home</p>
-      <h1 class="home-hero-headline">Feel like an owner.</h1>
-      <p class="home-hero-sub">Owning a home should feel like command, not guesswork. ROQ Home gives you the full picture of what you own — what it's worth, what it needs, what it could become — and the tools to act on it.</p>
-      <div class="home-hero-actions">
-        <a class="btn-primary" href="/manage.html">Explore the app</a>
-        <a class="btn-ghost" href="#paths">See what's inside</a>
+  <section class="page-hero">
+    <p class="page-hero-eyebrow">ROQ App</p>
+    <h1 class="page-hero-headline">Run your home from one place.</h1>
+    <p class="page-hero-sub">Most of what you know about your home lives in drawers, inboxes, and memory. The ROQ app gathers it — every system, every project, every document, every dollar — into something you can actually use.</p>
+  </section>
+
+  <section class="showcase">
+    <div class="showcase-carousel">
+      <div class="showcase-track" id="showcaseTrack">
+        <div class="showcase-slide"><img src="/assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-6-slade.jpg" alt="SLADE AI home advisor chat screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
       </div>
     </div>
-    <div class="home-hero-visual">
-      <img src="/assets/hero/home-hero.jpg"
-           alt="A modern hillside home at dusk, warm interior light spilling onto a reflecting pool" />
-    </div>
   </section>
 
-  <section class="paths" id="paths">
-    <div class="paths-intro">
-      <p class="paths-eyebrow">Five ways in</p>
-      <h2 class="paths-headline">Wherever you are with your home, start here.</h2>
-      <p class="paths-sub">Every home is somewhere on a path — settled, selling, questioned, unbuilt, or waiting to become something more. Each of these meets you where you are.</p>
-    </div>
-
-    <div class="paths-grid">
-      <a class="path-card" href="/manage.html">
-        <span class="path-card-name">Manage</span>
-        <span class="path-card-product">ROQ App</span>
-        <p class="path-card-desc">Your whole home in one app — its systems, its story, its upkeep, and what it's worth.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/move.html">
-        <span class="path-card-name">Move</span>
-        <span class="path-card-product">Home Passport</span>
-        <p class="path-card-desc">A personally prepared review and strategy to present your home before you sell.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/understand.html">
-        <span class="path-card-name">Understand</span>
-        <span class="path-card-product">Home Fingerprint</span>
-        <p class="path-card-desc">The full record of your property — value, history, risks, neighborhood, and documents.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/build.html">
-        <span class="path-card-name">Build</span>
-        <span class="path-card-product">Groundbreakable</span>
-        <p class="path-card-desc">You bought the land. Know the site, permits, costs, and design direction before you hire a build team.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-      <a class="path-card" href="/dream.html">
-        <span class="path-card-name">Dream</span>
-        <span class="path-card-product">Home Potential</span>
-        <p class="path-card-desc">Your neighborhood ceiling, renovation headroom, and concept designs — what your home could become.</p>
-        <span class="path-card-go" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h13M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-      </a>
-    </div>
-  </section>
-
-  <section class="statement">
-    <img class="statement-img" src="/assets/hero/roq-hero.jpg"
-         alt="A modern home at night, its arched roofline traced in light above a still reflecting pool" />
-    <div class="statement-scrim"></div>
-    <div>
-      <p class="statement-text">A new way to operate your home.</p>
-      <p class="statement-sub">Built by ROQ, for the people who actually live with the decisions.</p>
+  <section class="features">
+    <h2 class="features-headline">Seven views of the same house.</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <p class="feature-name">Home</p>
+        <h3 class="feature-title">A living tour</h3>
+        <p class="feature-desc">Your house, room by room — what's in it, when it was last touched, and what it's made of.</p>
+      </div>
+      <div class="feature">
+        <p class="feature-name">Pulse</p>
+        <h3 class="feature-title">Home health</h3>
+        <p class="feature-desc">What needs attention, what can wait, and what will cost you if it keeps waiting.</p>
+      </div>
+      <div class="feature">
+        <p class="feature-name">Studio</p>
+        <h3 class="feature-title">Projects &amp; plans</h3>
+        <p class="feature-desc">Every improvement in one thread — scope, budget, quotes, and progress.</p>
+      </div>
+      <div class="feature">
+        <p class="feature-name">Story</p>
+        <h3 class="feature-title">The timeline</h3>
+        <p class="feature-desc">Everything that's happened to your home, in order — and the record to prove it.</p>
+      </div>
+      <div class="feature">
+        <p class="feature-name">Worth</p>
+        <h3 class="feature-title">Value &amp; equity</h3>
+        <p class="feature-desc">What it's worth, what you owe, what you've put in, and what ownership actually costs.</p>
+      </div>
+      <div class="feature">
+        <p class="feature-name">SLADE</p>
+        <h3 class="feature-title">Your home's advisor</h3>
+        <p class="feature-desc">An AI that knows your specific house — not houses in general — and answers accordingly.</p>
+      </div>
+      <div class="feature">
+        <p class="feature-name">Personality</p>
+        <h3 class="feature-title">What makes it yours</h3>
+        <p class="feature-desc">Materials, finishes, light, and character — the details that make it this home and no other.</p>
+      </div>
     </div>
   </section>
 
   <section class="beta-note">
-    <h2 class="beta-headline">ROQ Home is in private beta.</h2>
+    <h2 class="beta-headline">The ROQ app is in private beta.</h2>
     <p class="close-sub">Leave your email and we'll let you know the moment it's ready for you.</p>
 
     <form class="waitlist-form" id="waitlistForm">
@@ -769,14 +626,69 @@
       }
     })();
 
+    // ---------- Screenshot showcase carousel ----------
+    (function initShowcase() {
+      const track = document.getElementById('showcaseTrack');
+      if (!track) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const realSlides = Array.from(track.children);
+      if (!realSlides.length) return;
+
+      // Clone the first slide onto the end so the loop can reset invisibly.
+      const clone = realSlides[0].cloneNode(true);
+      track.appendChild(clone);
+
+      if (reduceMotion) return; // leave it static on the first screenshot
+
+      let index = 0;
+      const total = realSlides.length;
+
+      function slideStep() {
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 0;
+        return track.children[0].getBoundingClientRect().width + gap;
+      }
+
+      function goTo(i, animate) {
+        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
+        track.style.transform = `translateX(-${i * slideStep()}px)`;
+      }
+
+      // When the animated step onto the cloned first slide finishes, snap
+      // back to the real first slide with no transition. Since the clone
+      // is pixel-identical, the reset is invisible.
+      track.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'transform' || index !== total) return;
+        index = 0;
+        track.style.transition = 'none';
+        void track.offsetWidth; // force reflow so 'none' commits before the jump
+        track.style.transform = 'translateX(0px)';
+      });
+
+      setInterval(() => {
+        index++;
+        goTo(index, true);
+      }, 2600);
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => goTo(index, false), 120);
+      });
+    })();
+
     // ---------- Scroll reveal ----------
     (function initReveal() {
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) observer.unobserve(entry.target), entry.target.classList.add('in-view');
+          if (entry.isIntersecting) {
+            observer.unobserve(entry.target);
+            entry.target.classList.add('in-view');
+          }
         });
       }, { threshold: 0.2 });
-      document.querySelectorAll('.path-card').forEach(el => observer.observe(el));
+      document.querySelectorAll('.feature').forEach(el => observer.observe(el));
     })();
 
     // ---------- Waitlist submit ----------
