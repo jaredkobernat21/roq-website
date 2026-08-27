@@ -706,6 +706,57 @@
     line-height: 1.6;
   }
 
+
+  /* ---------- App Store CTA ---------- */
+
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    /* Slightly more room on the right than the left: the mark is optically
+       heavier than the text edge, so symmetric padding reads off-centre. */
+    padding: 17px 36px 17px 30px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #14110B;
+    border: 1px solid var(--ink);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .appstore-btn:active { transform: scale(0.985); }
+
+  .appstore-btn svg {
+    width: 27px;
+    height: 27px;
+    flex: none;
+    fill: currentColor;
+    margin-top: -2px;
+  }
+
+  .appstore-btn-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    text-align: left;
+  }
+
+  .appstore-btn-label small {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 4px;
+  }
+
+  .appstore-btn-label b {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
   /* ---------- Footer ---------- */
 
   footer {

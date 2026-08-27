@@ -444,6 +444,68 @@
     .statement-img { object-position: 62% 45%; }
   }
 
+
+  /* ---------- App showcase ---------- */
+
+  .appshow {
+    background: var(--bg);
+    padding: clamp(72px, 11vh, 110px) 0 clamp(64px, 10vh, 100px);
+    overflow: hidden;
+  }
+
+  .appshow-intro {
+    padding: 0 clamp(24px, 5vw, 64px);
+    margin-bottom: clamp(36px, 5vw, 52px);
+  }
+
+  .appshow-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .appshow-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.2;
+    max-width: 18ch;
+    margin-bottom: 14px;
+  }
+
+  .appshow-sub {
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 46ch;
+  }
+
+  .showcase-carousel {
+    width: 100%;
+    overflow: hidden;
+    padding-left: clamp(24px, 5vw, 64px);
+  }
+
+  .showcase-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.7s var(--ease);
+  }
+
+  .showcase-slide {
+    flex: 0 0 auto;
+    width: min(240px, 62vw);
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+  }
+
+  .showcase-slide img { display: block; width: 100%; height: auto; }
+
   /* ---------- Waitlist ---------- */
 
   .beta-note {
@@ -475,9 +537,11 @@
   .appstore-btn {
     display: inline-flex;
     align-items: center;
-    gap: 12px;
-    padding: 14px 26px 14px 22px;
-    border-radius: 30px;
+    gap: 15px;
+    /* Slightly more room on the right than the left: the mark is optically
+       heavier than the text edge, so symmetric padding reads off-centre. */
+    padding: 17px 36px 17px 30px;
+    border-radius: 999px;
     background: var(--ink);
     color: #14110B;
     border: 1px solid var(--ink);
@@ -485,15 +549,45 @@
   }
 
   .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
-  .appstore-btn:active { transform: scale(0.98); }
+  .appstore-btn:active { transform: scale(0.985); }
 
-  .appstore-btn svg { width: 22px; height: 22px; flex: none; fill: currentColor; }
+  .appstore-btn svg {
+    width: 27px;
+    height: 27px;
+    flex: none;
+    fill: currentColor;
+    /* the glyph's mass sits low; nudge it onto the type's optical centre */
+    margin-top: -2px;
+  }
 
-  .appstore-btn-label { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
-  .appstore-btn-label small { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.7; }
-  .appstore-btn-label b { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+  .appstore-btn-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    text-align: left;
+  }
 
-  .appstore-meta { margin-top: 18px; font-size: 12.5px; color: var(--ink-faint); }
+  .appstore-btn-label small {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 4px;
+  }
+
+  .appstore-btn-label b {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .appstore-meta {
+    margin-top: 20px;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
 
   /* ---------- Footer ---------- */
 
@@ -708,7 +802,6 @@
 
   <section class="home-hero">
     <div class="home-hero-copy">
-      <p class="home-hero-eyebrow">ROQ Home</p>
       <h2 class="home-hero-headline">Feel like an owner.</h2>
       <p class="home-hero-sub">You bought the home! So why does it feel like everyone else understands it and benefits more from it than you do? Find your way home…</p>
       <div class="home-hero-actions">
@@ -722,6 +815,25 @@
   </section>
 
 
+
+  <section class="appshow">
+    <div class="appshow-intro">
+      <p class="appshow-eyebrow">The ROQ App</p>
+      <h2 class="appshow-headline">Seven views of the same house.</h2>
+      <p class="appshow-sub">Its health, its projects, its story, its worth — and an advisor that knows your specific home, not homes in general.</p>
+    </div>
+    <div class="showcase-carousel">
+      <div class="showcase-track" id="showcaseTrack">
+        <div class="showcase-slide"><img src="/assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-6-slade.jpg" alt="SLADE AI home advisor screen" loading="lazy"></div>
+        <div class="showcase-slide"><img src="/assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
+      </div>
+    </div>
+  </section>
 
   <section class="beta-note">
     <h2 class="beta-headline">ROQ Home is here.</h2>
@@ -774,6 +886,56 @@
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
+    })();
+    (function initShowcase() {
+      const track = document.getElementById('showcaseTrack');
+      if (!track) return;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const realSlides = Array.from(track.children);
+      if (!realSlides.length) return;
+
+      // Clone the first slide onto the end so the loop can reset invisibly.
+      const clone = realSlides[0].cloneNode(true);
+      track.appendChild(clone);
+
+      if (reduceMotion) return; // leave it static on the first screenshot
+
+      let index = 0;
+      const total = realSlides.length;
+
+      function slideStep() {
+        const style = getComputedStyle(track);
+        const gap = parseFloat(style.gap) || 0;
+        return track.children[0].getBoundingClientRect().width + gap;
+      }
+
+      function goTo(i, animate) {
+        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
+        track.style.transform = `translateX(-${i * slideStep()}px)`;
+      }
+
+      // When the animated step onto the cloned first slide finishes, snap
+      // back to the real first slide with no transition. Since the clone
+      // is pixel-identical, the reset is invisible.
+      track.addEventListener('transitionend', (e) => {
+        if (e.propertyName !== 'transform' || index !== total) return;
+        index = 0;
+        track.style.transition = 'none';
+        void track.offsetWidth; // force reflow so 'none' commits before the jump
+        track.style.transform = 'translateX(0px)';
+      });
+
+      setInterval(() => {
+        index++;
+        goTo(index, true);
+      }, 2600);
+
+      let resizeTimeout;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => goTo(index, false), 120);
+      });
     })();
   </script>
 
