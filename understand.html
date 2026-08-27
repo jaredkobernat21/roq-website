@@ -504,6 +504,62 @@
     body{ background:#fff; }
     .card{ box-shadow:none; break-inside:avoid; }
   }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+
+  @media (max-width: 640px) {
+    #landingShell .intro { padding: 36px 24px 22px; }
+    #landingShell .intro-title { font-size: 30px; line-height: 1.15; }
+    #landingShell .intro-sub { font-size: 15.5px; line-height: 1.6; }
+    #landingShell .preview { padding-left: 24px; padding-right: 24px; }
+    #landingShell .form-wrap { padding-left: 24px; padding-right: 24px; }
+  }
 </style>
 </head>
 <body>

@@ -529,6 +529,112 @@
   }
 
   .footer-links a:hover { color: var(--ink-dim); }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+
+  @media (max-width: 640px) {
+    /* Opening statement: 32px was the clamp floor and still ran three lines
+       edge to edge. A shorter measure lets it breathe over the render. */
+    .statement {
+      padding: 96px 24px 84px;
+      align-items: center;
+    }
+
+    .statement-text {
+      font-size: 30px;
+      line-height: 1.18;
+      max-width: 13ch;
+    }
+
+    /* Portrait crop suits the source image and the device far better than the
+       4:3 the desktop split collapsed into. */
+    .home-hero-visual { aspect-ratio: 3 / 4; }
+
+    .home-hero-copy { padding: 44px 24px 56px; }
+
+    .home-hero-headline {
+      font-size: 31px;
+      line-height: 1.12;
+      margin-bottom: 18px;
+    }
+
+    .home-hero-sub {
+      font-size: 15.5px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .home-hero-eyebrow { margin-bottom: 16px; }
+
+    .home-hero-actions { width: 100%; }
+
+    .btn-primary,
+    .btn-ghost {
+      justify-content: center;
+      width: 100%;
+      padding: 17px 24px;
+      font-size: 12px;
+    }
+
+    .beta-note { padding: 64px 24px 72px; }
+
+    .beta-headline { font-size: 25px; line-height: 1.2; }
+
+    .close-sub {
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .appstore-btn { padding: 15px 28px 15px 24px; }
+    .appstore-meta { margin-top: 16px; font-size: 12px; }
+  }
 </style>
 </head>
 <body>

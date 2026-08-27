@@ -455,6 +455,78 @@
       transform: none !important;
     }
   }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+
+  @media (max-width: 640px) {
+    /* The hero was clearing a two-row fixed header that no longer exists,
+       leaving ~150px of empty screen before any content. */
+    .page-hero { padding: 104px 24px 40px; }
+    .page-hero-eyebrow { margin-bottom: 14px; }
+    .page-hero-headline { font-size: 31px; line-height: 1.12; margin-bottom: 16px; }
+    .page-hero-sub { font-size: 15.5px; line-height: 1.6; }
+
+    .showcase { padding-bottom: 64px; }
+    .showcase-carousel { padding-left: 24px; }
+    .showcase-slide { width: min(200px, 56vw); border-radius: 18px; }
+
+    .features { padding: 64px 24px 72px; }
+    .features-headline { font-size: 26px; line-height: 1.2; margin-bottom: 32px; }
+    .features-grid { border-radius: 14px; }
+    .feature { padding: 26px 22px 28px; }
+    .feature-title { font-size: 19px; }
+
+    .beta-note { padding: 64px 24px 72px; }
+    .beta-headline { font-size: 25px; line-height: 1.2; }
+    .close-sub { font-size: 15px; margin-bottom: 28px; }
+    .appstore-btn { padding: 15px 28px 15px 24px; }
+  }
 </style>
 </head>
 <body>
