@@ -319,6 +319,60 @@
     .pagehero-img { object-position: 52% 60%; }
   }
 
+  /* ---------- Concept board ----------
+     The board is line art on deep navy, so the band takes its background from
+     the image itself and the artwork bleeds into it with no visible seam. */
+
+  .board {
+    background: #091E36;
+    padding: clamp(56px, 7vw, 96px) clamp(16px, 5vw, 64px) clamp(48px, 6vw, 88px);
+  }
+
+  .board-inner {
+    max-width: 1240px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .board-title {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 40px);
+    line-height: 1.16;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    max-width: 20ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+
+  .board-desc {
+    font-size: clamp(14px, 1.3vw, 16px);
+    line-height: 1.75;
+    color: rgba(245,241,233,0.72);
+    max-width: 60ch;
+    margin: 16px auto 0;
+    text-wrap: pretty;
+  }
+
+  .board-figure {
+    margin: clamp(32px, 4vw, 52px) 0 0;
+  }
+
+  .board-figure img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .board-caption {
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245,241,233,0.42);
+    margin-top: 20px;
+  }
+
   /* ---------- Hero ---------- */
 
   .hero {
@@ -884,6 +938,19 @@
     <div class="pagehero-scrim"></div>
     <div>
       <h1 class="pagehero-headline">Build your forever home with confidence</h1>
+    </div>
+  </section>
+
+  <section class="board">
+    <div class="board-inner">
+      <h2 class="board-title reveal">See the home before you break ground.</h2>
+      <p class="board-desc reveal">Every Build Plan ends in a concept board &mdash; floor plans, elevation, materials, and features drawn from your goals, your budget, and the land you already own.</p>
+      <figure class="board-figure reveal">
+        <img src="/assets/groundbreakable/build-concept-board.jpg"
+             width="1448" height="1086" loading="lazy" decoding="async"
+             alt="Concept board for a mountain modern retreat: main and upper floor plans, a rendered front elevation of a stone and wood home, and lists of home features and material palette">
+        <figcaption class="board-caption">Sample concept board</figcaption>
+      </figure>
     </div>
   </section>
 
