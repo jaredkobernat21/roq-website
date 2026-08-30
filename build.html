@@ -319,6 +319,253 @@
     .pagehero-img { object-position: 52% 60%; }
   }
 
+  /* ---------- Journey rail ----------
+     The five stages of a build, carried in one dark panel straight off the
+     bottom of the hero: a gold-ringed icon and a number for each stage, a
+     hairline running circle to circle, and a card under each one showing what
+     that stage actually looks like. Step 04 is drawn rather than photographed
+     so the panel shows the product itself. */
+
+  .journey {
+    --jgap: clamp(16px, 2.2vw, 32px);
+    background: #14120E;
+    padding: clamp(26px, 3.4vw, 44px) clamp(16px, 4vw, 48px) clamp(48px, 6vw, 84px);
+  }
+
+  .journey-panel {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: clamp(22px, 2.6vw, 34px) clamp(18px, 2.4vw, 32px) clamp(24px, 2.6vw, 34px);
+    background: rgba(30,26,21,0.55);
+    border: 1px solid rgba(245,241,233,0.13);
+    border-radius: 18px;
+  }
+
+  .journey-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--jgap);
+  }
+
+  .jstep {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .jstep-head {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .jstep-icon {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border: 1px solid rgba(194,135,63,0.5);
+    border-radius: 50%;
+    color: var(--gold);
+  }
+
+  .jstep-icon svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* Capped so the copy wraps at roughly the comp's two lines and the hairline
+     has room to run out to the next circle. */
+  .jstep-copy {
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 150px;
+    padding-top: 2px;
+  }
+
+  .jstep-num {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: rgba(245,241,233,0.45);
+  }
+
+  .jstep-copy h3 {
+    margin: 3px 0 5px;
+    font-size: clamp(15px, 1.2vw, 17px);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+  }
+
+  .jstep-copy p {
+    font-size: 13px;
+    line-height: 1.5;
+    color: rgba(245,241,233,0.6);
+    text-wrap: pretty;
+  }
+
+  /* Bleeds into the grid gap so the line lands on the next circle. */
+  .jstep-line {
+    flex: 1 1 auto;
+    min-width: 12px;
+    height: 1px;
+    margin: 26px calc(var(--jgap) * -1) 0 6px;
+    background: rgba(245,241,233,0.24);
+  }
+
+  .jstep:last-child .jstep-line { display: none; }
+
+  .jstep-media {
+    flex: 0 0 auto;
+    margin-top: 18px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border: 1px solid rgba(245,241,233,0.1);
+    border-radius: 12px;
+    background: #0F0D0A;
+  }
+
+  .jstep-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .jstep-media--land img { object-position: 72% 62%; }
+
+  /* ---------- Step 04 progress card ---------- */
+
+  .jcard {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 13px 14px;
+    background: #191510;
+  }
+
+  .jcard-title {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: rgba(245,241,233,0.9);
+  }
+
+  .jcard-body {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: 10px;
+    min-height: 0;
+  }
+
+  .jcard-rows {
+    flex: 1 1 auto;
+    min-width: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .jcard-rows li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 9.5px;
+    color: rgba(245,241,233,0.72);
+  }
+
+  .jcard-dot {
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
+    border: 1px solid rgba(245,241,233,0.22);
+    border-radius: 50%;
+  }
+
+  .jcard-rows li span:last-child {
+    margin-left: auto;
+    font-size: 8.5px;
+    white-space: nowrap;
+    color: rgba(245,241,233,0.42);
+  }
+
+  .jcard-rows li.is-done .jcard-dot { border-color: rgba(122,167,110,0.85); }
+  .jcard-rows li.is-active .jcard-dot { border-color: var(--gold); }
+  .jcard-rows li.is-active span:last-child { color: var(--gold); }
+
+  .jcard-ring {
+    position: relative;
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 62px;
+    height: 62px;
+  }
+
+  .jcard-ring svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg);
+    fill: none;
+    stroke-width: 4;
+    stroke-linecap: round;
+  }
+
+  .jcard-ring .jring-track { stroke: rgba(245,241,233,0.12); }
+  .jcard-ring .jring-fill { stroke: #7AA76E; }
+
+  .jcard-ring-label {
+    position: absolute;
+    text-align: center;
+    line-height: 1.1;
+  }
+
+  .jcard-ring-label b {
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+  }
+
+  .jcard-ring-label b i {
+    font-style: normal;
+    font-size: 8px;
+    vertical-align: super;
+  }
+
+  .jcard-ring-label span {
+    display: block;
+    font-size: 7.5px;
+    color: rgba(245,241,233,0.45);
+  }
+
+  /* Below five comfortable columns the rail scrolls sideways rather than
+     stacking five tall photo cards down the page. */
+  @media (max-width: 1100px) {
+    .journey-steps {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x proximity;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 8px;
+    }
+
+    .jstep {
+      flex: 0 0 250px;
+      scroll-snap-align: start;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .journey { padding-left: 12px; padding-right: 12px; }
+    .journey-panel { padding: 20px 16px 22px; border-radius: 14px; }
+  }
+
   /* ---------- Concept board ----------
      The board is line art on deep navy, so the band takes its background from
      the image itself and the artwork bleeds into it with no visible seam. */
@@ -937,7 +1184,120 @@
          alt="A home under construction at sunset on a ridge above a lake" />
     <div class="pagehero-scrim"></div>
     <div>
-      <h1 class="pagehero-headline">Build your forever home with confidence</h1>
+      <h1 class="pagehero-headline">Your forever home starts here.</h1>
+    </div>
+  </section>
+
+  <section class="journey">
+    <div class="journey-panel reveal">
+      <div class="journey-steps">
+
+        <div class="jstep">
+          <div class="jstep-head">
+            <span class="jstep-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6"/></svg>
+            </span>
+            <div class="jstep-copy">
+              <span class="jstep-num">01</span>
+              <h3>Understand</h3>
+              <p>Know what's possible with your land.</p>
+            </div>
+            <span class="jstep-line" aria-hidden="true"></span>
+          </div>
+          <div class="jstep-media jstep-media--land">
+            <img src="/assets/groundbreakable/hero-house.jpg" width="1448" height="1086" loading="lazy" decoding="async"
+                 alt="A home concept drawn over a site plan marking buildable areas and driveway access">
+          </div>
+        </div>
+
+        <div class="jstep">
+          <div class="jstep-head">
+            <span class="jstep-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 4H6.5A1.5 1.5 0 0 0 5 5.5v14A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-14A1.5 1.5 0 0 0 17.5 4H16" stroke-linejoin="round"/><rect x="8" y="2.5" width="8" height="3.4" rx="1.1"/><path d="M8.6 11.4l1.5 1.5 2.6-2.9M8.6 16.2l1.5 1.5 2.6-2.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="jstep-copy">
+              <span class="jstep-num">02</span>
+              <h3>Plan</h3>
+              <p>Get a clear framework for your build.</p>
+            </div>
+            <span class="jstep-line" aria-hidden="true"></span>
+          </div>
+          <div class="jstep-media">
+            <img src="/assets/groundbreakable/build-plan-tablet.jpg" width="1448" height="1086" loading="lazy" decoding="async"
+                 alt="A Groundbreakable Build Plan on a tablet beside a site summary checklist and a permits-to-build roadmap">
+          </div>
+        </div>
+
+        <div class="jstep">
+          <div class="jstep-head">
+            <span class="jstep-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.2V19h12v-8.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19v-4.6h4V19" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <div class="jstep-copy">
+              <span class="jstep-num">03</span>
+              <h3>Design</h3>
+              <p>See your vision take shape.</p>
+            </div>
+            <span class="jstep-line" aria-hidden="true"></span>
+          </div>
+          <div class="jstep-media">
+            <img src="/assets/hero/dream-hero.jpg" width="1600" height="1066" loading="lazy" decoding="async"
+                 alt="A finished mountain modern home lit at dusk above a pool and terrace">
+          </div>
+        </div>
+
+        <div class="jstep">
+          <div class="jstep-head">
+            <span class="jstep-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16" stroke-linecap="round"/><path d="M8.5 3.5v4M15.5 3.5v4" stroke-linecap="round"/></svg>
+            </span>
+            <div class="jstep-copy">
+              <span class="jstep-num">04</span>
+              <h3>Build</h3>
+              <p>Stay organized and in control.</p>
+            </div>
+            <span class="jstep-line" aria-hidden="true"></span>
+          </div>
+          <div class="jstep-media jcard">
+            <span class="jcard-title">Build Progress</span>
+            <div class="jcard-body">
+              <ul class="jcard-rows">
+                <li class="is-done"><span class="jcard-dot"></span><span>Foundation</span><span>Complete</span></li>
+                <li class="is-active"><span class="jcard-dot"></span><span>Framing</span><span>In Progress</span></li>
+                <li><span class="jcard-dot"></span><span>MEP Rough-In</span><span>Upcoming</span></li>
+                <li><span class="jcard-dot"></span><span>Interior</span><span>Upcoming</span></li>
+              </ul>
+              <div class="jcard-ring">
+                <svg viewBox="0 0 62 62" aria-hidden="true">
+                  <circle class="jring-track" cx="31" cy="31" r="26"/>
+                  <circle class="jring-fill" cx="31" cy="31" r="26"
+                          stroke-dasharray="163.4" stroke-dashoffset="78.4"/>
+                </svg>
+                <span class="jcard-ring-label"><b>52<i>%</i></b><span>Complete</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="jstep">
+          <div class="jstep-head">
+            <span class="jstep-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><circle cx="8.5" cy="12" r="4"/><path d="M12.5 12H21" stroke-linecap="round"/><path d="M17.5 12v3.2M20 12v2.4" stroke-linecap="round"/></svg>
+            </span>
+            <div class="jstep-copy">
+              <span class="jstep-num">05</span>
+              <h3>Own</h3>
+              <p>Everything about your home, in one place.</p>
+            </div>
+            <span class="jstep-line" aria-hidden="true"></span>
+          </div>
+          <div class="jstep-media">
+            <img src="/assets/hero/experience-hero.jpg" width="1125" height="1500" loading="lazy" decoding="async"
+                 alt="A family gathered around the dinner table in their finished home at sunset">
+          </div>
+        </div>
+
+      </div>
     </div>
   </section>
 
