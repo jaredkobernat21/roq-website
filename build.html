@@ -9,19 +9,19 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Groundbreakable by ROQ helps homeowners understand their property, site requirements, permits, costs, and design direction before hiring a build team." />
+<meta name="description" content="The ROQ Framework helps homeowners understand their property, site requirements, permits, costs, and design direction before hiring a build team." />
 <link rel="canonical" href="https://roqhome.com/build.html" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ROQ" />
 <meta property="og:title" content="Build — ROQ Home" />
-<meta property="og:description" content="You bought the land. Now get ready to build. Groundbreakable turns your goals, budget, and site into a clear, personalized build plan before you hire a build team." />
+<meta property="og:description" content="You bought the land. Now get ready to build. The ROQ Framework turns your goals, budget, and site into a clear, personalized plan before you hire a build team." />
 <meta property="og:url" content="https://roqhome.com/build.html" />
 <meta property="og:image" content="https://roqhome.com/assets/groundbreakable/hero-house.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Build — ROQ Home" />
-<meta name="twitter:description" content="You bought the land. Now get ready to build. Groundbreakable turns your goals, budget, and site into a clear, personalized build plan." />
+<meta name="twitter:description" content="You bought the land. Now get ready to build. The ROQ Framework turns your goals, budget, and site into a clear, personalized plan." />
 <meta name="twitter:image" content="https://roqhome.com/assets/groundbreakable/hero-house.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -319,259 +319,13 @@
     .pagehero-img { object-position: 52% 60%; }
   }
 
-  /* ---------- Journey rail ----------
-     The five stages of a build, carried in one dark panel straight off the
-     bottom of the hero: a gold-ringed icon and a number for each stage, a
-     hairline running circle to circle, and a card under each one showing what
-     that stage actually looks like. Step 04 is drawn rather than photographed
-     so the panel shows the product itself. */
-
-  .journey {
-    --jgap: clamp(16px, 2.2vw, 32px);
-    background: #14120E;
-    padding: clamp(26px, 3.4vw, 44px) clamp(16px, 4vw, 48px) clamp(48px, 6vw, 84px);
-  }
-
-  .journey-panel {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: clamp(22px, 2.6vw, 34px) clamp(18px, 2.4vw, 32px) clamp(24px, 2.6vw, 34px);
-    background: rgba(30,26,21,0.55);
-    border: 1px solid rgba(245,241,233,0.13);
-    border-radius: 18px;
-  }
-
-  .journey-steps {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: var(--jgap);
-  }
-
-  .jstep {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-  }
-
-  .jstep-head {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: flex-start;
-    gap: 14px;
-  }
-
-  .jstep-icon {
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    width: 52px;
-    height: 52px;
-    border: 1px solid rgba(194,135,63,0.5);
-    border-radius: 50%;
-    color: var(--gold);
-  }
-
-  .jstep-icon svg {
-    width: 22px;
-    height: 22px;
-    fill: none;
-    stroke: currentColor;
-    stroke-width: 1.5;
-  }
-
-  /* Capped so the copy wraps at roughly the comp's two lines and the hairline
-     has room to run out to the next circle. */
-  .jstep-copy {
-    flex: 0 1 auto;
-    min-width: 0;
-    max-width: 150px;
-    padding-top: 2px;
-  }
-
-  .jstep-num {
-    display: block;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    color: rgba(245,241,233,0.45);
-  }
-
-  .jstep-copy h3 {
-    margin: 3px 0 5px;
-    font-size: clamp(15px, 1.2vw, 17px);
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    color: #FFFFFF;
-  }
-
-  .jstep-copy p {
-    font-size: 13px;
-    line-height: 1.5;
-    color: rgba(245,241,233,0.6);
-    text-wrap: pretty;
-  }
-
-  /* Bleeds into the grid gap so the line lands on the next circle. */
-  .jstep-line {
-    flex: 1 1 auto;
-    min-width: 12px;
-    height: 1px;
-    margin: 26px calc(var(--jgap) * -1) 0 6px;
-    background: rgba(245,241,233,0.24);
-  }
-
-  .jstep:last-child .jstep-line { display: none; }
-
-  .jstep-media {
-    flex: 0 0 auto;
-    margin-top: 18px;
-    aspect-ratio: 4 / 3;
-    overflow: hidden;
-    border: 1px solid rgba(245,241,233,0.1);
-    border-radius: 12px;
-    background: #0F0D0A;
-  }
-
-  .jstep-media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .jstep-media--land img { object-position: 72% 62%; }
-
-  /* ---------- Step 04 progress card ---------- */
-
-  .jcard {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    padding: 13px 14px;
-    background: #191510;
-  }
-
-  .jcard-title {
-    font-size: 11.5px;
-    font-weight: 600;
-    color: rgba(245,241,233,0.9);
-  }
-
-  .jcard-body {
-    display: flex;
-    flex: 1 1 auto;
-    align-items: center;
-    gap: 10px;
-    min-height: 0;
-  }
-
-  .jcard-rows {
-    flex: 1 1 auto;
-    min-width: 0;
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 7px;
-  }
-
-  .jcard-rows li {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 9.5px;
-    color: rgba(245,241,233,0.72);
-  }
-
-  .jcard-dot {
-    flex: 0 0 auto;
-    width: 12px;
-    height: 12px;
-    border: 1px solid rgba(245,241,233,0.22);
-    border-radius: 50%;
-  }
-
-  .jcard-rows li span:last-child {
-    margin-left: auto;
-    font-size: 8.5px;
-    white-space: nowrap;
-    color: rgba(245,241,233,0.42);
-  }
-
-  .jcard-rows li.is-done .jcard-dot { border-color: rgba(122,167,110,0.85); }
-  .jcard-rows li.is-active .jcard-dot { border-color: var(--gold); }
-  .jcard-rows li.is-active span:last-child { color: var(--gold); }
-
-  .jcard-ring {
-    position: relative;
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    width: 62px;
-    height: 62px;
-  }
-
-  .jcard-ring svg {
-    width: 100%;
-    height: 100%;
-    transform: rotate(-90deg);
-    fill: none;
-    stroke-width: 4;
-    stroke-linecap: round;
-  }
-
-  .jcard-ring .jring-track { stroke: rgba(245,241,233,0.12); }
-  .jcard-ring .jring-fill { stroke: #7AA76E; }
-
-  .jcard-ring-label {
-    position: absolute;
-    text-align: center;
-    line-height: 1.1;
-  }
-
-  .jcard-ring-label b {
-    font-size: 15px;
-    font-weight: 600;
-    color: #FFFFFF;
-  }
-
-  .jcard-ring-label b i {
-    font-style: normal;
-    font-size: 8px;
-    vertical-align: super;
-  }
-
-  .jcard-ring-label span {
-    display: block;
-    font-size: 7.5px;
-    color: rgba(245,241,233,0.45);
-  }
-
-  /* Below five comfortable columns the rail scrolls sideways rather than
-     stacking five tall photo cards down the page. */
-  @media (max-width: 1100px) {
-    .journey-steps {
-      display: flex;
-      overflow-x: auto;
-      scroll-snap-type: x proximity;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 8px;
-    }
-
-    .jstep {
-      flex: 0 0 250px;
-      scroll-snap-align: start;
-    }
-  }
-
-  @media (max-width: 640px) {
-    .journey { padding-left: 12px; padding-right: 12px; }
-    .journey-panel { padding: 20px 16px 22px; border-radius: 14px; }
-  }
-
   /* ---------- Concept board ----------
-     The board is line art on deep navy, so the band takes its background from
-     the image itself and the artwork bleeds into it with no visible seam. */
+     A warm neutral off the ROQ palette rather than the artwork's own navy.
+     The board art is still rendered on deep navy, so it reads as a panel on
+     the band instead of bleeding into it. */
 
   .board {
-    background: #091E36;
+    background: #2A2723;
     padding: clamp(56px, 7vw, 96px) clamp(16px, 5vw, 64px) clamp(48px, 6vw, 88px);
   }
 
@@ -606,10 +360,14 @@
     margin: clamp(32px, 4vw, 52px) 0 0;
   }
 
+  /* The source art is drawn on deep navy. Pulling the blue out of it here
+     keeps the band warm-neutral without re-rendering the artwork; swap this
+     for a grey-ground render of the board and the filter can come off. */
   .board-figure img {
     display: block;
     width: 100%;
     height: auto;
+    filter: grayscale(0.82) sepia(0.22) brightness(1.06) contrast(0.98);
   }
 
   .board-caption {
@@ -1188,123 +946,10 @@
     </div>
   </section>
 
-  <section class="journey">
-    <div class="journey-panel reveal">
-      <div class="journey-steps">
-
-        <div class="jstep">
-          <div class="jstep-head">
-            <span class="jstep-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6"/></svg>
-            </span>
-            <div class="jstep-copy">
-              <span class="jstep-num">01</span>
-              <h3>Understand</h3>
-              <p>Know what's possible with your land.</p>
-            </div>
-            <span class="jstep-line" aria-hidden="true"></span>
-          </div>
-          <div class="jstep-media jstep-media--land">
-            <img src="/assets/groundbreakable/hero-house.jpg" width="1448" height="1086" loading="lazy" decoding="async"
-                 alt="A home concept drawn over a site plan marking buildable areas and driveway access">
-          </div>
-        </div>
-
-        <div class="jstep">
-          <div class="jstep-head">
-            <span class="jstep-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 4H6.5A1.5 1.5 0 0 0 5 5.5v14A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5v-14A1.5 1.5 0 0 0 17.5 4H16" stroke-linejoin="round"/><rect x="8" y="2.5" width="8" height="3.4" rx="1.1"/><path d="M8.6 11.4l1.5 1.5 2.6-2.9M8.6 16.2l1.5 1.5 2.6-2.9" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <div class="jstep-copy">
-              <span class="jstep-num">02</span>
-              <h3>Plan</h3>
-              <p>Get a clear framework for your build.</p>
-            </div>
-            <span class="jstep-line" aria-hidden="true"></span>
-          </div>
-          <div class="jstep-media">
-            <img src="/assets/groundbreakable/build-plan-tablet.jpg" width="1448" height="1086" loading="lazy" decoding="async"
-                 alt="A Groundbreakable Build Plan on a tablet beside a site summary checklist and a permits-to-build roadmap">
-          </div>
-        </div>
-
-        <div class="jstep">
-          <div class="jstep-head">
-            <span class="jstep-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M4 11.5 12 5l8 6.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10.2V19h12v-8.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 19v-4.6h4V19" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </span>
-            <div class="jstep-copy">
-              <span class="jstep-num">03</span>
-              <h3>Design</h3>
-              <p>See your vision take shape.</p>
-            </div>
-            <span class="jstep-line" aria-hidden="true"></span>
-          </div>
-          <div class="jstep-media">
-            <img src="/assets/hero/dream-hero.jpg" width="1600" height="1066" loading="lazy" decoding="async"
-                 alt="A finished mountain modern home lit at dusk above a pool and terrace">
-          </div>
-        </div>
-
-        <div class="jstep">
-          <div class="jstep-head">
-            <span class="jstep-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2"/><path d="M4 10h16" stroke-linecap="round"/><path d="M8.5 3.5v4M15.5 3.5v4" stroke-linecap="round"/></svg>
-            </span>
-            <div class="jstep-copy">
-              <span class="jstep-num">04</span>
-              <h3>Build</h3>
-              <p>Stay organized and in control.</p>
-            </div>
-            <span class="jstep-line" aria-hidden="true"></span>
-          </div>
-          <div class="jstep-media jcard">
-            <span class="jcard-title">Build Progress</span>
-            <div class="jcard-body">
-              <ul class="jcard-rows">
-                <li class="is-done"><span class="jcard-dot"></span><span>Foundation</span><span>Complete</span></li>
-                <li class="is-active"><span class="jcard-dot"></span><span>Framing</span><span>In Progress</span></li>
-                <li><span class="jcard-dot"></span><span>MEP Rough-In</span><span>Upcoming</span></li>
-                <li><span class="jcard-dot"></span><span>Interior</span><span>Upcoming</span></li>
-              </ul>
-              <div class="jcard-ring">
-                <svg viewBox="0 0 62 62" aria-hidden="true">
-                  <circle class="jring-track" cx="31" cy="31" r="26"/>
-                  <circle class="jring-fill" cx="31" cy="31" r="26"
-                          stroke-dasharray="163.4" stroke-dashoffset="78.4"/>
-                </svg>
-                <span class="jcard-ring-label"><b>52<i>%</i></b><span>Complete</span></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="jstep">
-          <div class="jstep-head">
-            <span class="jstep-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><circle cx="8.5" cy="12" r="4"/><path d="M12.5 12H21" stroke-linecap="round"/><path d="M17.5 12v3.2M20 12v2.4" stroke-linecap="round"/></svg>
-            </span>
-            <div class="jstep-copy">
-              <span class="jstep-num">05</span>
-              <h3>Own</h3>
-              <p>Everything about your home, in one place.</p>
-            </div>
-            <span class="jstep-line" aria-hidden="true"></span>
-          </div>
-          <div class="jstep-media">
-            <img src="/assets/hero/experience-hero.jpg" width="1125" height="1500" loading="lazy" decoding="async"
-                 alt="A family gathered around the dinner table in their finished home at sunset">
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
   <section class="board">
     <div class="board-inner">
       <h2 class="board-title reveal">See the home before you break ground.</h2>
-      <p class="board-desc reveal">Every Build Plan ends in a concept board &mdash; floor plans, elevation, materials, and features drawn from your goals, your budget, and the land you already own.</p>
+      <p class="board-desc reveal">Every ROQ Framework ends in a concept board &mdash; floor plans, elevation, materials, and features drawn from your goals, your budget, and the land you already own.</p>
       <figure class="board-figure reveal">
         <img src="/assets/groundbreakable/build-concept-board.jpg"
              width="1448" height="1086" loading="lazy" decoding="async"
@@ -1318,9 +963,9 @@
     <div>
       <h2 class="hero-headline">Know before<br>you build.</h2>
       <p class="hero-sub">You bought the land. Now get ready to build.</p>
-      <p class="hero-desc">Groundbreakable helps homeowners understand their property, site requirements, permits, costs, design direction, and next steps before hiring the build team.</p>
+      <p class="hero-desc">The ROQ Framework helps homeowners understand their property, site requirements, permits, costs, design direction, and next steps before hiring the build team.</p>
       <div class="hero-actions">
-        <button type="button" class="btn-gold" id="heroCtaBtn">Start My Build Plan</button>
+        <button type="button" class="btn-gold" id="heroCtaBtn">Start My ROQ Framework</button>
         <a class="link-arrow" href="#pricing">See What's Included
           <svg viewBox="0 0 24 24"><path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -1360,10 +1005,10 @@
   <section class="pricing" id="pricing">
     <div class="pricing-wrap">
       <div class="pricing-visual reveal">
-        <img src="/assets/groundbreakable/build-plan-tablet.jpg" alt="Groundbreakable Build Plan property analysis shown on a tablet alongside a site summary and roadmap">
+        <img src="/assets/groundbreakable/build-plan-tablet.jpg" alt="The ROQ Framework property analysis shown on a tablet alongside a site summary and roadmap">
       </div>
       <div class="reveal">
-        <h2 class="pricing-title">Groundbreakable<br>Build Plan &mdash; $499</h2>
+        <h2 class="pricing-title">ROQ Framework<br>&mdash; $499</h2>
         <div class="pricing-rule"></div>
         <p class="pricing-desc">Everything you need to move forward with clarity before you hire a build team.</p>
         <ul class="pricing-checklist">
@@ -1383,7 +1028,7 @@
   <section class="cta-dark">
     <img class="cta-particles" src="/assets/groundbreakable/cta-particles.jpg" alt="" role="presentation">
     <div class="cta-inner reveal">
-      <h2>Turn your land<br>into a <span class="gold">build plan.</span></h2>
+      <h2>Turn your land<br>into a <span class="gold">clear plan.</span></h2>
       <div class="cta-rule"></div>
       <button type="button" class="btn-gold" id="ctaBtn">Get Started</button>
     </div>
@@ -1399,13 +1044,13 @@
     </div>
   </footer>
 
-  <!-- ---------- Build Plan intake modal ---------- -->
+  <!-- ---------- ROQ Framework intake modal ---------- -->
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal-panel">
       <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
 
       <div id="formWrap">
-        <h2 class="modal-title">Let's start your Build Plan.</h2>
+        <h2 class="modal-title">Let's start your ROQ Framework.</h2>
         <p class="modal-sub">A few quick questions &mdash; takes about a minute.</p>
 
         <form id="intakeForm">
@@ -1451,7 +1096,7 @@
           </div>
 
           <div class="q-block">
-            <p class="q-label">Where should we send your Build Plan?</p>
+            <p class="q-label">Where should we send your ROQ Framework?</p>
             <div class="field-row">
               <label for="qName">Name</label>
               <input type="text" class="q-input" id="qName" placeholder="Your name" autocomplete="name">
@@ -1467,14 +1112,14 @@
           </div>
 
           <p class="q-error" id="qError">Please enter your build location, name, and a valid email address.</p>
-          <button type="submit" class="modal-submit" id="submitBtn">Get My Build Plan</button>
+          <button type="submit" class="modal-submit" id="submitBtn">Get My ROQ Framework</button>
         </form>
       </div>
 
       <div class="q-thanks" id="qThanks">
         <div class="q-thanks-icon"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
         <h3>You're on your way.</h3>
-        <p>We're reviewing your answers now. Your personalized Groundbreakable Build Plan will be ready within 24&ndash;48 hours.</p>
+        <p>We're reviewing your answers now. Your personalized ROQ Framework will be ready within 24&ndash;48 hours.</p>
       </div>
     </div>
   </div>
@@ -1633,7 +1278,7 @@
         errorEl.textContent = 'Something went wrong. Please try again.';
         errorEl.classList.add('visible');
         submitBtn.disabled = false;
-        submitBtn.textContent = 'Get My Build Plan';
+        submitBtn.textContent = 'Get My ROQ Framework';
       }
     });
   </script>
