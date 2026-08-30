@@ -320,9 +320,8 @@
   }
 
   /* ---------- Concept board ----------
-     A warm neutral off the ROQ palette rather than the artwork's own navy.
-     The board art is still rendered on deep navy, so it reads as a panel on
-     the band instead of bleeding into it. */
+     The board art is drawn on the same charcoal the band uses, so the
+     artwork bleeds into it with no visible seam. */
 
   .board {
     background: #2A2723;
@@ -360,14 +359,10 @@
     margin: clamp(32px, 4vw, 52px) 0 0;
   }
 
-  /* The source art is drawn on deep navy. Pulling the blue out of it here
-     keeps the band warm-neutral without re-rendering the artwork; swap this
-     for a grey-ground render of the board and the filter can come off. */
   .board-figure img {
     display: block;
     width: 100%;
     height: auto;
-    filter: grayscale(0.82) sepia(0.22) brightness(1.06) contrast(0.98);
   }
 
   .board-caption {
