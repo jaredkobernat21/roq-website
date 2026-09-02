@@ -71,83 +71,161 @@
   /* ---------------- Header ---------------- */
 
   .site-header {
+    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 100;
-    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
     border-bottom: 1px solid transparent;
-    transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
   }
+
   .site-header::before {
     content: '';
     position: absolute;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
-    transition: opacity .35s var(--ease);
-  }
-  .site-header.scrolled {
-    background: var(--surface);
-    border-bottom-color: var(--line);
-    box-shadow: 0 1px 20px rgba(10,10,10,0.04);
-  }
-  .site-header.scrolled::before { opacity: 0; }
-  .header-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    height: 82px;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
   }
 
-  .site-logo { display: flex; align-items: center; }
-  .logo-mark { width: 28px; height: 28px; display: block; }
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-logo { display: flex; }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
   .logo-mark path {
-    fill: none;
-    stroke: #FFFFFF;
+    stroke: var(--nav-fg-strong);
     stroke-width: 8;
+    fill: none;
     stroke-linecap: round;
     stroke-linejoin: round;
-    transition: stroke .35s var(--ease);
   }
-  .site-header.scrolled .logo-mark path { stroke: var(--ink); }
 
   .site-tabs {
     display: flex;
     align-items: center;
-    gap: clamp(18px, 2.6vw, 40px);
+    gap: clamp(14px, 2.1vw, 30px);
   }
+
   .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.62);
-    padding: 6px 0;
-    position: relative;
-    transition: color .25s var(--ease);
+    white-space: nowrap;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
   }
-  .site-tabs a:hover { color: #FFFFFF; }
-  .site-tabs a::after {
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+
+  .site-tabs a.active::after {
     content: '';
     position: absolute;
     left: 0; right: 0; bottom: -1px;
-    height: 1.5px;
-    background: #FFFFFF;
-    transform: scaleX(0);
-    transition: transform .28s var(--ease);
+    height: 1px;
+    background: var(--nav-accent);
   }
-  .site-tabs a:hover::after,
-  .site-tabs a.active::after { transform: scaleX(1); }
-  .site-tabs a.active { color: #FFFFFF; }
 
-  .site-header.scrolled .site-tabs a { color: var(--ink-2); }
-  .site-header.scrolled .site-tabs a:hover,
-  .site-header.scrolled .site-tabs a.active { color: var(--ink); }
-  .site-header.scrolled .site-tabs a::after { background: var(--ink); }
+  .site-tabs-toggle { display: none; }
 
-  .header-actions { display: flex; align-items: center; gap: 12px; }
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+
+    .site-tabs-toggle span::before,
+    .site-tabs-toggle span::after,
+    .site-tabs-toggle span i {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--nav-fg-strong);
+    }
+
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+
+    .site-tabs {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: clamp(24px, 5vw, 64px);
+      min-width: 170px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--nav-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border);
+      border-radius: 14px;
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+
+    .site-tabs.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
 
   .btn {
     display: inline-flex;
@@ -175,43 +253,6 @@
   .btn-white:hover { transform: translateY(-1px); background: #F0F0EC; }
   .btn-outline { background: transparent; color: var(--ink); border-color: var(--line); }
   .btn-outline:hover { border-color: #C9C9C3; background: var(--surface-2); transform: translateY(-1px); }
-  .header-actions .btn { height: 46px; }
-  .header-actions .btn-dark {
-    background: #fff;
-    color: var(--ink);
-    transition: transform .25s var(--ease), background .35s var(--ease), color .35s var(--ease);
-  }
-  .header-actions .btn-dark:hover { background: #F0F0EC; }
-  .site-header.scrolled .header-actions .btn-dark { background: var(--ink); color: #fff; }
-  .site-header.scrolled .header-actions .btn-dark:hover { background: #262624; }
-
-  .btn-label-short { display: none; }
-
-  .nav-toggle {
-    display: none;
-    width: 44px; height: 44px;
-    border: 1px solid rgba(255,255,255,0.16);
-    border-radius: 12px;
-    background: transparent;
-    align-items: center;
-    justify-content: center;
-    transition: border-color .35s var(--ease);
-  }
-  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
-    content: '';
-    display: block;
-    width: 17px; height: 1.6px;
-    background: #FFFFFF;
-    border-radius: 2px;
-    transition: transform .3s var(--ease), background .35s var(--ease);
-  }
-  .nav-toggle span { position: relative; }
-  .nav-toggle span::before { position: absolute; top: -5.5px; }
-  .nav-toggle span::after { position: absolute; top: 5.5px; }
-  .site-header.scrolled .nav-toggle { border-color: var(--line); }
-  .site-header.scrolled .nav-toggle span,
-  .site-header.scrolled .nav-toggle span::before,
-  .site-header.scrolled .nav-toggle span::after { background: var(--ink); }
 
   .eyebrow {
     font-size: 12px;
@@ -633,26 +674,6 @@
   }
 
   @media (max-width: 980px) {
-    .site-tabs {
-      display: none;
-      position: absolute;
-      top: 82px; left: 0; right: 0;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      background: var(--surface);
-      border-bottom: 1px solid var(--line);
-      padding: 8px clamp(18px, 3vw, 40px) 18px;
-      box-shadow: 0 18px 40px rgba(10,10,10,0.08);
-    }
-    .site-tabs.open { display: flex; }
-    .site-tabs a { padding: 14px 0; border-bottom: 1px solid var(--line-2); font-size: 16px; color: var(--ink-2); }
-    .site-tabs a::after { display: none; }
-    .nav-toggle { display: flex; }
-    .header-actions .btn .btn-label { display: none; }
-    .header-actions .btn .btn-label-short { display: inline; }
-    .header-actions .btn { padding: 0 18px; }
-
     .investors-row { grid-template-columns: repeat(3, minmax(0,1fr)); }
     .fc-grid { grid-template-columns: 1fr; text-align: center; }
     .final-cta .fc-sub { margin-left: auto; margin-right: auto; }
@@ -889,29 +910,20 @@
 <body id="top">
 
   <header class="site-header" id="siteHeader">
-    <div class="wrap header-inner">
-      <a class="site-logo" href="/" aria-label="ROQ">
-        <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
-        </svg>
-      </a>
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
 
-      <nav class="site-tabs" id="siteTabs" aria-label="Main">
-        <a href="#how-it-works">How It Works</a>
-        <a href="#signals">The Signals</a>
-        <a href="#example">Example</a>
-        <a href="#faq">FAQ</a>
-      </nav>
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/build.html">Build</a>
+      <a href="/manage.html">Own</a>
+      <a href="/invest.html" class="active" aria-current="page">Invest</a>
+    </nav>
 
-      <div class="header-actions">
-        <a class="btn btn-dark" href="#cta">
-          <span class="btn-label">Build My Buy Box</span>
-          <span class="btn-label-short">Buy Box</span>
-          <svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </a>
-        <button class="nav-toggle" id="navToggle" aria-controls="siteTabs" aria-expanded="false" aria-label="Menu"><span></span></button>
-      </div>
-    </div>
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
+            aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
 
   <main>
@@ -1574,7 +1586,7 @@
     (function initHeader() {
       const header = document.getElementById('siteHeader');
       const tabs = document.getElementById('siteTabs');
-      const toggle = document.getElementById('navToggle');
+      const toggle = document.getElementById('siteTabsToggle');
 
       if (toggle && tabs) {
         toggle.addEventListener('click', (e) => {
@@ -1606,28 +1618,6 @@
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
-    })();
-
-    // ---------- Nav: highlight the section in view ----------
-    (function initSpy() {
-      const links = Array.from(document.querySelectorAll('.site-tabs a'));
-      const map = new Map();
-      links.forEach(a => {
-        const id = a.getAttribute('href').slice(1);
-        const el = document.getElementById(id);
-        if (el) map.set(el, a);
-      });
-      if (!map.size) return;
-
-      const spy = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
-          links.forEach(a => a.classList.remove('active'));
-          map.get(entry.target).classList.add('active');
-        });
-      }, { rootMargin: '-45% 0px -50% 0px' });
-
-      map.forEach((_, el) => spy.observe(el));
     })();
 
     // ---------- Scroll reveal ----------
