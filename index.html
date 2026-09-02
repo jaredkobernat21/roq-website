@@ -3,26 +3,26 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>ROQ Home — Feel Like an Owner</title>
+<title>ROQ — Personal Real Estate Intelligence</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="ROQ Home is how you understand, manage, and improve what you own — manage your home, move with confidence, understand its full record, plan a build, and see its potential." />
+<meta name="description" content="Personal real estate intelligence — ROQ helps you own, invest in, and build real estate, all from one place." />
 <link rel="canonical" href="https://roqhome.com/" />
 
 <meta property="og:type" content="website" />
-<meta property="og:site_name" content="ROQ Home" />
-<meta property="og:title" content="ROQ Home — Feel Like an Owner" />
-<meta property="og:description" content="Understand, manage, and improve what you own — in one place." />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="ROQ — Personal Real Estate Intelligence" />
+<meta property="og:description" content="Own, invest in, and build real estate — all from one place." />
 <meta property="og:url" content="https://roqhome.com/" />
-<meta property="og:image" content="https://roqhome.com/assets/hero/home-hero.jpg" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/roq-hero.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="ROQ Home — Feel Like an Owner" />
-<meta name="twitter:description" content="Understand, manage, and improve what you own — in one place." />
-<meta name="twitter:image" content="https://roqhome.com/assets/hero/home-hero.jpg" />
+<meta name="twitter:title" content="ROQ — Personal Real Estate Intelligence" />
+<meta name="twitter:description" content="Own, invest in, and build real estate — all from one place." />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/roq-hero.jpg" />
 
 <script type="application/ld+json">
 {
@@ -294,99 +294,6 @@
     .site-tabs a.active::after { display: none; }
   }
 
-  /* ---------- Hero ---------- */
-
-  .home-hero {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: stretch;
-    min-height: 100vh;
-    background: var(--bg-deep);
-  }
-
-  .home-hero-copy {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: clamp(72px, 10vh, 110px) clamp(24px, 5vw, 72px);
-  }
-
-  .home-hero-eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 22px;
-  }
-
-  .home-hero-headline {
-    font-family: 'Lora', serif;
-    font-weight: 400;
-    font-size: clamp(38px, 5.2vw, 68px);
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    margin-bottom: 24px;
-    text-wrap: balance;
-  }
-
-  .home-hero-sub {
-    font-size: clamp(15px, 1.3vw, 17px);
-    line-height: 1.65;
-    color: var(--ink-dim);
-    max-width: 46ch;
-    margin-bottom: 40px;
-  }
-
-  .home-hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-  .btn-primary, .btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px 28px;
-    border-radius: 30px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease);
-  }
-
-  .btn-primary { background: var(--ink); color: #14110B; border: 1px solid var(--ink); }
-  .btn-primary:hover { background: var(--gold); border-color: var(--gold); }
-
-  .btn-ghost { border: 1px solid var(--border); color: var(--ink-dim); }
-  .btn-ghost:hover { border-color: rgba(255,255,255,0.28); color: var(--ink); }
-
-  .home-hero-visual { position: relative; overflow: hidden; }
-
-  .home-hero-visual img {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: 50% 50%;
-  }
-
-  /* Feathers the render into the copy column so the split reads as one image,
-     not two panels butted together. */
-  .home-hero-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to right, var(--bg-deep) 0%, rgba(13,13,12,0) 26%);
-  }
-
-  @media (max-width: 900px) {
-    .home-hero { grid-template-columns: 1fr; min-height: 0; }
-    .home-hero-copy { order: 2; padding: clamp(48px, 8vw, 72px) clamp(24px, 6vw, 64px) clamp(56px, 9vw, 80px); }
-    .home-hero-visual { order: 1; aspect-ratio: 4 / 3; }
-    .home-hero-visual::after {
-      background: linear-gradient(to bottom, rgba(13,13,12,0.55) 0%, rgba(13,13,12,0) 34%, rgba(13,13,12,0.2) 72%, var(--bg-deep) 100%);
-    }
-  }
 
   /* ---------- Statement band ---------- */
 
@@ -446,110 +353,115 @@
   }
 
 
-  /* ---------- App showcase ---------- */
+  /* ---------- Explore (bridge into Build / Own / Invest) ---------- */
 
-  .appshow {
+  .explore {
     background: var(--bg);
-    padding: clamp(72px, 11vh, 110px) 0 clamp(64px, 10vh, 100px);
-    overflow: hidden;
+    padding: clamp(72px, 11vh, 110px) clamp(24px, 5vw, 64px) clamp(88px, 12vh, 120px);
   }
 
-  .appshow-intro {
-    padding: 0 clamp(24px, 5vw, 64px);
-    margin-bottom: clamp(36px, 5vw, 52px);
+  .explore-intro { margin-bottom: clamp(36px, 5vw, 52px); }
+
+  .explore-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
   }
 
-  .appshow-headline {
+  .explore-headline {
     font-family: 'Lora', serif;
     font-weight: 400;
     font-size: clamp(26px, 3.4vw, 40px);
     line-height: 1.2;
     color: var(--ink);
+    max-width: 20ch;
   }
 
-  .appshow-cta {
-    padding: 0 clamp(24px, 5vw, 64px);
-    margin-top: clamp(40px, 5vw, 56px);
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
   }
 
-  .showcase-carousel {
-    width: 100%;
-    overflow: hidden;
-    padding-left: clamp(24px, 5vw, 64px);
-  }
-
-  .showcase-track {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.7s var(--ease);
-  }
-
-  .showcase-slide {
-    flex: 0 0 auto;
-    width: min(240px, 62vw);
-    border-radius: 22px;
+  .explore-card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
     overflow: hidden;
     border: 1px solid var(--border);
-    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
   }
 
-  .showcase-slide img { display: block; width: 100%; height: auto; }
+  .explore-card img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease);
+  }
 
-  /* ---------- App Store CTA ---------- */
+  .explore-card:hover img { transform: scale(1.04); }
 
-  .appstore-btn {
+  .explore-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(13,13,12,0.92) 0%, rgba(13,13,12,0.28) 46%, rgba(13,13,12,0.05) 70%);
+  }
+
+  .explore-card-body {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: clamp(18px, 2.4vw, 26px);
+    z-index: 1;
+  }
+
+  .explore-card-eyebrow {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .explore-card-title {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2.4vw, 27px);
+    line-height: 1.15;
+    margin-bottom: 8px;
+  }
+
+  .explore-card-sub {
+    font-size: 12.5px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+    max-width: 26ch;
+  }
+
+  .explore-card-arrow {
     display: inline-flex;
     align-items: center;
-    gap: 15px;
-    /* Slightly more room on the right than the left: the mark is optically
-       heavier than the text edge, so symmetric padding reads off-centre. */
-    padding: 17px 36px 17px 30px;
-    border-radius: 999px;
-    background: var(--ink);
-    color: #14110B;
-    border: 1px solid var(--ink);
-    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+    justify-content: center;
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.28);
+    margin-top: 16px;
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
   }
 
-  .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
-  .appstore-btn:active { transform: scale(0.985); }
+  .explore-card-arrow svg { width: 15px; height: 15px; stroke: var(--ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
 
-  .appstore-btn svg {
-    width: 27px;
-    height: 27px;
-    flex: none;
-    fill: currentColor;
-    /* the glyph's mass sits low; nudge it onto the type's optical centre */
-    margin-top: -2px;
-  }
+  .explore-card:hover .explore-card-arrow { background: var(--gold); border-color: var(--gold); }
 
-  .appstore-btn-label {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    line-height: 1;
-    text-align: left;
-  }
-
-  .appstore-btn-label small {
-    font-size: 10px;
-    font-weight: 500;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    opacity: 0.58;
-    margin-bottom: 4px;
-  }
-
-  .appstore-btn-label b {
-    font-size: 19px;
-    font-weight: 600;
-    letter-spacing: -0.015em;
-  }
-
-  .appstore-meta {
-    margin-top: 20px;
-    font-size: 12.5px;
-    color: var(--ink-faint);
+  @media (max-width: 860px) {
+    .explore-grid { grid-template-columns: 1fr; }
+    .explore-card { aspect-ratio: 16 / 10; }
   }
 
   /* ---------- Footer ---------- */
@@ -649,77 +561,7 @@
       max-width: 13ch;
     }
 
-    /* Stacked, the photo scrolled past before the headline arrived, so the
-       section read as copy alone. Full-bleed instead: the render sits behind
-       the words the way it does in the opening section, and the two are seen
-       together. */
-    .home-hero {
-      position: relative;
-      display: block;
-      min-height: 100svh;
-      isolation: isolate;
-      background: var(--bg-deep);
-    }
-
-    .home-hero-visual {
-      position: absolute;
-      inset: 0;
-      z-index: -2;
-      aspect-ratio: auto;
-    }
-
-    .home-hero-visual img { object-position: 62% 38%; }
-
-    .home-hero-visual::after {
-      background: linear-gradient(
-        to bottom,
-        rgba(13,13,12,0.55) 0%,
-        rgba(13,13,12,0.22) 26%,
-        rgba(13,13,12,0.78) 62%,
-        rgba(13,13,12,0.96) 100%
-      );
-    }
-
-    .home-hero-copy {
-      position: relative;
-      z-index: 1;
-      min-height: 100svh;
-      justify-content: flex-end;
-      padding: 128px 24px 60px;
-    }
-
-    .home-hero-headline,
-    .home-hero-sub { text-shadow: 0 2px 24px rgba(0,0,0,0.55); }
-
-    .home-hero-headline {
-      font-size: 31px;
-      line-height: 1.12;
-      margin-bottom: 18px;
-    }
-
-    .home-hero-sub {
-      font-size: 15.5px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
-
-    .home-hero-eyebrow { margin-bottom: 16px; }
-
-    .home-hero-actions { width: 100%; }
-
-    .btn-primary,
-    .btn-ghost {
-      justify-content: center;
-      width: 100%;
-      padding: 17px 24px;
-      font-size: 12px;
-    }
-
-
-
-
-    .appstore-btn { padding: 15px 28px 15px 24px; }
-    .appstore-meta { margin-top: 16px; font-size: 12px; }
+    .explore-grid { gap: 14px; }
   }
 </style>
 </head>
@@ -749,48 +591,43 @@
          alt="A modern home at night, its arched roofline traced in light above a still reflecting pool" />
     <div class="statement-scrim"></div>
     <div>
-      <p class="statement-text">Intelligence for owning, investing, and building real estate.</p>
+      <p class="statement-text">Personal real estate intelligence.</p>
     </div>
   </section>
 
-  <section class="home-hero">
-    <div class="home-hero-copy">
-      <h2 class="home-hero-headline">Feel like an owner.</h2>
-      <p class="home-hero-sub">Spend less time trying to understand and manage your home, and more time enjoying it with your family and friends.</p>
-      <div class="home-hero-actions">
-        <a class="btn-primary" href="/manage.html">Explore the app</a>
-      </div>
+  <section class="explore">
+    <div class="explore-intro">
+      <p class="explore-eyebrow">Wherever you are with real estate</p>
+      <h2 class="explore-headline">One place for all of it.</h2>
     </div>
-    <div class="home-hero-visual">
-      <img src="/assets/hero/home-hero.jpg"
-           alt="A modern hillside home at dusk, warm interior light spilling onto a reflecting pool" />
-    </div>
-  </section>
-
-
-
-  <section class="appshow">
-    <div class="appshow-intro">
-      <h2 class="appshow-headline">ROQ Home is here.</h2>
-    </div>
-    <div class="showcase-carousel">
-      <div class="showcase-track" id="showcaseTrack">
-        <div class="showcase-slide"><img src="/assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-6-slade.jpg" alt="SLADE AI home advisor screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
-      </div>
-    </div>
-
-    <div class="appshow-cta">
-      <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
-        <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-        <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    <div class="explore-grid">
+      <a class="explore-card" href="/build.html">
+        <img src="/assets/hero/build-hero.jpg" alt="A new home under construction at dusk" loading="lazy">
+        <div class="explore-card-body">
+          <p class="explore-card-eyebrow">Build</p>
+          <h3 class="explore-card-title">Plan a build.</h3>
+          <p class="explore-card-sub">From lot to blueprint to groundbreaking, with a plan you can actually follow.</p>
+          <span class="explore-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </div>
       </a>
-      <p class="appstore-meta">Free on iPhone &middot; Requires iOS 15.1 or later</p>
+      <a class="explore-card" href="/manage.html">
+        <img src="/assets/hero/home-hero.jpg" alt="A modern hillside home at dusk, warm interior light spilling onto a reflecting pool" loading="lazy">
+        <div class="explore-card-body">
+          <p class="explore-card-eyebrow">Own</p>
+          <h3 class="explore-card-title">Run your home.</h3>
+          <p class="explore-card-sub">Every system, project, and document that comes with owning it, in one place.</p>
+          <span class="explore-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
+      <a class="explore-card" href="/invest.html">
+        <img src="/assets/lode/hero-house.jpg" alt="A modern home exterior at night" loading="lazy">
+        <div class="explore-card-body">
+          <p class="explore-card-eyebrow">Invest</p>
+          <h3 class="explore-card-title">Find what fits.</h3>
+          <p class="explore-card-sub">Off-market property intelligence built around exactly what you want to buy.</p>
+          <span class="explore-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -835,56 +672,6 @@
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
-    })();
-    (function initShowcase() {
-      const track = document.getElementById('showcaseTrack');
-      if (!track) return;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const realSlides = Array.from(track.children);
-      if (!realSlides.length) return;
-
-      // Clone the first slide onto the end so the loop can reset invisibly.
-      const clone = realSlides[0].cloneNode(true);
-      track.appendChild(clone);
-
-      if (reduceMotion) return; // leave it static on the first screenshot
-
-      let index = 0;
-      const total = realSlides.length;
-
-      function slideStep() {
-        const style = getComputedStyle(track);
-        const gap = parseFloat(style.gap) || 0;
-        return track.children[0].getBoundingClientRect().width + gap;
-      }
-
-      function goTo(i, animate) {
-        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
-        track.style.transform = `translateX(-${i * slideStep()}px)`;
-      }
-
-      // When the animated step onto the cloned first slide finishes, snap
-      // back to the real first slide with no transition. Since the clone
-      // is pixel-identical, the reset is invisible.
-      track.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'transform' || index !== total) return;
-        index = 0;
-        track.style.transition = 'none';
-        void track.offsetWidth; // force reflow so 'none' commits before the jump
-        track.style.transform = 'translateX(0px)';
-      });
-
-      setInterval(() => {
-        index++;
-        goTo(index, true);
-      }, 2600);
-
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => goTo(index, false), 120);
-      });
     })();
   </script>
 

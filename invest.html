@@ -682,6 +682,113 @@
     .investors-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
     .signals-grid { grid-template-columns: 1fr 1fr; }
   }
+
+  /* ---------------- Dashboard preview ---------------- */
+
+  .dashboard-preview { padding: clamp(56px, 6.4vw, 92px) 0; border-top: 1px solid var(--line); }
+  .dashpv-head { max-width: 60ch; margin-bottom: clamp(28px, 3vw, 40px); }
+  .dashpv-head h2 { margin-top: 12px; font-size: clamp(26px, 2.9vw, 40px); font-weight: 800; letter-spacing: -0.038em; line-height: 1.1; }
+  .dashpv-sub { margin-top: 12px; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+  .dash-frame {
+    background: #0B0B0A;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,255,255,0.08);
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(10,10,10,0.18);
+  }
+  .dash-topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 22px; border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .dash-logo { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: -0.01em; }
+  .dash-logo b { font-weight: 800; }
+  .dash-locationpill { font-size: 11.5px; font-weight: 600; color: rgba(255,255,255,0.55); border: 1px solid rgba(255,255,255,0.14); border-radius: 999px; padding: 6px 14px; }
+
+  .dash-body { display: grid; grid-template-columns: 168px 1fr; }
+  .dash-sidebar { padding: 18px 12px; border-right: 1px solid rgba(255,255,255,0.08); display: flex; flex-direction: column; gap: 2px; }
+  .dash-nav-item { font-size: 12.5px; font-weight: 600; color: rgba(255,255,255,0.42); padding: 10px 12px; border-radius: 9px; }
+  .dash-nav-item.active { color: #fff; background: rgba(255,255,255,0.07); }
+
+  .dash-main { padding: clamp(18px, 2vw, 24px); }
+  .dash-row1 { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 16px; }
+  .dash-greet { background: #171715; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; color: #fff; }
+  .dash-greet-label { font-size: 12px; color: rgba(255,255,255,0.5); }
+  .dash-greet-title { margin-top: 8px; font-size: 17px; font-weight: 700; line-height: 1.3; letter-spacing: -0.01em; }
+  .dash-greet-list { margin-top: 18px; display: grid; gap: 10px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .dash-greet-list li { font-size: 12px; color: rgba(255,255,255,0.62); }
+  .dash-greet-list b { color: #fff; font-weight: 700; margin-right: 6px; }
+
+  .dash-feat { background: #111110; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 20px; color: #fff; }
+  .dash-feat-top { display: flex; align-items: center; justify-content: space-between; }
+  .dash-feat-label { font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+  .dash-feat-score { font-size: 15px; font-weight: 800; color: #fff; }
+  .dash-feat-score small { font-size: 9px; font-weight: 700; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-left: 4px; }
+  .dash-feat-addr { margin-top: 12px; font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+  .dash-feat-loc { margin-top: 2px; font-size: 12.5px; color: rgba(255,255,255,0.5); }
+  .dash-feat-stats { display: flex; gap: 22px; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.08); }
+  .dash-feat-stats span { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .dash-feat-stats b { display: block; margin-top: 4px; font-size: 15px; font-weight: 700; }
+  .dash-feat-note { margin-top: 14px; font-size: 12px; line-height: 1.55; color: rgba(255,255,255,0.65); }
+
+  .dash-row2 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 14px; }
+  .dash-tile { background: #171715; border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 14px 16px; }
+  .dash-tile span { display: block; font-size: 10.5px; color: rgba(255,255,255,0.48); }
+  .dash-tile b { display: block; margin-top: 6px; font-size: 16px; font-weight: 700; color: #fff; }
+
+  .dash-disclaimer { margin-top: 16px; font-size: 11.5px; font-style: italic; color: var(--faint); text-align: center; }
+
+  @media (max-width: 760px) {
+    .dash-body { grid-template-columns: 1fr; }
+    .dash-sidebar { display: none; }
+    .dash-row1 { grid-template-columns: 1fr; }
+    .dash-row2 { grid-template-columns: repeat(2, 1fr); }
+    .dash-feat-stats { flex-wrap: wrap; row-gap: 12px; }
+  }
+
+  /* ---------------- Pricing ---------------- */
+
+  .pricing { padding: clamp(56px, 6.4vw, 92px) 0; background: var(--surface-2); border-top: 1px solid var(--line); }
+  .pricing-head { max-width: 60ch; margin-bottom: clamp(30px, 3.4vw, 46px); }
+  .pricing-head h2 { margin-top: 12px; font-size: clamp(26px, 2.9vw, 40px); font-weight: 800; letter-spacing: -0.038em; line-height: 1.1; }
+  .pricing-sub { margin-top: 12px; font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 20px; align-items: stretch; }
+  .price-card {
+    position: relative;
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    padding: clamp(24px, 2.4vw, 30px);
+    display: flex; flex-direction: column;
+  }
+  .price-card.featured-plan { border: 1.5px solid var(--ink); box-shadow: var(--shadow-card); }
+  .price-badge { position: absolute; top: 24px; right: 24px; background: var(--ink); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: 0.05em; padding: 5px 12px; border-radius: 999px; }
+  .price-card h3 { font-size: 17px; font-weight: 800; letter-spacing: -0.02em; }
+  .price-amt { margin-top: 14px; font-size: 34px; font-weight: 800; letter-spacing: -0.02em; }
+  .price-amt span { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .price-alt { margin-top: 3px; font-size: 12px; color: var(--faint); }
+  .price-desc { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--line-2); font-size: 13px; line-height: 1.55; color: var(--ink-2); min-height: 44px; }
+  .price-features { margin-top: 16px; display: grid; gap: 11px; flex: 1; }
+  .price-features li { display: flex; align-items: flex-start; gap: 9px; font-size: 12.5px; line-height: 1.5; color: var(--ink-2); }
+  .price-features li svg { flex: none; width: 15px; height: 15px; margin-top: 1px; stroke: var(--ink-2); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .price-card.featured-plan .price-features li svg { stroke: var(--ink); }
+
+  .pricing-cta {
+    margin-top: clamp(26px, 3vw, 36px);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 20px 26px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;
+  }
+  .pricing-cta p { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); max-width: 56ch; }
+  .pricing-cta b { color: var(--ink); }
+
+  @media (max-width: 900px) {
+    .pricing-grid { grid-template-columns: 1fr; }
+    .price-card.featured-plan { order: -1; }
+  }
 </style>
 </head>
 <body id="top">
@@ -975,6 +1082,131 @@
         <p>ROQ doesn't simply hand every investor the same database. Your searches, scoring and opportunity feed are configured around your acquisition criteria.</p>
       </div>
 
+    </div>
+  </section>
+
+  <!-- ================= DASHBOARD PREVIEW ================= -->
+  <section class="dashboard-preview" id="dashboard">
+    <div class="wrap">
+      <div class="dashpv-head">
+        <p class="eyebrow reveal">See It In Action</p>
+        <h2 class="reveal">Your opportunities, organized like this.</h2>
+        <p class="dashpv-sub reveal">A look at the ROQ Invest dashboard your weekly briefing lands in.</p>
+      </div>
+
+      <div class="dash-frame reveal">
+        <div class="dash-topbar">
+          <span class="dash-logo">ROQ <b>Invest</b></span>
+          <span class="dash-locationpill">Example County, TX</span>
+        </div>
+        <div class="dash-body">
+          <div class="dash-sidebar">
+            <span class="dash-nav-item active">Home</span>
+            <span class="dash-nav-item">Opportunities</span>
+            <span class="dash-nav-item">Insights</span>
+            <span class="dash-nav-item">Strategy</span>
+            <span class="dash-nav-item">Map</span>
+            <span class="dash-nav-item">Portfolio</span>
+          </div>
+          <div class="dash-main">
+            <div class="dash-row1">
+              <div class="dash-greet">
+                <p class="dash-greet-label">Good morning, Alex</p>
+                <p class="dash-greet-title">Here's your weekly opportunity briefing.</p>
+                <ul class="dash-greet-list">
+                  <li><b>9</b> new matches found</li>
+                  <li><b>2</b> status changes</li>
+                  <li><b>5</b> new distress signals</li>
+                </ul>
+              </div>
+              <div class="dash-feat">
+                <div class="dash-feat-top">
+                  <span class="dash-feat-label">Featured Opportunity</span>
+                  <span class="dash-feat-score">88 <small>Score</small></span>
+                </div>
+                <p class="dash-feat-addr">428 Maple Ridge Ln</p>
+                <p class="dash-feat-loc">Example County, TX 00000</p>
+                <div class="dash-feat-stats">
+                  <div><span>AVM</span><b>$238,900</b></div>
+                  <div><span>Est. ARV</span><b>$325,000</b></div>
+                  <div><span>Est. Rent</span><b>$1,950/mo</b></div>
+                </div>
+                <p class="dash-feat-note">Active foreclosure with confirmed off-MLS status. Deep discount to AVM with strong rent comps.</p>
+              </div>
+            </div>
+            <div class="dash-row2">
+              <div class="dash-tile"><span>Off-Market Confirmed</span><b>71%</b></div>
+              <div class="dash-tile"><span>Distress Signals</span><b>+22%</b></div>
+              <div class="dash-tile"><span>Potential Upside</span><b>$74,200</b></div>
+              <div class="dash-tile"><span>Rent Growth YoY</span><b>+5.8%</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="dash-disclaimer">Illustrative example only — the name, address, and figures shown are for demonstration and are not a real client's data.</p>
+    </div>
+  </section>
+
+  <!-- ================= PRICING ================= -->
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="pricing-head">
+        <p class="eyebrow reveal">Pricing</p>
+        <h2 class="reveal">Opportunity intelligence, matched to your strategy.</h2>
+        <p class="pricing-sub reveal">Three ways to access off-market opportunities, property intelligence, and market insight through ROQ Invest.</p>
+      </div>
+
+      <div class="pricing-grid reveal">
+        <div class="price-card">
+          <h3>ROQ Basic</h3>
+          <p class="price-amt">$99<span>/month</span></p>
+          <p class="price-alt">or $999/year</p>
+          <p class="price-desc">A simple weekly opportunity briefing matched to your buy box.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Off-market opportunities matched to your buy box</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Skip tracing for top 3 matches</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Delivered as document, PDF, or email briefing</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Best for investors who want curated leads without a dashboard</li>
+          </ul>
+        </div>
+
+        <div class="price-card featured-plan">
+          <span class="price-badge">Recommended</span>
+          <h3>ROQ+</h3>
+          <p class="price-amt">$299<span>/month</span></p>
+          <p class="price-alt">or $2,999/year</p>
+          <p class="price-desc">The core intelligence plan for active investors.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Everything in ROQ Basic</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Skip tracing for top 25 matched opportunities</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Dashboard login</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Property insights and strategy</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Financing guidance and value intelligence</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Estimated ARV and rent estimate</li>
+          </ul>
+        </div>
+
+        <div class="price-card">
+          <h3>ROQ Premium</h3>
+          <p class="price-amt">$499<span>/month</span></p>
+          <p class="price-alt">or $4,999/year</p>
+          <p class="price-desc">A deeper, more customized intelligence layer for serious investors and teams.</p>
+          <ul class="price-features">
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Everything in ROQ+</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Team dashboard access</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Skip tracing for top 100 matched opportunities</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Chat with a real analyst</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Early pre-permit activity and zoning signals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="pricing-cta reveal">
+        <p><b>From simple weekly deal flow to market-leading intelligence.</b> Choose the plan that fits your strategy — and scale as you grow.</p>
+        <a class="btn btn-dark" href="#cta">Get Started
+          <svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
