@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ROQ — Your Buy Box. We Find What Fits.</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Your buy box. We find what fits. Off-market property intelligence built around exactly what you want to buy — tell ROQ your market, strategy, price, condition, equity and signals, and we surface the properties worth investigating." />
+<link rel="canonical" href="https://roqhome.com/invest.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="ROQ — Your Buy Box. We Find What Fits." />
+<meta property="og:description" content="Your buy box. We find what fits. Off-market property intelligence built around exactly what you want to buy." />
+<meta property="og:url" content="https://roqhome.com/invest.html" />
+<meta property="og:image" content="https://roqhome.com/assets/roq-share.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="ROQ — Your Buy Box. We Find What Fits." />
+<meta name="twitter:description" content="Your buy box. We find what fits." />
+<meta name="twitter:image" content="https://roqhome.com/assets/roq-share.png" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F3F3F1;
+    --surface: #FFFFFF;
+    --surface-2: #FAFAF9;
+    --panel: #F6F6F4;
+    --ink: #0A0A0A;
+    --ink-2: #3D3D3A;
+    --muted: #75756E;
+    --faint: #9A9A93;
+    --line: #E6E6E2;
+    --line-2: #EFEFEC;
+    --green: #17A05B;
+    --radius-lg: 20px;
+    --radius: 14px;
+    --radius-sm: 11px;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --shadow-card: 0 1px 2px rgba(10,10,10,0.04), 0 8px 28px rgba(10,10,10,0.05);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
+  img, svg { display: block; max-width: 100%; }
+  ::selection { background: var(--ink); color: #fff; }
+
+  .wrap { max-width: 1420px; margin: 0 auto; padding: 0 clamp(18px, 3vw, 40px); }
+
+  /* ---------------- Header ---------------- */
+
+  .site-header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background .35s var(--ease), border-color .35s var(--ease), box-shadow .35s var(--ease);
+  }
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+    transition: opacity .35s var(--ease);
+  }
+  .site-header.scrolled {
+    background: var(--surface);
+    border-bottom-color: var(--line);
+    box-shadow: 0 1px 20px rgba(10,10,10,0.04);
+  }
+  .site-header.scrolled::before { opacity: 0; }
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    height: 82px;
+  }
+
+  .site-logo { display: flex; align-items: center; }
+  .logo-mark { width: 28px; height: 28px; display: block; }
+  .logo-mark path {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke .35s var(--ease);
+  }
+  .site-header.scrolled .logo-mark path { stroke: var(--ink); }
+
+  .site-tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 2.6vw, 40px);
+  }
+  .site-tabs a {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.62);
+    padding: 6px 0;
+    position: relative;
+    transition: color .25s var(--ease);
+  }
+  .site-tabs a:hover { color: #FFFFFF; }
+  .site-tabs a::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1.5px;
+    background: #FFFFFF;
+    transform: scaleX(0);
+    transition: transform .28s var(--ease);
+  }
+  .site-tabs a:hover::after,
+  .site-tabs a.active::after { transform: scaleX(1); }
+  .site-tabs a.active { color: #FFFFFF; }
+
+  .site-header.scrolled .site-tabs a { color: var(--ink-2); }
+  .site-header.scrolled .site-tabs a:hover,
+  .site-header.scrolled .site-tabs a.active { color: var(--ink); }
+  .site-header.scrolled .site-tabs a::after { background: var(--ink); }
+
+  .header-actions { display: flex; align-items: center; gap: 12px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    height: 48px;
+    padding: 0 26px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border: 1px solid transparent;
+    font-family: inherit;
+    -webkit-appearance: none;
+    cursor: pointer;
+    transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease), color .25s var(--ease);
+  }
+  .btn svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.9; }
+  .btn-dark { background: var(--ink); color: #fff; }
+  .btn-dark:hover { background: #262624; transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,0.28); }
+  .btn-ghost:hover { background: rgba(255,255,255,0.09); transform: translateY(-1px); }
+  .btn-white { background: #fff; color: var(--ink); }
+  .btn-white:hover { transform: translateY(-1px); background: #F0F0EC; }
+  .btn-outline { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-outline:hover { border-color: #C9C9C3; background: var(--surface-2); transform: translateY(-1px); }
+  .header-actions .btn { height: 46px; }
+  .header-actions .btn-dark {
+    background: #fff;
+    color: var(--ink);
+    transition: transform .25s var(--ease), background .35s var(--ease), color .35s var(--ease);
+  }
+  .header-actions .btn-dark:hover { background: #F0F0EC; }
+  .site-header.scrolled .header-actions .btn-dark { background: var(--ink); color: #fff; }
+  .site-header.scrolled .header-actions .btn-dark:hover { background: #262624; }
+
+  .btn-label-short { display: none; }
+
+  .nav-toggle {
+    display: none;
+    width: 44px; height: 44px;
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 12px;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .35s var(--ease);
+  }
+  .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+    content: '';
+    display: block;
+    width: 17px; height: 1.6px;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: transform .3s var(--ease), background .35s var(--ease);
+  }
+  .nav-toggle span { position: relative; }
+  .nav-toggle span::before { position: absolute; top: -5.5px; }
+  .nav-toggle span::after { position: absolute; top: 5.5px; }
+  .site-header.scrolled .nav-toggle { border-color: var(--line); }
+  .site-header.scrolled .nav-toggle span,
+  .site-header.scrolled .nav-toggle span::before,
+  .site-header.scrolled .nav-toggle span::after { background: var(--ink); }
+
+  .eyebrow {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ---------------- Hero ---------------- */
+
+  .hero {
+    position: relative;
+    background: #0B0B0A;
+    color: #fff;
+    min-height: clamp(520px, 56vw, 700px);
+    display: flex;
+    align-items: center;
+    padding: clamp(112px, 11vw, 148px) 0 clamp(46px, 6vw, 84px);
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: url('/assets/lode/hero-house.jpg') center right / cover no-repeat;
+  }
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #0B0B0A 0%, #0B0B0A 26%, rgba(11,11,10,0.88) 40%, rgba(11,11,10,0.4) 62%, rgba(11,11,10,0.08) 82%, rgba(11,11,10,0) 100%);
+  }
+  .hero .wrap { position: relative; z-index: 1; }
+  .hero-copy { max-width: 560px; }
+
+  h1 {
+    font-size: clamp(42px, 4.6vw, 68px);
+    font-weight: 800;
+    letter-spacing: -0.045em;
+    line-height: 1.0;
+  }
+  .hero-sub {
+    margin-top: 22px;
+    font-size: clamp(16.5px, 1.3vw, 19px);
+    font-weight: 600;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.92);
+    max-width: 34ch;
+    letter-spacing: -0.012em;
+  }
+  .hero-body {
+    margin-top: 14px;
+    font-size: 14.5px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.58);
+    max-width: 42ch;
+  }
+
+  .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+  .hero-fine { margin-top: 22px; font-size: 12.5px; color: rgba(255,255,255,0.4); letter-spacing: 0.01em; }
+
+  /* ---------------- Buy box card ---------------- */
+
+  .startwithyou { padding: clamp(56px, 6.4vw, 92px) 0; }
+  .swy-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 64px);
+    align-items: start;
+  }
+  .swy-copy h2 {
+    margin-top: 14px;
+    font-size: clamp(28px, 3vw, 42px);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.05;
+  }
+  .swy-copy p.lede { margin-top: 16px; font-size: 15px; line-height: 1.6; color: var(--muted); max-width: 40ch; }
+  .swy-note {
+    margin-top: 28px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .swy-note-icon {
+    flex: none;
+    width: 40px; height: 40px;
+    border-radius: 11px;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .swy-note-icon svg { width: 19px; height: 19px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .swy-note p { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); max-width: 30ch; padding-top: 6px; }
+
+  .bbcard {
+    background: var(--surface);
+    border: 1px solid var(--line-2);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: clamp(22px, 2.4vw, 30px);
+  }
+  .bbcard-title { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; }
+  .bb-row {
+    display: grid;
+    grid-template-columns: 26px minmax(0, 0.62fr) minmax(0, 1fr);
+    gap: 12px;
+    align-items: start;
+    padding: 13px 0;
+    border-top: 1px solid var(--line-2);
+  }
+  .bb-row:first-of-type { border-top: 0; padding-top: 2px; }
+  .bb-icon { width: 18px; height: 18px; margin-top: 2px; }
+  .bb-icon svg { width: 18px; height: 18px; fill: none; stroke: var(--ink-2); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .bb-label { font-size: 13px; font-weight: 600; color: var(--ink-2); padding-top: 1px; }
+  .bb-value { font-size: 13.5px; font-weight: 600; color: var(--ink); line-height: 1.55; }
+  .bb-value.stacked { line-height: 1.7; }
+
+  /* ---------------- Compare ---------------- */
+
+  .compare { background: #0B0B0A; color: #fff; padding: clamp(56px, 6.4vw, 92px) 0; }
+  .compare .eyebrow-dark { display: none; }
+  .compare h2 {
+    font-size: clamp(26px, 2.9vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.038em;
+    line-height: 1.16;
+    max-width: 18ch;
+  }
+  .compare-grid {
+    margin-top: clamp(30px, 3.4vw, 46px);
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) minmax(0, 0.72fr);
+    gap: clamp(16px, 2vw, 26px);
+    align-items: center;
+  }
+  .cmp-panel {
+    border-radius: var(--radius-lg);
+    padding: clamp(20px, 2.2vw, 28px);
+  }
+  .cmp-panel.dark { background: #171715; border: 1px solid rgba(255,255,255,0.08); }
+  .cmp-panel.light { background: #fff; color: var(--ink); }
+  .cmp-title { font-size: 11.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 16px; }
+  .cmp-panel.dark .cmp-title { color: rgba(255,255,255,0.5); }
+  .cmp-panel.light .cmp-title { color: var(--muted); }
+  .cmp-list { display: grid; gap: 12px; }
+  .cmp-item { display: flex; align-items: flex-start; gap: 10px; font-size: 13.5px; font-weight: 500; }
+  .cmp-panel.dark .cmp-item { color: rgba(255,255,255,0.72); }
+  .cmp-item svg { flex: none; width: 16px; height: 16px; margin-top: 1px; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; fill: none; }
+  .cmp-item.x svg { stroke: #6B6B65; }
+  .cmp-item.check svg { stroke: var(--ink); }
+  .cmp-panel.dark .cmp-item.x svg { stroke: rgba(255,255,255,0.35); }
+
+  .cmp-vs {
+    width: 46px; height: 46px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: rgba(255,255,255,0.6);
+    justify-self: center;
+  }
+  .cmp-quote {
+    font-size: clamp(19px, 1.8vw, 24px);
+    font-weight: 600;
+    line-height: 1.32;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+  .cmp-rule { width: 46px; height: 2px; background: rgba(255,255,255,0.3); margin-top: 20px; }
+
+  /* ---------------- Steps ---------------- */
+
+  .steps { padding: clamp(56px, 6.4vw, 92px) 0; }
+  .steps-head { text-align: center; margin-bottom: clamp(30px, 3.4vw, 46px); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    align-items: start;
+    position: relative;
+  }
+  .step { display: flex; flex-direction: column; align-items: flex-start; padding: 0 clamp(10px, 1.4vw, 20px); position: relative; }
+  .step-top { display: flex; align-items: center; gap: 14px; width: 100%; }
+  .step-icon {
+    flex: none;
+    width: 54px; height: 54px;
+    border-radius: 50%;
+    background: var(--ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-icon svg { width: 22px; height: 22px; fill: none; stroke: #fff; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+  .step-arrow { flex: 1; height: 1px; background: var(--line); position: relative; margin: 0 4px; }
+  .step-arrow::after {
+    content: '';
+    position: absolute;
+    right: -1px; top: 50%;
+    width: 7px; height: 7px;
+    border-top: 1.5px solid var(--faint);
+    border-right: 1.5px solid var(--faint);
+    transform: translateY(-50%) rotate(45deg);
+  }
+  .step-num { font-size: 11.5px; font-weight: 700; color: var(--faint); letter-spacing: 0.06em; margin-top: 20px; }
+  .step h3 { margin-top: 6px; font-size: 16.5px; font-weight: 700; letter-spacing: -0.02em; }
+  .step p { margin-top: 9px; font-size: 13px; line-height: 1.55; color: var(--muted); max-width: 28ch; }
+
+  /* ---------------- Opportunity example ---------------- */
+
+  .opportunity { background: #0B0B0A; color: #fff; padding: clamp(56px, 6.4vw, 92px) 0; }
+  .opp-head { margin-bottom: clamp(26px, 3vw, 40px); }
+  .opp-head h2 { font-size: clamp(24px, 2.4vw, 34px); font-weight: 800; letter-spacing: -0.036em; max-width: 20ch; }
+  .opp-head .eyebrow { color: rgba(255,255,255,0.45); }
+
+  .opp-card {
+    display: grid;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.3fr) minmax(0, 0.9fr);
+    gap: 1px;
+    background: rgba(255,255,255,0.09);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .opp-media { background: #171715; display: flex; flex-direction: column; }
+  .opp-photo { aspect-ratio: 4 / 3; overflow: hidden; }
+  .opp-photo svg, .opp-photo img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .opp-tags { display: flex; flex-wrap: wrap; gap: 7px; padding: 16px; }
+  .tag {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 6px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.68);
+  }
+  .opp-body { background: #111110; padding: clamp(20px, 2.2vw, 28px); }
+  .opp-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .opp-row-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; margin-top: 10px; }
+  .opp-addr { font-size: 19px; font-weight: 700; letter-spacing: -0.02em; }
+  .opp-city { margin-top: 3px; font-size: 13px; color: rgba(255,255,255,0.5); }
+  .opp-match {
+    flex: none;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 12px;
+    padding: 8px 14px;
+  }
+  .opp-match b { display: block; font-size: 17px; font-weight: 800; }
+  .opp-match span { display: block; font-size: 8.5px; font-weight: 700; letter-spacing: 0.06em; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  .opp-specs { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 18px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.09); font-size: 12.5px; color: rgba(255,255,255,0.6); }
+  .opp-specs span { display: inline-flex; align-items: center; gap: 6px; }
+  .opp-specs svg { width: 15px; height: 15px; fill: none; stroke: rgba(255,255,255,0.55); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .opp-stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 0; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.09); }
+  .opp-stats > div + div { border-left: 1px solid rgba(255,255,255,0.09); padding-left: 14px; }
+  .opp-stats span { display: block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .opp-stats b { display: block; margin-top: 4px; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .opp-read-label { margin-top: 20px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+  .opp-read { margin-top: 8px; font-size: 13px; line-height: 1.6; color: rgba(255,255,255,0.7); }
+
+  .opp-side { background: #171715; padding: clamp(20px, 2.2vw, 28px); }
+  .opp-side h3 { font-size: 11.5px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+  .opp-side ul { display: grid; gap: 13px; }
+  .opp-side li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; line-height: 1.5; color: rgba(255,255,255,0.78); }
+  .opp-side li svg { flex: none; width: 15px; height: 15px; margin-top: 2px; stroke: rgba(255,255,255,0.5); stroke-width: 1.8; fill: none; }
+
+  /* ---------------- Signals ---------------- */
+
+  .signals { padding: clamp(56px, 6.4vw, 92px) 0; }
+  .signals-grid-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+    gap: clamp(24px, 3vw, 40px);
+    align-items: start;
+  }
+  .signals-head h2 { margin-top: 12px; font-size: clamp(22px, 2.3vw, 30px); font-weight: 800; letter-spacing: -0.032em; line-height: 1.15; max-width: 26ch; }
+  .signals-grid { margin-top: clamp(24px, 2.6vw, 34px); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 20px); }
+  .signal-item { display: flex; flex-direction: column; gap: 12px; }
+  .signal-icon { width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; }
+  .signal-icon svg { width: 24px; height: 24px; fill: none; stroke: var(--ink); stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; }
+  .signal-item span { font-size: 12.5px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.35; color: var(--ink-2); }
+  .signals-note { margin-top: clamp(26px, 2.8vw, 36px); font-size: 13px; line-height: 1.65; color: var(--muted); max-width: 64ch; }
+
+  .signals-card { background: var(--ink); color: #fff; border-radius: var(--radius-lg); padding: clamp(24px, 2.4vw, 32px); }
+  .signals-card h3 { font-size: clamp(18px, 1.7vw, 22px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.25; }
+  .signals-card p { margin-top: 14px; font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.62); }
+
+  /* ---------------- Investor band ---------------- */
+
+  .investors { background: #0B0B0A; color: #fff; padding: clamp(46px, 5vw, 72px) 0; }
+  .investors-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.5fr) minmax(0, 0.72fr);
+    gap: clamp(24px, 3vw, 40px);
+    align-items: center;
+  }
+  .investors-head { font-size: 13px; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; line-height: 1.4; }
+  .investors-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(10px, 1.4vw, 18px); }
+  .investor-item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .investor-icon { width: 42px; height: 42px; border-radius: 11px; border: 1px solid rgba(255,255,255,0.14); display: flex; align-items: center; justify-content: center; }
+  .investor-icon svg { width: 19px; height: 19px; fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+  .investor-item span { font-size: 11px; font-weight: 600; line-height: 1.35; color: rgba(255,255,255,0.62); }
+  .investors-copy { font-size: 13.5px; line-height: 1.6; color: rgba(255,255,255,0.55); }
+
+  /* ---------------- FAQ ---------------- */
+
+  .faq { padding: clamp(56px, 6.4vw, 92px) 0; border-top: 1px solid var(--line); }
+  .faq-head { max-width: 46ch; }
+  .faq-head h2 { margin-top: 12px; font-size: clamp(26px, 2.7vw, 38px); font-weight: 800; letter-spacing: -0.038em; line-height: 1.08; }
+  .faq-list { margin-top: clamp(28px, 3vw, 40px); display: grid; gap: 0; border-top: 1px solid var(--line); }
+  .faq-item { padding: clamp(18px, 2vw, 24px) 0; border-bottom: 1px solid var(--line); }
+  .faq-item h3 { font-size: 15.5px; font-weight: 700; letter-spacing: -0.02em; }
+  .faq-item p { margin-top: 9px; font-size: 13.5px; line-height: 1.6; color: var(--muted); max-width: 64ch; }
+
+  /* ---------------- Final CTA ---------------- */
+
+  .final-cta { padding: clamp(46px, 5vw, 76px) 0 clamp(56px, 6vw, 88px); }
+  .fc-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr) minmax(0, 0.7fr);
+    gap: clamp(24px, 3vw, 40px);
+    align-items: center;
+  }
+  .final-cta h2 { font-size: clamp(26px, 2.9vw, 40px); font-weight: 800; letter-spacing: -0.04em; line-height: 1.08; }
+  .final-cta .fc-sub { margin-top: 14px; font-size: 13.5px; line-height: 1.6; color: var(--muted); max-width: 40ch; }
+  .fc-action { text-align: center; }
+  .fc-fine { margin-top: 12px; font-size: 12px; color: var(--faint); }
+  .fc-brand { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+  .fc-brand img { width: 40px; height: 40px; }
+  .fc-brand span { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--faint); text-transform: uppercase; }
+  @media (max-width: 760px) {
+    .fc-grid { grid-template-columns: 1fr; text-align: center; }
+    .final-cta .fc-sub { margin-left: auto; margin-right: auto; }
+    .fc-brand { align-items: center; }
+  }
+
+  /* ---------------- Footer ---------------- */
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    white-space: nowrap;
+  }
+  .wordmark img {
+    width: 34px;
+    height: 34px;
+    display: block;
+    flex: none;
+    border-radius: 8px;
+  }
+  .wordmark span {
+    font-weight: 500;
+    font-size: 13px;
+    letter-spacing: 0.34em;
+    color: var(--ink-2);
+    line-height: 1;
+  }
+
+  footer { border-top: 1px solid var(--line); padding: clamp(34px, 4vw, 54px) 0 34px; }
+  .footer-grid {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 28px;
+  }
+  .footer-tagline { margin-top: 14px; font-size: 13.5px; color: var(--muted); max-width: 34ch; }
+  .footer-nav { display: flex; flex-wrap: wrap; gap: 12px 30px; }
+  .footer-nav a { font-size: 13.5px; color: var(--ink-2); transition: color .2s var(--ease); }
+  .footer-nav a:hover { color: var(--ink); }
+  .footer-bottom {
+    margin-top: clamp(28px, 3vw, 44px);
+    padding-top: 22px;
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 26px;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+  .footer-legal { display: flex; gap: 22px; }
+  .footer-legal a:hover { color: var(--ink); }
+
+  /* ---------------- Reveal ---------------- */
+
+  .reveal { opacity: 0; transform: translateY(16px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    * { animation: none !important; }
+  }
+
+  /* ---------------- Responsive ---------------- */
+
+  @media (max-width: 1240px) {
+    .swy-grid { grid-template-columns: 1fr; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .cmp-vs { justify-self: flex-start; }
+    .cmp-quote { max-width: 60ch; }
+    .steps-grid { grid-template-columns: repeat(2, minmax(0,1fr)); row-gap: 32px; }
+    .step-arrow { display: none; }
+    .opp-card { grid-template-columns: 1fr; }
+    .opp-photo { aspect-ratio: 16/9; }
+    .signals-grid-wrap { grid-template-columns: 1fr; }
+    .signals-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .investors-grid { grid-template-columns: 1fr; text-align: center; }
+    .investors-row { justify-content: center; }
+    .fc-grid { grid-template-columns: 1fr 1fr; }
+    .fc-brand { grid-column: 1 / -1; align-items: center; flex-direction: row; justify-content: center; }
+  }
+
+  @media (max-width: 980px) {
+    .site-tabs {
+      display: none;
+      position: absolute;
+      top: 82px; left: 0; right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--line);
+      padding: 8px clamp(18px, 3vw, 40px) 18px;
+      box-shadow: 0 18px 40px rgba(10,10,10,0.08);
+    }
+    .site-tabs.open { display: flex; }
+    .site-tabs a { padding: 14px 0; border-bottom: 1px solid var(--line-2); font-size: 16px; color: var(--ink-2); }
+    .site-tabs a::after { display: none; }
+    .nav-toggle { display: flex; }
+    .header-actions .btn .btn-label { display: none; }
+    .header-actions .btn .btn-label-short { display: inline; }
+    .header-actions .btn { padding: 0 18px; }
+
+    .investors-row { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .fc-grid { grid-template-columns: 1fr; text-align: center; }
+    .final-cta .fc-sub { margin-left: auto; margin-right: auto; }
+  }
+
+  @media (max-width: 980px) {
+    .footer-nav { gap: 4px 26px; }
+    .footer-nav a { padding: 9px 0; }
+    .footer-legal a { padding: 9px 0; }
+  }
+
+  @media (max-width: 700px) {
+    .hero { min-height: 0; }
+    .hero-bg { background-position: center 65%; }
+    .hero-scrim { background: linear-gradient(180deg, #0B0B0A 0%, #0B0B0A 46%, rgba(11,11,10,0.9) 62%, rgba(11,11,10,0.55) 82%, rgba(11,11,10,0.32) 100%); }
+    .hero-copy { max-width: none; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .signals-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .steps-grid { grid-template-columns: 1fr; }
+    .opp-stats { grid-template-columns: 1fr 1fr; row-gap: 14px; }
+    .opp-stats > div:nth-child(2) { border-left: 0; padding-left: 0; }
+    .opp-stats > div:nth-child(3) { border-left: 1px solid rgba(255,255,255,0.09); padding-left: 14px; }
+  }
+
+  @media (max-width: 440px) {
+    .wordmark span { display: none; }
+    .investors-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .signals-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body id="top">
+
+  <header class="site-header" id="siteHeader">
+    <div class="wrap header-inner">
+      <a class="site-logo" href="/" aria-label="ROQ">
+        <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+        </svg>
+      </a>
+
+      <nav class="site-tabs" id="siteTabs" aria-label="Main">
+        <a href="#how-it-works">How It Works</a>
+        <a href="#signals">The Signals</a>
+        <a href="#example">Example</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="header-actions">
+        <a class="btn btn-dark" href="#cta">
+          <span class="btn-label">Build My Buy Box</span>
+          <span class="btn-label-short">Buy Box</span>
+          <svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-controls="siteTabs" aria-expanded="false" aria-label="Menu"><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <div class="wrap">
+
+      <div class="hero-copy reveal">
+        <h1>Your buy box.<br>We find what fits.</h1>
+        <p class="hero-sub">Off-market property intelligence built around exactly what you want to buy.</p>
+        <p class="hero-body">Tell ROQ the markets, property types, price range, condition and returns you're looking for. We continuously search for opportunities that match — and send you the ones worth looking at.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#cta">Build My Buy Box
+            <svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+        <p class="hero-fine">No giant lists. No recycled leads. No irrelevant properties.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= WE START WITH YOU ================= -->
+  <section class="startwithyou">
+    <div class="wrap swy-grid">
+
+      <div class="swy-copy reveal">
+        <p class="eyebrow">We don't start with properties.</p>
+        <h2>We start with you.</h2>
+        <p class="lede">We build your buy box first. Everything we find is matched to what you actually want to buy.</p>
+
+        <div class="swy-note">
+          <span class="swy-note-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/><circle cx="12" cy="12" r="0.6" fill="#fff" stroke="none"/></svg></span>
+          <p>Your buy box can be as precise — or as flexible — as you want.</p>
+        </div>
+      </div>
+
+      <div class="bbcard reveal">
+        <p class="bbcard-title">Maria's Buy Box</p>
+
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="3.2"/><path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/></svg></span>
+          <span class="bb-label">Market</span>
+          <span class="bb-value">Greenville + Simpsonville, SC</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><path d="M4 20V5"/><rect x="7" y="13" width="3.2" height="7" rx="1"/><rect x="12.6" y="9" width="3.2" height="11" rx="1"/><path d="M4 20h17"/></svg></span>
+          <span class="bb-label">Strategy</span>
+          <span class="bb-value">Buy &amp; Hold &bull; BRRRR</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18"/><path d="M16.5 7.2C15.6 6 14 5.4 12 5.4c-2.6 0-4.2 1.2-4.2 3s1.4 2.7 4.2 3.3c2.9.6 4.5 1.5 4.5 3.4 0 2-1.8 3.3-4.5 3.3-2.2 0-3.9-.7-4.8-2"/></svg></span>
+          <span class="bb-label">Price</span>
+          <span class="bb-value">&lt;$275K</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><path d="M3.5 11.5L12 4l8.5 7.5"/><path d="M5.5 10v9a1.5 1.5 0 0 0 1.5 1.5h10a1.5 1.5 0 0 0 1.5-1.5v-9"/></svg></span>
+          <span class="bb-label">Property</span>
+          <span class="bb-value">Single Family &bull; Duplex</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><path d="M14 3l7 7-9 9-7.5 1.5L6 12.5z"/><path d="M13 6l5 5"/></svg></span>
+          <span class="bb-label">Condition</span>
+          <span class="bb-value">Light to Moderate</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9 15l6-6M9.5 10a.7.7 0 1 0 0-1.4.7.7 0 0 0 0 1.4zM14.5 15.4a.7.7 0 1 0 0-1.4.7.7 0 0 0 0 1.4z"/></svg></span>
+          <span class="bb-label">Minimum Equity</span>
+          <span class="bb-value">30%+</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><path d="M4 12a8 8 0 0 1 8-8M4 12a8 8 0 0 0 8 8M4 12h16M12 4a8 8 0 0 1 0 16"/></svg></span>
+          <span class="bb-label">Signals</span>
+          <span class="bb-value stacked">Absentee Owner<br>Tired Landlord<br>Vacant<br>Pre-Foreclosure<br>High Equity<br>Long-Term Ownership</span>
+        </div>
+        <div class="bb-row">
+          <span class="bb-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="10.5" r="3"/><path d="M12 21.5s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11z"/></svg></span>
+          <span class="bb-label">Deal Preference</span>
+          <span class="bb-value">Value-add with room to force equity.</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= COMPARE ================= -->
+  <section class="compare">
+    <div class="wrap">
+      <h2 class="reveal">Most lead lists start with a database.<br>ROQ starts with your investment strategy.</h2>
+
+      <div class="compare-grid reveal">
+        <div class="cmp-panel dark">
+          <p class="cmp-title">Traditional Lists</p>
+          <div class="cmp-list">
+            <div class="cmp-item x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>10,000+ properties</span></div>
+            <div class="cmp-item x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Broad filters</span></div>
+            <div class="cmp-item x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Repeated data</span></div>
+            <div class="cmp-item x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>Same list sold everywhere</span></div>
+            <div class="cmp-item x"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg><span>You do the digging</span></div>
+          </div>
+        </div>
+
+        <span class="cmp-vs">VS</span>
+
+        <div class="cmp-panel light">
+          <p class="cmp-title">ROQ</p>
+          <div class="cmp-list">
+            <div class="cmp-item check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span>Your exact criteria</span></div>
+            <div class="cmp-item check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span>Multiple property signals</span></div>
+            <div class="cmp-item check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span>Smaller curated batches</span></div>
+            <div class="cmp-item check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span>Opportunity context</span></div>
+            <div class="cmp-item check"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg><span>You decide what deserves action</span></div>
+          </div>
+        </div>
+
+        <div>
+          <p class="cmp-quote">We'd rather send you 7 properties worth investigating than 700 you don't want.</p>
+          <div class="cmp-rule"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= HOW IT WORKS ================= -->
+  <section class="steps" id="how-it-works">
+    <div class="wrap">
+      <p class="eyebrow steps-head reveal" style="text-align:center;">How ROQ Works</p>
+
+      <div class="steps-grid reveal">
+        <div class="step">
+          <div class="step-top">
+            <span class="step-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.4"/><circle cx="12" cy="12" r="3.2"/></svg></span>
+            <span class="step-arrow"></span>
+          </div>
+          <p class="step-num">01</p>
+          <h3>Build your buy box</h3>
+          <p>Market, strategy, asset type, budget, equity, condition and anything else that matters.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <span class="step-icon"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.4 15.4L21 21"/></svg></span>
+            <span class="step-arrow"></span>
+          </div>
+          <p class="step-num">02</p>
+          <h3>ROQ searches</h3>
+          <p>We identify properties using public records, ownership data, market activity and early seller signals.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <span class="step-icon"><svg viewBox="0 0 24 24"><path d="M4 20V5"/><rect x="7" y="13" width="3.2" height="7" rx="1"/><rect x="12.6" y="9" width="3.2" height="11" rx="1"/><path d="M4 20h17"/></svg></span>
+            <span class="step-arrow"></span>
+          </div>
+          <p class="step-num">03</p>
+          <h3>We score the fit</h3>
+          <p>Properties are evaluated against your criteria instead of simply being dumped into a list.</p>
+        </div>
+        <div class="step">
+          <div class="step-top">
+            <span class="step-icon"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="2.2"/><path d="M3.6 7l8.4 6 8.4-6"/></svg></span>
+          </div>
+          <p class="step-num">04</p>
+          <h3>You get opportunities</h3>
+          <p>A focused stream of properties with enough context to decide where you want to dig deeper.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OPPORTUNITY EXAMPLE ================= -->
+  <section class="opportunity" id="example">
+    <div class="wrap">
+      <div class="opp-head reveal">
+        <p class="eyebrow">Example</p>
+        <h2>What a ROQ opportunity looks like.</h2>
+      </div>
+
+      <div class="opp-card reveal">
+        <div class="opp-media">
+          <div class="opp-photo">
+            <img src="/assets/lode/example-home.jpg" alt="" width="1448" height="1086" loading="lazy">
+          </div>
+          <div class="opp-tags">
+            <span class="tag">Absentee Owner</span>
+            <span class="tag">High Equity</span>
+            <span class="tag">Tax Signal</span>
+          </div>
+        </div>
+
+        <div class="opp-body">
+          <p class="opp-eyebrow">ROQ / Opportunity 014</p>
+          <div class="opp-row-top">
+            <div>
+              <p class="opp-addr">1428 NW 178th St</p>
+              <p class="opp-city">Edmond, Oklahoma</p>
+            </div>
+            <div class="opp-match"><b>92%</b><span>Buy Box Match</span></div>
+          </div>
+
+          <div class="opp-specs">
+            <span><svg viewBox="0 0 24 24"><path d="M3.5 11.5L12 4l8.5 7.5"/><path d="M5.5 10v9a1.5 1.5 0 0 0 1.5 1.5h10a1.5 1.5 0 0 0 1.5-1.5v-9"/></svg>Single Family</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 20v-8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8"/><path d="M2 20h20M6 10V7a2 2 0 0 1 2-2h2"/></svg>3 bd</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 12h13a3 3 0 0 1 0 6H6a2 2 0 0 1-2-2z"/><path d="M6 12V6.5A1.5 1.5 0 0 1 7.5 5"/></svg>2 ba</span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 3h7v7H3zM14 3h7v7h-7zM14 14h7v7h-7zM3 14h7v7H3z"/></svg>1,744 sq ft</span>
+          </div>
+
+          <div class="opp-stats">
+            <div><span>Est. Value</span><b>$287K</b></div>
+            <div><span>Est. Equity</span><b>41%</b></div>
+            <div><span>Ownership</span><b>18 years</b></div>
+          </div>
+
+          <p class="opp-read-label">ROQ Read</p>
+          <p class="opp-read">Long-term absentee ownership with substantial estimated equity and no recent listing activity. Fits your target geography, asset class and acquisition range.</p>
+        </div>
+
+        <div class="opp-side">
+          <h3>What You Get</h3>
+          <ul>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Curated opportunities that match your buy box</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Property details and key ownership information</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Signals and our read on why it surfaced</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Direct contact information when available</li>
+            <li><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Delivered weekly via email + portal</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SIGNALS ================= -->
+  <section class="signals" id="signals">
+    <div class="wrap signals-grid-wrap">
+
+      <div class="signals-main">
+        <div class="signals-head reveal">
+          <p class="eyebrow">We look before a property becomes a listing.</p>
+        </div>
+
+        <div class="signals-grid reveal">
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.4"/><path d="M5 20.5c0-3.7 3.1-6 7-6s7 2.3 7 6"/><path d="M4 4l16 16"/></svg></span><span>Absentee Ownership</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M9 15l6-6M9.5 10a.7.7 0 1 0 0-1.4.7.7 0 0 0 0 1.4zM14.5 15.4a.7.7 0 1 0 0-1.4.7.7 0 0 0 0 1.4z"/></svg></span><span>High Equity</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M4 21V8l8-5 8 5v13"/><path d="M9 21v-7h6v7"/></svg></span><span>Vacant Property</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 13h6M9 17h6"/></svg></span><span>Probate / Estate</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M5 3h11l3 3v15H5z"/><path d="M9 11h6M9 15h6M9 7h3"/></svg></span><span>Tax Delinquency</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 17H3z"/><path d="M12 10v4"/><circle cx="12" cy="17" r="0.6" fill="currentColor" stroke="none"/></svg></span><span>Pre-Foreclosure</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M14 3l7 7-9 9-7.5 1.5L6 12.5z"/><path d="M13 6l5 5"/><path d="M3.5 20.5l3-3"/></svg></span><span>Code Violations</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.6"/><path d="M12 7v5l3.2 2"/></svg></span><span>Long-Term Ownership</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="16" rx="2.4"/><path d="M3.5 10h17M8 3v4M16 3v4"/><path d="M9 15l2.5 2.5L16 13"/></svg></span><span>Expired / Withdrawn</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3.5"/><path d="M3.5 20c0-3 2.5-5 5.5-5M14 13.5l6.5 6.5M17.5 13.5l3 3"/></svg></span><span>Tired Landlords</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M3.5 11.5L12 4l8.5 7.5"/><path d="M5.5 10v9a1.5 1.5 0 0 0 1.5 1.5h10a1.5 1.5 0 0 0 1.5-1.5v-9"/><path d="M9.6 15.4a2.4 2.4 0 1 1 4.8 0c0 1.6-2.4 3-2.4 3s-2.4-1.4-2.4-3z"/></svg></span><span>Inherited Property</span></div>
+          <div class="signal-item"><span class="signal-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M4.8 7.2C6.3 5.7 8.6 5 12 5s5.7.7 7.2 2.2M4.8 16.8C6.3 18.3 8.6 19 12 19s5.7-.7 7.2-2.2"/></svg></span><span>Distress Indicators</span></div>
+        </div>
+
+        <p class="signals-note reveal">Signals vary by market and public-data availability. A signal doesn't mean an owner is necessarily motivated to sell — it tells us where there may be a reason to look closer.</p>
+      </div>
+
+      <div class="signals-card reveal">
+        <h3>Built specifically for your buy box.</h3>
+        <p>ROQ doesn't simply hand every investor the same database. Your searches, scoring and opportunity feed are configured around your acquisition criteria.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= INVESTORS ================= -->
+  <section class="investors">
+    <div class="wrap investors-grid">
+      <p class="investors-head reveal">Built for investors who still know a good deal when they see one.</p>
+
+      <div class="investors-row reveal">
+        <div class="investor-item">
+          <span class="investor-icon"><svg viewBox="0 0 24 24"><path d="M3 21V10l9-6 9 6v11"/><path d="M9 21v-6h6v6"/><circle cx="12" cy="14" r="1.4"/></svg></span>
+          <span>Rental Investors</span>
+        </div>
+        <div class="investor-item">
+          <span class="investor-icon"><svg viewBox="0 0 24 24"><path d="M14.5 4.5l5 5-9 9-6 1 1-6z"/><path d="M13 6l5 5"/></svg></span>
+          <span>Fix &amp; Flip Investors</span>
+        </div>
+        <div class="investor-item">
+          <span class="investor-icon"><svg viewBox="0 0 24 24"><path d="M20 12a8 8 0 1 1-2.6-5.9"/><path d="M18 3v4h-4"/></svg></span>
+          <span>BRRRR Investors</span>
+        </div>
+        <div class="investor-item">
+          <span class="investor-icon"><svg viewBox="0 0 24 24"><rect x="4" y="9" width="7" height="12"/><rect x="13" y="4" width="7" height="17"/><path d="M6.5 12h2M6.5 15h2M6.5 18h2M15.5 7h2M15.5 10h2M15.5 13h2M15.5 16h2"/></svg></span>
+          <span>Small Multifamily Buyers</span>
+        </div>
+        <div class="investor-item">
+          <span class="investor-icon"><svg viewBox="0 0 24 24"><path d="M3 20l4-13 5 8 3-5 6 10z"/></svg></span>
+          <span>Land Investors</span>
+        </div>
+        <div class="investor-item">
+          <span class="investor-icon"><svg viewBox="0 0 24 24"><path d="M5 21V9l6-4 6 4v12"/><path d="M17 9l4-2v14l-4-2"/><path d="M9 21v-5h4v5"/></svg></span>
+          <span>Local Developers</span>
+        </div>
+      </div>
+
+      <p class="investors-copy reveal">Whether you buy two properties a year or twenty, ROQ helps you spend more time evaluating opportunities and less time looking for them.</p>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <div class="faq-head reveal">
+        <p class="eyebrow">FAQ</p>
+        <h2>Common questions.</h2>
+      </div>
+
+      <div class="faq-list reveal">
+        <div class="faq-item">
+          <h3>Is this just another lead list?</h3>
+          <p>No. We don't sell a static database. Every search runs against your specific buy box, and we send a curated batch instead of a dump you have to filter yourself.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What markets do you cover?</h3>
+          <p>We're expanding market by market as we onboard investors. Tell us your target market when you build your buy box and we'll confirm coverage.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How often do I get opportunities?</h3>
+          <p>Matches are delivered weekly via email and the ROQ portal, with more context sent as it becomes available between cycles.</p>
+        </div>
+        <div class="faq-item">
+          <h3>What does it cost?</h3>
+          <p>We're currently working with a small group of investors as we expand ROQ. Reach out and we'll walk you through pricing for your buy box.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do signals guarantee a motivated seller?</h3>
+          <p>No. A signal doesn't mean an owner is necessarily motivated to sell — it tells us where there may be a reason to look closer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FINAL CTA ================= -->
+  <section class="final-cta" id="cta">
+    <div class="wrap fc-grid">
+      <div class="reveal">
+        <h2>Give us your buy box.<br>We'll show you what we can find.</h2>
+        <p class="fc-sub">We're currently working with a small group of investors as we expand ROQ into new markets.</p>
+      </div>
+
+      <div class="fc-action reveal">
+        <a class="btn btn-dark" href="mailto:support@roqhome.com?subject=Build%20My%20Buy%20Box&body=Market%3A%0AStrategy%3A%0APrice%20range%3A%0AProperty%20type%3A%0AMinimum%20equity%3A%0A">Build My Buy Box
+          <svg viewBox="0 0 24 24"><path d="M5 12h13M13 7l5 5-5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <p class="fc-fine">No commitment required.</p>
+      </div>
+
+      <div class="fc-brand reveal">
+        <img src="/assets/logo/roq-icon-192.png" alt="ROQ">
+        <span>Find What Fits.</span>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-grid">
+        <div>
+          <span class="wordmark">
+            <img src="/assets/logo/roq-icon-192.png" alt="ROQ" width="34" height="34">
+            <span>ROQ</span>
+          </span>
+          <p class="footer-tagline">Your buy box. We find what fits. Off-market property intelligence for investors.</p>
+        </div>
+        <nav class="footer-nav" aria-label="Footer">
+          <a href="#how-it-works">How It Works</a>
+          <a href="#signals">The Signals</a>
+          <a href="#example">Example</a>
+          <a href="#faq">FAQ</a>
+          <a href="https://roqhome.com/">ROQ Home</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 ROQ Innovation LLC. All rights reserved.</span>
+        <div class="footer-legal">
+          <a href="/legal/roq-privacy.html">Privacy</a>
+          <a href="/legal/roq-terms.html">Terms</a>
+          <a href="mailto:support@roqhome.com">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Header: mobile menu + scrolled state ----------
+    (function initHeader() {
+      const header = document.getElementById('siteHeader');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('navToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+        tabs.addEventListener('click', (e) => {
+          if (e.target.tagName === 'A') {
+            tabs.classList.remove('open');
+            toggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      const hero = document.querySelector('.hero');
+      if (header && hero && 'IntersectionObserver' in window) {
+        const headerHeight = header.offsetHeight || 82;
+        const heroObserver = new IntersectionObserver(([entry]) => {
+          header.classList.toggle('scrolled', !entry.isIntersecting);
+        }, { rootMargin: `-${headerHeight}px 0px 0px 0px`, threshold: 0 });
+        heroObserver.observe(hero);
+      } else if (header) {
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    })();
+
+    // ---------- Nav: highlight the section in view ----------
+    (function initSpy() {
+      const links = Array.from(document.querySelectorAll('.site-tabs a'));
+      const map = new Map();
+      links.forEach(a => {
+        const id = a.getAttribute('href').slice(1);
+        const el = document.getElementById(id);
+        if (el) map.set(el, a);
+      });
+      if (!map.size) return;
+
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          links.forEach(a => a.classList.remove('active'));
+          map.get(entry.target).classList.add('active');
+        });
+      }, { rootMargin: '-45% 0px -50% 0px' });
+
+      map.forEach((_, el) => spy.observe(el));
+    })();
+
+    // ---------- Scroll reveal ----------
+    (function initReveal() {
+      const items = document.querySelectorAll('.reveal');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(el => observer.observe(el));
+    })();
+  </script>
+
+</body>
+</html>
