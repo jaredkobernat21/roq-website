@@ -70,6 +70,38 @@
         "@type": "Answer",
         "text": "No. ROQ Home (roqhome.com), made by ROQ Innovation LLC, is a homeownership app unrelated to ROQ International or ROQ.US, which manufacture screen printing equipment."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I build here?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zoning, setbacks, and site constraints decide what's actually possible on a lot, before you buy or break ground — ROQ's Build tools help you find out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I fix first in my home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not every project pays off the same. Some renovations protect your home's value, others mainly improve daily life — ROQ's Improve tools help you tell the difference."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is now the right time to move?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The right time to sell depends on your equity, the market, and what's next, not just how you feel about the house today — ROQ's Move tools give you a clear-eyed read."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is my home actually worth?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Home value depends on more than nearby comps — condition, market timing, and future potential all factor in. ROQ's Understand tools track your home's real value over time."
+      }
     }
   ]
 }
@@ -464,6 +496,211 @@
     .explore-card { aspect-ratio: 16 / 10; }
   }
 
+
+  /* ---------- Answers ----------
+     A light section breaks the rhythm of dark-on-dark and gives the FAQ
+     content its own register — closer to a page than a poster. */
+
+  .answers {
+    --paper: #F5F1EA;
+    --paper-ink: #17140F;
+    --paper-ink-dim: #6B6458;
+    --paper-line: rgba(23,20,15,0.10);
+    background: var(--paper);
+    color: var(--paper-ink);
+    padding: clamp(72px, 11vh, 110px) clamp(24px, 5vw, 64px) clamp(88px, 12vh, 120px);
+  }
+
+  .answers-intro { margin-bottom: clamp(36px, 5vw, 52px); }
+
+  .answers-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--nav-accent, #A66F30);
+    margin-bottom: 16px;
+  }
+
+  .answers-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.2;
+    max-width: 20ch;
+  }
+
+  .answers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--paper-line);
+    border: 1px solid var(--paper-line);
+    border-radius: 18px;
+    overflow: hidden;
+  }
+
+  .answer-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--paper);
+    padding: clamp(26px, 3vw, 34px);
+    transition: background 0.25s var(--ease);
+  }
+
+  .answer-card:hover { background: #EFE9DE; }
+
+  .answer-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(23,20,15,0.06);
+    margin-bottom: 20px;
+    flex-shrink: 0;
+  }
+
+  .answer-icon svg { width: 18px; height: 18px; stroke: var(--paper-ink); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+  .answer-q {
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .answer-a {
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--paper-ink-dim);
+    max-width: 34ch;
+    margin-bottom: 20px;
+  }
+
+  .answer-link {
+    margin-top: auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--paper-ink);
+  }
+
+  .answer-link svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform 0.25s var(--ease); }
+  .answer-card:hover .answer-link svg { transform: translateX(3px); }
+
+  @media (max-width: 860px) {
+    .answers-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (min-width: 861px) and (max-width: 1180px) {
+    .answers-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+
+  /* ---------- App showcase ---------- */
+
+  .app-showcase {
+    background: var(--bg-deep);
+    padding: clamp(80px, 12vh, 120px) 0 clamp(80px, 11vh, 110px);
+    overflow: hidden;
+  }
+
+  .app-showcase-intro {
+    padding: 0 clamp(24px, 5vw, 64px);
+    margin-bottom: clamp(40px, 5vw, 56px);
+  }
+
+  .app-showcase-eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+  }
+
+  .app-showcase-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(26px, 3.4vw, 40px);
+    line-height: 1.2;
+    color: var(--ink);
+    max-width: 22ch;
+    margin-bottom: 14px;
+  }
+
+  .app-showcase-sub {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    max-width: 46ch;
+  }
+
+  .app-showcase-row {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 4px clamp(24px, 5vw, 64px) 12px;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .app-showcase-row::-webkit-scrollbar { display: none; }
+
+  .app-showcase-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    width: clamp(200px, 22vw, 268px);
+    aspect-ratio: 853 / 1844;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .app-showcase-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .app-showcase-cta {
+    padding: 0 clamp(24px, 5vw, 64px);
+    margin-top: clamp(36px, 5vw, 48px);
+  }
+
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    padding: 17px 36px 17px 30px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #14110B;
+    border: 1px solid var(--ink);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .appstore-btn:active { transform: scale(0.985); }
+
+  .appstore-btn svg {
+    width: 27px;
+    height: 27px;
+    flex: none;
+    fill: currentColor;
+    margin-top: -2px;
+  }
+
+  .appstore-btn-label { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
+  .appstore-btn-label small { font-size: 11px; font-weight: 400; }
+  .appstore-btn-label b { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+
+  .appstore-meta { font-size: 12px; color: var(--ink-faint); margin-top: 14px; }
+
   /* ---------- Footer ---------- */
 
   footer {
@@ -641,7 +878,7 @@
         </div>
       </a>
       <a class="explore-card" href="/move.html">
-        <img src="/assets/hero/experience-hero.jpg" alt="A home exterior prepared for sale at golden hour" loading="lazy">
+        <img src="/assets/hero/move-hero.jpg" alt="Moving boxes at the entrance of a modern home, a packed car waiting in the driveway" loading="lazy" style="object-position: 82% 55%;">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Move</p>
           <h3 class="explore-card-title">Know when it's time.</h3>
@@ -658,6 +895,72 @@
           <span class="explore-card-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
         </div>
       </a>
+    </div>
+  </section>
+
+  <section class="answers">
+    <div class="answers-intro">
+      <p class="answers-eyebrow">Real homeowner questions</p>
+      <h2 class="answers-headline">Answers, not guesswork.</h2>
+    </div>
+    <div class="answers-grid">
+      <a class="answer-card" href="/build.html">
+        <span class="answer-icon"><svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M9 20v-6h6v6"/></svg></span>
+        <h3 class="answer-q">Can I build here?</h3>
+        <p class="answer-a">Zoning, setbacks, and site constraints decide what's actually possible on a lot — before you buy or break ground.</p>
+        <span class="answer-link">Explore Build<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="answer-card" href="/dream.html">
+        <span class="answer-icon"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></span>
+        <h3 class="answer-q">What could my home become?</h3>
+        <p class="answer-a">A clear picture of your renovation or new build, worked out before a single wall moves.</p>
+        <span class="answer-link">Explore Design<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="answer-card" href="/manage.html">
+        <span class="answer-icon"><svg viewBox="0 0 24 24"><rect x="6" y="4" width="12" height="17" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></span>
+        <h3 class="answer-q">What do I need to stay on top of?</h3>
+        <p class="answer-a">Every system, project, and document that comes with owning a home, kept in one place instead of scattered everywhere.</p>
+        <span class="answer-link">Explore Own<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="answer-card" href="/renovate.html">
+        <span class="answer-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 10-5.66 5.66L3.5 17.5l3 3 5.46-5.54a4 4 0 005.66-5.66l-2.83 2.83-2.12-2.12z"/></svg></span>
+        <h3 class="answer-q">What should I fix first?</h3>
+        <p class="answer-a">Not every project pays off the same — some protect value, others just improve daily life. Both matter, for different reasons.</p>
+        <span class="answer-link">Explore Improve<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="answer-card" href="/move.html">
+        <span class="answer-icon"><svg viewBox="0 0 24 24"><path d="M21 8l-9-5-9 5 9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
+        <h3 class="answer-q">Is now the right time to move?</h3>
+        <p class="answer-a">The right time to sell depends on your equity, the market, and what's next — not just how you feel about the house today.</p>
+        <span class="answer-link">Explore Move<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+      <a class="answer-card" href="/understand.html">
+        <span class="answer-icon"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg></span>
+        <h3 class="answer-q">What's my home actually worth?</h3>
+        <p class="answer-a">Value depends on more than comps — condition, market timing, and potential all factor into the real number.</p>
+        <span class="answer-link">Explore Understand<svg viewBox="0 0 24 24"><path d="M5 12h13M13 6l6 6-6 6"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <section class="app-showcase">
+    <div class="app-showcase-intro">
+      <p class="app-showcase-eyebrow">The ROQ app</p>
+      <h2 class="app-showcase-headline">Your homeowner command center.</h2>
+      <p class="app-showcase-sub">Everything above, with you at home — track projects, watch your home's pulse, and know its worth, all from your phone.</p>
+    </div>
+    <div class="app-showcase-row">
+      <div class="app-showcase-item"><img src="/assets/screen-1-home.jpg" alt="ROQ app Story tab showing a home's tour and timeline" loading="lazy"></div>
+      <div class="app-showcase-item"><img src="/assets/screen-3-studio.jpg" alt="ROQ app Studio tab showing an active kitchen renovation project" loading="lazy"></div>
+      <div class="app-showcase-item"><img src="/assets/screen-5-worth.jpg" alt="ROQ app Worth tab showing home value and equity tracked over time" loading="lazy"></div>
+      <div class="app-showcase-item"><img src="/assets/screen-7-personality.jpg" alt="ROQ app Personality tab capturing what makes a home unique" loading="lazy"></div>
+    </div>
+    <div class="app-showcase-cta">
+      <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+        <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+        <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+      </a>
+      <p class="appstore-meta">Free on iPhone · Requires iOS 15.1 or later</p>
     </div>
   </section>
 
