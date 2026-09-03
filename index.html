@@ -17,12 +17,12 @@
 <meta property="og:title" content="ROQ — Everything for Your Home" />
 <meta property="og:description" content="Real guidance for every homeownership decision — build, design, improve, and own, all in one place." />
 <meta property="og:url" content="https://roqhome.com/" />
-<meta property="og:image" content="https://roqhome.com/assets/hero/roq-hero.jpg" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/experience-hero.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="ROQ — Everything for Your Home" />
 <meta name="twitter:description" content="Real guidance for every homeownership decision — build, design, improve, and own, all in one place." />
-<meta name="twitter:image" content="https://roqhome.com/assets/hero/roq-hero.jpg" />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/experience-hero.jpg" />
 
 <script type="application/ld+json">
 {
@@ -349,7 +349,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 58% 42%;
+    object-position: 50% 15%;
   }
 
   /* Holds the type without flattening the render — the house stays lit
@@ -786,10 +786,14 @@
 
   @media (max-width: 640px) {
     /* Opening statement: 32px was the clamp floor and still ran three lines
-       edge to edge. A shorter measure lets it breathe over the render. */
+       edge to edge. A shorter measure lets it breathe over the render.
+       Bottom-aligned here rather than centered — a portrait viewport shows
+       almost the full height of the render, leaving no vertical room to
+       dodge a face; the scrim is darkest at the base, so that's where the
+       type goes instead. */
     .statement {
-      padding: 96px 24px 84px;
-      align-items: center;
+      padding: 96px 24px 64px;
+      align-items: flex-end;
     }
 
     .statement-text {
@@ -827,8 +831,8 @@
 
 
   <section class="statement">
-    <img class="statement-img" src="/assets/hero/roq-hero.jpg"
-         alt="A modern home at night, its arched roofline traced in light above a still reflecting pool" />
+    <img class="statement-img" src="/assets/hero/experience-hero.jpg"
+         alt="A family laughing together over dinner at home, sunset over the water through floor-to-ceiling windows" />
     <div class="statement-scrim"></div>
     <div>
       <p class="statement-text">Feel like an owner.</p>
