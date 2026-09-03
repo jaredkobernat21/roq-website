@@ -9,10 +9,4 @@ dashboard/
 .claude/settings.local.json
 
 # Unpublished pages — kept locally, not part of the live site
-dream.html
-renovate.html
-move.html
-understand.html
-home-potential.html
-market-ready.html
-property-fingerprint.html
+invest.html

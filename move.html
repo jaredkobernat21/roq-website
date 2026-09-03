@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Move — ROQ Home</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="A personalized review & strategy from ROQ Home to help prepare & present your home before selling." />
+<link rel="canonical" href="https://roqhome.com/move.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ Home" />
+<meta property="og:title" content="Move — ROQ Home" />
+<meta property="og:description" content="A personalized review & strategy from ROQ Home to help prepare & present your home before selling." />
+<meta property="og:url" content="https://roqhome.com/move.html" />
+<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Move — ROQ Home" />
+<meta name="twitter:description" content="A personalized review & strategy from ROQ Home to help prepare & present your home before selling." />
+<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FFFFFF;
+    --panel: #F7F6F2;
+    --ink: #14130F;
+    --ink-dim: #5C594F;
+    --ink-faint: #948F82;
+    --border: rgba(20,19,15,0.12);
+    --border-soft: rgba(20,19,15,0.08);
+    --gold: #C8A882;
+    --danger: #C0493A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--gold); color: #14110B; }
+
+  /* ---------- Site header ----------
+     Self-contained: every value it needs is declared here, so the same
+     block drops onto the dark pages and the light ones alike. Pages with
+     a light background add class="on-light" to <header>. */
+
+  .site-header {
+    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
+  }
+
+  .site-header.on-light {
+    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg-strong: #14130F;
+    --nav-accent: #A66F30;
+    --nav-scrim: 255,255,255;
+    --nav-solid: rgba(255,255,255,0.90);
+    --nav-border: rgba(20,19,15,0.12);
+    --nav-panel: rgba(255,255,255,0.98);
+    --nav-shadow: none;
+  }
+
+  /* The tabs sit over whatever the hero is — a dusk sky, a night render, a
+     cream panel. A top-down scrim keeps them legible on all of them, and
+     fades out once the solid scrolled background takes over. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
+  }
+
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  /* Pages whose content starts below the header — rather than running under
+     a floating one — hold their own space and keep a background at all times. */
+  .site-header.inflow {
+    position: sticky;
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-header.inflow::before { display: none; }
+
+  .site-logo { display: flex; }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--nav-fg-strong);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.1vw, 30px);
+  }
+
+  .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
+  }
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+
+  .site-tabs a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1px;
+    background: var(--nav-accent);
+  }
+
+  .site-tabs-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+
+    .site-tabs-toggle span::before,
+    .site-tabs-toggle span::after,
+    .site-tabs-toggle span i {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--nav-fg-strong);
+    }
+
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+
+    .site-tabs {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: clamp(24px, 5vw, 64px);
+      min-width: 170px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--nav-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border);
+      border-radius: 14px;
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+
+    .site-tabs.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+
+  main { flex: 1; }
+
+  .intro {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    padding: clamp(48px, 8vh, 88px) clamp(24px, 6vw, 64px) clamp(28px, 4vh, 40px);
+  }
+
+  .intro-orb-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.9s var(--ease) 0.1s forwards;
+  }
+
+  .intro-orb {
+    width: clamp(96px, 13vw, 140px);
+    height: clamp(96px, 13vw, 140px);
+    filter: drop-shadow(0 0 22px rgba(20,19,15,0.16));
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-orb-wrap { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+
+  .intro-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(32px, 4.8vw, 50px);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+
+  .intro-sub {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- Offer ---------- */
+
+  .offer {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 64px) clamp(72px, 10vh, 110px);
+  }
+
+  .offer-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: clamp(32px, 5vw, 44px) clamp(24px, 5vw, 40px);
+    text-align: center;
+  }
+
+  .offer-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 12px;
+  }
+
+  .offer-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 2.8vw, 28px);
+    margin-bottom: 26px;
+  }
+
+  .offer-list {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 11px;
+    margin: 0 auto 30px;
+    text-align: left;
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+
+  .offer-list li {
+    padding-left: 24px;
+    position: relative;
+  }
+
+  .offer-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .offer-price-row {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 0.7s var(--ease) 0.15s forwards;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-soft);
+    margin-bottom: 24px;
+  }
+
+  .offer-price-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .offer-price {
+    font-family: 'Lora', serif;
+    font-size: clamp(34px, 5vw, 44px);
+    color: var(--ink);
+  }
+
+  .offer-price span {
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-faint);
+    font-weight: 500;
+    margin-left: 6px;
+  }
+
+  .offer-cta {
+    width: 100%;
+    background: var(--ink);
+    color: var(--bg);
+    border: none;
+    border-radius: 30px;
+    padding: 18px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .offer-cta:hover { background: #2b2820; }
+  .offer-cta:active { transform: scale(0.98); }
+
+  .offer-note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Wizard ---------- */
+
+  .wizard-page { display: none; }
+  .wizard-page.active { display: block; }
+
+  .progress-wrap {
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(20px, 3vh, 32px) clamp(24px, 6vw, 64px) 0;
+  }
+
+  .progress-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .progress-track {
+    height: 3px;
+    border-radius: 3px;
+    background: var(--border-soft);
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 3px;
+    transition: width 0.4s var(--ease);
+    width: 0%;
+  }
+
+  .wizard-main {
+    display: flex;
+    flex-direction: column;
+    max-width: 560px;
+    width: 100%;
+    margin: 0 auto;
+    padding: clamp(28px, 5vh, 40px) clamp(24px, 6vw, 64px) clamp(48px, 7vh, 72px);
+  }
+
+  .step { display: none; flex-direction: column; }
+  .step.active { display: flex; animation: fadeUp 0.45s var(--ease); }
+
+  .step-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(23px, 3.2vw, 30px);
+    line-height: 1.3;
+    margin-bottom: 10px;
+  }
+
+  .step-sub {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    margin-bottom: 26px;
+  }
+
+  /* Chips */
+
+  .chip-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  .chip {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    color: var(--ink-dim);
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease), color 0.2s var(--ease);
+  }
+
+  .chip:hover { border-color: rgba(200,168,130,0.6); color: var(--ink); }
+
+  .chip.active {
+    border-color: var(--gold);
+    background: rgba(200,168,130,0.14);
+    color: var(--ink);
+  }
+
+  /* Text inputs / textarea */
+
+  .field-row { margin-bottom: 16px; }
+
+  .field-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .field-row input,
+  .field-text {
+    width: 100%;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.25s var(--ease);
+  }
+
+  .field-row input:focus,
+  .field-text:focus { border-color: rgba(200,168,130,0.7); }
+  .field-row input::placeholder,
+  .field-text::placeholder { color: var(--ink-faint); }
+
+  .field-textarea {
+    width: 100%;
+    min-height: 130px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    outline: none;
+    resize: vertical;
+  }
+
+  .field-textarea:focus { border-color: rgba(200,168,130,0.7); }
+  .field-textarea::placeholder { color: var(--ink-faint); }
+
+  /* Checkboxes (optional services) */
+
+  .checkbox-list { display: flex; flex-direction: column; gap: 10px; }
+
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease);
+  }
+
+  .checkbox-item:hover { border-color: rgba(200,168,130,0.5); }
+  .checkbox-item.active { border-color: var(--gold); background: rgba(200,168,130,0.1); }
+
+  .checkbox-box {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid var(--border);
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: var(--bg);
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+
+  .checkbox-item.active .checkbox-box { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+  .checkbox-label { font-size: 14.5px; color: var(--ink); }
+
+  /* Photo upload */
+
+  .photo-zone {
+    border: 1px dashed var(--border);
+    border-radius: 18px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+  }
+
+  .photo-zone:hover { border-color: rgba(200,168,130,0.6); background: var(--panel); }
+
+  .photo-zone-label { font-size: 14px; color: var(--ink-dim); margin-bottom: 4px; }
+  .photo-zone-hint { font-size: 12px; color: var(--ink-faint); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .photo-thumb {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--panel);
+    border: 1px solid var(--border);
+  }
+
+  .photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .photo-thumb .photo-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(20,19,15,0.75);
+    color: #fff;
+    border: none;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .photo-thumb .photo-status {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(20,19,15,0.5);
+    font-size: 11px;
+    color: #fff;
+  }
+
+  @media (max-width: 480px) {
+    .photo-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Nav buttons */
+
+  .wizard-nav { display: flex; gap: 12px; margin-top: 30px; }
+
+  .nav-btn {
+    flex: 1;
+    border-radius: 14px;
+    padding: 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease), border-color 0.25s var(--ease);
+  }
+
+  .nav-btn:active { transform: scale(0.98); }
+
+  .nav-btn.primary { background: var(--ink); color: var(--bg); border: none; flex: 2; }
+  .nav-btn.primary:hover { background: #2b2820; }
+  .nav-btn.primary:disabled { opacity: 0.4; cursor: default; }
+
+  .nav-btn.secondary { background: transparent; color: var(--ink-dim); border: 1px solid var(--border); }
+  .nav-btn.secondary:hover { border-color: rgba(20,19,15,0.3); color: var(--ink); }
+
+  .step-error {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+
+  .step-error.visible { display: block; }
+
+  /* Review */
+
+  .review-list { display: flex; flex-direction: column; gap: 18px; margin-bottom: 8px; }
+
+  .review-item .review-q {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 6px;
+  }
+
+  .review-item .review-a { font-size: 14px; color: var(--ink); line-height: 1.6; }
+
+  /* Thank you / loading */
+
+  .center-panel {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    padding: clamp(60px, 12vh, 100px) clamp(24px, 6vw, 64px);
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .center-panel.active { display: flex; }
+
+  .center-title { font-family: 'Lora', serif; font-size: clamp(24px, 3.4vw, 30px); }
+
+  .center-sub {
+    font-size: 14px;
+    color: var(--ink-dim);
+    max-width: 42ch;
+    line-height: 1.65;
+  }
+
+  .center-reminder {
+    margin-top: 8px;
+    font-size: 13px;
+    font-style: italic;
+    color: var(--ink-faint);
+    max-width: 42ch;
+    line-height: 1.65;
+  }
+
+  .spinner {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    border-top-color: var(--gold);
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg);
+    border-top: 1px solid var(--border-soft);
+    padding: 28px clamp(24px, 5vw, 64px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.6; }
+
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+
+  .footer-links { display: flex; gap: 28px; }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+
+  @media (max-width: 640px) {
+    .intro { padding: 40px 24px 24px; }
+    .intro-title { font-size: 30px; line-height: 1.15; }
+    .intro-sub { font-size: 15.5px; line-height: 1.6; }
+    .offer-title { font-size: 24px; line-height: 1.2; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header inflow on-light">
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/build.html">Build</a>
+      <a href="/dream.html">Design</a>
+      <a href="/manage.html">Own</a>
+      <a href="/renovate.html">Improve</a>
+      <a href="/move.html" class="active" aria-current="page">Move</a>
+      <a href="/understand.html">Understand</a>
+    </nav>
+
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
+            aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
+  </header>
+
+  <main>
+
+    <!-- ---------- Landing / offer ---------- -->
+    <div class="wizard-page active" id="pageLanding">
+      <section class="intro">
+        <div class="intro-orb-wrap">
+          <canvas class="intro-orb" id="introOrb" width="140" height="140"></canvas>
+        </div>
+        <h1 class="intro-title">Home Passport</h1>
+        <p class="intro-sub">A personalized review &amp; strategy to help prepare &amp; present your home before selling.</p>
+      </section>
+
+      <section class="offer">
+        <div class="offer-card">
+          <p class="offer-eyebrow">Included</p>
+          <h3 class="offer-title">Get Your Passport</h3>
+          <ul class="offer-list">
+            <li>Neighborhood ceiling &amp; comps for a more informed list price</li>
+            <li>Cleaning &amp; staging direction for unforgettable first impressions</li>
+            <li>Listing copy, order, and stand-out features for listing optimization</li>
+            <li>Maintenance preparation to reduce inspection risks</li>
+            <li>Documents &amp; information preparation for buyer questions &amp; concerns</li>
+            <li>Atmosphere tips to help with open house &amp; walk through experiences</li>
+            <li>Helpful resources &amp; connections for closing</li>
+          </ul>
+          <div class="offer-price-row">
+            <p class="offer-price-label">One-time</p>
+            <p class="offer-price">$149</p>
+          </div>
+          <button type="button" class="offer-cta" id="startWizardBtn">Get Your Passport</button>
+          <p class="offer-note">Every passport is personally prepared &mdash; not automatically generated.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ---------- Wizard ---------- -->
+    <div class="wizard-page" id="pageWizard">
+      <div class="progress-wrap" id="progressWrap">
+        <p class="progress-label" id="progressLabel">Step 1 of 7</p>
+        <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+      </div>
+
+      <div class="wizard-main">
+
+        <div class="center-panel" id="panelStarting">
+          <div class="spinner"></div>
+          <p class="center-sub">One moment&hellip;</p>
+        </div>
+
+        <div class="center-panel" id="panelStartError">
+          <h2 class="center-title">Something went wrong</h2>
+          <p class="center-sub" id="startErrorMessage">We couldn't start your request. Please try again, or reach out to us directly.</p>
+          <a class="center-sub" href="mailto:hello@roqhome.com" style="text-decoration:underline;">hello@roqhome.com</a>
+        </div>
+
+        <form id="wizardForm" style="display:contents;">
+
+          <section class="step" data-step="property">
+            <h2 class="step-title">What's the property?</h2>
+            <p class="step-sub">Share the address, or paste a listing link if it's already posted online.</p>
+            <div class="field-row">
+              <label for="propertyInfo">Address or Listing URL</label>
+              <input type="text" id="propertyInfo" placeholder="123 Main St, City, State ZIP — or a listing link" />
+            </div>
+          </section>
+
+          <section class="step" data-step="situation">
+            <h2 class="step-title">What best describes your situation?</h2>
+            <div class="chip-grid" data-field="situation" data-mode="single">
+              <button type="button" class="chip" data-value="Currently listed FSBO">Currently listed FSBO</button>
+              <button type="button" class="chip" data-value="Planning to list">Planning to list</button>
+              <button type="button" class="chip" data-value="Listed with agent">Listed with agent</button>
+              <button type="button" class="chip" data-value="Just exploring">Just exploring</button>
+            </div>
+          </section>
+
+          <section class="step" data-step="goal">
+            <h2 class="step-title">What's your biggest goal?</h2>
+            <div class="chip-grid" data-field="goal" data-mode="single">
+              <button type="button" class="chip" data-value="Sell quickly">Sell quickly</button>
+              <button type="button" class="chip" data-value="Maximize sale price">Maximize sale price</button>
+              <button type="button" class="chip" data-value="Attract more buyers">Attract more buyers</button>
+              <button type="button" class="chip" data-value="Prepare before listing">Prepare before listing</button>
+              <button type="button" class="chip" data-value="Improve presentation">Improve presentation</button>
+              <button type="button" class="chip" data-value="Not sure">Not sure</button>
+            </div>
+          </section>
+
+          <section class="step" data-step="photos">
+            <h2 class="step-title">Upload photos of your home</h2>
+            <p class="step-sub">Since you didn't share a listing link, photos help us the most here.</p>
+            <div class="photo-zone" id="photoZone">
+              <p class="photo-zone-label">Tap to add photos</p>
+              <p class="photo-zone-hint">JPG or PNG, multiple at once</p>
+            </div>
+            <input type="file" id="photoInput" accept="image/*" multiple hidden />
+            <div class="photo-grid" id="photoGrid"></div>
+          </section>
+
+          <section class="step" data-step="attention">
+            <h2 class="step-title">Anything you'd like us to pay special attention to?</h2>
+            <p class="step-sub">Optional.</p>
+            <textarea class="field-textarea" id="specialAttention" placeholder="Share whatever comes to mind&hellip;"></textarea>
+          </section>
+
+          <section class="step" data-step="services">
+            <h2 class="step-title">Any optional services you're interested in?</h2>
+            <p class="step-sub">Select all that apply &mdash; these are add-ons we can coordinate, separate from the $149.</p>
+            <div class="checkbox-list" data-field="optional_services">
+              <label class="checkbox-item" data-value="Home website"><span class="checkbox-box">&#10003;</span><span class="checkbox-label">Home website</span></label>
+              <label class="checkbox-item" data-value="Presentation concepts (virtual staging)"><span class="checkbox-box">&#10003;</span><span class="checkbox-label">Presentation concepts (virtual staging)</span></label>
+              <label class="checkbox-item" data-value="Contractor connection"><span class="checkbox-box">&#10003;</span><span class="checkbox-label">Contractor connection</span></label>
+              <label class="checkbox-item" data-value="Title company connection"><span class="checkbox-box">&#10003;</span><span class="checkbox-label">Title company connection</span></label>
+              <label class="checkbox-item" data-value="Realtor connection"><span class="checkbox-box">&#10003;</span><span class="checkbox-label">Realtor connection</span></label>
+            </div>
+          </section>
+
+          <section class="step" data-step="contact">
+            <h2 class="step-title">Where should we send your Home Passport?</h2>
+            <div class="field-row">
+              <label for="contactName">Name</label>
+              <input type="text" id="contactName" placeholder="Your name" autocomplete="name" />
+            </div>
+            <div class="field-row">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" placeholder="your@email.com" autocomplete="email" />
+            </div>
+            <div class="field-row">
+              <label for="contactPhone">Phone</label>
+              <input type="tel" id="contactPhone" placeholder="(555) 555-5555" autocomplete="tel" />
+            </div>
+            <p class="step-error" id="contactError">Please enter your name and a valid email address.</p>
+          </section>
+
+          <section class="step" data-step="review">
+            <h2 class="step-title">Review your answers</h2>
+            <p class="step-sub">Everything look right?</p>
+            <div class="review-list" id="reviewList"></div>
+            <p class="step-error" id="submitError"></p>
+          </section>
+
+          <div class="wizard-nav" id="wizardNav" style="display:none;">
+            <button type="button" class="nav-btn secondary" id="backBtn">Back</button>
+            <button type="button" class="nav-btn primary" id="nextBtn">Next</button>
+          </div>
+        </form>
+
+        <div class="center-panel" id="panelThanks">
+          <h2 class="center-title">Thanks! We're reviewing your details now.</h2>
+          <p class="center-sub">We'll follow up within 24&ndash;48 hours with your $149 payment link and next steps to get your Home Passport.</p>
+          <p class="center-reminder">Every Home Passport is personally prepared &mdash; not automatically generated.</p>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/legal/roq-terms.html">Terms</a>
+      <a href="/about.html">Story</a>
+      <a href="https://roqbusiness.com">ROQ Business</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- ROQ orb (black variant) ----------
+    (function initRoqOrb() {
+      const canvas = document.getElementById('introOrb');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const size = canvas.width;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      ctx.scale(dpr, dpr);
+
+      const center = size / 2;
+      const radius = size * 0.46;
+      const count = Math.round(24 + size * 0.9);
+
+      const particles = [];
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.pow(Math.random(), 0.55) * radius;
+        particles.push({
+          x: Math.cos(angle) * r,
+          y: Math.sin(angle) * r,
+          size: Math.random() * 1.6 + 0.7,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.0007 + Math.random() * 0.0012,
+          minOpacity: 0.35,
+          maxOpacity: 1,
+        });
+      }
+
+      const breatheDuration = 3200;
+      const rotateDuration = 26000;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function frame(t) {
+        ctx.clearRect(0, 0, size, size);
+
+        const breatheT = (t % (breatheDuration * 2)) / (breatheDuration * 2);
+        const breathe = (Math.sin(breatheT * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+        const scale = 0.94 + breathe * (1.06 - 0.94);
+
+        const rotateT = (t % rotateDuration) / rotateDuration;
+        const rotation = rotateT * Math.PI * 2;
+
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate(rotation);
+        ctx.scale(scale, scale);
+
+        particles.forEach((p) => {
+          const shimmer = (Math.sin(t * p.speed + p.phase) + 1) / 2;
+          const opacity = p.minOpacity + shimmer * (p.maxOpacity - p.minOpacity);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(20,19,15,${opacity})`;
+          ctx.fill();
+        });
+
+        ctx.restore();
+        if (!reduceMotion) requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    })();
+
+    // ---------- Header: tabs + scroll scrim ----------
+    (function initHeader() {
+      const header = document.querySelector('.site-header');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('siteTabsToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      if (header) {
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    })();
+
+    // ---------- Market Ready wizard ----------
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+    const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/market-ready-intake`;
+
+    const BASE_STEPS = ['property', 'situation', 'goal', 'photos', 'attention', 'services', 'contact'];
+
+    const state = {
+      property_info: '',
+      has_listing_link: false,
+      situation: '',
+      goal: '',
+      photo_paths: [],
+      special_attention: '',
+      optional_services: [],
+      contact_name: '',
+      email: '',
+      phone: '',
+    };
+
+    let requestId = null;
+    let currentIndex = 0;
+    const pendingUploads = new Set();
+
+    function visibleSteps() {
+      const steps = BASE_STEPS.filter((key) => key !== 'photos' || !state.has_listing_link);
+      return steps.concat(['review']);
+    }
+
+    function looksLikeListingLink(value) {
+      return /https?:\/\/|www\.|\.(com|net|org|io)(\/|\b)/i.test(value);
+    }
+
+    function show(panelId) {
+      document.querySelectorAll('#pageWizard .center-panel').forEach((el) => el.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+    }
+
+    async function callFunction(payload) {
+      const res = await fetch(FUNCTION_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Something went wrong.');
+      return data;
+    }
+
+    // ---------- Chip inputs ----------
+    document.querySelectorAll('.chip-grid').forEach((grid) => {
+      const field = grid.dataset.field;
+      grid.querySelectorAll('.chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+          const value = chip.dataset.value;
+          grid.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+          chip.classList.add('active');
+          state[field] = value;
+        });
+      });
+    });
+
+    // ---------- Checkbox inputs (optional services) ----------
+    document.querySelectorAll('.checkbox-item').forEach((item) => {
+      item.addEventListener('click', () => {
+        const value = item.dataset.value;
+        const idx = state.optional_services.indexOf(value);
+        if (idx === -1) {
+          state.optional_services.push(value);
+          item.classList.add('active');
+        } else {
+          state.optional_services.splice(idx, 1);
+          item.classList.remove('active');
+        }
+      });
+    });
+
+    document.getElementById('propertyInfo').addEventListener('input', (e) => { state.property_info = e.target.value; });
+    document.getElementById('specialAttention').addEventListener('input', (e) => { state.special_attention = e.target.value; });
+    document.getElementById('contactName').addEventListener('input', (e) => { state.contact_name = e.target.value; });
+    document.getElementById('contactEmail').addEventListener('input', (e) => { state.email = e.target.value; });
+    document.getElementById('contactPhone').addEventListener('input', (e) => { state.phone = e.target.value; });
+
+    // ---------- Photo upload ----------
+    const photoZone = document.getElementById('photoZone');
+    const photoInput = document.getElementById('photoInput');
+    const photoGrid = document.getElementById('photoGrid');
+
+    photoZone.addEventListener('click', () => photoInput.click());
+
+    function renderPhotoThumb(previewUrl) {
+      const thumb = document.createElement('div');
+      thumb.className = 'photo-thumb';
+      const img = document.createElement('img');
+      img.src = previewUrl;
+      thumb.appendChild(img);
+      const status = document.createElement('div');
+      status.className = 'photo-status';
+      status.textContent = 'Uploading…';
+      thumb.appendChild(status);
+      const removeBtn = document.createElement('button');
+      removeBtn.type = 'button';
+      removeBtn.className = 'photo-remove';
+      removeBtn.textContent = '×';
+      removeBtn.style.display = 'none';
+      thumb.appendChild(removeBtn);
+      photoGrid.appendChild(thumb);
+      return { thumb, status, removeBtn };
+    }
+
+    function refreshUploadGuard() {
+      if (visibleSteps()[currentIndex] !== 'photos') return;
+      if (pendingUploads.size > 0) {
+        nextBtn.disabled = true;
+        nextBtn.textContent = 'Uploading…';
+      } else {
+        nextBtn.disabled = false;
+        nextBtn.textContent = 'Next';
+      }
+    }
+
+    async function uploadPhoto(file) {
+      const previewUrl = URL.createObjectURL(file);
+      const { thumb, status, removeBtn } = renderPhotoThumb(previewUrl);
+      const safeName = file.name.replace(/[^a-zA-Z0-9.\-]/g, '_');
+      const path = `${requestId}/${Date.now()}-${safeName}`;
+      pendingUploads.add(path);
+      refreshUploadGuard();
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/storage/v1/object/market-ready-photos/${path}`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': file.type || 'application/octet-stream',
+          },
+          body: file,
+        });
+        if (!res.ok) throw new Error('upload failed');
+        state.photo_paths.push(path);
+        status.style.display = 'none';
+        removeBtn.style.display = 'flex';
+        removeBtn.addEventListener('click', () => {
+          const i = state.photo_paths.indexOf(path);
+          if (i !== -1) state.photo_paths.splice(i, 1);
+          thumb.remove();
+        });
+      } catch (err) {
+        status.textContent = 'Failed';
+        thumb.style.opacity = '0.5';
+      } finally {
+        pendingUploads.delete(path);
+        refreshUploadGuard();
+      }
+    }
+
+    photoInput.addEventListener('change', () => {
+      Array.from(photoInput.files || []).forEach(uploadPhoto);
+      photoInput.value = '';
+    });
+
+    // ---------- Step navigation ----------
+    const backBtn = document.getElementById('backBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const wizardNav = document.getElementById('wizardNav');
+    const wizardForm = document.getElementById('wizardForm');
+
+    function updateProgress() {
+      const steps = visibleSteps();
+      const stepKey = steps[currentIndex];
+      if (stepKey === 'review') {
+        document.getElementById('progressWrap').style.display = 'none';
+      } else {
+        document.getElementById('progressWrap').style.display = '';
+        const total = steps.length - 1;
+        const stepNum = currentIndex + 1;
+        document.getElementById('progressLabel').textContent = `Step ${stepNum} of ${total}`;
+        document.getElementById('progressFill').style.width = `${(stepNum / total) * 100}%`;
+      }
+    }
+
+    function renderReview() {
+      const rows = [
+        ['Property', state.property_info || '—'],
+        ['Situation', state.situation || '—'],
+        ['Biggest goal', state.goal || '—'],
+        ['Photos', state.photo_paths.length ? `${state.photo_paths.length} uploaded` : 'None uploaded'],
+        ['Special attention', state.special_attention || '—'],
+        ['Optional services', state.optional_services.join(', ') || 'None selected'],
+        ['Name', state.contact_name || '—'],
+        ['Email', state.email || '—'],
+        ['Phone', state.phone || '—'],
+      ];
+      const list = document.getElementById('reviewList');
+      list.innerHTML = '';
+      rows.forEach(([q, a]) => {
+        const item = document.createElement('div');
+        item.className = 'review-item';
+        item.innerHTML = `<p class="review-q">${q}</p><p class="review-a">${a}</p>`;
+        list.appendChild(item);
+      });
+    }
+
+    function goToStep(index) {
+      const steps = visibleSteps();
+      document.querySelectorAll('#wizardForm .step').forEach((el) => el.classList.remove('active'));
+      const stepKey = steps[index];
+      document.querySelector(`.step[data-step="${stepKey}"]`).classList.add('active');
+      currentIndex = index;
+      updateProgress();
+      backBtn.style.visibility = index === 0 ? 'hidden' : 'visible';
+      nextBtn.disabled = false;
+
+      if (stepKey === 'review') {
+        renderReview();
+        nextBtn.textContent = 'Submit';
+      } else {
+        nextBtn.textContent = 'Next';
+      }
+    }
+
+    async function saveProgress() {
+      try {
+        await callFunction({ action: 'save', requestId, fields: { ...state } });
+      } catch {
+        // Non-blocking -- if a save fails we still let them continue locally.
+      }
+    }
+
+    backBtn.addEventListener('click', () => {
+      if (currentIndex > 0) goToStep(currentIndex - 1);
+    });
+
+    nextBtn.addEventListener('click', async () => {
+      const steps = visibleSteps();
+      const stepKey = steps[currentIndex];
+
+      if (stepKey === 'property') {
+        state.has_listing_link = looksLikeListingLink(state.property_info.trim());
+      }
+
+      if (stepKey === 'contact') {
+        const name = state.contact_name.trim();
+        const email = state.email.trim();
+        const errorEl = document.getElementById('contactError');
+        if (!name || !email || !email.includes('@')) {
+          errorEl.classList.add('visible');
+          return;
+        }
+        errorEl.classList.remove('visible');
+      }
+
+      if (stepKey === 'review') {
+        nextBtn.disabled = true;
+        nextBtn.textContent = 'Submitting…';
+        const errorEl = document.getElementById('submitError');
+        errorEl.textContent = '';
+        errorEl.classList.remove('visible');
+        try {
+          await callFunction({ action: 'submit', requestId, fields: { ...state } });
+          wizardNav.style.display = 'none';
+          document.querySelectorAll('#wizardForm .step').forEach((el) => el.classList.remove('active'));
+          document.getElementById('progressWrap').style.display = 'none';
+          show('panelThanks');
+        } catch (err) {
+          errorEl.textContent = err.message || 'Something went wrong. Please try again.';
+          errorEl.classList.add('visible');
+          nextBtn.disabled = false;
+          nextBtn.textContent = 'Submit';
+        }
+        return;
+      }
+
+      await saveProgress();
+      goToStep(currentIndex + 1);
+    });
+
+    // ---------- Launch wizard from the offer CTA ----------
+    const startWizardBtn = document.getElementById('startWizardBtn');
+    const pageLanding = document.getElementById('pageLanding');
+    const pageWizard = document.getElementById('pageWizard');
+
+    startWizardBtn.addEventListener('click', async () => {
+      pageLanding.classList.remove('active');
+      pageWizard.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      show('panelStarting');
+
+      try {
+        const data = await callFunction({ action: 'start' });
+        requestId = data.requestId;
+        document.querySelectorAll('#pageWizard .center-panel').forEach((el) => el.classList.remove('active'));
+        wizardNav.style.display = '';
+        goToStep(0);
+      } catch (err) {
+        document.getElementById('startErrorMessage').textContent = err.message || "We couldn't start your request. Please try again.";
+        show('panelStartError');
+      }
+    });
+  </script>
+</body>
+</html>

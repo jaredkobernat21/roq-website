@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Renovate — ROQ Home</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Know what a renovation is worth before you start — what your block will carry, and where the money stops coming back." />
+<link rel="canonical" href="https://roqhome.com/renovate.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ Home" />
+<meta property="og:title" content="Renovate — ROQ Home" />
+<meta property="og:description" content="Know what a renovation is worth before you start — what your block will carry, and where the money stops coming back." />
+<meta property="og:url" content="https://roqhome.com/renovate.html" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/renovate-hero.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Renovate — ROQ Home" />
+<meta name="twitter:description" content="Know what a renovation is worth before you start — what your block will carry, and where the money stops coming back." />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/renovate-hero.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --gold: #C8A882;
+    --panel: #1D1D1B;
+    --border: rgba(255,255,255,0.08);
+    --danger: #C97A6A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--gold); color: #14110B; }
+
+  /* ---------- Site header ----------
+     Self-contained: every value it needs is declared here, so the same
+     block drops onto the dark pages and the light ones alike. Pages with
+     a light background add class="on-light" to <header>. */
+
+  .site-header {
+    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
+  }
+
+  .site-header.on-light {
+    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg-strong: #14130F;
+    --nav-accent: #A66F30;
+    --nav-scrim: 255,255,255;
+    --nav-solid: rgba(255,255,255,0.90);
+    --nav-border: rgba(20,19,15,0.12);
+    --nav-panel: rgba(255,255,255,0.98);
+    --nav-shadow: none;
+  }
+
+  /* The tabs sit over whatever the hero is — a dusk sky, a night render, a
+     cream panel. A top-down scrim keeps them legible on all of them, and
+     fades out once the solid scrolled background takes over. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
+  }
+
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  /* Pages whose content starts below the header — rather than running under
+     a floating one — hold their own space and keep a background at all times. */
+  .site-header.inflow {
+    position: sticky;
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-header.inflow::before { display: none; }
+
+  .site-logo { display: flex; }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--nav-fg-strong);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.1vw, 30px);
+  }
+
+  .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
+  }
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+
+  .site-tabs a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1px;
+    background: var(--nav-accent);
+  }
+
+  .site-tabs-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+
+    .site-tabs-toggle span::before,
+    .site-tabs-toggle span::after,
+    .site-tabs-toggle span i {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--nav-fg-strong);
+    }
+
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+
+    .site-tabs {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: clamp(24px, 5vw, 64px);
+      min-width: 170px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--nav-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border);
+      border-radius: 14px;
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+
+    .site-tabs.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
+
+
+  /* ---------- Page hero ---------- */
+
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .pagehero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pagehero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(18,16,13,0.62) 0%,
+      rgba(18,16,13,0.34) 30%,
+      rgba(18,16,13,0.54) 60%,
+      rgba(18,16,13,0.86) 100%
+    );
+  }
+
+  .pagehero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    max-width: 17ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+  }
+
+  @media (max-width: 640px) {
+    .pagehero { padding: 104px 24px 84px; }
+    .pagehero-headline { font-size: 31px; max-width: 14ch; }
+  }
+
+  /* ---------- Hero / intro ---------- */
+
+  main { flex: 1; }
+
+  .intro {
+    max-width: 640px;
+    margin: 0 auto;
+    text-align: center;
+    padding: clamp(40px, 7vh, 80px) clamp(24px, 6vw, 64px) clamp(28px, 4vh, 40px);
+  }
+
+  .intro-orb-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.9s var(--ease) 0.1s forwards;
+  }
+
+  .intro-orb {
+    width: clamp(96px, 13vw, 140px);
+    height: clamp(96px, 13vw, 140px);
+    filter: drop-shadow(0 0 28px rgba(255,255,255,0.24));
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .intro-orb-wrap { animation: none !important; opacity: 1 !important; transform: none !important; }
+  }
+
+  .intro-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(30px, 4.6vw, 48px);
+    line-height: 1.2;
+    margin-bottom: 18px;
+  }
+
+  .intro-sub {
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 46ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- Form ---------- */
+
+  .form-wrap {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 0 clamp(24px, 6vw, 64px) clamp(20px, 3vh, 32px);
+  }
+
+  .address-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .field-row label {
+    display: block;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 8px;
+  }
+
+  .field-row .optional-tag {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 10px;
+    color: var(--ink-faint);
+    opacity: 0.7;
+  }
+
+  .field-row input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .field-row input::placeholder { color: var(--ink-faint); }
+
+  .field-row input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .address-submit {
+    margin-top: 4px;
+    width: 100%;
+    background: var(--ink);
+    color: #14110B;
+    border: none;
+    border-radius: 14px;
+    padding: 17px 26px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+
+  .address-submit:hover { background: var(--gold); }
+  .address-submit:active { transform: scale(0.97); }
+  .address-submit:disabled { opacity: 0.55; cursor: default; }
+
+  .form-hint {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .form-error {
+    margin-top: 14px;
+    font-size: 13px;
+    color: var(--danger);
+    display: none;
+  }
+
+  .form-error.visible { display: block; }
+
+  /* ---------- Loading ---------- */
+
+  .loading-row {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    margin-top: 18px;
+    font-size: 13px;
+    color: var(--ink-dim);
+  }
+
+  .loading-row.visible { display: flex; }
+
+  .spinner {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    border-top-color: var(--gold);
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ---------- Results ---------- */
+
+  .results {
+    display: none;
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(12px, 2vh, 20px) clamp(24px, 6vw, 64px) clamp(80px, 10vh, 120px);
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+  }
+
+  .results.visible { display: block; }
+  .results.in { opacity: 1; transform: translateY(0); }
+
+  .results-address {
+    font-size: 13px;
+    color: var(--ink-faint);
+    text-align: center;
+    margin-bottom: 28px;
+  }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+
+  @media (max-width: 640px) {
+    .stat-grid { grid-template-columns: 1fr; }
+  }
+
+  .stat-grid.single {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stat-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+
+  .stat-card.highlight { border-color: rgba(200,168,130,0.4); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 10px;
+  }
+
+  .stat-value {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 3vw, 28px);
+    color: var(--ink);
+    line-height: 1.2;
+  }
+
+  .stat-value .gold { color: var(--gold); }
+
+  .stat-note {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    line-height: 1.5;
+  }
+
+  .preview-tag {
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 18px;
+  }
+
+  .preview-disclaimer {
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    text-align: center;
+    max-width: 52ch;
+    margin: 0 auto 24px;
+  }
+
+  .risk-banner {
+    display: none;
+    background: rgba(200,122,106,0.1);
+    border: 1px solid rgba(200,122,106,0.3);
+    border-radius: 14px;
+    padding: 16px 20px;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--ink-dim);
+    margin-bottom: 24px;
+  }
+
+  .risk-banner.visible { display: block; }
+
+  .confidence-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--ink-faint);
+    margin-bottom: 32px;
+  }
+
+  .confidence-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .confidence-dot.high { background: #8FBF8F; }
+  .confidence-dot.medium { background: var(--gold); }
+  .confidence-dot.low { background: var(--danger); }
+
+  .insight-card {
+    background: var(--panel);
+    border: 1px solid rgba(200,168,130,0.4);
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .insight-headline {
+    font-family: 'Lora', serif;
+    font-size: clamp(20px, 2.6vw, 26px);
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .insight-message {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--ink-dim);
+    max-width: 48ch;
+    margin: 0 auto;
+  }
+
+  /* ---------- Report CTA ---------- */
+
+  .report-cta {
+    background: linear-gradient(180deg, rgba(200,168,130,0.08), rgba(200,168,130,0.02));
+    border: 1px solid rgba(200,168,130,0.35);
+    border-radius: 20px;
+    padding: clamp(28px, 4vw, 36px) clamp(22px, 4vw, 32px);
+    text-align: center;
+    margin: 8px 0 28px;
+  }
+
+  .report-cta-eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+
+  .report-cta-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(19px, 2.4vw, 24px);
+    margin-bottom: 20px;
+  }
+
+  .report-cta-list {
+    list-style: none;
+    display: inline-flex;
+    flex-direction: column;
+    gap: 9px;
+    margin: 0 auto 26px;
+    text-align: left;
+    font-size: 14px;
+    color: var(--ink-dim);
+  }
+
+  .report-cta-list li {
+    padding-left: 22px;
+    position: relative;
+  }
+
+  .report-cta-list li::before {
+    content: '\2713';
+    position: absolute;
+    left: 0;
+    color: var(--gold);
+  }
+
+  .report-cta-form {
+    display: flex;
+    gap: 10px;
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .report-cta-form input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 14px 20px;
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+  }
+
+  .report-cta-form input::placeholder { color: var(--ink-faint); }
+
+  .report-cta-form input:focus {
+    border-color: rgba(200,168,130,0.5);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .report-cta-form button {
+    background: var(--gold);
+    color: #14110B;
+    border: none;
+    border-radius: 30px;
+    padding: 14px 24px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.25s var(--ease), transform 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+
+  .report-cta-form button:hover { background: #ddc9a8; }
+  .report-cta-form button:active { transform: scale(0.97); }
+  .report-cta-form button:disabled { opacity: 0.6; cursor: default; }
+
+  .report-cta-note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--ink-faint);
+  }
+
+  .report-cta-msg {
+    margin-top: 12px;
+    font-size: 13px;
+    min-height: 16px;
+    color: var(--ink-dim);
+  }
+
+  .report-cta-msg.success { color: var(--gold); }
+  .report-cta-msg.error { color: var(--danger); }
+
+  @media (max-width: 520px) {
+    .report-cta-form { flex-direction: column; }
+  }
+
+  .disclaimer {
+    margin-top: 28px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Waitlist ---------- */
+
+  .beta-note {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: clamp(72px, 11vh, 110px) clamp(24px, 6vw, 64px);
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border);
+  }
+
+  .beta-headline {
+    font-family: 'Lora', serif;
+    font-size: clamp(24px, 3vw, 34px);
+    margin-bottom: 16px;
+  }
+
+  .close-sub {
+    font-size: 15px;
+    color: var(--ink-dim);
+    max-width: 42ch;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+
+  /* ---------- App Store CTA ---------- */
+
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    /* Slightly more room on the right than the left: the mark is optically
+       heavier than the text edge, so symmetric padding reads off-centre. */
+    padding: 17px 36px 17px 30px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #14110B;
+    border: 1px solid var(--ink);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .appstore-btn:active { transform: scale(0.985); }
+
+  .appstore-btn svg {
+    width: 27px;
+    height: 27px;
+    flex: none;
+    fill: currentColor;
+    /* the glyph's mass sits low; nudge it onto the type's optical centre */
+    margin-top: -2px;
+  }
+
+  .appstore-btn-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    text-align: left;
+  }
+
+  .appstore-btn-label small {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 4px;
+  }
+
+  .appstore-btn-label b {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .appstore-meta {
+    margin-top: 20px;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg-deep);
+    padding: 48px clamp(24px, 5vw, 64px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.7; }
+  .footer-left .logo-mark path { stroke: var(--ink-dim); }
+
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+
+  .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .feature {
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .intro { padding: 36px 24px 22px; }
+    .intro-title { font-size: 30px; line-height: 1.15; }
+    .intro-sub { font-size: 15.5px; line-height: 1.6; }
+
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/build.html">Build</a>
+      <a href="/dream.html">Design</a>
+      <a href="/manage.html">Own</a>
+      <a href="/renovate.html" class="active" aria-current="page">Improve</a>
+      <a href="/move.html">Move</a>
+      <a href="/understand.html">Understand</a>
+    </nav>
+
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
+            aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
+  </header>
+
+
+  <section class="pagehero">
+    <img class="pagehero-img" src="/assets/hero/renovate-hero.jpg" alt="A home mid-renovation, floor plans and material samples on the table" style="object-position: 50% 55%" />
+    <div class="pagehero-scrim"></div>
+    <h1 class="pagehero-headline">Don&rsquo;t over renovate your home</h1>
+  </section>
+
+  <section class="intro">
+      <div class="intro-orb-wrap">
+        <canvas class="intro-orb" id="introOrb" width="140" height="140"></canvas>
+      </div>
+      <h2 class="intro-title">Home Potential</h2>
+      <p class="intro-sub">Discover your home's neighborhood ceiling and renovation potential to maximize your ROI (Return on investment) for improvements.</p>
+    </section>
+
+    <section class="form-wrap">
+      <form class="address-form" id="addressForm">
+        <div class="field-row">
+          <label for="addressInput">Address</label>
+          <input
+            type="text"
+            id="addressInput"
+            placeholder="123 Main St, City, State ZIP"
+            autocomplete="street-address"
+            required
+          />
+        </div>
+        <div class="field-row">
+          <label for="refineBeds">Bedrooms <span class="optional-tag">Optional</span></label>
+          <input type="number" id="refineBeds" min="0" max="20" step="1" placeholder="3" />
+        </div>
+        <div class="field-row">
+          <label for="refineBaths">Bathrooms <span class="optional-tag">Optional</span></label>
+          <input type="number" id="refineBaths" min="0" max="20" step="0.5" placeholder="2.5" />
+        </div>
+        <div class="field-row">
+          <label for="refineSqft">Square footage <span class="optional-tag">Optional</span></label>
+          <input type="number" id="refineSqft" min="100" max="50000" step="1" placeholder="1800" />
+        </div>
+        <button type="submit" class="address-submit" id="addressSubmit">See Potential</button>
+      </form>
+      <p class="form-hint">Adding your bed/bath/sqft helps most when public records are incomplete for your address.</p>
+
+      <p class="form-error" id="formError"></p>
+      <div class="loading-row" id="loadingRow">
+        <span class="spinner"></span>
+        <span>Pulling comps for your block&hellip;</span>
+      </div>
+    </section>
+
+    <section class="results" id="results">
+      <p class="results-address" id="resultAddress"></p>
+      <p class="preview-tag">Quick Automated Preview</p>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <p class="stat-label">Estimated Value</p>
+          <p class="stat-value" id="statValue">&mdash;</p>
+          <p class="stat-note" id="valueSourceNote"></p>
+        </div>
+        <div class="stat-card highlight">
+          <p class="stat-label">Neighborhood Ceiling</p>
+          <p class="stat-value gold" id="statCeiling">&mdash;</p>
+          <p class="stat-note">Top of what buyers pay on this block, based on comparable listings</p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-label">Renovation Potential</p>
+          <p class="stat-value" id="statRenovation">&mdash;</p>
+          <p class="stat-note">Realistic headroom before you're over-improving for the block</p>
+        </div>
+      </div>
+
+      <p class="preview-disclaimer">This preview is generated from a quick, automated analysis of comparable listings and public property data. It's designed to give you an initial read &mdash; not a comprehensive valuation or appraisal.</p>
+
+      <div class="insight-card">
+        <p class="insight-headline" id="insightHeadline"></p>
+        <p class="insight-message" id="insightMessage"></p>
+      </div>
+
+      <div class="confidence-row">
+        <span class="confidence-dot" id="confidenceDot"></span>
+        <span id="confidenceText"></span>
+      </div>
+
+      <p class="risk-banner" id="sqftNote">Public records don't list a square footage for this property, so we can't size-match it against nearby comps. This estimate leans on the provider's broader valuation model instead &mdash; treat it as a rough starting point.</p>
+
+      <div class="report-cta">
+        <p class="report-cta-eyebrow">Home Potential Strategy &middot; $99</p>
+        <h3 class="report-cta-title">Unlock your home's full potential</h3>
+        <ul class="report-cta-list">
+          <li>Prioritized improvement opportunities</li>
+          <li>Personally reviewed comparable properties</li>
+          <li>Refined home value &amp; neighborhood ceiling</li>
+          <li>Project budget &amp; ROI estimates</li>
+          <li>5 year strategy</li>
+          <li>Market ready checklist</li>
+          <li>Personalized home identity</li>
+          <li>Home concept recommendations</li>
+          <li>Rental income estimate</li>
+          <li>Contractor matching (optional)</li>
+          <li>Recommended next steps</li>
+        </ul>
+        <form class="report-cta-form" id="reportForm">
+          <input
+            type="email"
+            id="reportEmail"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+          />
+          <button type="submit" id="reportSubmit">Build My Strategy</button>
+        </form>
+        <p class="report-cta-note">Your personalized Home Potential Strategy will be delivered within 24&ndash;48 hours.</p>
+        <p class="report-cta-msg" id="reportMsg"></p>
+      </div>
+
+      <p class="disclaimer">Renovation potential is a market ceiling, not a guaranteed return &mdash; actual resale value depends on the scope and quality of the work. Figures update as market data changes.</p>
+    </section>
+
+  <section class="beta-note">
+    <h2 class="beta-headline">Renovation planning lives in the ROQ app.</h2>
+    <p class="close-sub">See what your block will carry before you commit to the spend.</p>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
+    <p class="appstore-meta">Free on iPhone &middot; Requires iOS 15.1 or later</p>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="https://roqbusiness.com">ROQ Business</a>
+      <a href="/about.html">Story</a>
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/legal/roq-terms.html">Terms</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+
+  <script>
+    // ---------- ROQ orb ----------
+    // Same living particle sphere used on the homepage -- a breathing,
+    // slowly rotating cluster of shimmering white points.
+    (function initRoqOrb() {
+      const canvas = document.getElementById('introOrb');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const dpr = window.devicePixelRatio || 1;
+      const size = canvas.width;
+      canvas.width = size * dpr;
+      canvas.height = size * dpr;
+      ctx.scale(dpr, dpr);
+
+      const center = size / 2;
+      const radius = size * 0.46;
+      const count = Math.round(24 + size * 0.9);
+
+      const particles = [];
+      for (let i = 0; i < count; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const r = Math.pow(Math.random(), 0.55) * radius;
+        particles.push({
+          x: Math.cos(angle) * r,
+          y: Math.sin(angle) * r,
+          size: Math.random() * 1.6 + 0.7,
+          phase: Math.random() * Math.PI * 2,
+          speed: 0.0007 + Math.random() * 0.0012,
+          minOpacity: 0.35,
+          maxOpacity: 1,
+        });
+      }
+
+      const breatheDuration = 3200; // ms, half-cycle
+      const rotateDuration = 26000; // ms, full rotation
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      function frame(t) {
+        ctx.clearRect(0, 0, size, size);
+
+        const breatheT = (t % (breatheDuration * 2)) / (breatheDuration * 2);
+        const breathe = (Math.sin(breatheT * Math.PI * 2 - Math.PI / 2) + 1) / 2;
+        const scale = 0.94 + breathe * (1.06 - 0.94);
+
+        const rotateT = (t % rotateDuration) / rotateDuration;
+        const rotation = rotateT * Math.PI * 2;
+
+        ctx.save();
+        ctx.translate(center, center);
+        ctx.rotate(rotation);
+        ctx.scale(scale, scale);
+
+        particles.forEach((p) => {
+          const shimmer = (Math.sin(t * p.speed + p.phase) + 1) / 2;
+          const opacity = p.minOpacity + shimmer * (p.maxOpacity - p.minOpacity);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.size / 2, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255,255,255,${opacity})`;
+          ctx.fill();
+        });
+
+        ctx.restore();
+        if (!reduceMotion) requestAnimationFrame(frame);
+      }
+
+      requestAnimationFrame(frame);
+    })();
+
+
+    // ---------- Header: tabs + scroll scrim ----------
+    (function initHeader() {
+      const header = document.querySelector('.site-header');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('siteTabsToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      if (header) {
+        // The page opens on a full-height render, so the header keeps its
+        // transparent treatment until the hero has passed under it.
+        const hero = document.querySelector('.pagehero');
+        const threshold = () =>
+          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+      }
+    })();
+
+    // ---------- Home Potential lookup ----------
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+
+    const form = document.getElementById('addressForm');
+    const addressInput = document.getElementById('addressInput');
+    const submitBtn = document.getElementById('addressSubmit');
+    const formError = document.getElementById('formError');
+    const loadingRow = document.getElementById('loadingRow');
+    const results = document.getElementById('results');
+
+    const money = (n) => {
+      if (n == null) return '—';
+      return '$' + Math.round(n).toLocaleString('en-US');
+    };
+
+    const moneyK = (n) => {
+      if (n == null) return '—';
+      const k = Math.round(n / 1000);
+      return '$' + k.toLocaleString('en-US') + 'K';
+    };
+
+    function showError(message) {
+      formError.textContent = message;
+      formError.classList.add('visible');
+    }
+
+    function clearError() {
+      formError.textContent = '';
+      formError.classList.remove('visible');
+    }
+
+    let currentPreviewId = null;
+
+    function renderResults(data, addressTyped) {
+      currentPreviewId = data.previewId || null;
+
+      document.getElementById('resultAddress').textContent = data.subject?.address || addressTyped;
+      document.getElementById('statValue').textContent = money(data.estimatedValue);
+
+      const valueSourceNote = document.getElementById('valueSourceNote');
+      if (data.valueSource === 'recent_sale' && data.lastSaleDate) {
+        const saleMonth = new Date(data.lastSaleDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
+        valueSourceNote.textContent = 'Based on this home’s recorded sale in ' + saleMonth;
+      } else {
+        valueSourceNote.textContent = 'Automated market estimate';
+      }
+
+      document.getElementById('statCeiling').innerHTML =
+        moneyK(data.ceiling.low) + '&ndash;' + moneyK(data.ceiling.high);
+      document.getElementById('statRenovation').innerHTML =
+        moneyK(data.renovationPotential.low) + '&ndash;' + moneyK(data.renovationPotential.high);
+
+      document.getElementById('insightHeadline').textContent = data.gapHeadline || '';
+      document.getElementById('insightMessage').textContent = data.gapMessage || '';
+
+      const confidenceDot = document.getElementById('confidenceDot');
+      const confidenceText = document.getElementById('confidenceText');
+      confidenceDot.className = 'confidence-dot ' + data.confidence;
+      const confidenceLabel = { high: 'High', medium: 'Medium', low: 'Low' }[data.confidence] || 'Low';
+      confidenceText.textContent = confidenceLabel + ' confidence · ' + data.compsUsed + ' comparable listings nearby';
+
+      document.getElementById('sqftNote').classList.toggle('visible', data.squareFootageAvailable === false);
+
+      const reportForm = document.getElementById('reportForm');
+      const reportMsg = document.getElementById('reportMsg');
+      reportForm.reset();
+      reportForm.style.display = '';
+      reportMsg.textContent = '';
+      reportMsg.className = 'report-cta-msg';
+
+      results.classList.add('visible');
+      requestAnimationFrame(() => results.classList.add('in'));
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const address = addressInput.value.trim();
+      clearError();
+      results.classList.remove('visible', 'in');
+
+      if (address.length < 8 || !/\d/.test(address)) {
+        showError('Please enter a full street address, city, state, and ZIP.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Checking…';
+      loadingRow.classList.add('visible');
+
+      const bedsVal = parseFloat(document.getElementById('refineBeds').value);
+      const bathsVal = parseFloat(document.getElementById('refineBaths').value);
+      const sqftVal = parseFloat(document.getElementById('refineSqft').value);
+
+      const payload = { address };
+      if (!Number.isNaN(bedsVal)) payload.bedrooms = bedsVal;
+      if (!Number.isNaN(bathsVal)) payload.bathrooms = bathsVal;
+      if (!Number.isNaN(sqftVal)) payload.squareFootage = sqftVal;
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/home-potential`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          showError(data.error || 'Something went wrong. Please try again.');
+          return;
+        }
+
+        renderResults(data, address);
+      } catch (err) {
+        showError('Something went wrong reaching the server. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'See Potential';
+        loadingRow.classList.remove('visible');
+      }
+    });
+
+    // ---------- Full report request ----------
+    const reportForm = document.getElementById('reportForm');
+    const reportEmail = document.getElementById('reportEmail');
+    const reportSubmit = document.getElementById('reportSubmit');
+    const reportMsg = document.getElementById('reportMsg');
+
+    reportForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = reportEmail.value.trim();
+      if (!email || !currentPreviewId) return;
+
+      reportSubmit.disabled = true;
+      reportSubmit.textContent = 'Sending…';
+      reportMsg.textContent = '';
+      reportMsg.className = 'report-cta-msg';
+
+      try {
+        const res = await fetch(`${SUPABASE_URL}/functions/v1/home-potential`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({ previewId: currentPreviewId, email }),
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) {
+          reportMsg.textContent = data.error || 'Something went wrong. Please try again.';
+          reportMsg.className = 'report-cta-msg error';
+          return;
+        }
+
+        reportMsg.textContent = "Got it — your personalized Home Potential Strategy will be delivered within 24–48 hours.";
+        reportMsg.className = 'report-cta-msg success';
+        reportForm.style.display = 'none';
+      } catch (err) {
+        reportMsg.textContent = 'Something went wrong reaching the server. Please try again.';
+        reportMsg.className = 'report-cta-msg error';
+      } finally {
+        reportSubmit.disabled = false;
+        reportSubmit.textContent = 'Build My Strategy';
+      }
+    });
+
+
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dream — ROQ Home</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Enter your address to see your home's estimated value, your neighborhood's price ceiling, and how much renovation headroom you actually have — from ROQ Home." />
+<link rel="canonical" href="https://roqhome.com/dream.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ Home" />
+<meta property="og:title" content="Dream — ROQ Home" />
+<meta property="og:description" content="Enter your address to see your home's estimated value, your neighborhood's price ceiling, and how much renovation headroom you actually have — from ROQ Home." />
+<meta property="og:url" content="https://roqhome.com/dream.html" />
+<meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Dream — ROQ Home" />
+<meta name="twitter:description" content="Enter your address to see your home's estimated value, your neighborhood's price ceiling, and how much renovation headroom you actually have — from ROQ Home." />
+<meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #171716;
+    --bg-deep: #0D0D0C;
+    --panel: #1D1D1B;
+    --ink: #FFFFFF;
+    --ink-dim: #A8A6A2;
+    --ink-faint: #6B6966;
+    --gold: #C8A882;
+    --border: rgba(255,255,255,0.08);
+    --danger: #C97A6A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  ::selection { background: var(--gold); color: #14110B; }
+
+  /* ---------- Site header ----------
+     Self-contained: every value it needs is declared here, so the same
+     block drops onto the dark pages and the light ones alike. Pages with
+     a light background add class="on-light" to <header>. */
+
+  .site-header {
+    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
+  }
+
+  .site-header.on-light {
+    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg-strong: #14130F;
+    --nav-accent: #A66F30;
+    --nav-scrim: 255,255,255;
+    --nav-solid: rgba(255,255,255,0.90);
+    --nav-border: rgba(20,19,15,0.12);
+    --nav-panel: rgba(255,255,255,0.98);
+    --nav-shadow: none;
+  }
+
+  /* The tabs sit over whatever the hero is — a dusk sky, a night render, a
+     cream panel. A top-down scrim keeps them legible on all of them, and
+     fades out once the solid scrolled background takes over. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
+  }
+
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  /* Pages whose content starts below the header — rather than running under
+     a floating one — hold their own space and keep a background at all times. */
+  .site-header.inflow {
+    position: sticky;
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-header.inflow::before { display: none; }
+
+  .site-logo { display: flex; }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--nav-fg-strong);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.1vw, 30px);
+  }
+
+  .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
+  }
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+
+  .site-tabs a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1px;
+    background: var(--nav-accent);
+  }
+
+  .site-tabs-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+
+    .site-tabs-toggle span::before,
+    .site-tabs-toggle span::after,
+    .site-tabs-toggle span i {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--nav-fg-strong);
+    }
+
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+
+    .site-tabs {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: clamp(24px, 5vw, 64px);
+      min-width: 170px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--nav-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border);
+      border-radius: 14px;
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+
+    .site-tabs.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
+
+  /* ---------- Page hero ---------- */
+
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .pagehero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pagehero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+      to bottom,
+      rgba(18,16,13,0.62) 0%,
+      rgba(18,16,13,0.34) 30%,
+      rgba(18,16,13,0.54) 60%,
+      rgba(18,16,13,0.86) 100%
+    );
+  }
+
+  .pagehero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    max-width: 17ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+  }
+
+  @media (max-width: 640px) {
+    .pagehero { padding: 104px 24px 84px; }
+    .pagehero-headline { font-size: 31px; max-width: 14ch; }
+  }
+
+  /* ---------- ROQ Design offer ----------
+     A self-contained reading of the DESIGNOFFER sheet. It carries its own
+     light and dark bands the way the sheet does, so every value it needs is
+     declared here rather than inherited from this page's dark theme. */
+
+  .do {
+    --do-cream: #F2EFE9;
+    --do-cream-deep: #EAE6DE;
+    --do-ink: #23211E;
+    --do-ink-dim: #55524C;
+    --do-dark: #14120F;
+    --do-gold: #B08D57;
+    --do-pad: clamp(28px, 5vw, 72px);
+    background: var(--do-cream);
+    color: var(--do-ink);
+  }
+
+  .do-serif {
+    font-family: 'Cormorant Garamond', 'Lora', Georgia, serif;
+    font-weight: 400;
+  }
+
+  /* ---- hero ---- */
+
+  .do-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: clamp(320px, 40vw, 520px);
+    padding: clamp(32px, 5vw, 68px) var(--do-pad);
+    background: #0E0D0B;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .do-hero img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 62% 50%;
+  }
+
+  /* The sheet keeps its title legible over the trees on the left, so the
+     scrim is heaviest there and clears by the middle of the house. */
+  .do-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(100deg,
+      rgba(12,11,9,0.88) 0%,
+      rgba(12,11,9,0.66) 32%,
+      rgba(12,11,9,0.24) 58%,
+      rgba(12,11,9,0.10) 100%);
+  }
+
+  .do-hero-inner { max-width: 34ch; }
+
+  .do-hero h2 {
+    font-size: clamp(44px, 7vw, 92px);
+    line-height: 0.98;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+  }
+
+  .do-rule {
+    width: 58px;
+    height: 1px;
+    margin: clamp(16px, 2vw, 26px) 0;
+    background: var(--do-gold);
+    border: 0;
+  }
+
+  .do-hero-lede {
+    font-size: clamp(19px, 2.1vw, 27px);
+    line-height: 1.3;
+    color: #FFFFFF;
+  }
+
+  .do-hero p:last-child {
+    max-width: 42ch;
+    margin-top: clamp(12px, 1.6vw, 20px);
+    font-size: clamp(14px, 1.3vw, 16px);
+    line-height: 1.6;
+    color: rgba(255,255,255,0.86);
+  }
+
+  /* ---- what you get / deliverables ---- */
+
+  .do-mid {
+    display: grid;
+    grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+    gap: clamp(28px, 4vw, 60px);
+    padding: clamp(36px, 4.5vw, 68px) var(--do-pad);
+  }
+
+  .do-mid > * + * {
+    padding-left: clamp(28px, 4vw, 60px);
+    border-left: 1px solid rgba(35,33,30,0.12);
+  }
+
+  .do-h3 {
+    margin-bottom: clamp(20px, 2.6vw, 34px);
+    font-size: clamp(17px, 1.7vw, 22px);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .do-gets { list-style: none; display: grid; gap: clamp(16px, 2vw, 26px); }
+
+  .do-get { display: flex; gap: 16px; align-items: flex-start; }
+
+  .do-get svg {
+    flex: 0 0 auto;
+    width: 40px;
+    height: 40px;
+    fill: none;
+    stroke: var(--do-gold);
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .do-get h4 {
+    margin-bottom: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+    letter-spacing: 0.045em;
+    text-transform: uppercase;
+  }
+
+  .do-get p, .do-card p {
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--do-ink-dim);
+    text-wrap: pretty;
+  }
+
+  .do-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 26px);
+  }
+
+  .do-card img {
+    width: 100%;
+    aspect-ratio: 5 / 4;
+    object-fit: cover;
+    display: block;
+  }
+
+  .do-card h4 {
+    margin: 12px 0 5px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ---- experience + price ---- */
+
+  .do-low {
+    display: grid;
+    grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr);
+  }
+
+  .do-exp {
+    padding: clamp(30px, 3.6vw, 52px) clamp(24px, 3.2vw, 46px);
+    background: var(--do-dark);
+    color: #FFFFFF;
+  }
+
+  .do-exp .do-h3 { margin-bottom: 10px; }
+
+  .do-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(6px, 1vw, 14px);
+    margin-top: clamp(20px, 2.4vw, 30px);
+  }
+
+  .do-step { flex: 1 1 0; min-width: 0; text-align: center; }
+
+  .do-step svg {
+    width: clamp(34px, 3.4vw, 46px);
+    height: clamp(34px, 3.4vw, 46px);
+    margin: 0 auto clamp(12px, 1.6vw, 20px);
+    fill: none;
+    stroke: var(--do-gold);
+    stroke-width: 1.3;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .do-step h4 {
+    margin-bottom: 8px;
+    font-size: clamp(11px, 1.05vw, 13px);
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .do-step p {
+    font-size: clamp(10.5px, 1vw, 12.5px);
+    line-height: 1.5;
+    color: rgba(255,255,255,0.8);
+    text-wrap: pretty;
+  }
+
+  .do-arrow {
+    flex: 0 0 auto;
+    align-self: flex-start;
+    margin-top: clamp(14px, 1.5vw, 20px);
+    color: var(--do-gold);
+    font-size: clamp(13px, 1.3vw, 17px);
+    line-height: 1;
+  }
+
+  .do-price {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(30px, 3.6vw, 52px) clamp(24px, 3vw, 44px);
+    background: var(--do-cream-deep);
+  }
+
+  .do-price-fig { font-size: clamp(40px, 4.4vw, 62px); line-height: 1; }
+
+  .do-price-name {
+    margin-top: 6px;
+    font-size: clamp(19px, 2vw, 28px);
+    letter-spacing: 0.14em;
+  }
+
+  .do-price h4 {
+    font-size: clamp(14px, 1.3vw, 16px);
+    font-weight: 600;
+  }
+
+  .do-price p {
+    margin-top: 14px;
+    font-size: clamp(13px, 1.25vw, 15px);
+    line-height: 1.6;
+    color: var(--do-ink-dim);
+  }
+
+  /* ---- fine print + closing ---- */
+
+  .do-foot {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.55fr);
+  }
+
+  .do-fine {
+    padding: clamp(28px, 3.4vw, 48px) clamp(24px, 3.4vw, 48px);
+    background: var(--do-cream);
+  }
+
+  .do-fine h4 {
+    margin-bottom: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .do-fine p {
+    font-size: 12px;
+    line-height: 1.75;
+    color: var(--do-ink-dim);
+    text-wrap: pretty;
+  }
+
+  .do-closing {
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    min-height: 250px;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .do-closing img {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 55%;
+  }
+
+  .do-closing-panel {
+    width: min(60%, 420px);
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(20px, 2.6vw, 34px);
+    background: rgba(16,14,12,0.86);
+    color: #FFFFFF;
+  }
+
+  .do-closing-panel h4 {
+    font-size: clamp(13px, 1.35vw, 17px);
+    font-weight: 600;
+    line-height: 1.45;
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+  }
+
+  .do-closing-panel p {
+    font-size: clamp(12.5px, 1.25vw, 15px);
+    line-height: 1.6;
+    color: rgba(255,255,255,0.9);
+  }
+
+  @media (max-width: 900px) {
+    .do-mid { grid-template-columns: minmax(0, 1fr); }
+    .do-mid > * + * { padding-left: 0; border-left: 0; padding-top: 30px; border-top: 1px solid rgba(35,33,30,0.12); }
+    .do-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .do-low, .do-foot { grid-template-columns: minmax(0, 1fr); }
+    .do-steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; text-align: left; }
+    .do-step { text-align: left; }
+    .do-step svg { margin-left: 0; }
+    .do-arrow { display: none; }
+    .do-closing { min-height: 300px; }
+    .do-closing-panel { width: min(78%, 460px); }
+  }
+
+  @media (max-width: 560px) {
+    .do-cards { grid-template-columns: minmax(0, 1fr); }
+    .do-steps { grid-template-columns: minmax(0, 1fr); }
+    .do-closing-panel { width: 100%; }
+  }
+
+  /* ---------- Waitlist strip ---------- */
+
+  .waitlist-strip {
+    background: var(--bg-deep);
+    border-top: 1px solid var(--border);
+    padding: clamp(56px, 9vh, 90px) clamp(24px, 6vw, 64px);
+    text-align: center;
+  }
+
+  .waitlist-strip-title {
+    font-family: 'Lora', serif;
+    font-size: clamp(22px, 2.8vw, 30px);
+    margin-bottom: 12px;
+  }
+
+  .waitlist-strip-sub {
+    font-size: 14px;
+    color: var(--ink-dim);
+    max-width: 44ch;
+    margin: 0 auto 32px;
+    line-height: 1.6;
+  }
+
+
+  /* ---------- App Store CTA ---------- */
+
+  .appstore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    /* Slightly more room on the right than the left: the mark is optically
+       heavier than the text edge, so symmetric padding reads off-centre. */
+    padding: 17px 36px 17px 30px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #14110B;
+    border: 1px solid var(--ink);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .appstore-btn:hover { background: var(--gold); border-color: var(--gold); }
+  .appstore-btn:active { transform: scale(0.985); }
+
+  .appstore-btn svg {
+    width: 27px;
+    height: 27px;
+    flex: none;
+    fill: currentColor;
+    margin-top: -2px;
+  }
+
+  .appstore-btn-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    text-align: left;
+  }
+
+  .appstore-btn-label small {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 4px;
+  }
+
+  .appstore-btn-label b {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--bg-deep);
+    padding: 28px clamp(24px, 5vw, 64px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-left { display: flex; align-items: center; gap: 14px; }
+  .footer-left .logo-mark { width: 20px; height: 20px; opacity: 0.7; }
+  .footer-left .logo-mark path { stroke: var(--ink-dim); }
+
+  .footer-copy { font-size: 12px; color: var(--ink-faint); }
+
+  .footer-links { display: flex; gap: 28px; }
+
+  .footer-links a {
+    font-size: 12px;
+    color: var(--ink-faint);
+    letter-spacing: 0.02em;
+    transition: color 0.2s var(--ease);
+  }
+
+  .footer-links a:hover { color: var(--ink-dim); }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+
+  @media (max-width: 640px) {
+    .waitlist-strip { padding-left: 24px; padding-right: 24px; }
+    .waitlist-strip-title { font-size: 24px; line-height: 1.2; }
+    .appstore-btn { padding: 15px 28px 15px 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/build.html">Build</a>
+      <a href="/dream.html" class="active" aria-current="page">Design</a>
+      <a href="/manage.html">Own</a>
+      <a href="/renovate.html">Improve</a>
+      <a href="/move.html">Move</a>
+      <a href="/understand.html">Understand</a>
+    </nav>
+
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
+            aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
+  </header>
+
+  <main>
+    <section class="pagehero">
+    <img class="pagehero-img" src="/assets/hero/dream-hero.jpg" alt="A contemporary home lit at dusk above a pool and terrace" style="object-position: 50% 50%" />
+    <div class="pagehero-scrim"></div>
+    <h1 class="pagehero-headline">See what your home could be</h1>
+  </section>
+
+  <section class="do" aria-labelledby="doTitle">
+
+    <div class="do-hero">
+      <img src="/assets/design/design-hero.jpg" width="1024" height="525" loading="lazy" decoding="async"
+           alt="A custom modern home with stone and wood exterior, lit warmly at dusk">
+      <div class="do-hero-inner">
+        <h2 class="do-serif" id="doTitle">ROQ<br>DESIGN</h2>
+        <hr class="do-rule">
+        <p class="do-hero-lede do-serif">A home designed around you.</p>
+        <p>Custom home concepts that bring your vision to life&mdash;before construction begins.</p>
+      </div>
+    </div>
+
+    <div class="do-mid">
+      <div>
+        <h3 class="do-h3 do-serif">What You Get</h3>
+        <ul class="do-gets">
+          <li class="do-get">
+            <svg viewBox="0 0 40 40"><rect x="8" y="7" width="24" height="27" rx="2"/><rect x="15" y="4" width="10" height="5" rx="1.4"/><path d="M13.5 17.5l2 2 3.5-4M13.5 25.5l2 2 3.5-4"/><path d="M23 18.5h6M23 26.5h6"/></svg>
+            <div>
+              <h4>Personalized Design</h4>
+              <p>A custom home concept tailored to your lifestyle, land, and budget.</p>
+            </div>
+          </li>
+          <li class="do-get">
+            <svg viewBox="0 0 40 40"><rect x="7" y="8" width="26" height="24"/><path d="M20 8v24M7 20h26"/><path d="M12 13h3M25 13h3M12 27h3M25 27h3"/></svg>
+            <div>
+              <h4>Thoughtful Layout</h4>
+              <p>A functional floor plan concept that brings your ideas to life.</p>
+            </div>
+          </li>
+          <li class="do-get">
+            <svg viewBox="0 0 40 40"><path d="M8 19 20 9l12 10"/><path d="M11 17v15h18V17"/><circle cx="20" cy="21" r="2"/><rect x="17" y="26" width="6" height="6"/><path d="M14 21h1.5M24.5 21H26"/></svg>
+            <div>
+              <h4>Beautiful Exterior</h4>
+              <p>A custom exterior design that fits your vision and surroundings.</p>
+            </div>
+          </li>
+          <li class="do-get">
+            <svg viewBox="0 0 40 40"><rect x="7" y="9" width="26" height="18" rx="1.6"/><path d="M12 22l5-6 4 3.5 7-7.5"/><path d="M16 31h8M20 27v4"/></svg>
+            <div>
+              <h4>Realistic Visuals</h4>
+              <p>High-quality renderings so you can see your future home with confidence.</p>
+            </div>
+          </li>
+          <li class="do-get">
+            <svg viewBox="0 0 40 40"><circle cx="15" cy="16" r="7"/><circle cx="25" cy="16" r="7"/><circle cx="20" cy="25" r="7"/></svg>
+            <div>
+              <h4>Design Direction</h4>
+              <p>Curated materials, colors, and style that set the tone for your home.</p>
+            </div>
+          </li>
+          <li class="do-get">
+            <svg viewBox="0 0 40 40"><path d="M11 5h13l6 6v24H11z"/><path d="M24 5v6h6"/><path d="M15 20h11M15 25h11M15 30h7"/></svg>
+            <div>
+              <h4>Professional Handoff</h4>
+              <p>A complete concept package designed to guide your next steps with local professionals.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="do-h3 do-serif">Deliverables</h3>
+        <div class="do-cards">
+          <figure class="do-card">
+            <img src="/assets/design/deliverable-floorplan.jpg" width="194" height="156" loading="lazy" decoding="async"
+                 alt="A conceptual floor plan drawing of a custom home">
+            <h4>Custom Floor Plan Concept</h4>
+            <p>A layout designed around how you want to live.</p>
+          </figure>
+          <figure class="do-card">
+            <img src="/assets/design/deliverable-exterior.jpg" width="194" height="156" loading="lazy" decoding="async"
+                 alt="A rendered exterior concept of a modern home at dusk">
+            <h4>Exterior Design Concept</h4>
+            <p>A custom exterior that brings your vision to life.</p>
+          </figure>
+          <figure class="do-card">
+            <img src="/assets/design/deliverable-interior.jpg" width="197" height="156" loading="lazy" decoding="async"
+                 alt="An interior rendering of a great room with tall windows and a fireplace">
+            <h4>Interior Renderings</h4>
+            <p>See the spaces, light, and feel of your future home.</p>
+          </figure>
+          <figure class="do-card">
+            <img src="/assets/design/deliverable-elevations.jpg" width="194" height="155" loading="lazy" decoding="async"
+                 alt="A conceptual elevation view of the home's front facade">
+            <h4>Elevations</h4>
+            <p>Conceptual elevations that communicate the design clearly.</p>
+          </figure>
+          <figure class="do-card">
+            <img src="/assets/design/deliverable-materials.jpg" width="194" height="155" loading="lazy" decoding="async"
+                 alt="A flat lay of stone, wood, and textile material samples">
+            <h4>Material &amp; Style Direction</h4>
+            <p>Curated finishes and inspiration to set the right tone.</p>
+          </figure>
+          <figure class="do-card">
+            <img src="/assets/design/deliverable-site.jpg" width="197" height="155" loading="lazy" decoding="async"
+                 alt="An aerial site concept showing the home's placement among trees">
+            <h4>Site Concept (If Applicable)</h4>
+            <p>Home placement and orientation ideas for your property.</p>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <div class="do-low">
+      <div class="do-exp">
+        <h3 class="do-h3 do-serif">The ROQ Design Experience</h3>
+        <hr class="do-rule">
+        <div class="do-steps">
+          <div class="do-step">
+            <svg viewBox="0 0 40 40"><path d="M6 15a6 6 0 0 1 6-6h9a6 6 0 0 1 0 12h-6l-6 5v-5a6 6 0 0 1-3-6Z"/><path d="M13 15h7"/><path d="M24 20a5 5 0 0 1 5 5v1l4 4v-4a5 5 0 0 0-4-5"/></svg>
+            <h4>Discover</h4>
+            <p>We learn about you, your land, your goals, and your vision.</p>
+          </div>
+          <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <div class="do-step">
+            <svg viewBox="0 0 40 40"><path d="M9 9h13M9 9v22h22V18"/><path d="M31.5 6.5 34 9l-13 13-3.5 1 1-3.5Z"/><path d="M13 27h5"/></svg>
+            <h4>Design</h4>
+            <p>We create your custom home concept.</p>
+          </div>
+          <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <div class="do-step">
+            <svg viewBox="0 0 40 40"><path d="M10 17a10 10 0 0 1 16-5l3 3"/><path d="M29 8v7h-7"/><path d="M30 23a10 10 0 0 1-16 5l-3-3"/><path d="M11 32v-7h7"/></svg>
+            <h4>Refine</h4>
+            <p>You review and we refine together.</p>
+          </div>
+          <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <div class="do-step">
+            <svg viewBox="0 0 40 40"><path d="M6 12h11l3 4h14v16H6z"/><path d="M6 12V9h9l3 3"/></svg>
+            <h4>Deliver</h4>
+            <p>You receive a complete concept package.</p>
+          </div>
+          <span class="do-arrow" aria-hidden="true">&rarr;</span>
+          <div class="do-step">
+            <svg viewBox="0 0 40 40"><path d="M7 19 20 8l13 11"/><path d="M10 17v15h20V17"/><rect x="17" y="24" width="6" height="8"/><path d="M15 14.5h2M23 14.5h2"/></svg>
+            <h4>Move Forward</h4>
+            <p>Take your concept to your builder, architect, or other local professionals.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="do-price">
+        <div class="do-price-fig do-serif">$1,500</div>
+        <div class="do-price-name do-serif">ROQ DESIGN</div>
+        <hr class="do-rule">
+        <h4>Custom Home Concept Design</h4>
+        <p>One flat price.<br>Everything you need to see your future home before you build.</p>
+      </div>
+    </div>
+
+    <div class="do-foot">
+      <div class="do-fine">
+        <h4>Important</h4>
+        <p>ROQ provides conceptual residential design and planning services. ROQ is not an architectural or engineering firm. All designs are conceptual and not intended for construction, permitting, or engineering. Before permitting or construction, your design must be reviewed, adapted, and approved by qualified local professionals and the applicable authorities having jurisdiction.</p>
+      </div>
+      <div class="do-closing">
+        <img src="/assets/design/design-closing.jpg" width="377" height="221" loading="lazy" decoding="async"
+             alt="A finished kitchen and dining room with pendant lights and windows onto the trees">
+        <div class="do-closing-panel">
+          <h4>Designed around you.<br>Built for where you build.</h4>
+          <hr class="do-rule">
+          <p>ROQ DESIGN gives you the clarity, confidence, and direction to build the home that's right for you.</p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  </main>
+
+  <section class="waitlist-strip">
+    <h2 class="waitlist-strip-title">Track your home’s number over time.</h2>
+    <p class="waitlist-strip-sub">Home Potential lives inside the ROQ app — free on iPhone.</p>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
+  </section>
+
+  <footer>
+    <div class="footer-left">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+      <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    </div>
+    <div class="footer-links">
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/legal/roq-terms.html">Terms</a>
+      <a href="/about.html">Story</a>
+      <a href="https://roqbusiness.com">ROQ Business</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Header: tabs + scroll scrim ----------
+    (function initHeader() {
+      const header = document.querySelector('.site-header');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('siteTabsToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      if (header) {
+        // The page opens on a full-height render, so the header keeps its
+        // transparent treatment until the hero has passed under it.
+        const hero = document.querySelector('.pagehero');
+        const threshold = () =>
+          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+      }
+    })();
+
+  </script>
+</body>
+</html>
