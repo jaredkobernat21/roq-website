@@ -381,7 +381,14 @@
   }
 
   @media (max-width: 600px) {
-    .statement-img { object-position: 62% 45%; }
+    /* A portrait viewport this narrow crops the wide scene down to a
+       sliver at cover-scale. Contain instead: the whole room, sunset,
+       and family stay in frame, letterboxed on the dark section ground
+       rather than cropped away. */
+    .statement-img {
+      object-fit: contain;
+      object-position: 50% 50%;
+    }
   }
 
 
@@ -787,13 +794,11 @@
   @media (max-width: 640px) {
     /* Opening statement: 32px was the clamp floor and still ran three lines
        edge to edge. A shorter measure lets it breathe over the render.
-       Bottom-aligned here rather than centered — a portrait viewport shows
-       almost the full height of the render, leaving no vertical room to
-       dodge a face; the scrim is darkest at the base, so that's where the
-       type goes instead. */
+       The image now renders contained rather than cropped to cover, so
+       centering the type reads as "over the scene," not "over a face." */
     .statement {
-      padding: 96px 24px 64px;
-      align-items: flex-end;
+      padding: 96px 24px 84px;
+      align-items: center;
     }
 
     .statement-text {
