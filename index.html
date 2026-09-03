@@ -352,6 +352,12 @@
     object-position: 50% 15%;
   }
 
+  .statement--owner .statement-img { object-position: 68% 40%; }
+
+  @media (max-width: 600px) {
+    .statement--owner .statement-img { object-position: 78% 40%; }
+  }
+
   /* Holds the type without flattening the render — the house stays lit
      through the middle, the copy sits in the darkened base. */
   .statement-scrim {
@@ -831,6 +837,15 @@
   <section class="statement">
     <img class="statement-img" src="/assets/hero/experience-hero.jpg"
          alt="A family laughing together over dinner at home, sunset over the water through floor-to-ceiling windows" />
+    <div class="statement-scrim"></div>
+    <div>
+      <p class="statement-text">Experience home.</p>
+    </div>
+  </section>
+
+  <section class="statement statement--owner">
+    <img class="statement-img" src="/assets/hero/owner-hero.jpg"
+         alt="A man standing on the terrace of a modern hillside home at golden hour, looking out over the treetops to the ocean" />
     <div class="statement-scrim"></div>
     <div>
       <p class="statement-text">Feel like an owner.</p>
