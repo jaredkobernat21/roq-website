@@ -3,19 +3,58 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Our Story — ROQ</title>
+<title>Jared Kobernat, Founder — ROQ</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Buying a home — or building a business — shouldn't be the last time you feel in control of it. ROQ exists so owners feel like owners again: ROQ Home for the home you own, ROQ Business for the business you run." />
-<link rel="canonical" href="https://roqhome.com/about.html" />
+<meta name="description" content="Jared Kobernat founded ROQ, starting with ROQ Home and ROQ Business, after watching his own family navigate homeownership with less information than everyone else in the room." />
+<link rel="canonical" href="https://roqhome.com/founder.html" />
+
+<meta property="og:type" content="profile" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="Jared Kobernat, Founder — ROQ" />
+<meta property="og:description" content="Jared Kobernat founded ROQ, starting with ROQ Home and ROQ Business, after watching his own family navigate homeownership with less information than everyone else in the room." />
+<meta property="og:url" content="https://roqhome.com/founder.html" />
+<meta property="og:image" content="https://roqhome.com/assets/roq-share.png" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Jared Kobernat, Founder — ROQ" />
+<meta name="twitter:description" content="Jared Kobernat founded ROQ, starting with ROQ Home and ROQ Business, after watching his own family navigate homeownership with less information than everyone else in the room." />
+<meta name="twitter:image" content="https://roqhome.com/assets/roq-share.png" />
 
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://roqhome.com/founder.html#person",
+      "name": "Jared Kobernat",
+      "url": "https://roqhome.com/founder.html",
+      "jobTitle": "Founder",
+      "description": "Founder of ROQ, building ROQ Home and ROQ Business, and separately Groundbreakable and SLATES.",
+      "image": "https://roqhome.com/assets/about/founder-jared.jpg",
+      "worksFor": { "@id": "https://roqhome.com/#organization" },
+      "founder": [
+        { "@id": "https://roqhome.com/#organization" },
+        { "@id": "https://groundbreakable.com/#organization" },
+        { "@id": "https://slatesweb.com/#organization" }
+      ],
+      "knowsAbout": [
+        "Real estate development intelligence",
+        "Zoning and permitting data",
+        "Software development",
+        "Search engine optimization",
+        "CRM and business systems",
+        "AI-assisted research and automation"
+      ],
+      "sameAs": [
+        "https://www.linkedin.com/in/jared-kobernat-3b2309435",
+        "https://github.com/jaredkobernat21"
+      ]
+    },
     {
       "@type": "Organization",
       "@id": "https://roqhome.com/#organization",
@@ -26,26 +65,28 @@
       "founder": { "@id": "https://roqhome.com/founder.html#person" }
     },
     {
-      "@type": "Person",
-      "@id": "https://roqhome.com/founder.html#person",
-      "name": "Jared Kobernat",
-      "url": "https://roqhome.com/founder.html"
+      "@type": "Organization",
+      "@id": "https://groundbreakable.com/#organization",
+      "name": "Groundbreakable",
+      "url": "https://groundbreakable.com/",
+      "founder": { "@id": "https://roqhome.com/founder.html#person" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://slatesweb.com/#organization",
+      "name": "SLATES",
+      "url": "https://slatesweb.com/",
+      "founder": { "@id": "https://roqhome.com/founder.html#person" }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "https://roqhome.com/founder.html#webpage",
+      "url": "https://roqhome.com/founder.html",
+      "mainEntity": { "@id": "https://roqhome.com/founder.html#person" }
     }
   ]
 }
 </script>
-
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="ROQ" />
-<meta property="og:title" content="Our Story — ROQ" />
-<meta property="og:description" content="Buying a home — or building a business — shouldn't be the last time you feel in control of it. ROQ exists so owners feel like owners again." />
-<meta property="og:url" content="https://roqhome.com/about.html" />
-<meta property="og:image" content="https://roqhome.com/assets/roq-share.png" />
-
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Our Story — ROQ" />
-<meta name="twitter:description" content="Buying a home — or building a business — shouldn't be the last time you feel in control of it. ROQ exists so owners feel like owners again." />
-<meta name="twitter:image" content="https://roqhome.com/assets/roq-share.png" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,10 +132,7 @@
     color: var(--ink-faint);
   }
 
-  /* ---------- Site header ----------
-     Self-contained: every value it needs is declared here, so the same
-     block drops onto the dark pages and the light ones alike. Pages with
-     a light background add class="on-light" to <header>. */
+  /* ---------- Site header ---------- */
 
   .site-header {
     --nav-fg: rgba(255,255,255,0.58);
@@ -130,9 +168,6 @@
     --nav-shadow: none;
   }
 
-  /* The tabs sit over whatever the hero is — a dusk sky, a night render, a
-     cream panel. A top-down scrim keeps them legible on all of them, and
-     fades out once the solid scrolled background takes over. */
   .site-header::before {
     content: '';
     position: absolute;
@@ -157,8 +192,6 @@
     border-bottom-color: var(--nav-border);
   }
 
-  /* Pages whose content starts below the header — rather than running under
-     a floating one — hold their own space and keep a background at all times. */
   .site-header.inflow {
     position: sticky;
     background: var(--nav-solid);
@@ -171,11 +204,7 @@
 
   .site-logo { display: flex; }
 
-  .logo-mark {
-    width: 30px;
-    height: 30px;
-    display: block;
-  }
+  .logo-mark { width: 30px; height: 30px; display: block; }
 
   .logo-mark path {
     stroke: var(--nav-fg-strong);
@@ -185,11 +214,7 @@
     stroke-linejoin: round;
   }
 
-  .site-tabs {
-    display: flex;
-    align-items: center;
-    gap: clamp(14px, 2.1vw, 30px);
-  }
+  .site-tabs { display: flex; align-items: center; gap: clamp(14px, 2.1vw, 30px); }
 
   .site-tabs a {
     position: relative;
@@ -268,11 +293,7 @@
       transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
     }
 
-    .site-tabs.open {
-      opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
-    }
+    .site-tabs.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
     .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
     .site-tabs a.active { background: rgba(127,127,127,0.14); }
@@ -281,9 +302,7 @@
 
   /* ---------- Hero ---------- */
 
-  .hero {
-    padding: clamp(48px, 8vw, 88px) clamp(24px, 5vw, 64px) 0;
-  }
+  .hero { padding: clamp(48px, 8vw, 88px) clamp(24px, 5vw, 64px) 0; }
 
   .hero-grid {
     max-width: 1180px;
@@ -295,20 +314,22 @@
     padding-bottom: clamp(48px, 7vw, 80px);
   }
 
+  .hero-eyebrow { margin-bottom: 16px; }
+
   .hero-title {
-    font-size: clamp(38px, 5.4vw, 58px);
+    font-size: clamp(34px, 4.6vw, 50px);
     font-weight: 800;
-    line-height: 1.08;
+    line-height: 1.12;
     letter-spacing: -0.01em;
-    max-width: 11ch;
-    margin-bottom: 26px;
+    max-width: 13ch;
+    margin-bottom: 22px;
   }
 
   .hero-copy {
     font-size: 15.5px;
     line-height: 1.7;
     color: var(--ink-dim);
-    max-width: 42ch;
+    max-width: 44ch;
     margin-bottom: 28px;
   }
 
@@ -334,7 +355,12 @@
     overflow: hidden;
   }
 
-  .hero-art img { width: 100%; height: 100%; object-fit: cover; }
+  .hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+  .hero-art-caption {
+    font-size: 11px;
+    color: var(--ink-faint);
+    margin-top: 10px;
+  }
 
   @media (max-width: 860px) {
     .hero-grid { grid-template-columns: 1fr; }
@@ -347,28 +373,31 @@
   section { padding: clamp(56px, 8vw, 100px) clamp(24px, 5vw, 64px); }
   .rule-top { border-top: 1px solid var(--border-soft); }
 
-  /* ---------- Understanding / Cards ---------- */
+  /* ---------- Prose block (bio / narrative) ---------- */
 
-  .understand-head { max-width: 700px; margin: 0 auto 44px; text-align: center; }
+  .prose-grid { max-width: 760px; margin: 0 auto; }
+  .prose-grid h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; margin-bottom: 20px; }
+  .prose-grid p { font-size: 15px; line-height: 1.7; color: var(--ink-dim); }
+  .prose-grid p + p { margin-top: 16px; }
+  .prose-grid .pull { font-family: 'Lora', Georgia, serif; font-style: italic; color: var(--ink); }
+  .prose-grid .strong { color: var(--ink); font-weight: 700; }
+  .prose-grid a { text-decoration: underline; text-underline-offset: 2px; }
+  .prose-grid a:hover { opacity: 0.7; }
 
-  .understand-head h2 {
-    font-size: clamp(30px, 4vw, 42px);
-    font-weight: 800;
-    line-height: 1.18;
+  /* ---------- Section intro (eyebrow + rule) ---------- */
+
+  .section-head {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1180px;
+    margin: 0 auto clamp(36px, 5vw, 56px);
   }
 
-  .understand-head h2 .line-2 {
-    display: block;
-    font-family: 'Lora', Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    color: var(--ink-dim);
-  }
+  .section-head .eyebrow { white-space: nowrap; }
+  .section-head .rule { flex: 1; height: 1px; background: var(--border-soft); }
 
-  .understand-body { max-width: 640px; margin: 0 auto 44px; text-align: center; }
-  .understand-body p { font-size: 15px; line-height: 1.75; color: var(--ink-dim); }
-  .understand-body p + p { margin-top: 18px; }
-  .understand-body .strong { color: var(--ink); font-weight: 700; margin-top: 18px; }
+  /* ---------- Cards (ventures) ---------- */
 
   .cards {
     max-width: 1180px;
@@ -378,11 +407,7 @@
     border: 1px solid var(--border);
   }
 
-  .card {
-    padding: clamp(28px, 4vw, 40px);
-    border-right: 1px solid var(--border);
-  }
-
+  .card { padding: clamp(28px, 4vw, 40px); border-right: 1px solid var(--border); }
   .card:last-child { border-right: none; }
 
   .card-icon { width: 40px; height: 40px; margin-bottom: 30px; }
@@ -428,87 +453,7 @@
     .card:last-child { border-bottom: none; }
   }
 
-  /* ---------- Black band ---------- */
-
-  .band {
-    background: var(--black);
-    color: #fff;
-  }
-
-  .band-grid {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(32px, 5vw, 64px);
-    align-items: start;
-  }
-
-  .band h2 {
-    font-size: clamp(28px, 3.8vw, 40px);
-    font-weight: 800;
-    line-height: 1.2;
-  }
-
-  .band p { font-size: 15px; line-height: 1.75; color: var(--on-black-dim); }
-  .band p + p { margin-top: 16px; }
-  .band .strong { color: #fff; font-weight: 700; margin-top: 16px; }
-
-  @media (max-width: 760px) {
-    .band-grid { grid-template-columns: 1fr; gap: 24px; }
-  }
-
-  /* ---------- Approach (collect / interpret / act) ---------- */
-
-  .approach-head {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    max-width: 1180px;
-    margin: 0 auto clamp(36px, 5vw, 56px);
-  }
-
-  .approach-head .eyebrow { white-space: nowrap; }
-  .approach-head .rule { flex: 1; height: 1px; background: var(--border-soft); }
-
-  .approach-grid {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(28px, 5vw, 40px);
-  }
-
-  .approach-icon { width: 30px; height: 30px; margin-bottom: 20px; }
-  .approach-icon path, .approach-icon circle, .approach-icon line {
-    stroke: var(--ink);
-    stroke-width: 1.6;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .approach-item h3 { font-size: 20px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 8px; }
-  .approach-item p { font-size: 14px; line-height: 1.65; color: var(--ink-dim); max-width: 26ch; }
-
-  @media (max-width: 760px) {
-    .approach-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-
-  /* ---------- Origin story ---------- */
-
-  .topeka-grid {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  .topeka-grid h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; margin-bottom: 20px; }
-  .topeka-grid p { font-size: 15px; line-height: 1.7; color: var(--ink-dim); }
-  .topeka-grid p + p { margin-top: 16px; }
-  .topeka-grid .pull { font-family: 'Lora', Georgia, serif; font-style: italic; color: var(--ink); }
-  .topeka-grid .and { font-weight: 700; color: var(--ink); }
-
-  /* ---------- Future / final CTA ---------- */
+  /* ---------- Closing CTA ---------- */
 
   .future-grid {
     max-width: 1180px;
@@ -573,11 +518,7 @@
     .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
   }
 
-  /* ---------- Mobile refinements ----------
-     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
-     serif headline fills a 375px line edge to edge, and vh-based section
-     padding leaves large dead zones before any content appears. This steps the
-     scale and the rhythm down, and brings touch targets up to 44px. */
+  /* ---------- Mobile refinements ---------- */
 
   @media (max-width: 640px) {
     .site-header .site-header-row,
@@ -585,7 +526,6 @@
 
     .site-tabs { min-width: 200px; padding: 10px; }
 
-    /* 44px minimum so the menu is comfortable to hit one-handed */
     .site-tabs a {
       display: flex;
       align-items: center;
@@ -623,7 +563,7 @@
 
   @media (max-width: 640px) {
     .hero { padding-left: 24px; padding-right: 24px; }
-    .hero-title { font-size: 32px; line-height: 1.14; }
+    .hero-title { font-size: 30px; line-height: 1.16; }
     .hero-copy { font-size: 15.5px; line-height: 1.6; }
   }
 </style>
@@ -653,92 +593,57 @@
   <section class="hero">
     <div class="hero-grid reveal">
       <div>
-        <h1 class="hero-title">Owning what&rsquo;s yours shouldn&rsquo;t feel like everyone else profits from it but you.</h1>
-        <p class="hero-copy">You did the hard part&mdash;you bought the home, or you built the business. Then you&rsquo;re on your own: stressed, overwhelmed, and surrounded by people who profit while you figure out what to do next. ROQ exists to put you back in control.</p>
+        <p class="eyebrow hero-eyebrow">Founder</p>
+        <h1 class="hero-title">Jared Kobernat is the founder of ROQ.</h1>
+        <p class="hero-copy">He started ROQ in Topeka, Kansas after watching his own family navigate a home purchase with less information than the agents, lenders, and contractors around them. He still builds the product today&mdash;from ROQ Home to ROQ Business&mdash;alongside his wife Erika, who helps run the business and its launches.</p>
         <div class="hero-links">
-          <a href="/">Explore ROQ Home</a>
+          <a href="https://www.linkedin.com/in/jared-kobernat-3b2309435" target="_blank" rel="noopener">LinkedIn</a>
           <span class="dot">&bull;</span>
-          <a href="https://roqbusiness.com">Explore ROQ Business</a>
+          <a href="https://github.com/jaredkobernat21" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
-      <div class="hero-art">
-        <img src="assets/about/hero-cover.jpg" alt="Close-up of a house gable against the sky" width="1400" height="933" />
+      <div>
+        <div class="hero-art">
+          <img src="assets/about/founder-jared.jpg" alt="Jared Kobernat, founder of ROQ" width="634" height="422" />
+        </div>
       </div>
     </div>
   </section>
 
   <section class="rule-top reveal">
-    <div class="understand-head">
-      <h2>More information isn&rsquo;t the answer.<span class="line-2">Feeling like an owner again is.</span></h2>
+    <div class="prose-grid">
+      <h2>Before ROQ</h2>
+      <p>Jared spent his early career in sales leadership&mdash;learning firsthand how businesses actually win and lose customers, and how often the person on the other side of a deal has less information than everyone else in the room. He later taught himself to build software: websites, native apps, CRMs, and the internal tools that now run ROQ itself, rather than stitching the business together from other people&rsquo;s platforms.</p>
+      <p>You can read the full story of how that turned into <a href="/about.html">ROQ Home and ROQ Business</a>.</p>
     </div>
-    <div class="understand-body">
-      <p>Owning a home or running a business comes with an overwhelming amount of information&mdash;contracts, permits, customers, costs, maintenance, market data&mdash;scattered across a dozen different places.</p>
-      <p>Meanwhile, the people around you&mdash;agents, lenders, contractors, vendors&mdash;already know more about your home or your business than you do, and often profit from that gap.</p>
-      <p class="strong">ROQ exists to close it.</p>
-    </div>
+  </section>
 
+  <section class="rule-top reveal">
+    <div class="prose-grid">
+      <h2>What he&rsquo;s building now</h2>
+      <p>Jared builds and maintains ROQ Home and ROQ Business directly&mdash;the product, the data, and the systems behind both. That includes <a href="https://apps.apple.com/us/app/roq-home-management/id6789206534" target="_blank" rel="noopener">ROQ Home Management</a>, a native iOS app that gives homeowners a simpler way to track their property from their phone. The idea behind all of it is the same one that started ROQ: most of what you need to know about your own home or your own business already exists somewhere, scattered across permits, contracts, and public records&mdash;ROQ&rsquo;s job is to put it in one place, in plain language.</p>
+    </div>
+  </section>
+
+  <section class="rule-top reveal">
+    <div class="section-head">
+      <p class="eyebrow">Elsewhere</p>
+      <div class="rule"></div>
+    </div>
     <div class="cards">
       <div class="card">
         <svg class="card-icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" /><path d="M6 10v10h12V10" /><path d="M10 20v-6h4v6" /></svg>
-        <h3>ROQ Home</h3>
-        <p class="sub">Intelligence for the home you already own.</p>
-        <p class="desc">A simpler way to understand, manage and improve your home&mdash;from projects and documents to maintenance, finances and the full story of your property, all in one place.</p>
-        <a class="card-link" href="/">Explore ROQ Home &rarr;</a>
+        <h3>Groundbreakable</h3>
+        <p class="sub">Development intelligence for builders and investors.</p>
+        <p class="desc">A separate venture that turns public permitting, zoning, and infrastructure data into early signals for people deciding where to build or invest next.</p>
+        <a class="card-link" href="https://groundbreakable.com" target="_blank" rel="noopener">Visit Groundbreakable &rarr;</a>
       </div>
       <div class="card">
         <svg class="card-icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2" /><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M3 13h18" /></svg>
-        <h3>ROQ Business</h3>
-        <p class="sub">Clarity for the business you run.</p>
-        <p class="desc">A better operating system for local business&mdash;customers, scheduling, payments and your online presence, all working together instead of living in five different apps.</p>
-        <a class="card-link" href="https://roqbusiness.com">Explore ROQ Business &rarr;</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="band reveal">
-    <div class="band-grid">
-      <h2>You deserve to feel like an owner, not a bystander.</h2>
-      <div>
-        <p>Buying a home or starting a business is supposed to feel like an accomplishment. For a lot of people, it feels like the moment everyone else starts making money off you.</p>
-        <p>Contractors quote whatever they think you&rsquo;ll pay. Agents disappear until it&rsquo;s time to sell again. Software vendors and marketing agencies nickel-and-dime you for tools that should just work.</p>
-        <p>You shouldn&rsquo;t need an industry to translate your own home&mdash;or your own business&mdash;back to you.</p>
-        <p class="strong">ROQ is built to put that understanding back in your hands.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <div class="approach-head">
-      <p class="eyebrow">How ROQ helps</p>
-      <div class="rule"></div>
-    </div>
-    <div class="approach-grid">
-      <div class="approach-item">
-        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" /><path d="M6 10v10h12V10" /><path d="M10 20v-6h4v6" /></svg>
-        <h3>Understand what you own</h3>
-        <p>See what your home is worth, or how your business is really performing&mdash;in plain language, not paperwork.</p>
-      </div>
-      <div class="approach-item">
-        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3Z" /><path d="M12 8v5" /><circle cx="12" cy="15.5" r="0.6" fill="currentColor" /></svg>
-        <h3>Plan what&rsquo;s next</h3>
-        <p>Whether it&rsquo;s a repair, a remodel, or your next hire&mdash;know your options before you commit.</p>
-      </div>
-      <div class="approach-item">
-        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M6 18 18 6" /><path d="M9 6h9v9" /></svg>
-        <h3>Move with confidence</h3>
-        <p>Make decisions knowing what they&rsquo;ll actually cost&mdash;not what someone else decides to charge you.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="rule-top reveal">
-    <div class="topeka-grid">
-      <div>
-        <h2>Built differently.</h2>
-        <p>ROQ was founded in Topeka, Kansas by Jared Kobernat, around a simple, personal question:</p>
-        <p class="pull">Why does buying a home feel like the last time you&rsquo;re in control of it?</p>
-        <p>What started as a way to help one family understand their own home has grown into something bigger: ROQ Home for homeowners, and ROQ Business for the local businesses that keep communities running&mdash;built so owners never have to feel like an outsider in what they built <span class="and">again</span>.</p>
-        <p>Jared still builds the product and the systems behind both today, with his wife Erika helping run the business and its launches. <a href="/founder.html" style="text-decoration:underline;text-underline-offset:2px;">More about Jared Kobernat &rarr;</a></p>
+        <h3>SLATES</h3>
+        <p class="sub">Growth systems for small businesses.</p>
+        <p class="desc">Helps small businesses fix the websites, Google presence, CRM, and follow-up systems that are quietly costing them customers.</p>
+        <a class="card-link" href="https://slatesweb.com" target="_blank" rel="noopener">Visit SLATES &rarr;</a>
       </div>
     </div>
   </section>
@@ -746,12 +651,12 @@
   <section class="rule-top reveal">
     <div class="future-grid">
       <div>
-        <h2>The future of ownership belongs to people who understand what they own.</h2>
-        <p class="sub">We&rsquo;re building the tools to help you get there&mdash;at home, and in business.</p>
+        <h2>Want to build something together, or just say hi?</h2>
+        <p class="sub">He&rsquo;s easiest to reach on LinkedIn or GitHub.</p>
       </div>
       <div class="future-links">
-        <a class="btn-outline" href="/">Explore ROQ Home <span>&rarr;</span></a>
-        <a class="btn-outline" href="https://roqbusiness.com">Explore ROQ Business <span>&rarr;</span></a>
+        <a class="btn-outline" href="https://www.linkedin.com/in/jared-kobernat-3b2309435" target="_blank" rel="noopener">Connect on LinkedIn <span>&rarr;</span></a>
+        <a class="btn-outline" href="https://github.com/jaredkobernat21" target="_blank" rel="noopener">See his GitHub <span>&rarr;</span></a>
       </div>
     </div>
   </section>
@@ -770,7 +675,6 @@
   </footer>
 
   <script>
-    // ---------- Header: tabs + scroll scrim ----------
     (function initHeader() {
       const header = document.querySelector('.site-header');
       const tabs = document.getElementById('siteTabs');
