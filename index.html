@@ -385,6 +385,67 @@
   }
 
 
+  /* ---------- Welcome ---------- */
+
+  .welcome {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: clamp(72px, 11vh, 110px) clamp(24px, 6vw, 64px);
+    background: #F7F6F2;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .welcome-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 22% 50%;
+  }
+
+  .welcome-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(to bottom, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 38%),
+      linear-gradient(to right, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.84) 32%, rgba(255,255,255,0.3) 58%, rgba(255,255,255,0) 74%);
+  }
+
+  .welcome-copy { max-width: 640px; }
+
+  .welcome-lead {
+    display: block;
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: #14130F;
+    margin-bottom: 16px;
+  }
+
+  .welcome-text {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(15px, 1.7vw, 17px);
+    line-height: 1.65;
+    color: #5C594F;
+    max-width: 48ch;
+  }
+
+  @media (max-width: 640px) {
+    .welcome { min-height: 100vh; padding: 96px 24px 64px; }
+    .welcome-img { object-position: 18% 42%; }
+    .welcome-lead { font-size: 26px; }
+  }
+
+
   /* ---------- Explore (bridge into Build / Own / Invest) ---------- */
 
   .explore {
@@ -834,6 +895,15 @@
     <div class="statement-scrim"></div>
     <div>
       <p class="statement-text">Feel like an owner.</p>
+    </div>
+  </section>
+
+  <section class="welcome">
+    <img class="welcome-img" src="/assets/hero/whitespace-hero.jpg"
+         alt="A bright, minimalist living room with floor-to-ceiling windows overlooking trees and water" />
+    <div class="welcome-scrim"></div>
+    <div class="welcome-copy">
+      <p class="welcome-text"><strong class="welcome-lead">ROQ is the home for homeowners</strong> who are tired of everyone else knowing more about their home than they do. Whether you have a question, need some help, want trusted resources, or just want to feel inspired, we are here to help you feel like an owner. Welcome home.</p>
     </div>
   </section>
 
