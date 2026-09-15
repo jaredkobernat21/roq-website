@@ -296,10 +296,83 @@
     text-shadow: 0 2px 30px rgba(0,0,0,0.55);
   }
 
+  .pagehero-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(15px, 1.7vw, 17px);
+    line-height: 1.65;
+    color: rgba(255,255,255,0.82);
+    max-width: 54ch;
+    margin: 18px auto 0;
+    text-wrap: balance;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
   @media (max-width: 640px) {
     .pagehero { padding: 104px 24px 84px; }
     .pagehero-headline { font-size: 31px; max-width: 14ch; }
+    .pagehero-sub { font-size: 15px; margin-top: 14px; }
   }
+
+  /* ---------- Free Project Potential (step CTA) ---------- */
+
+  .pp-step-label {
+    font-size: 14px;
+    color: var(--ink-dim);
+    line-height: 1.5;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .pp-step { display: none; }
+  .pp-step.visible { display: block; }
+
+  .project-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+
+  @media (max-width: 560px) {
+    .project-options { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .option-pill {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 10px;
+    color: var(--ink-dim);
+    font-family: 'Inter', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.25s var(--ease), background 0.25s var(--ease), color 0.25s var(--ease);
+  }
+
+  .option-pill:hover { border-color: rgba(200,168,130,0.4); color: var(--ink); }
+
+  .option-pill.selected {
+    border-color: var(--gold);
+    background: rgba(200,168,130,0.1);
+    color: var(--ink);
+  }
+
+  .pp-back {
+    display: block;
+    margin: 16px auto 0;
+    background: none;
+    border: none;
+    color: var(--ink-faint);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .pp-back:hover { color: var(--ink-dim); }
 
   /* ---------- Hero / intro ---------- */
 
@@ -941,9 +1014,73 @@
 
 
   <section class="pagehero">
+    <img class="pagehero-img" src="/assets/hero/improve-hero.jpg" alt="A dark, modern living room mid-renovation, with a ladder, paint cans, and material samples" style="object-position: 50% 55%" />
+    <div class="pagehero-scrim"></div>
+    <h1 class="pagehero-headline">Make confident decisions.</h1>
+  </section>
+
+  <section class="pagehero">
     <img class="pagehero-img" src="/assets/hero/renovate-hero.jpg" alt="A home mid-renovation, floor plans and material samples on the table" style="object-position: 50% 55%" />
     <div class="pagehero-scrim"></div>
-    <h1 class="pagehero-headline">Don&rsquo;t over renovate your home</h1>
+    <div>
+      <h2 class="pagehero-headline">Improve your home without guessing</h2>
+      <p class="pagehero-sub">Projects and renovations can be confusing and stressful. How much will this cost? Will there even be a return on this investment? Should I do this myself or hire a contractor?</p>
+    </div>
+  </section>
+
+  <section class="form-wrap">
+    <div class="report-cta">
+      <p class="report-cta-eyebrow">Free &middot; No Obligation</p>
+      <h3 class="report-cta-title">Free Project Potential</h3>
+
+      <form id="ppForm">
+        <div class="pp-step visible" id="ppStep1">
+          <p class="pp-step-label">What&rsquo;s your address?</p>
+          <div class="field-row">
+            <label for="ppAddress">Home address</label>
+            <input
+              type="text"
+              id="ppAddress"
+              placeholder="123 Main St, City, State ZIP"
+              autocomplete="street-address"
+              required
+            />
+          </div>
+          <button type="button" class="address-submit" id="ppStep1Next">Next</button>
+        </div>
+
+        <div class="pp-step" id="ppStep2">
+          <p class="pp-step-label">What project are you considering?</p>
+          <div class="project-options" id="ppProjectOptions">
+            <button type="button" class="option-pill" data-project="Kitchen remodel">Kitchen</button>
+            <button type="button" class="option-pill" data-project="Bathroom remodel">Bathroom</button>
+            <button type="button" class="option-pill" data-project="Room addition">Addition</button>
+            <button type="button" class="option-pill" data-project="Outdoor / landscaping">Outdoor</button>
+            <button type="button" class="option-pill" data-project="Whole-home renovation">Whole home</button>
+            <button type="button" class="option-pill" data-project="Not sure yet">Not sure yet</button>
+          </div>
+          <button type="button" class="pp-back" data-back="ppStep1">Back</button>
+        </div>
+
+        <div class="pp-step" id="ppStep3">
+          <p class="pp-step-label">Where should we send it?</p>
+          <div class="field-row">
+            <label for="ppContact">Phone or email</label>
+            <input
+              type="text"
+              id="ppContact"
+              placeholder="(555) 555-5555 or your@email.com"
+              required
+            />
+          </div>
+          <button type="submit" class="address-submit" id="ppSubmit">Get My Project Potential</button>
+          <button type="button" class="pp-back" data-back="ppStep2">Back</button>
+        </div>
+      </form>
+
+      <p class="form-error" id="ppError"></p>
+      <p class="report-cta-msg" id="ppMsg"></p>
+    </div>
   </section>
 
   <section class="intro">
@@ -1174,11 +1311,13 @@
       }
 
       if (header) {
-        // The page opens on a full-height render, so the header keeps its
-        // transparent treatment until the hero has passed under it.
-        const hero = document.querySelector('.pagehero');
+        // The page opens on two stacked full-height renders, so the header
+        // keeps its transparent treatment until both have passed under it.
+        const heroes = document.querySelectorAll('.pagehero');
+        const heroHeight = () =>
+          Array.from(heroes).reduce((sum, el) => sum + el.offsetHeight, 0);
         const threshold = () =>
-          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+          heroes.length ? Math.max(12, heroHeight() - header.offsetHeight) : 12;
 
         const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
         onScroll();
@@ -1361,6 +1500,119 @@
       }
     });
 
+    // ---------- Free Project Potential (step CTA) ----------
+    (function initProjectPotential() {
+      const step1 = document.getElementById('ppStep1');
+      const step2 = document.getElementById('ppStep2');
+      const step3 = document.getElementById('ppStep3');
+      if (!step1 || !step2 || !step3) return;
+
+      const addressInput = document.getElementById('ppAddress');
+      const next1 = document.getElementById('ppStep1Next');
+      const optionsWrap = document.getElementById('ppProjectOptions');
+      const contactInput = document.getElementById('ppContact');
+      const ppForm = document.getElementById('ppForm');
+      const ppSubmit = document.getElementById('ppSubmit');
+      const ppError = document.getElementById('ppError');
+      const ppMsg = document.getElementById('ppMsg');
+
+      let selectedProject = '';
+
+      function showStep(step) {
+        [step1, step2, step3].forEach((s) => s.classList.remove('visible'));
+        step.classList.add('visible');
+      }
+
+      function showPpError(message) {
+        ppError.textContent = message;
+        ppError.classList.add('visible');
+      }
+
+      function clearPpError() {
+        ppError.textContent = '';
+        ppError.classList.remove('visible');
+      }
+
+      next1.addEventListener('click', () => {
+        clearPpError();
+        const address = addressInput.value.trim();
+        if (address.length < 8 || !/\d/.test(address)) {
+          showPpError('Please enter a full street address, city, state, and ZIP.');
+          return;
+        }
+        showStep(step2);
+      });
+
+      optionsWrap.querySelectorAll('.option-pill').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          clearPpError();
+          selectedProject = btn.dataset.project;
+          optionsWrap.querySelectorAll('.option-pill').forEach((b) => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          showStep(step3);
+        });
+      });
+
+      document.querySelectorAll('.pp-back').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          clearPpError();
+          showStep(document.getElementById(btn.dataset.back));
+        });
+      });
+
+      ppForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        clearPpError();
+
+        const contact = contactInput.value.trim();
+        if (!selectedProject) {
+          showPpError('Please choose a project.');
+          showStep(step2);
+          return;
+        }
+        if (!contact) {
+          showPpError('Please enter a phone number or email.');
+          return;
+        }
+
+        ppSubmit.disabled = true;
+        ppSubmit.textContent = 'Sending…';
+        ppMsg.textContent = '';
+        ppMsg.className = 'report-cta-msg';
+
+        try {
+          const res = await fetch(`${SUPABASE_URL}/functions/v1/project-potential-intake`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'apikey': SUPABASE_ANON_KEY,
+              'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              address: addressInput.value.trim(),
+              project_type: selectedProject,
+              contact,
+            }),
+          });
+
+          const data = await res.json();
+
+          if (!res.ok) {
+            showPpError(data.error || 'Something went wrong. Please try again.');
+            return;
+          }
+
+          ppMsg.textContent = "Got it — we'll send your Project Potential shortly.";
+          ppMsg.className = 'report-cta-msg success';
+          ppForm.style.display = 'none';
+        } catch (err) {
+          showPpError('Something went wrong reaching the server. Please try again.');
+        } finally {
+          ppSubmit.disabled = false;
+          ppSubmit.textContent = 'Get My Project Potential';
+        }
+      });
+    })();
 
   </script>
 
