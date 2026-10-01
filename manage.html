@@ -26,14 +26,16 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #171716;
     --bg-deep: #0D0D0C;
     --ink: #FFFFFF;
     --ink-dim: #A8A6A2;
-    --ink-faint: #6B6966;
+    --ink-faint: #8C8A86;
     --gold: #C8A882;
     --border: rgba(255,255,255,0.08);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -61,7 +63,7 @@
      a light background add class="on-light" to <header>. */
 
   .site-header {
-    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg: rgba(255,255,255,0.78);
     --nav-fg-strong: #FFFFFF;
     --nav-accent: #C8A882;
     --nav-scrim: 13,13,12;
@@ -84,7 +86,7 @@
   }
 
   .site-header.on-light {
-    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg: rgba(20,19,15,0.78);
     --nav-fg-strong: #14130F;
     --nav-accent: #A66F30;
     --nav-scrim: 255,255,255;

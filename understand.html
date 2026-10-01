@@ -24,9 +24,24 @@
 <meta name="twitter:description" content="Enter any address and get the most complete digital profile of any home — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report." />
 <meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ROQ Understand — Home Report",
+  "url": "https://roqhome.com/understand.html",
+  "applicationCategory": "Home & Real Estate",
+  "operatingSystem": "Any (Web)",
+  "description": "Enter any address and get the most complete digital profile of any home — identity, timeline, ownership, land, market, neighborhood, systems, public records, risk, and potential, in one report.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous">
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <style>
@@ -61,7 +76,7 @@
   /* ================= Landing / marketing view ================= */
   #landingShell{
     --bg:#171716; --bg-deep:#0D0D0C; --panel:#1D1D1B;
-    --ink:#FFFFFF; --ink-dim:#A8A6A2; --ink-faint:#6B6966;
+    --ink:#FFFFFF; --ink-dim:#A8A6A2; --ink-faint:#8C8A86;
     --gold:#C8A882; --border:rgba(255,255,255,0.08); --danger:#C97A6A;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
     display:flex; flex-direction:column; min-height:100vh;
@@ -80,7 +95,7 @@
      a light background add class="on-light" to <header>. */
 
   .site-header {
-    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg: rgba(255,255,255,0.78);
     --nav-fg-strong: #FFFFFF;
     --nav-accent: #C8A882;
     --nav-scrim: 13,13,12;
@@ -103,7 +118,7 @@
   }
 
   .site-header.on-light {
-    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg: rgba(20,19,15,0.78);
     --nav-fg-strong: #14130F;
     --nav-accent: #A66F30;
     --nav-scrim: 255,255,255;
@@ -455,7 +470,7 @@
     position:absolute; bottom:0; left:0; right:0; padding:6px 9px; font:11px/1.2 'Public Sans';
     color:rgba(255,255,255,.5); background:rgba(0,0,0,.32); border-top:1px solid rgba(255,255,255,.08);
   }
-  .hero-main h1{ font:800 26px/1.15 'Public Sans'; letter-spacing:-.01em; margin:0 0 4px; }
+  .hero-main h2{ font:800 26px/1.15 'Public Sans'; letter-spacing:-.01em; margin:0 0 4px; }
   .hero-main .loc{ font:14px/1 'Public Sans'; color:var(--ink-soft); margin:0 0 16px; }
   .hero-facts{ display:flex; flex-wrap:wrap; gap:10px 26px; }
   .hero-fact{ display:flex; align-items:center; gap:7px; font:13px/1 'Public Sans'; color:var(--ink-soft); }
@@ -658,7 +673,7 @@
 
   <main>
     <section class="pagehero">
-      <img class="pagehero-img" src="/assets/hero/understand-hero.jpg" alt="Two homeowners reviewing floor plans and material samples in a bright living room" style="object-position: 50% 42%" />
+      <img class="pagehero-img" src="/assets/hero/understand-hero.webp" alt="Two homeowners reviewing floor plans and material samples in a bright living room" style="object-position: 50% 42%" />
       <div class="pagehero-scrim"></div>
       <h1 class="pagehero-headline">Understand your home</h1>
     </section>
@@ -779,7 +794,7 @@
           <div class="cap">No photo on file</div>
         </div>
         <div class="hero-main">
-          <h1 id="heroAddress"></h1>
+          <h2 id="heroAddress"></h2>
           <p class="loc" id="heroLoc"></p>
           <div class="hero-facts" id="heroFacts"></div>
         </div>

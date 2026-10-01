@@ -26,7 +26,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #F3F3F1;
@@ -71,7 +73,7 @@
   /* ---------------- Header ---------------- */
 
   .site-header {
-    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg: rgba(255,255,255,0.78);
     --nav-fg-strong: #FFFFFF;
     --nav-accent: #C8A882;
     --nav-scrim: 13,13,12;

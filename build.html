@@ -26,7 +26,9 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #F8F5EF;
@@ -67,7 +69,7 @@
      a light background add class="on-light" to <header>. */
 
   .site-header {
-    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg: rgba(255,255,255,0.78);
     --nav-fg-strong: #FFFFFF;
     --nav-accent: #C8A882;
     --nav-scrim: 13,13,12;
@@ -90,7 +92,7 @@
   }
 
   .site-header.on-light {
-    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg: rgba(20,19,15,0.78);
     --nav-fg-strong: #14130F;
     --nav-accent: #A66F30;
     --nav-scrim: 255,255,255;
@@ -254,7 +256,7 @@
   /* The header floats transparent over the render, then takes the page's own
      cream once you scroll past it — so the tabs stay legible on both. */
   .site-header.scrolled {
-    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg: rgba(20,19,15,0.78);
     --nav-fg-strong: #14130F;
     --nav-accent: var(--gold);
     --nav-solid: rgba(248,245,239,0.92);
@@ -931,7 +933,7 @@
   </header>
 
   <section class="pagehero">
-    <img class="pagehero-img" src="/assets/hero/build-hero.jpg"
+    <img class="pagehero-img" src="/assets/hero/build-hero.webp"
          alt="A home under construction at sunset on a ridge above a lake" />
     <div class="pagehero-scrim"></div>
     <div>

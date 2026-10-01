@@ -109,14 +109,16 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
     --bg: #171716;
     --bg-deep: #0D0D0C;
     --ink: #FFFFFF;
     --ink-dim: #A8A6A2;
-    --ink-faint: #6B6966;
+    --ink-faint: #8C8A86;
     --gold: #C8A882;
     --border: rgba(255,255,255,0.08);
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -144,7 +146,7 @@
      a light background add class="on-light" to <header>. */
 
   .site-header {
-    --nav-fg: rgba(255,255,255,0.58);
+    --nav-fg: rgba(255,255,255,0.78);
     --nav-fg-strong: #FFFFFF;
     --nav-accent: #C8A882;
     --nav-scrim: 13,13,12;
@@ -167,7 +169,7 @@
   }
 
   .site-header.on-light {
-    --nav-fg: rgba(20,19,15,0.58);
+    --nav-fg: rgba(20,19,15,0.78);
     --nav-fg-strong: #14130F;
     --nav-accent: #A66F30;
     --nav-scrim: 255,255,255;
@@ -579,7 +581,7 @@
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--nav-accent, #A66F30);
+    color: #8A5A24;
     margin-bottom: 16px;
   }
 
@@ -890,16 +892,16 @@
 
 
   <section class="statement">
-    <img class="statement-img" src="/assets/hero/owner-hero.jpg"
+    <img class="statement-img" src="/assets/hero/owner-hero.webp"
          alt="A man standing on the terrace of a modern hillside home at golden hour, looking out over the treetops to the ocean" />
     <div class="statement-scrim"></div>
     <div>
-      <p class="statement-text">Feel like an owner.</p>
+      <h1 class="statement-text">Feel like an owner.</h1>
     </div>
   </section>
 
   <section class="welcome">
-    <img class="welcome-img" src="/assets/hero/whitespace-hero.jpg"
+    <img class="welcome-img" src="/assets/hero/whitespace-hero.webp"
          alt="A bright, minimalist living room with floor-to-ceiling windows overlooking trees and water" />
     <div class="welcome-scrim"></div>
     <div class="welcome-copy">
@@ -914,7 +916,7 @@
     </div>
     <div class="explore-grid">
       <a class="explore-card" href="/build.html">
-        <img src="/assets/hero/build-hero.jpg" alt="A new home under construction at dusk" loading="lazy">
+        <img src="/assets/hero/build-hero.webp" alt="A new home under construction at dusk" loading="lazy">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Build</p>
           <h3 class="explore-card-title">Plan a build.</h3>
@@ -923,7 +925,7 @@
         </div>
       </a>
       <a class="explore-card" href="/dream.html">
-        <img src="/assets/hero/dream-hero.jpg" alt="An architectural rendering of a home design concept" loading="lazy">
+        <img src="/assets/hero/dream-hero.webp" alt="An architectural rendering of a home design concept" loading="lazy">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Design</p>
           <h3 class="explore-card-title">See it before you build it.</h3>
@@ -932,7 +934,7 @@
         </div>
       </a>
       <a class="explore-card" href="/manage.html">
-        <img src="/assets/hero/home-hero.jpg" alt="A modern hillside home at dusk, warm interior light spilling onto a reflecting pool" loading="lazy">
+        <img src="/assets/hero/home-hero.webp" alt="A modern hillside home at dusk, warm interior light spilling onto a reflecting pool" loading="lazy">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Own</p>
           <h3 class="explore-card-title">Run your home.</h3>
@@ -941,7 +943,7 @@
         </div>
       </a>
       <a class="explore-card" href="/renovate.html">
-        <img src="/assets/hero/renovate-hero.jpg" alt="A newly renovated kitchen with natural light" loading="lazy">
+        <img src="/assets/hero/renovate-hero.webp" alt="A newly renovated kitchen with natural light" loading="lazy">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Improve</p>
           <h3 class="explore-card-title">Know what's worth doing.</h3>
@@ -950,7 +952,7 @@
         </div>
       </a>
       <a class="explore-card" href="/move.html">
-        <img src="/assets/hero/move-hero.jpg" alt="Moving boxes at the entrance of a modern home, a packed car waiting in the driveway" loading="lazy" style="object-position: 82% 55%;">
+        <img src="/assets/hero/move-hero.webp" alt="Moving boxes at the entrance of a modern home, a packed car waiting in the driveway" loading="lazy" style="object-position: 82% 55%;">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Move</p>
           <h3 class="explore-card-title">Know when it's time.</h3>
@@ -959,7 +961,7 @@
         </div>
       </a>
       <a class="explore-card" href="/understand.html">
-        <img src="/assets/hero/understand-hero.jpg" alt="A home study of value and market context" loading="lazy">
+        <img src="/assets/hero/understand-hero.webp" alt="A home study of value and market context" loading="lazy">
         <div class="explore-card-body">
           <p class="explore-card-eyebrow">Understand</p>
           <h3 class="explore-card-title">Understand what you have.</h3>
