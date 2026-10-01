@@ -1,9 +1,21 @@
 /**
  * ROQ Market — centralized data file (MANUAL V1)
  * =================================================
- * Every number shown on /market.html lives here, and ONLY here. There is
- * no API, no cron job, no automatic fetching, no environment variable --
- * by design. This is a plain static file, hand-edited.
+ * STATUS (2026-10-01): market.html no longer reads this file. Jared
+ * replaced the live HTML/CSS rendering of this data with three designed
+ * images (Markethero.png / Projectcosts.png / Materialcosts.png,
+ * converted to assets/market/*.webp) that already bake in these same
+ * figures. This file is kept as-is -- the real, sourced research behind
+ * those images -- in case the page goes back to a live-rendered format,
+ * or the images need to be regenerated with updated numbers. If you're
+ * asked to "update the Market page data" going forward, the actual
+ * editable target is the three source images (or their replacements),
+ * not this file -- but update the figures here too so it stays an
+ * accurate record either way.
+ *
+ * Every number shown on /market.html used to live here, and only here.
+ * There is no API, no cron job, no automatic fetching, no environment
+ * variable -- by design. This is a plain static file, hand-edited.
  *
  * HOW TO UPDATE THIS LATER
  * -------------------------

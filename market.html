@@ -17,12 +17,12 @@
 <meta property="og:title" content="Home Market | ROQ Home" />
 <meta property="og:description" content="Track current mortgage rates, home improvement costs, materials, insurance, utilities, and homeowner market trends with ROQ Home." />
 <meta property="og:url" content="https://roqhome.com/market.html" />
-<meta property="og:image" content="https://roqhome.com/assets/hero/owner-hero.jpg" />
+<meta property="og:image" content="https://roqhome.com/assets/market/market-hero.webp" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Home Market | ROQ Home" />
 <meta name="twitter:description" content="Track current mortgage rates, home improvement costs, materials, insurance, utilities, and homeowner market trends with ROQ Home." />
-<meta name="twitter:image" content="https://roqhome.com/assets/hero/owner-hero.jpg" />
+<meta name="twitter:image" content="https://roqhome.com/assets/market/market-hero.webp" />
 
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap">
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -31,34 +31,25 @@
 <style>
   :root {
     --bg: #171716;
-    --bg-deep: #0D0D0C;
-    --ink: #FFFFFF;
-    --ink-dim: #A8A6A2;
     --ink-faint: #8C8A86;
-    --gold: #C8A882;
     --border: rgba(255,255,255,0.08);
-    --card-bg: #201F1D;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
   body {
     background: var(--bg);
-    color: var(--ink);
+    color: #FFFFFF;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
   }
   a { color: inherit; text-decoration: none; }
-  ::selection { background: var(--gold); color: #14110B; }
 
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 64px); }
 
   /* ---------- header (same component as the rest of the site) ---------- */
   .site-header {
     --nav-fg: rgba(255,255,255,0.78);
     --nav-fg-strong: #FFFFFF;
-    --nav-accent: #C8A882;
     --nav-scrim: 13,13,12;
     --nav-solid: rgba(13,13,12,0.92);
     --nav-border: rgba(255,255,255,0.10);
@@ -80,7 +71,7 @@
   .site-tabs a { color: var(--nav-fg); transition: color 0.2s var(--ease); white-space: nowrap; }
   .site-tabs a:hover, .site-tabs a.active { color: var(--nav-fg-strong); }
   @media (max-width: 860px) {
-    .site-tabs { position: fixed; inset: 64px 0 0 0; background: var(--bg-deep); flex-direction: column;
+    .site-tabs { position: fixed; inset: 64px 0 0 0; background: #0D0D0C; flex-direction: column;
       justify-content: flex-start; align-items: flex-start; padding: 32px 24px; gap: 20px; font-size: 17px;
       transform: translateY(-8px); opacity: 0; pointer-events: none; transition: opacity 0.25s var(--ease), transform 0.25s var(--ease); }
     .site-tabs.open { opacity: 1; pointer-events: auto; transform: translateY(0); }
@@ -90,101 +81,18 @@
   .site-tabs-toggle i { display: block; width: 22px; height: 1.5px; background: var(--nav-fg-strong); }
   @media (max-width: 860px) { .site-tabs-toggle { display: block; } }
 
-  /* ---------- hero ---------- */
-  .market-hero { padding: clamp(72px, 11vh, 108px) 0 clamp(40px, 6vw, 56px); text-align: center; }
-  .market-hero-label {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--gold); margin-bottom: 20px;
+  /* ---------- the three image sections ---------- */
+  .market-section { padding: clamp(28px, 4vw, 48px) 0; }
+  .market-section:first-of-type { padding-top: clamp(28px, 4vw, 48px); }
+  .market-section img {
+    display: block; width: 100%; height: auto; border-radius: 16px;
+    border: 1px solid var(--border);
   }
-  .market-hero-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
-  .market-hero h1 {
-    font-family: 'Lora', serif; font-weight: 400; font-size: clamp(34px, 5vw, 58px);
-    line-height: 1.12; letter-spacing: -0.01em; max-width: 16ch; margin: 0 auto 18px;
-  }
-  .market-hero p.sub { font-size: clamp(15px, 1.6vw, 18px); color: var(--ink-dim); max-width: 46ch; margin: 0 auto 10px; }
-  .market-hero p.optional { font-size: 14px; color: var(--ink-faint); max-width: 46ch; margin: 18px auto 0; }
 
-  /* ---------- snapshot cards ---------- */
-  .snapshot { padding: clamp(16px, 3vw, 24px) 0 clamp(56px, 8vw, 88px); }
-  .snapshot-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-  .m-card {
-    background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
-    padding: 22px 22px 20px;
-  }
-  .m-card-label { font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
-  .m-card-value { font-family: 'Lora', serif; font-size: clamp(26px, 2.6vw, 32px); color: var(--ink); letter-spacing: -0.01em; }
-  .m-card-change { display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--ink-dim); margin-top: 8px; }
-  .m-arrow { font-size: 12px; color: var(--gold); }
-  .m-card-timeframe { color: var(--ink-faint); }
-  .m-card-insight { font-size: 13.5px; line-height: 1.5; color: var(--ink-dim); margin-top: 12px; }
-  .m-card-meta { font-size: 11px; color: var(--ink-faint); margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
-  .m-card-meta a { color: var(--ink-faint); text-decoration: underline; text-underline-offset: 2px; }
-  .m-card-meta a:hover { color: var(--ink-dim); }
-  .m-estimate-tag { font-style: italic; color: var(--ink-faint); }
-
-  /* ---------- section shell ---------- */
-  .section { padding: clamp(48px, 7vw, 80px) 0; border-top: 1px solid var(--border); }
-  .section-head { max-width: 640px; margin: 0 auto clamp(28px, 4vw, 40px); text-align: center; }
-  .section-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
-  .section-head h2 { font-family: 'Lora', serif; font-weight: 400; font-size: clamp(26px, 3.2vw, 36px); letter-spacing: -0.01em; margin-bottom: 10px; }
-  .section-head p { font-size: 15px; color: var(--ink-dim); line-height: 1.6; }
-
-  /* ---------- owner outlook ---------- */
-  .outlook-text { max-width: 760px; margin: 0 auto; font-size: clamp(16px, 1.7vw, 18.5px); line-height: 1.75; color: var(--ink-dim); text-align: left; }
-
-  /* ---------- category sections (collapsible) ---------- */
-  .category-block { margin-bottom: 16px; }
-  .category-block summary {
-    display: flex; align-items: center; justify-content: space-between; cursor: pointer;
-    list-style: none; padding: 18px 22px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px;
-  }
-  .category-block summary::-webkit-details-marker { display: none; }
-  .category-block[open] summary { border-radius: 14px 14px 0 0; border-bottom-color: transparent; }
-  .category-block summary .cat-title { display: flex; align-items: baseline; gap: 12px; }
-  .category-block summary h3 { font-family: 'Lora', serif; font-weight: 500; font-size: 19px; }
-  .category-block summary .cat-desc { font-size: 13px; color: var(--ink-faint); }
-  .category-block summary .chev { color: var(--ink-faint); font-size: 13px; transition: transform 0.2s var(--ease); }
-  .category-block[open] summary .chev { transform: rotate(180deg); }
-  .category-body {
-    border: 1px solid var(--border); border-top: none; border-radius: 0 0 14px 14px;
-    padding: 6px clamp(14px, 3vw, 22px) 18px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;
-  }
-  @media (max-width: 760px) { .category-block summary .cat-desc { display: none; } }
-
-  .metric-row { padding: 16px 0; border-bottom: 1px solid var(--border); }
-  .category-body .metric-row:nth-last-child(-n+2) { border-bottom: none; }
-  .metric-row-top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-  .metric-row-name { font-size: 14.5px; font-weight: 600; color: var(--ink); }
-  .metric-row-value { font-family: 'Lora', serif; font-size: 19px; color: var(--ink); }
-  .metric-row-change { font-size: 12.5px; color: var(--ink-faint); margin-top: 2px; }
-  .metric-row-insight { font-size: 13px; line-height: 1.55; color: var(--ink-dim); margin-top: 8px; }
-  .metric-row-meta { font-size: 10.5px; color: var(--ink-faint); margin-top: 8px; }
-  .metric-row-meta a { color: var(--ink-faint); text-decoration: underline; text-underline-offset: 2px; }
-
-  /* ---------- project costs ---------- */
-  .project-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-  .project-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; }
-  .project-name { font-size: 14px; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-  .project-range { font-family: 'Lora', serif; font-size: 22px; color: var(--ink); letter-spacing: -0.01em; }
-  .project-geo { font-size: 12px; color: var(--ink-faint); margin-top: 6px; font-style: italic; }
-  .project-trend { font-size: 12.5px; color: var(--ink-dim); margin-top: 10px; }
-  .project-meta { font-size: 10.5px; color: var(--ink-faint); margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border); }
-  .project-meta a { color: var(--ink-faint); text-decoration: underline; text-underline-offset: 2px; }
-
-  /* ---------- methodology ---------- */
-  .methodology { font-size: 13px; line-height: 1.7; color: var(--ink-faint); max-width: 760px; margin: 0 auto; }
-  .methodology p { margin-bottom: 12px; }
-  .methodology p:last-child { margin-bottom: 0; }
-
-  /* ---------- footer ---------- */
   footer { border-top: 1px solid var(--border); padding: 32px clamp(20px, 5vw, 64px); display: flex; align-items: center;
     justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 12px; color: var(--ink-faint); }
   footer .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
-  footer .footer-links a:hover { color: var(--ink-dim); }
-
-  .loading-note { text-align: center; color: var(--ink-faint); font-size: 13px; padding: 40px 0; }
+  footer .footer-links a:hover { color: #FFFFFF; }
 </style>
 </head>
 <body>
@@ -208,72 +116,19 @@
 </header>
 
 <main>
-  <section class="market-hero wrap">
-    <p class="market-hero-label" id="updatedLabel">Updated weekly</p>
-    <h1>Understand the home market.</h1>
-    <p class="sub">Current rates, costs, trends, and homeowner signals — simplified.</p>
-    <p class="optional">Know what's changing before your next home decision.</p>
+  <section class="market-section wrap">
+    <img src="/assets/market/market-hero.webp" width="1672" height="941" loading="eager" decoding="async"
+      alt="Understand the home market — current 30-year and 15-year mortgage rates, HELOC rate, home value trend, home insurance trend, contractor labor trend, material cost trend, and electricity trend">
   </section>
 
-  <section class="snapshot wrap">
-    <div class="snapshot-grid" id="snapshotGrid"></div>
+  <section class="market-section wrap">
+    <img src="/assets/market/project-costs.webp" width="1672" height="941" loading="lazy" decoding="async"
+      alt="Common project costs right now, estimated national ranges for roof replacement, HVAC replacement, water heater replacement, kitchen remodel, bathroom remodel, windows, flooring, deck, and fence">
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="section-eyebrow">ROQ Owner Outlook</p>
-        <h2>What's happening right now</h2>
-      </div>
-      <p class="outlook-text" id="outlookText"></p>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="section-eyebrow">Market Categories</p>
-        <h2>The full picture, by category</h2>
-        <p>Tap a category to expand or collapse it.</p>
-      </div>
-      <div id="categoriesRoot"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="section-eyebrow">Common Project Costs</p>
-        <h2>What projects cost right now</h2>
-        <p>Estimated national ranges — your actual cost depends on your home, materials, and local market.</p>
-      </div>
-      <div class="project-grid" id="projectsGrid"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="section-eyebrow">Material Cost Trends</p>
-        <h2>What's moving, material by material</h2>
-      </div>
-      <div class="category-body" id="materialsGrid" style="border:none; padding:0;"></div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="section-eyebrow">Sources &amp; Methodology</p>
-        <h2>How this page works</h2>
-      </div>
-      <div class="methodology">
-        <p>This page is updated manually, roughly weekly, using the primary and secondary sources credited on each card above — including Freddie Mac, FHFA, the U.S. Bureau of Labor Statistics, the U.S. Energy Information Administration, the U.S. Census Bureau, Redfin, Realtor.com, Insurify, Zonda, and Angi.</p>
-        <p>Project costs are estimates only. Actual costs vary significantly by home, materials, contractor, and local market — treat every range here as a starting point for a conversation with a contractor, not a quote.</p>
-        <p>Rates, prices, and costs change. The date shown on each card reflects when that figure was published or last verified, not necessarily today.</p>
-        <p id="lastUpdatedLine"></p>
-      </div>
-    </div>
+  <section class="market-section wrap">
+    <img src="/assets/market/material-costs.webp" width="1672" height="941" loading="lazy" decoding="async"
+      alt="Material cost trends year over year for lumber, concrete, steel, copper, drywall and gypsum, roofing materials, and fiberglass insulation">
   </section>
 </main>
 
@@ -288,10 +143,7 @@
   </div>
 </footer>
 
-<script src="/data/market.js"></script>
 <script>
-(function () {
-  // ---------- nav toggle (same behavior as the rest of the site) ----------
   var toggle = document.getElementById('siteTabsToggle');
   var tabs = document.getElementById('siteTabs');
   if (toggle && tabs) {
@@ -300,118 +152,6 @@
       toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
   }
-
-  function esc(s) {
-    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
-      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
-    });
-  }
-
-  function arrow(direction) {
-    if (direction === 'up') return '&uarr;';
-    if (direction === 'down') return '&darr;';
-    return '&rarr;';
-  }
-
-  function dateLabel(iso) {
-    if (!iso) return '';
-    var d = new Date(iso + 'T00:00:00');
-    if (isNaN(d.getTime())) return iso;
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  }
-
-  function confidenceTag(confidence) {
-    return confidence === 'estimate' ? '<span class="m-estimate-tag">Estimated</span>' : '';
-  }
-
-  // ---------- render: hero "updated" label ----------
-  if (window.MARKET_META) {
-    var lbl = document.getElementById('updatedLabel');
-    if (lbl && window.MARKET_META.updateCadenceLabel) lbl.textContent = window.MARKET_META.updateCadenceLabel;
-    var lastUpdatedLine = document.getElementById('lastUpdatedLine');
-    if (lastUpdatedLine) {
-      lastUpdatedLine.textContent = 'Page data last reviewed: ' + dateLabel(window.MARKET_META.lastUpdated) + '.';
-    }
-    document.title = window.MARKET_META.pageTitle || document.title;
-  }
-
-  // ---------- render: snapshot cards ----------
-  var snapshotGrid = document.getElementById('snapshotGrid');
-  if (snapshotGrid && Array.isArray(window.MARKET_SNAPSHOT)) {
-    window.MARKET_SNAPSHOT.forEach(function (m) {
-      var card = document.createElement('div');
-      card.className = 'm-card';
-      card.innerHTML =
-        '<div class="m-card-label">' + esc(m.name) + '</div>' +
-        '<div class="m-card-value">' + esc(m.value) + (m.unit ? ' <span style="font-size:14px;color:var(--ink-faint);font-family:Inter,sans-serif;">' + esc(m.unit) + '</span>' : '') + '</div>' +
-        (m.change ? '<div class="m-card-change"><span class="m-arrow">' + arrow(m.direction) + '</span><span>' + esc(m.change) + '</span><span class="m-card-timeframe">' + esc(m.timeframe || '') + '</span></div>' : '<div class="m-card-change"><span class="m-card-timeframe">' + esc(m.timeframe || '') + '</span></div>') +
-        '<p class="m-card-insight">' + esc(m.homeownerInsight) + '</p>' +
-        '<div class="m-card-meta"><a href="' + esc(m.sourceUrl) + '" target="_blank" rel="noopener">' + esc(m.sourceName) + '</a><span>' + confidenceTag(m.confidence) + ' ' + dateLabel(m.updatedAt) + '</span></div>';
-      snapshotGrid.appendChild(card);
-    });
-  }
-
-  // ---------- render: owner outlook ----------
-  var outlookText = document.getElementById('outlookText');
-  if (outlookText && window.MARKET_OUTLOOK) outlookText.textContent = window.MARKET_OUTLOOK;
-
-  // ---------- render: category sections ----------
-  var categoriesRoot = document.getElementById('categoriesRoot');
-  if (categoriesRoot && window.MARKET_CATEGORIES) {
-    var order = ['finance', 'improve', 'own', 'value'];
-    order.forEach(function (key, idx) {
-      var cat = window.MARKET_CATEGORIES[key];
-      if (!cat) return;
-      var details = document.createElement('details');
-      details.className = 'category-block';
-      if (idx === 0) details.open = true;
-      var body = cat.metrics.map(function (m) {
-        return '<div class="metric-row">' +
-          '<div class="metric-row-top"><span class="metric-row-name">' + esc(m.name) + '</span><span class="metric-row-value">' + esc(m.value) + '</span></div>' +
-          (m.unit || m.change ? '<div class="metric-row-change">' + esc([m.unit, m.change].filter(Boolean).join(' &middot; ')) + (m.timeframe ? ' &middot; ' + esc(m.timeframe) : '') + '</div>' : '') +
-          '<p class="metric-row-insight">' + esc(m.homeownerInsight) + '</p>' +
-          '<div class="metric-row-meta">' + confidenceTag(m.confidence) + ' <a href="' + esc(m.sourceUrl) + '" target="_blank" rel="noopener">' + esc(m.sourceName) + '</a> &middot; ' + dateLabel(m.updatedAt) + '</div>' +
-          '</div>';
-      }).join('');
-      details.innerHTML =
-        '<summary><span class="cat-title"><h3>' + esc(cat.label) + '</h3><span class="cat-desc">' + esc(cat.description) + '</span></span><span class="chev">&#9662;</span></summary>' +
-        '<div class="category-body">' + body + '</div>';
-      categoriesRoot.appendChild(details);
-    });
-  }
-
-  // ---------- render: project costs ----------
-  var projectsGrid = document.getElementById('projectsGrid');
-  if (projectsGrid && Array.isArray(window.MARKET_PROJECTS)) {
-    var fmt = function (n) { return '$' + Number(n).toLocaleString('en-US'); };
-    window.MARKET_PROJECTS.forEach(function (p) {
-      var card = document.createElement('div');
-      card.className = 'project-card';
-      card.innerHTML =
-        '<div class="project-name">' + esc(p.project) + '</div>' +
-        '<div class="project-range">' + fmt(p.lowEstimate) + '&ndash;' + fmt(p.highEstimate) + '</div>' +
-        '<div class="project-geo">' + esc(p.geography) + '</div>' +
-        (p.trend ? '<div class="project-trend">' + esc(p.trend) + '</div>' : '') +
-        '<div class="project-meta"><a href="' + esc(p.sourceUrl) + '" target="_blank" rel="noopener">' + esc(p.sourceName) + '</a> &middot; ' + dateLabel(p.updatedAt) + '</div>';
-      projectsGrid.appendChild(card);
-    });
-  }
-
-  // ---------- render: materials ----------
-  var materialsGrid = document.getElementById('materialsGrid');
-  if (materialsGrid && Array.isArray(window.MARKET_MATERIALS)) {
-    window.MARKET_MATERIALS.forEach(function (mat) {
-      var row = document.createElement('div');
-      row.className = 'metric-row';
-      row.innerHTML =
-        '<div class="metric-row-top"><span class="metric-row-name">' + esc(mat.name) + '</span><span class="metric-row-value"><span class="m-arrow">' + arrow(mat.direction) + '</span> ' + esc(mat.yoyChange) + '</span></div>' +
-        '<div class="metric-row-change">Year over year</div>' +
-        '<p class="metric-row-insight">' + esc(mat.homeownerInsight) + '</p>' +
-        '<div class="metric-row-meta">' + confidenceTag(mat.confidence) + ' <a href="' + esc(mat.sourceUrl) + '" target="_blank" rel="noopener">' + esc(mat.sourceName) + '</a> &middot; ' + dateLabel(mat.updatedAt) + '</div>';
-      materialsGrid.appendChild(row);
-    });
-  }
-})();
 </script>
 </body>
 </html>
