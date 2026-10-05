@@ -645,6 +645,77 @@
     .do-closing-panel { width: 100%; }
   }
 
+  /* ---------- Featured design teaser ---------- */
+
+  .fs-teaser {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    min-height: clamp(320px, 36vw, 460px);
+    padding: clamp(28px, 4vw, 56px) clamp(24px, 6vw, 64px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .fs-teaser img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 60% 40%;
+  }
+
+  .fs-teaser::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(to top, rgba(10,9,8,0.92) 0%, rgba(10,9,8,0.55) 45%, rgba(10,9,8,0.1) 80%);
+  }
+
+  .fs-teaser-eyebrow {
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+
+  .fs-teaser h2 {
+    font-family: 'Cormorant Garamond', 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(34px, 5vw, 58px);
+    line-height: 1;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+
+  .fs-teaser p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.78);
+    max-width: 46ch;
+    margin-bottom: 22px;
+  }
+
+  .fs-teaser-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: #fff;
+    border-bottom: 1px solid rgba(255,255,255,0.4);
+    padding-bottom: 2px;
+    transition: border-color 0.2s var(--ease);
+  }
+  .fs-teaser-link:hover { border-color: #fff; }
+  .fs-teaser-link svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
+
   /* ---------- Waitlist strip ---------- */
 
   .waitlist-strip {
@@ -1002,6 +1073,18 @@
     </div>
 
   </section>
+
+  <a class="fs-teaser" href="/fieldstone.html" aria-label="Explore FIELDSTONE, a Modern Farmhouse by ROQ Home">
+    <img src="/assets/fieldstone/hero_exterior.webp" alt="" role="presentation">
+    <div>
+      <p class="fs-teaser-eyebrow">Featured Design</p>
+      <h2>FIELDSTONE</h2>
+      <p>A Modern Farmhouse from the ROQ Home design collection. 3 Bedrooms &middot; 2.5 Baths &middot; Approx. 2,560 SF &mdash; dimensioned plans, elevations, interiors, and materials, ready for your builder.</p>
+      <span class="fs-teaser-link">Explore FIELDSTONE
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+    </div>
+  </a>
 
   </main>
 
