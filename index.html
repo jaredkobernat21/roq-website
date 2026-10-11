@@ -334,6 +334,7 @@
   .statement {
     position: relative;
     min-height: 100vh;
+    min-height: 100svh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -344,33 +345,40 @@
     isolation: isolate;
   }
 
-  .statement-img {
+  /* The poster is the loop's first frame: it paints immediately, and the
+     video fades in over it once it is actually playing. */
+  .statement-img,
+  .statement-video {
     position: absolute;
     inset: 0;
     z-index: -2;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 68% 40%;
+    object-position: 50% 50%;
   }
 
-  @media (max-width: 600px) {
-    .statement-img { object-position: 85% 42%; }
+  .statement-video {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
   }
 
-  /* Holds the type without flattening the render — the house stays lit
-     through the middle, the copy sits in the darkened base. */
+  .statement-video.is-playing { opacity: 1; }
+
+  /* Holds the type over footage that swings from a dark hallway to a white
+     room — darker at the top for the tabs and at the base for the handoff
+     to the next section, lighter through the middle so the scenes read. */
   .statement-scrim {
     position: absolute;
     inset: 0;
     z-index: -1;
     background: linear-gradient(
       to bottom,
-      rgba(5,5,5,0.72) 0%,
-      rgba(5,5,5,0.44) 26%,
-      rgba(5,5,5,0.62) 50%,
-      rgba(5,5,5,0.80) 78%,
-      rgba(5,5,5,0.94) 100%
+      rgba(5,5,5,0.58) 0%,
+      rgba(5,5,5,0.36) 24%,
+      rgba(5,5,5,0.38) 62%,
+      rgba(5,5,5,0.66) 100%
     );
   }
 
@@ -383,7 +391,7 @@
     max-width: 22ch;
     margin: 0 auto;
     text-wrap: balance;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.6);
   }
 
 
@@ -893,8 +901,13 @@
 
 
   <section class="statement">
-    <img class="statement-img" src="/assets/hero/owner-hero.webp"
-         alt="A man standing on the terrace of a modern hillside home at golden hour, looking out over the treetops to the ocean" />
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/home-loop-mobile-poster.webp" />
+      <img class="statement-img" src="/assets/hero/home-loop-desktop-poster.webp"
+           alt="A homeowner in the open kitchen of a modern home, looking out to the terrace and trees" fetchpriority="high" />
+    </picture>
+    <video class="statement-video" id="statementVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="statement-scrim"></div>
     <div>
       <h1 class="statement-text">Feel like an owner.</h1>
@@ -1079,6 +1092,55 @@
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
+    })();
+  </script>
+
+  <script>
+    /* Hero loop: a portrait cut for tall screens, a landscape cut for wide
+       ones. The source is chosen in JS so only one file is ever fetched. */
+    (function () {
+      var video = document.getElementById('statementVideo');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var conn = navigator.connection || {};
+      if (reduce.matches || conn.saveData) return;   // poster only
+
+      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+      var current = null;
+
+      function load() {
+        var src = '/assets/hero/home-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4';
+        if (src === current) return;
+        current = src;
+        video.classList.remove('is-playing');
+        video.muted = true;               // required for autoplay; set as a property for iOS
+        video.src = src;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
+      }
+
+      video.addEventListener('playing', function () {
+        video.classList.add('is-playing');
+      });
+
+      // Rotating a phone or tablet swaps cuts.
+      if (portrait.addEventListener) portrait.addEventListener('change', load);
+
+      // Don't decode frames nobody can see.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (!current) return;
+          if (entries[0].isIntersecting) {
+            var p = video.play();
+            if (p && p.catch) p.catch(function () {});
+          } else {
+            video.pause();
+          }
+        }).observe(video);
+      }
+
+      load();
     })();
   </script>
 
