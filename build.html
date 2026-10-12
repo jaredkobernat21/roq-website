@@ -277,29 +277,57 @@
     isolation: isolate;
   }
 
-  .pagehero-img {
+  /* The poster is the loop's first frame: it paints immediately, and the
+     video fades in over it once it is actually playing. */
+  .pagehero-img,
+  .pagehero-video {
     position: absolute;
     inset: 0;
     z-index: -2;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 58%;
+    object-position: 50% 50%;
   }
 
-  /* The sun sits top-left and the ground reads warm and busy, so the scrim
-     holds both ends and stays lightest across the middle where the house is. */
+  .pagehero-video {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+
+  .pagehero-video.is-playing { opacity: 1; }
+
+  /* Holds the type over footage that runs from pale lumber to white paper —
+     darker at the top for the tabs and at the base, lighter through the
+     middle, with a soft pool of shade directly behind the headline. */
   .pagehero-scrim {
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(
-      to bottom,
-      rgba(20,18,14,0.62) 0%,
-      rgba(20,18,14,0.34) 30%,
-      rgba(20,18,14,0.52) 60%,
-      rgba(20,18,14,0.86) 100%
-    );
+    background:
+      radial-gradient(ellipse 46% 26% at 50% 50%, rgba(20,18,14,0.42) 0%, rgba(20,18,14,0) 100%),
+      linear-gradient(
+        to bottom,
+        rgba(20,18,14,0.58) 0%,
+        rgba(20,18,14,0.36) 24%,
+        rgba(20,18,14,0.38) 62%,
+        rgba(20,18,14,0.66) 100%
+      );
+  }
+
+  @media (max-aspect-ratio: 1/1) {
+    .pagehero-scrim {
+      background:
+        radial-gradient(ellipse 80% 18% at 50% 50%, rgba(20,18,14,0.42) 0%, rgba(20,18,14,0) 100%),
+        linear-gradient(
+          to bottom,
+          rgba(20,18,14,0.58) 0%,
+          rgba(20,18,14,0.36) 24%,
+          rgba(20,18,14,0.38) 62%,
+          rgba(20,18,14,0.66) 100%
+        );
+    }
   }
 
   .pagehero-headline {
@@ -309,16 +337,15 @@
     line-height: 1.12;
     letter-spacing: -0.01em;
     color: #FFFFFF;
-    max-width: 17ch;
+    max-width: 24ch;
     margin: 0 auto;
     text-wrap: balance;
-    text-shadow: 0 2px 30px rgba(0,0,0,0.55);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.6);
   }
 
   @media (max-width: 640px) {
     .pagehero { padding: 104px 24px 84px; }
     .pagehero-headline { font-size: 31px; max-width: 14ch; }
-    .pagehero-img { object-position: 52% 60%; }
   }
 
   /* ---------- Concept board ----------
@@ -934,11 +961,16 @@
   </header>
 
   <section class="pagehero">
-    <img class="pagehero-img" src="/assets/hero/build-hero.webp"
-         alt="A home under construction at sunset on a ridge above a lake" />
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/build-loop-mobile-poster.webp" />
+      <img class="pagehero-img" src="/assets/hero/build-loop-desktop-poster.webp"
+           alt="A new home's wood framing and roof trusses seen from directly above" fetchpriority="high" />
+    </picture>
+    <video class="pagehero-video" id="pageheroVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
     <div>
-      <h1 class="pagehero-headline">Your forever home starts here.</h1>
+      <h1 class="pagehero-headline">Build your forever home</h1>
     </div>
   </section>
 
@@ -1277,6 +1309,55 @@
         submitBtn.textContent = 'Get My ROQ Framework';
       }
     });
+  </script>
+
+  <script>
+    /* Hero loop: a portrait cut for tall screens, a landscape cut for wide
+       ones. The source is chosen in JS so only one file is ever fetched. */
+    (function () {
+      var video = document.getElementById('pageheroVideo');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var conn = navigator.connection || {};
+      if (reduce.matches || conn.saveData) return;   // poster only
+
+      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+      var current = null;
+
+      function load() {
+        var src = '/assets/hero/build-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4';
+        if (src === current) return;
+        current = src;
+        video.classList.remove('is-playing');
+        video.muted = true;               // required for autoplay; set as a property for iOS
+        video.src = src;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
+      }
+
+      video.addEventListener('playing', function () {
+        video.classList.add('is-playing');
+      });
+
+      // Rotating a phone or tablet swaps cuts.
+      if (portrait.addEventListener) portrait.addEventListener('change', load);
+
+      // Don't decode frames nobody can see.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (!current) return;
+          if (entries[0].isIntersecting) {
+            var p = video.play();
+            if (p && p.catch) p.catch(function () {});
+          } else {
+            video.pause();
+          }
+        }).observe(video);
+      }
+
+      load();
+    })();
   </script>
 
 </body>
