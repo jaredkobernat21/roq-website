@@ -373,13 +373,31 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(
-      to bottom,
-      rgba(5,5,5,0.58) 0%,
-      rgba(5,5,5,0.36) 24%,
-      rgba(5,5,5,0.38) 62%,
-      rgba(5,5,5,0.66) 100%
-    );
+    background:
+      /* a soft pool of shade directly behind the headline, so it holds over
+         white paper and fine linework without darkening the whole frame */
+      radial-gradient(ellipse 46% 26% at 50% 50%, rgba(5,5,5,0.42) 0%, rgba(5,5,5,0) 100%),
+      linear-gradient(
+        to bottom,
+        rgba(5,5,5,0.58) 0%,
+        rgba(5,5,5,0.36) 24%,
+        rgba(5,5,5,0.38) 62%,
+        rgba(5,5,5,0.66) 100%
+      );
+  }
+
+  @media (max-aspect-ratio: 1/1) {
+    .statement-scrim {
+      background:
+        radial-gradient(ellipse 80% 16% at 50% 50%, rgba(5,5,5,0.42) 0%, rgba(5,5,5,0) 100%),
+        linear-gradient(
+          to bottom,
+          rgba(5,5,5,0.58) 0%,
+          rgba(5,5,5,0.36) 24%,
+          rgba(5,5,5,0.38) 62%,
+          rgba(5,5,5,0.66) 100%
+        );
+    }
   }
 
   .statement-text {
@@ -856,19 +874,17 @@
   }
 
   @media (max-width: 640px) {
-    /* Opening statement: 32px was the clamp floor and still ran three lines
-       edge to edge. A shorter measure lets it breathe over the render.
-       The image now renders contained rather than cropped to cover, so
-       centering the type reads as "over the scene," not "over a face." */
+    /* Opening statement: two words, kept on one line and scaled to the
+       width of the phone so it never breaks into a stack. */
     .statement {
       padding: 96px 24px 84px;
       align-items: center;
     }
 
     .statement-text {
-      font-size: 30px;
+      font-size: clamp(28px, 8.6vw, 36px);
       line-height: 1.18;
-      max-width: 13ch;
+      max-width: none;
     }
 
     .explore-grid { gap: 14px; }
@@ -902,15 +918,15 @@
 
   <section class="statement">
     <picture>
-      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/home-loop-mobile-poster.webp" />
-      <img class="statement-img" src="/assets/hero/home-loop-desktop-poster.webp"
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/experience-home-mobile-poster.webp" />
+      <img class="statement-img" src="/assets/hero/experience-home-desktop-poster.webp"
            alt="A homeowner in the open kitchen of a modern home, looking out to the terrace and trees" fetchpriority="high" />
     </picture>
     <video class="statement-video" id="statementVideo" muted loop playsinline
            preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="statement-scrim"></div>
     <div>
-      <h1 class="statement-text">Feel like an owner.</h1>
+      <h1 class="statement-text">Experience Home</h1>
     </div>
   </section>
 
@@ -1110,7 +1126,7 @@
       var current = null;
 
       function load() {
-        var src = '/assets/hero/home-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4';
+        var src = '/assets/hero/experience-home-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4';
         if (src === current) return;
         current = src;
         video.classList.remove('is-playing');
