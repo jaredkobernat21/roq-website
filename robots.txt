@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /strategy-intake.html
-Disallow: /experience.html
 
 Sitemap: https://roqhome.com/sitemap.xml

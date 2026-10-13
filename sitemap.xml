@@ -11,31 +11,6 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://roqhome.com/build.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/dream.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/renovate.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/move.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/understand.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://roqhome.com/connect.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -46,33 +21,8 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://roqhome.com/can-i-build-here.html</loc>
+    <loc>https://roqhome.com/market.html</loc>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/what-could-my-home-become.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/staying-on-top-of-your-home.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/what-should-i-fix-first.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/is-now-the-right-time-to-move.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://roqhome.com/what-is-my-home-worth.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>
