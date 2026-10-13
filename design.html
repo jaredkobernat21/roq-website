@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Design — ROQ Home</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="Custom home designs from ROQ Home." />
+<link rel="canonical" href="https://roqhome.com/design.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ" />
+<meta property="og:title" content="Design — ROQ Home" />
+<meta property="og:description" content="Custom home designs from ROQ Home." />
+<meta property="og:url" content="https://roqhome.com/design.html" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/design-hero.webp" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Design — ROQ Home" />
+<meta name="twitter:description" content="Custom home designs from ROQ Home." />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/design-hero.webp" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #F8F5EF;
+    --bg-soft: #F2EEE4;
+    --bg-panel: #FFFFFF;
+    --ink: #1C1B18;
+    --ink-dim: #5B5A54;
+    --ink-faint: #948F83;
+    --border: rgba(28,27,24,0.10);
+    --border-soft: rgba(28,27,24,0.07);
+    --gold: #C2873F;
+    --gold-dark: #A66F30;
+    --gold-dim: rgba(194,135,63,0.12);
+    --dark: #14120E;
+    --dark-ink: #F5F1E9;
+    --danger: #B5473A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: #fff; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ---------- Site header ----------
+     Self-contained: every value it needs is declared here, so the same
+     block drops onto the dark pages and the light ones alike. Pages with
+     a light background add class="on-light" to <header>. */
+
+  .site-header {
+    --nav-fg: rgba(255,255,255,0.78);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
+  }
+
+  .site-header.on-light {
+    --nav-fg: rgba(20,19,15,0.78);
+    --nav-fg-strong: #14130F;
+    --nav-accent: #A66F30;
+    --nav-scrim: 255,255,255;
+    --nav-solid: rgba(255,255,255,0.90);
+    --nav-border: rgba(20,19,15,0.12);
+    --nav-panel: rgba(255,255,255,0.98);
+    --nav-shadow: none;
+  }
+
+  /* The tabs sit over whatever the hero is — a dusk sky, a night render, a
+     cream panel. A top-down scrim keeps them legible on all of them, and
+     fades out once the solid scrolled background takes over. */
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
+  }
+
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  /* Pages whose content starts below the header — rather than running under
+     a floating one — hold their own space and keep a background at all times. */
+  .site-header.inflow {
+    position: sticky;
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-header.inflow::before { display: none; }
+
+  .site-logo { display: flex; }
+
+  .logo-mark {
+    width: 30px;
+    height: 30px;
+    display: block;
+  }
+
+  .logo-mark path {
+    stroke: var(--nav-fg-strong);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .site-tabs {
+    display: flex;
+    align-items: center;
+    gap: clamp(14px, 2.1vw, 30px);
+  }
+
+  .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
+  }
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+
+  .site-tabs a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 1px;
+    background: var(--nav-accent);
+  }
+
+  .site-tabs-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--nav-border);
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+
+    .site-tabs-toggle span::before,
+    .site-tabs-toggle span::after,
+    .site-tabs-toggle span i {
+      content: '';
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--nav-fg-strong);
+    }
+
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+
+    .site-tabs {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: clamp(24px, 5vw, 64px);
+      min-width: 170px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      background: var(--nav-panel);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border);
+      border-radius: 14px;
+      padding: 8px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+
+    .site-tabs.open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
+
+  /* ---------- Page hero ---------- */
+
+  /* The header floats transparent over the render, then takes the page's own
+     cream once you scroll past it — so the tabs stay legible on both. */
+  .site-header.scrolled {
+    --nav-fg: rgba(20,19,15,0.78);
+    --nav-fg-strong: #14130F;
+    --nav-accent: var(--gold);
+    --nav-solid: rgba(248,245,239,0.92);
+    --nav-border: var(--border);
+    --nav-shadow: none;
+  }
+
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* The poster is the loop's first frame: it paints immediately, and the
+     video fades in over it once it is actually playing. */
+  .pagehero-img,
+  .pagehero-video {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
+  }
+
+  .pagehero-video {
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+
+  .pagehero-video.is-playing { opacity: 1; }
+
+  /* Holds the type over footage that runs from pale lumber to white paper —
+     darker at the top for the tabs and at the base, lighter through the
+     middle, with a soft pool of shade directly behind the headline. */
+  .pagehero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      radial-gradient(ellipse 46% 26% at 50% 50%, rgba(20,18,14,0.42) 0%, rgba(20,18,14,0) 100%),
+      linear-gradient(
+        to bottom,
+        rgba(20,18,14,0.58) 0%,
+        rgba(20,18,14,0.36) 24%,
+        rgba(20,18,14,0.38) 62%,
+        rgba(20,18,14,0.66) 100%
+      );
+  }
+
+  @media (max-aspect-ratio: 1/1) {
+    .pagehero-scrim {
+      background:
+        radial-gradient(ellipse 80% 18% at 50% 50%, rgba(20,18,14,0.42) 0%, rgba(20,18,14,0) 100%),
+        linear-gradient(
+          to bottom,
+          rgba(20,18,14,0.58) 0%,
+          rgba(20,18,14,0.36) 24%,
+          rgba(20,18,14,0.38) 62%,
+          rgba(20,18,14,0.66) 100%
+        );
+    }
+  }
+
+  /* This photo is mostly white paper, so it takes an extra even layer of shade. */
+  .pagehero--bright .pagehero-scrim::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(20,18,14,0.30);
+  }
+
+  .pagehero-headline {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
+    color: #FFFFFF;
+    max-width: 24ch;
+    margin: 0 auto;
+    text-wrap: balance;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.6);
+  }
+
+  @media (max-width: 640px) {
+    .pagehero { padding: 104px 24px 84px; }
+    .pagehero-headline { font-size: 31px; max-width: 14ch; }
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--dark);
+    padding: 0 clamp(24px, 6vw, 72px) 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border-top: 1px solid rgba(245,241,233,0.08);
+    margin: 0 clamp(24px, 6vw, 72px);
+    padding-top: 28px;
+  }
+
+  .footer-copy { font-size: 12px; color: rgba(245,241,233,0.5); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: rgba(245,241,233,0.6); }
+  .footer-links a:hover { color: var(--dark-ink); }
+
+  /* ---------- Mobile refinements ----------
+     The desktop clamp() minimums were still tuned for a wide viewport: a 38px
+     serif headline fills a 375px line edge to edge, and vh-based section
+     padding leaves large dead zones before any content appears. This steps the
+     scale and the rhythm down, and brings touch targets up to 44px. */
+
+  @media (max-width: 640px) {
+    .site-header .site-header-row,
+    .site-header { padding: 16px 20px; }
+
+    .site-tabs { min-width: 200px; padding: 10px; }
+
+    /* 44px minimum so the menu is comfortable to hit one-handed */
+    .site-tabs a {
+      display: flex;
+      align-items: center;
+      min-height: 46px;
+      padding: 0 14px;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+    }
+
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer {
+      padding: 36px 20px 32px;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 22px;
+    }
+
+    .footer-links {
+      gap: 0;
+      width: 100%;
+      flex-direction: column;
+    }
+
+    .footer-links a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border, rgba(127,127,127,0.12));
+    }
+
+    .footer-links a:last-child { border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/manage.html">App</a>
+      <a href="/market.html">Market</a>
+      <a href="/design.html" class="active" aria-current="page">Design</a>
+      <a href="/renovate.html">Renovate</a>
+      <a href="/connect.html">Connect</a>
+    </nav>
+
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
+            aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
+  </header>
+
+  <section class="pagehero pagehero--bright">
+    <img class="pagehero-img" src="/assets/hero/design-hero.webp" width="2000" height="3000"
+         alt="A couple and their designer going over a floor plan together at a table"
+         fetchpriority="high" style="object-position: 50% 46%" />
+    <div class="pagehero-scrim"></div>
+    <div>
+      <h1 class="pagehero-headline">Custom home designs</h1>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    <div class="footer-links">
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/legal/roq-terms.html">Terms</a>
+      <a href="/about.html">Story</a>
+      <a href="mailto:support@roqhome.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    // ---------- Header: tabs + scroll scrim ----------
+    (function initHeader() {
+      const header = document.querySelector('.site-header');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('siteTabsToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      if (header) {
+        // This page opens on a full-height dark render, so the header holds its
+        // transparent treatment until the hero has passed under it — switching
+        // at a few pixels would drop a cream bar over the photo.
+        const hero = document.querySelector('.pagehero');
+        const threshold = () =>
+          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+      }
+    })();
+  </script>
+
+</body>
+</html>
