@@ -717,10 +717,10 @@
   .pagehero--renovate .pagehero-points {
     grid-template-columns: repeat(2, auto);
     gap: 14px clamp(28px, 5vw, 64px);
-    margin-top: clamp(36px, 6vh, 56px);
+    margin-top: clamp(52px, 8.6vh, 82px);
   }
 
-  .pagehero--renovate .pagehero-cta { margin-top: clamp(40px, 6.6vh, 60px); }
+  .pagehero--renovate .pagehero-cta { margin-top: clamp(56px, 9.2vh, 86px); }
 
   @media (max-width: 640px) {
     .pagehero--renovate .pagehero-scrim::after { background: rgba(20,18,14,0.32); }
@@ -1348,7 +1348,7 @@
          loading="lazy" style="object-position: 50% 46%" />
     <div class="pagehero-scrim"></div>
     <div class="pagehero-body">
-      <h2 class="pagehero-headline">FRAMEWORK</h2>
+      <h2 class="pagehero-headline">Dream Home Plan</h2>
       <ul class="pagehero-points">
         <li>Site feasibility &amp; planning</li>
         <li>Dimensioned floor plans &amp; layout</li>
@@ -1664,7 +1664,7 @@
       // Reuses the existing project-potential-intake function/table, the one
       // intake endpoint that accepts a phone number or an email and no name.
       // The build location goes in its address field and project_type marks
-      // the lead as a FRAMEWORK request (with the name, when one is given).
+      // the lead as a Dream Home Plan request (with the name, when one is given).
       const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
       const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
@@ -1710,7 +1710,7 @@
               // The function rejects addresses under 8 characters; a short
               // answer like "Austin" is still a valid build location.
               address: location.length < 8 ? `${location} (build location)` : location,
-              project_type: 'Build: FRAMEWORK' + (name ? ` | Name: ${name}` : '') + (method === 'text' ? ' | Prefers text' : ''),
+              project_type: 'Build: Dream Home Plan' + (name ? ` | Name: ${name}` : '') + (method === 'text' ? ' | Prefers text' : ''),
               contact: value,
               contact_method: method === 'email' ? 'email' : 'phone',
             }),
