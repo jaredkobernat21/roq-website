@@ -178,6 +178,16 @@ li { margin-bottom: 8px; }
 }
 .contact-block strong { display: block; margin-bottom: 2px; }
 
+main a { color: inherit; text-underline-offset: 2px; }
+.eff-date { line-height: 1.75; }
+.closing {
+  margin-top: 44px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  font-style: italic;
+  color: var(--ink-soft);
+}
+
 footer {
   max-width: 760px;
   margin: 0 auto;
