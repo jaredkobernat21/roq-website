@@ -9,7 +9,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Buying a home — or building a business — shouldn't be the last time you feel in control of it. ROQ exists so owners feel like owners again: ROQ Home for the home you own, ROQ Business for the business you run." />
+<meta name="description" content="ROQ was started in Kansas by two young homeowners who wanted to feel like owners and help other homeowners do the same." />
 <link rel="canonical" href="https://roqhome.com/about.html" />
 
 <script type="application/ld+json">
@@ -31,31 +31,36 @@
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ROQ" />
 <meta property="og:title" content="Our Story — ROQ" />
-<meta property="og:description" content="Buying a home — or building a business — shouldn't be the last time you feel in control of it. ROQ exists so owners feel like owners again." />
+<meta property="og:description" content="ROQ was started in Kansas by two young homeowners who wanted to feel like owners and help other homeowners do the same." />
 <meta property="og:url" content="https://roqhome.com/about.html" />
-<meta property="og:image" content="https://roqhome.com/assets/roq-share.png" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/story-hero.webp" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Our Story — ROQ" />
-<meta name="twitter:description" content="Buying a home — or building a business — shouldn't be the last time you feel in control of it. ROQ exists so owners feel like owners again." />
-<meta name="twitter:image" content="https://roqhome.com/assets/roq-share.png" />
+<meta name="twitter:description" content="ROQ was started in Kansas by two young homeowners who wanted to feel like owners and help other homeowners do the same." />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/story-hero.webp" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap">
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"></noscript>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
 <style>
   :root {
-    --bg: #FFFFFF;
-    --bg-soft: #F6F6F4;
-    --ink: #111111;
-    --ink-dim: #5A5A57;
-    --ink-faint: #8C8A84;
-    --border: rgba(17,17,17,0.16);
-    --border-soft: rgba(17,17,17,0.10);
-    --black: #0B0B0A;
-    --on-black-dim: rgba(255,255,255,0.68);
+    --bg: #F8F5EF;
+    --bg-soft: #F2EEE4;
+    --bg-panel: #FFFFFF;
+    --ink: #1C1B18;
+    --ink-dim: #5B5A54;
+    --ink-faint: #948F83;
+    --border: rgba(28,27,24,0.10);
+    --border-soft: rgba(28,27,24,0.07);
+    --gold: #C2873F;
+    --gold-dark: #A66F30;
+    --gold-dim: rgba(194,135,63,0.12);
+    --dark: #14120E;
+    --dark-ink: #F5F1E9;
+    --danger: #B5473A;
     --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
 
@@ -63,7 +68,7 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
+    background: var(--dark);
     color: var(--ink);
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -71,20 +76,8 @@
   }
 
   a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: #fff; }
   img, svg { display: block; max-width: 100%; }
-  ::selection { background: var(--ink); color: var(--bg); }
-
-  em, i, .serif { font-family: 'Lora', Georgia, serif; font-style: italic; font-weight: 400; }
-
-  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 clamp(24px, 5vw, 64px); }
-
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--ink-faint);
-  }
 
   /* ---------- Site header ----------
      Self-contained: every value it needs is declared here, so the same
@@ -274,299 +267,107 @@
     .site-tabs a.active::after { display: none; }
   }
 
-  /* ---------- Hero ---------- */
+  /* ---------- Page hero ---------- */
 
-  .hero {
-    padding: clamp(48px, 8vw, 88px) clamp(24px, 5vw, 64px) 0;
+  /* The header floats transparent over the render, then takes the page's own
+     cream once you scroll past it — so the tabs stay legible on both. */
+  .site-header.scrolled {
+    --nav-fg: rgba(20,19,15,0.78);
+    --nav-fg-strong: #14130F;
+    --nav-accent: var(--gold);
+    --nav-solid: rgba(248,245,239,0.92);
+    --nav-border: var(--border);
+    --nav-shadow: none;
   }
 
-  .hero-grid {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(32px, 5vw, 64px);
-    align-items: center;
-    padding-bottom: clamp(48px, 7vw, 80px);
-  }
-
-  .hero-title {
-    font-size: clamp(38px, 5.4vw, 58px);
-    font-weight: 800;
-    line-height: 1.08;
-    letter-spacing: -0.01em;
-    max-width: 11ch;
-    margin-bottom: 26px;
-  }
-
-  .hero-copy {
-    font-size: 15.5px;
-    line-height: 1.7;
-    color: var(--ink-dim);
-    max-width: 42ch;
-    margin-bottom: 28px;
-  }
-
-  .hero-links {
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
     display: flex;
     align-items: center;
-    gap: 14px;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--ink);
-  }
-
-  .hero-links a { border-bottom: 1px solid var(--ink); padding-bottom: 2px; }
-  .hero-links a:hover { opacity: 0.6; }
-  .hero-links .dot { color: var(--ink-faint); }
-
-  .hero-art {
-    aspect-ratio: 3 / 2;
-    border: 1px solid var(--border);
-    background: var(--bg-soft);
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
     overflow: hidden;
+    isolation: isolate;
   }
 
-  .hero-art img { width: 100%; height: 100%; object-fit: cover; }
-
-  @media (max-width: 860px) {
-    .hero-grid { grid-template-columns: 1fr; }
-    .hero-art { order: -1; aspect-ratio: 3 / 2; }
-    .hero-title { max-width: none; }
+  .pagehero-img {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 50%;
   }
 
-  /* ---------- Section shell ---------- */
-
-  section { padding: clamp(56px, 8vw, 100px) clamp(24px, 5vw, 64px); }
-  .rule-top { border-top: 1px solid var(--border-soft); }
-
-  /* ---------- Understanding / Cards ---------- */
-
-  .understand-head { max-width: 700px; margin: 0 auto 44px; text-align: center; }
-
-  .understand-head h2 {
-    font-size: clamp(30px, 4vw, 42px);
-    font-weight: 800;
-    line-height: 1.18;
+  /* The story is the focal point: the photo sits well back behind an even,
+     heavy shade, a touch deeper at the top for the tabs and at the base. */
+  .pagehero-scrim {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(
+        to bottom,
+        rgba(20,18,14,0.78) 0%,
+        rgba(20,18,14,0.66) 26%,
+        rgba(20,18,14,0.66) 70%,
+        rgba(20,18,14,0.80) 100%
+      );
   }
 
-  .understand-head h2 .line-2 {
-    display: block;
-    font-family: 'Lora', Georgia, serif;
-    font-style: italic;
+  /* Read by screen readers and search engines; the story carries the page. */
+  .pagehero-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .pagehero-story {
+    max-width: 780px;
+    margin: 0 auto;
+    font-family: 'Lora', serif;
     font-weight: 400;
-    color: var(--ink-dim);
+    font-size: clamp(19px, 2.05vw, 28px);
+    line-height: 1.5;
+    letter-spacing: -0.005em;
+    color: #FFFFFF;
+    text-wrap: pretty;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.55);
   }
 
-  .understand-body { max-width: 640px; margin: 0 auto 44px; text-align: center; }
-  .understand-body p { font-size: 15px; line-height: 1.75; color: var(--ink-dim); }
-  .understand-body p + p { margin-top: 18px; }
-  .understand-body .strong { color: var(--ink); font-weight: 700; margin-top: 18px; }
+  .pagehero-story p + p { margin-top: 1.1em; }
 
-  .cards {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    border: 1px solid var(--border);
-  }
-
-  .card {
-    padding: clamp(28px, 4vw, 40px);
-    border-right: 1px solid var(--border);
-  }
-
-  .card:last-child { border-right: none; }
-
-  .card-icon { width: 40px; height: 40px; margin-bottom: 30px; }
-  .card-icon path, .card-icon rect, .card-icon line {
-    stroke: var(--ink);
-    stroke-width: 1.6;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .card h3 { font-size: 23px; font-weight: 800; line-height: 1.25; margin-bottom: 10px; }
-
-  .card .sub {
-    font-family: 'Lora', Georgia, serif;
-    font-style: italic;
-    font-weight: 400;
-    font-size: 16px;
-    color: var(--ink-dim);
-    margin-bottom: 20px;
-    line-height: 1.4;
-  }
-
-  .card p.desc { font-size: 14px; line-height: 1.7; color: var(--ink-dim); margin-bottom: 28px; }
-
-  .card-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink);
-    transition: gap 0.2s var(--ease);
-  }
-
-  .card-link:hover { gap: 12px; }
-
-  @media (max-width: 760px) {
-    .cards { grid-template-columns: 1fr; }
-    .card { border-right: none; border-bottom: 1px solid var(--border); }
-    .card:last-child { border-bottom: none; }
-  }
-
-  /* ---------- Black band ---------- */
-
-  .band {
-    background: var(--black);
-    color: #fff;
-  }
-
-  .band-grid {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(32px, 5vw, 64px);
-    align-items: start;
-  }
-
-  .band h2 {
-    font-size: clamp(28px, 3.8vw, 40px);
-    font-weight: 800;
-    line-height: 1.2;
-  }
-
-  .band p { font-size: 15px; line-height: 1.75; color: var(--on-black-dim); }
-  .band p + p { margin-top: 16px; }
-  .band .strong { color: #fff; font-weight: 700; margin-top: 16px; }
-
-  @media (max-width: 760px) {
-    .band-grid { grid-template-columns: 1fr; gap: 24px; }
-  }
-
-  /* ---------- Approach (collect / interpret / act) ---------- */
-
-  .approach-head {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    max-width: 1180px;
-    margin: 0 auto clamp(36px, 5vw, 56px);
-  }
-
-  .approach-head .eyebrow { white-space: nowrap; }
-  .approach-head .rule { flex: 1; height: 1px; background: var(--border-soft); }
-
-  .approach-grid {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(28px, 5vw, 40px);
-  }
-
-  .approach-icon { width: 30px; height: 30px; margin-bottom: 20px; }
-  .approach-icon path, .approach-icon circle, .approach-icon line {
-    stroke: var(--ink);
-    stroke-width: 1.6;
-    fill: none;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .approach-item h3 { font-size: 20px; font-weight: 800; letter-spacing: 0.01em; margin-bottom: 8px; }
-  .approach-item p { font-size: 14px; line-height: 1.65; color: var(--ink-dim); max-width: 26ch; }
-
-  @media (max-width: 760px) {
-    .approach-grid { grid-template-columns: 1fr; gap: 32px; }
-  }
-
-  /* ---------- Origin story ---------- */
-
-  .topeka-grid {
-    max-width: 760px;
-    margin: 0 auto;
-  }
-
-  .topeka-grid h2 { font-size: clamp(24px, 3vw, 32px); font-weight: 800; margin-bottom: 20px; }
-  .topeka-grid p { font-size: 15px; line-height: 1.7; color: var(--ink-dim); }
-  .topeka-grid p + p { margin-top: 16px; }
-  .topeka-grid .pull { font-family: 'Lora', Georgia, serif; font-style: italic; color: var(--ink); }
-  .topeka-grid .and { font-weight: 700; color: var(--ink); }
-
-  /* ---------- Future / final CTA ---------- */
-
-  .future-grid {
-    max-width: 1180px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: clamp(28px, 5vw, 56px);
-    align-items: center;
-  }
-
-  .future-grid h2 { font-size: clamp(28px, 3.6vw, 38px); font-weight: 800; line-height: 1.2; max-width: 15ch; margin-bottom: 14px; }
-  .future-grid .sub { font-size: 15px; color: var(--ink-dim); }
-
-  .future-links { display: flex; flex-direction: column; gap: 14px; }
-
-  .btn-outline {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    border: 1px solid var(--border);
-    padding: 18px 22px;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--ink);
-    transition: background 0.2s var(--ease), border-color 0.2s var(--ease);
-  }
-
-  .btn-outline:hover { background: var(--bg-soft); border-color: var(--ink); }
-
-  @media (max-width: 760px) {
-    .future-grid { grid-template-columns: 1fr; }
+  @media (max-width: 640px) {
+    .pagehero { padding: 104px 26px 84px; }
+    .pagehero-story { font-size: 19px; line-height: 1.55; }
   }
 
   /* ---------- Footer ---------- */
 
   footer {
-    background: var(--black);
-    color: rgba(255,255,255,0.55);
-    padding: 36px clamp(24px, 5vw, 64px);
+    background: var(--dark);
+    padding: 0 clamp(24px, 6vw, 72px) 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 20px;
+    border-top: 1px solid rgba(245,241,233,0.08);
+    margin: 0 clamp(24px, 6vw, 72px);
+    padding-top: 28px;
   }
 
-  .footer-left { display: flex; align-items: center; gap: 12px; font-size: 13px; font-weight: 700; letter-spacing: 0.02em; color: #fff; }
-
+  .footer-copy { font-size: 12px; color: rgba(245,241,233,0.5); }
   .footer-links { display: flex; gap: 24px; }
-  .footer-links a { font-size: 12px; color: rgba(255,255,255,0.55); transition: color 0.2s var(--ease); }
-  .footer-links a:hover { color: #fff; }
-
-  /* ---------- Reveal ---------- */
-
-  .reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.8s var(--ease), transform 0.8s var(--ease); }
-  .reveal.in-view { opacity: 1; transform: translateY(0); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
-  }
+  .footer-links a { font-size: 12px; color: rgba(245,241,233,0.6); }
+  .footer-links a:hover { color: var(--dark-ink); }
 
   /* ---------- Mobile refinements ----------
      The desktop clamp() minimums were still tuned for a wide viewport: a 38px
@@ -615,17 +416,11 @@
 
     .footer-links a:last-child { border-bottom: none; }
   }
-
-  @media (max-width: 640px) {
-    .hero { padding-left: 24px; padding-right: 24px; }
-    .hero-title { font-size: 32px; line-height: 1.14; }
-    .hero-copy { font-size: 15.5px; line-height: 1.6; }
-  }
 </style>
 </head>
 <body>
 
-  <header class="site-header inflow on-light">
+  <header class="site-header">
     <a class="site-logo" href="/" aria-label="ROQ Home">
       <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
@@ -643,118 +438,25 @@
             aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
 
-  <section class="hero">
-    <div class="hero-grid reveal">
-      <div>
-        <h1 class="hero-title">Owning what&rsquo;s yours shouldn&rsquo;t feel like everyone else profits from it but you.</h1>
-        <p class="hero-copy">You did the hard part&mdash;you bought the home, or you built the business. Then you&rsquo;re on your own: stressed, overwhelmed, and surrounded by people who profit while you figure out what to do next. ROQ exists to put you back in control.</p>
-        <div class="hero-links">
-          <a href="/">Explore ROQ Home</a>
-          <span class="dot">&bull;</span>
-          <a href="https://roqbusiness.com">Explore ROQ Business</a>
-        </div>
-      </div>
-      <div class="hero-art">
-        <img src="assets/about/hero-cover.jpg" alt="Close-up of a house gable against the sky" width="1400" height="933" />
-      </div>
-    </div>
-  </section>
-
-  <section class="rule-top reveal">
-    <div class="understand-head">
-      <h2>More information isn&rsquo;t the answer.<span class="line-2">Feeling like an owner again is.</span></h2>
-    </div>
-    <div class="understand-body">
-      <p>Owning a home or running a business comes with an overwhelming amount of information&mdash;contracts, permits, customers, costs, maintenance, market data&mdash;scattered across a dozen different places.</p>
-      <p>Meanwhile, the people around you&mdash;agents, lenders, contractors, vendors&mdash;already know more about your home or your business than you do, and often profit from that gap.</p>
-      <p class="strong">ROQ exists to close it.</p>
-    </div>
-
-    <div class="cards">
-      <div class="card">
-        <svg class="card-icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" /><path d="M6 10v10h12V10" /><path d="M10 20v-6h4v6" /></svg>
-        <h3>ROQ Home</h3>
-        <p class="sub">Intelligence for the home you already own.</p>
-        <p class="desc">A simpler way to understand, manage and improve your home&mdash;from projects and documents to maintenance, finances and the full story of your property, all in one place.</p>
-        <a class="card-link" href="/">Explore ROQ Home &rarr;</a>
-      </div>
-      <div class="card">
-        <svg class="card-icon" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2" /><path d="M8 8V6a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" /><path d="M3 13h18" /></svg>
-        <h3>ROQ Business</h3>
-        <p class="sub">Clarity for the business you run.</p>
-        <p class="desc">A better operating system for local business&mdash;customers, scheduling, payments and your online presence, all working together instead of living in five different apps.</p>
-        <a class="card-link" href="https://roqbusiness.com">Explore ROQ Business &rarr;</a>
-      </div>
-    </div>
-  </section>
-
-  <section class="band reveal">
-    <div class="band-grid">
-      <h2>You deserve to feel like an owner, not a bystander.</h2>
-      <div>
-        <p>Buying a home or starting a business is supposed to feel like an accomplishment. For a lot of people, it feels like the moment everyone else starts making money off you.</p>
-        <p>Contractors quote whatever they think you&rsquo;ll pay. Agents disappear until it&rsquo;s time to sell again. Software vendors and marketing agencies nickel-and-dime you for tools that should just work.</p>
-        <p>You shouldn&rsquo;t need an industry to translate your own home&mdash;or your own business&mdash;back to you.</p>
-        <p class="strong">ROQ is built to put that understanding back in your hands.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="reveal">
-    <div class="approach-head">
-      <p class="eyebrow">How ROQ helps</p>
-      <div class="rule"></div>
-    </div>
-    <div class="approach-grid">
-      <div class="approach-item">
-        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M4 11.5 12 4l8 7.5" /><path d="M6 10v10h12V10" /><path d="M10 20v-6h4v6" /></svg>
-        <h3>Understand what you own</h3>
-        <p>See what your home is worth, or how your business is really performing&mdash;in plain language, not paperwork.</p>
-      </div>
-      <div class="approach-item">
-        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.7-7 9-4-1.3-7-4.5-7-9V6l7-3Z" /><path d="M12 8v5" /><circle cx="12" cy="15.5" r="0.6" fill="currentColor" /></svg>
-        <h3>Plan what&rsquo;s next</h3>
-        <p>Whether it&rsquo;s a repair, a remodel, or your next hire&mdash;know your options before you commit.</p>
-      </div>
-      <div class="approach-item">
-        <svg class="approach-icon" viewBox="0 0 24 24"><path d="M6 18 18 6" /><path d="M9 6h9v9" /></svg>
-        <h3>Move with confidence</h3>
-        <p>Make decisions knowing what they&rsquo;ll actually cost&mdash;not what someone else decides to charge you.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="rule-top reveal">
-    <div class="topeka-grid">
-      <div>
-        <h2>Built differently.</h2>
-        <p>ROQ was founded in Topeka, Kansas, around a simple, personal question:</p>
-        <p class="pull">Why does buying a home feel like the last time you&rsquo;re in control of it?</p>
-        <p>What started as a way to help one family understand their own home has grown into something bigger: ROQ Home for homeowners, and ROQ Business for the local businesses that keep communities running&mdash;built so owners never have to feel like an outsider in what they built <span class="and">again</span>.</p>
-        <p>The ROQ team still builds the product and the systems behind both today.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="rule-top reveal">
-    <div class="future-grid">
-      <div>
-        <h2>The future of ownership belongs to people who understand what they own.</h2>
-        <p class="sub">We&rsquo;re building the tools to help you get there&mdash;at home, and in business.</p>
-      </div>
-      <div class="future-links">
-        <a class="btn-outline" href="/">Explore ROQ Home <span>&rarr;</span></a>
-        <a class="btn-outline" href="https://roqbusiness.com">Explore ROQ Business <span>&rarr;</span></a>
+  <section class="pagehero">
+    <img class="pagehero-img" src="/assets/hero/story-hero.webp" width="2000" height="2998"
+         alt="A homeowner at a desk at home, drinking coffee and looking over the numbers on a laptop and phone"
+         fetchpriority="high" style="object-position: 50% 44%" />
+    <div class="pagehero-scrim"></div>
+    <div>
+      <h1 class="pagehero-title">Our Story</h1>
+      <div class="pagehero-story">
+        <p>ROQ was started in Kansas by two young homeowners who wanted to feel like owners and help other homeowners do the same.</p>
+        <p>Our vision for ROQ is to be the home for homeowners to come and feel empowered to make better home decisions.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <div class="footer-left">ROQ</div>
-    <span style="font-size:12px;">&copy; 2026 ROQ Innovation LLC</span>
+    <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
     <div class="footer-links">
-      <a href="legal/roq-privacy.html">Privacy</a>
-      <a href="legal/roq-terms.html">Terms</a>
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/legal/roq-terms.html">Terms</a>
       <a href="/about.html">Story</a>
       <a href="mailto:support@roqhome.com">Contact</a>
     </div>
@@ -780,19 +482,19 @@
       }
 
       if (header) {
-        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 12);
+        // This page opens on a full-height dark render, so the header holds its
+        // transparent treatment until the hero has passed under it — switching
+        // at a few pixels would drop a cream bar over the photo.
+        const hero = document.querySelector('.pagehero');
+        const threshold = () =>
+          hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
       }
     })();
-
-    const revealEls = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('in-view');
-      });
-    }, { threshold: 0.12 });
-    revealEls.forEach(el => observer.observe(el));
   </script>
 
 </body>
