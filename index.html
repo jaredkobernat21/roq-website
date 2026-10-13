@@ -717,12 +717,25 @@
   .pagehero--renovate .pagehero-points {
     grid-template-columns: repeat(2, auto);
     gap: 14px clamp(28px, 5vw, 64px);
-    margin-top: clamp(52px, 8.6vh, 82px);
+    margin-top: clamp(28px, 4.8vh, 46px);
   }
 
-  .pagehero--renovate .pagehero-cta { margin-top: clamp(56px, 9.2vh, 86px); }
+  /* Renovate's button is held at the bottom centre of its screen. */
+  .pagehero--renovate { padding-bottom: clamp(150px, 21vh, 190px); }
+
+  .pagehero--renovate .pagehero-cta {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(44px, 9vh, 84px);
+    transform: translateX(-50%);
+    margin-top: 0;
+  }
+
+  .pagehero--renovate .pagehero-cta:active { transform: translateX(-50%) scale(0.985); }
 
   @media (max-width: 640px) {
+    .pagehero--renovate { padding-bottom: 150px; }
+    .pagehero--renovate .pagehero-cta { width: calc(100% - 48px); }
     .pagehero--renovate .pagehero-scrim::after { background: rgba(20,18,14,0.32); }
     .pagehero--renovate .pagehero-points { grid-template-columns: auto; gap: 11px; }
   }
@@ -1304,7 +1317,7 @@
     </a>
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
-      <a href="/manage.html">App</a>
+      <a href="/manage.html">Manage</a>
       <a href="/build.html">Build</a>
       <a href="/renovate.html">Renovate</a>
       <a href="/connect.html">Connect</a>

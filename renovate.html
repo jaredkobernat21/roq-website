@@ -271,7 +271,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    padding: 120px clamp(24px, 6vw, 64px) clamp(150px, 21vh, 190px);
     background: #14120E;
     overflow: hidden;
     isolation: isolate;
@@ -360,7 +360,7 @@
     grid-template-columns: repeat(2, auto);
     justify-content: center;
     gap: 14px clamp(28px, 5vw, 64px);
-    margin: clamp(52px, 8.6vh, 82px) auto 0;
+    margin: clamp(28px, 4.8vh, 46px) auto 0;
     text-align: left;
   }
 
@@ -388,8 +388,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    /* Held at the bottom centre of the screen, clear of the list above it. */
+    position: absolute;
+    left: 50%;
+    bottom: clamp(44px, 9vh, 84px);
+    transform: translateX(-50%);
     min-height: 54px;
-    margin-top: clamp(56px, 9.2vh, 86px);
     padding: 0 38px;
     border-radius: 999px;
     border: 1px solid #FFFFFF;
@@ -404,15 +408,15 @@
   }
 
   .pagehero-cta:hover { background: var(--gold); border-color: var(--gold); color: #FFFFFF; }
-  .pagehero-cta:active { transform: scale(0.985); }
+  .pagehero-cta:active { transform: translateX(-50%) scale(0.985); }
 
   @media (max-width: 640px) {
-    .pagehero { padding: 104px 24px 84px; }
+    .pagehero { padding: 104px 24px 150px; }
     .pagehero-headline { font-size: 31px; max-width: 14ch; }
     .pagehero-scrim::after { background: rgba(20,18,14,0.32); }
     .pagehero-points { grid-template-columns: auto; gap: 11px; }
     .pagehero-points li { font-size: 15px; }
-    .pagehero-cta { width: 100%; max-width: 320px; }
+    .pagehero-cta { width: calc(100% - 48px); max-width: 320px; }
   }
 
   /* ---------- Start planning questionnaire (shared intake modal pattern) ---------- */
@@ -572,7 +576,7 @@
     </a>
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
-      <a href="/manage.html">App</a>
+      <a href="/manage.html">Manage</a>
       <a href="/build.html">Build</a>
       <a href="/renovate.html" class="active" aria-current="page">Renovate</a>
       <a href="/connect.html">Connect</a>
