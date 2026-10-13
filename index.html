@@ -413,97 +413,379 @@
   }
 
 
-  /* ---------- Welcome home ----------
-     Second screen: a darkened photo, the greeting, and the two ways in. */
+  /* ---------- App hero ----------
+     The App page's screen, second on the home page. A portrait photo. On wide screens it is shown whole and sharp in the
+     centre, over a blurred, darkened copy of itself that fills the sides;
+     on tall screens it fills the screen edge to edge. The App Store button
+     holds the bottom of the screen either way. */
 
-  .homecta {
+  .app-hero {
     position: relative;
-    min-height: 100vh;
-    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background: #0B0B0A;
+    padding: 84px 24px clamp(28px, 5vh, 48px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .app-hero::before {
+    content: "";
+    position: absolute;
+    inset: -60px;
+    z-index: -1;
+    background: url(/assets/hero/app-promo.webp) 50% 50% / cover no-repeat;
+    filter: blur(36px) brightness(0.42);
+  }
+
+  /* Read by screen readers and search engines; the photo carries it visually. */
+  .app-hero-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .app-hero picture {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .app-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .app-hero .appstore-btn { flex: none; margin-top: clamp(16px, 3vh, 28px); }
+
+  @media (max-aspect-ratio: 1/1) {
+    .app-hero::before { display: none; }
+    .app-hero { justify-content: flex-end; }
+    .app-hero picture { position: absolute; inset: 0; z-index: -1; }
+    .app-hero-img { object-fit: cover; object-position: 50% 50%; }
+    .app-hero .appstore-btn { box-shadow: 0 10px 40px rgba(0,0,0,0.45); }
+  }
+
+  /* ---------- Page sections ----------
+     The Build, Renovate and Connect screens, as they appear on their own
+     pages. Those pages use a warmer gold and a light form palette than this
+     one, so both are restated here for just these blocks. */
+
+  .pagehero { --gold: #C2873F; }
+
+  .modal-overlay {
+    --bg-soft: #F2EEE4;
+    --ink: #1C1B18;
+    --ink-dim: #5B5A54;
+    --ink-faint: #948F83;
+    --border: rgba(28,27,24,0.10);
+    --gold: #C2873F;
+    --gold-dark: #A66F30;
+    --danger: #B5473A;
+  }
+
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
     justify-content: center;
     text-align: center;
-    padding: clamp(88px, 12vh, 130px) clamp(24px, 6vw, 64px);
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
     background: #14120E;
     overflow: hidden;
     isolation: isolate;
   }
 
-  .homecta-img {
+  .pagehero-img {
     position: absolute;
     inset: 0;
     z-index: -2;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 50% 40%;
+    object-position: 50% 50%;
   }
 
-  .homecta-scrim {
+  /* Holds the type over footage that runs from pale lumber to white paper —
+     darker at the top for the tabs and at the base, lighter through the
+     middle, with a soft pool of shade directly behind the headline. */
+  .pagehero-scrim {
     position: absolute;
     inset: 0;
     z-index: -1;
     background:
-      radial-gradient(ellipse 60% 45% at 50% 50%, rgba(14,12,9,0.30) 0%, rgba(14,12,9,0) 100%),
-      rgba(14,12,9,0.62);
+      radial-gradient(ellipse 46% 26% at 50% 50%, rgba(20,18,14,0.42) 0%, rgba(20,18,14,0) 100%),
+      linear-gradient(
+        to bottom,
+        rgba(20,18,14,0.58) 0%,
+        rgba(20,18,14,0.36) 24%,
+        rgba(20,18,14,0.38) 62%,
+        rgba(20,18,14,0.66) 100%
+      );
   }
 
-  .homecta-title {
+  @media (max-aspect-ratio: 1/1) {
+    .pagehero-scrim {
+      background:
+        radial-gradient(ellipse 80% 18% at 50% 50%, rgba(20,18,14,0.42) 0%, rgba(20,18,14,0) 100%),
+        linear-gradient(
+          to bottom,
+          rgba(20,18,14,0.58) 0%,
+          rgba(20,18,14,0.36) 24%,
+          rgba(20,18,14,0.38) 62%,
+          rgba(20,18,14,0.66) 100%
+        );
+    }
+  }
+
+  /* The Build photo is mostly white paper, so it takes an extra even layer of shade. */
+  .pagehero--bright .pagehero-scrim::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(20,18,14,0.30);
+  }
+
+  .pagehero-headline {
     font-family: 'Lora', serif;
     font-weight: 400;
-    font-size: clamp(34px, 5.4vw, 68px);
-    line-height: 1.08;
-    letter-spacing: 0.09em;
-    /* Tracking adds space after the last letter too; pull it back so the
-       line stays optically centred. */
-    margin-right: -0.09em;
+    font-size: clamp(32px, 4.6vw, 58px);
+    line-height: 1.12;
+    letter-spacing: -0.01em;
     color: #FFFFFF;
+    max-width: 24ch;
+    margin: 0 auto;
+    text-wrap: balance;
     text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.6);
   }
 
-  .homecta-actions {
-    display: flex;
-    flex-wrap: wrap;
+  /* What each offer includes, set under the headline. */
+  .pagehero-body { width: 100%; max-width: 760px; }
+
+  .pagehero-points {
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto;
     justify-content: center;
-    gap: 16px;
-    margin-top: clamp(30px, 5vh, 46px);
+    gap: 12px;
+    margin: clamp(26px, 4.4vh, 40px) auto 0;
+    text-align: left;
   }
 
-  .homecta-btn {
+  .pagehero-points li {
+    position: relative;
+    padding-left: 20px;
+    font-size: clamp(15px, 1.25vw, 17px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.94);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 1px 18px rgba(0,0,0,0.55);
+  }
+
+  .pagehero-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .pagehero-cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: 54px;
-    padding: 0 34px;
+    margin-top: clamp(30px, 5vh, 44px);
+    padding: 0 38px;
     border-radius: 999px;
+    border: 1px solid #FFFFFF;
+    background: #FFFFFF;
+    color: #14110B;
+    font-family: inherit;
     font-size: 15px;
     font-weight: 500;
     letter-spacing: 0.01em;
-    background: var(--ink);
-    color: #14110B;
-    border: 1px solid var(--ink);
+    cursor: pointer;
     transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
   }
 
-  .homecta-btn:hover { background: var(--gold); border-color: var(--gold); }
-  .homecta-btn:active { transform: scale(0.985); }
-
-  .homecta-btn.is-ghost {
-    background: rgba(255,255,255,0.06);
-    color: #FFFFFF;
-    border-color: rgba(255,255,255,0.7);
-    backdrop-filter: blur(6px);
-  }
-
-  .homecta-btn.is-ghost:hover { background: #FFFFFF; border-color: #FFFFFF; color: #14110B; }
+  .pagehero-cta:hover { background: var(--gold); border-color: var(--gold); color: #FFFFFF; }
+  .pagehero-cta:active { transform: scale(0.985); }
 
   @media (max-width: 640px) {
-    .homecta-title { font-size: 34px; letter-spacing: 0.07em; margin-right: -0.07em; }
-    .homecta-actions { flex-direction: column; width: 100%; max-width: 320px; gap: 12px; }
-    .homecta-btn { width: 100%; }
+    .pagehero { padding: 104px 24px 84px; }
+    .pagehero-headline { font-size: 31px; max-width: 14ch; }
+    .pagehero-points { gap: 11px; }
+    .pagehero-points li { font-size: 15px; }
+    .pagehero-cta { width: 100%; max-width: 320px; }
   }
+
+  /* ---------- Intake forms: Build's Get started, Renovate's Start planning ---------- */
+
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(20,19,15,0.55);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; visibility: hidden;
+    transition: opacity 0.3s var(--ease), visibility 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; visibility: visible; }
+
+  .modal-panel {
+    background: #fff; color: var(--ink); border-radius: 4px; width: 100%; max-width: 500px;
+    max-height: 88vh; overflow-y: auto; padding: clamp(28px, 5vw, 44px);
+    position: relative; transform: translateY(14px);
+    transition: transform 0.3s var(--ease);
+  }
+  .modal-overlay.open .modal-panel { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 18px; right: 18px; width: 32px; height: 32px;
+    border-radius: 50%; border: 1px solid var(--border); background: transparent;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim); font-size: 15px; line-height: 1;
+  }
+  .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+
+  .modal-title { font-family: 'Lora', serif; font-weight: 500; font-size: clamp(21px, 3vw, 25px); line-height: 1.3; margin-bottom: 24px; padding-right: 30px; }
+
+  .q-block { margin-bottom: 22px; }
+  .q-label { display: block; font-family: 'Lora', serif; font-size: 16px; font-weight: 500; line-height: 1.4; color: var(--ink); margin-bottom: 10px; }
+  .q-label small { font-family: 'Inter', sans-serif; font-size: 12.5px; font-weight: 400; color: var(--ink-faint); }
+
+  .q-options { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 12px; }
+
+  .q-option {
+    min-height: 44px; padding: 0 18px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--bg-soft); color: var(--ink);
+    font-family: inherit; font-size: 14.5px; cursor: pointer;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .q-option:hover { border-color: var(--gold); }
+  .q-option[aria-checked="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .q-input {
+    width: 100%; background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 4px; padding: 14px 16px; color: var(--ink);
+    font-family: 'Inter', sans-serif; font-size: 16px; outline: none;
+  }
+  .q-input:focus { border-color: var(--gold); }
+  .q-input::placeholder { color: var(--ink-faint); }
+
+  .q-error { margin-top: 10px; font-size: 13px; color: var(--danger); display: none; }
+  .q-error.visible { display: block; }
+
+  .q-actions { display: flex; margin-top: 4px; }
+
+  .modal-submit {
+    flex: 1; border-radius: 4px; padding: 16px; border: none;
+    background: var(--gold); color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer;
+    transition: background 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .modal-submit:hover { background: var(--gold-dark); }
+  .modal-submit:disabled { opacity: 0.5; cursor: default; }
+
+  .q-thanks { display: none; text-align: center; padding: 20px 0 4px; }
+  .q-thanks.active { display: block; }
+  .q-thanks h2 { font-family: 'Lora', serif; font-weight: 500; font-size: 24px; margin-bottom: 10px; }
+  .q-thanks p { font-size: 14.5px; line-height: 1.6; color: var(--ink-dim); }
+
+  /* Renovate: two columns of points, a little more air around them, and its
+     own even layer of shade under the longer list. */
+  .pagehero--renovate .pagehero-scrim::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(20,18,14,0.22);
+  }
+
+  .pagehero--renovate .pagehero-points {
+    grid-template-columns: repeat(2, auto);
+    gap: 14px clamp(28px, 5vw, 64px);
+    margin-top: clamp(36px, 6vh, 56px);
+  }
+
+  .pagehero--renovate .pagehero-cta { margin-top: clamp(40px, 6.6vh, 60px); }
+
+  @media (max-width: 640px) {
+    .pagehero--renovate .pagehero-scrim::after { background: rgba(20,18,14,0.32); }
+    .pagehero--renovate .pagehero-points { grid-template-columns: auto; gap: 11px; }
+  }
+
+  /* Connect: the family stands left of centre; keep all four in a tall crop. */
+  @media (max-aspect-ratio: 1/1) {
+    .pagehero--connect .pagehero-img { object-position: 36% 50%; }
+  }
+
+  /* Connect: social links under the headline, thin white outline marks, one
+     per profile. Add another <a class="pagehero-social-link"> to extend the row. */
+  .pagehero-social {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-top: clamp(30px, 5vh, 44px);
+  }
+
+  .pagehero-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.75);
+    color: #FFFFFF;
+    background: rgba(20,18,14,0.18);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .pagehero-social-link svg {
+    width: 21px;
+    height: 21px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .pagehero-social-link:hover { background: #FFFFFF; border-color: #FFFFFF; color: #14110B; }
+  .pagehero-social-link:active { transform: scale(0.96); }
+
+  /* Renovate's form runs in two steps. */
+  .q-progress { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+
+  .q-step { display: none; border: none; min-width: 0; }
+  .q-step.active { display: block; }
+  .q-step .modal-title { margin-bottom: 22px; }
+  .q-step .q-options { margin-bottom: 16px; }
+  .q-step .q-actions { gap: 10px; margin-top: 22px; }
+
+  .q-option[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .modal-back {
+    border-radius: 4px; padding: 16px 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--ink-dim); font-family: inherit; font-size: 14px; cursor: pointer;
+  }
+  .modal-back:hover { background: var(--bg-soft); color: var(--ink); }
 
   /* ---------- Welcome ---------- */
 
@@ -857,6 +1139,8 @@
     display: inline-flex;
     align-items: center;
     gap: 15px;
+    /* Slightly more room on the right than the left: the mark is optically
+       heavier than the text edge, so symmetric padding reads off-centre. */
     padding: 17px 36px 17px 30px;
     border-radius: 999px;
     background: var(--ink);
@@ -873,14 +1157,38 @@
     height: 27px;
     flex: none;
     fill: currentColor;
+    /* the glyph's mass sits low; nudge it onto the type's optical centre */
     margin-top: -2px;
   }
 
-  .appstore-btn-label { display: flex; flex-direction: column; line-height: 1.2; text-align: left; }
-  .appstore-btn-label small { font-size: 11px; font-weight: 400; }
-  .appstore-btn-label b { font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .appstore-btn-label {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    text-align: left;
+  }
 
-  .appstore-meta { font-size: 12px; color: var(--ink-faint); margin-top: 14px; }
+  .appstore-btn-label small {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    opacity: 0.58;
+    margin-bottom: 4px;
+  }
+
+  .appstore-btn-label b {
+    font-size: 19px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  .appstore-meta {
+    margin-top: 20px;
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
 
   /* ---------- Footer ---------- */
 
@@ -980,6 +1288,9 @@
     }
 
     .explore-grid { gap: 14px; }
+
+    .app-hero { padding: 64px 12px 24px; }
+    .appstore-btn { padding: 15px 28px 15px 24px; }
   }
 </style>
 </head>
@@ -1019,15 +1330,189 @@
     </div>
   </section>
 
-  <section class="homecta" id="welcome-home">
-    <img class="homecta-img" src="/assets/hero/welcome-home.webp" width="1086" height="1448" loading="lazy"
-         alt="Two people in hard hats and safety glasses, smiling as they put up the timber wall of a home" />
-    <div class="homecta-scrim"></div>
-    <h2 class="homecta-title">WELCOME HOME</h2>
-    <div class="homecta-actions">
-      <a class="homecta-btn" href="/manage.html">Explore the app</a>
-      <a class="homecta-btn is-ghost" href="/build.html">Design your home</a>
-      <a class="homecta-btn is-ghost" href="/renovate.html">Renovate with confidence</a>
+  <section class="app-hero" id="app">
+    <h2 class="app-hero-title">The ROQ app</h2>
+    <picture>
+      <img class="app-hero-img" src="/assets/hero/app-promo.webp" width="1024" height="1536"
+           alt="A hand holding out an iPhone showing the ROQ app: Welcome to the future of homeownership" loading="lazy" />
+    </picture>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
+  </section>
+
+  <section class="pagehero pagehero--bright" id="build">
+    <img class="pagehero-img" src="/assets/hero/design-hero.webp" width="2000" height="3000"
+         alt="A couple and their designer going over a floor plan together at a table"
+         loading="lazy" style="object-position: 50% 46%" />
+    <div class="pagehero-scrim"></div>
+    <div class="pagehero-body">
+      <h2 class="pagehero-headline">FRAMEWORK</h2>
+      <ul class="pagehero-points">
+        <li>Site feasibility &amp; planning</li>
+        <li>Dimensioned floor plans &amp; layout</li>
+        <li>Architectural drawings &amp; CAD files</li>
+        <li>Design, materials &amp; buildability</li>
+        <li>Professional handoff documentation</li>
+      </ul>
+      <button type="button" class="pagehero-cta" id="buildGetStartedBtn">Get started</button>
+    </div>
+  </section>
+
+  <!-- ---------- Get started intake form ---------- -->
+  <div class="modal-overlay" id="buildModalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="buildQTitle">
+      <button type="button" class="modal-close" id="buildModalClose" aria-label="Close">&times;</button>
+
+      <form id="buildIntakeForm" novalidate>
+        <h2 class="modal-title" id="buildQTitle">Let&rsquo;s get started.</h2>
+
+        <div class="q-block">
+          <label class="q-label" for="buildQLocation">Where are you considering your build?</label>
+          <input type="text" class="q-input" id="buildQLocation" maxlength="300" autocomplete="street-address"
+                 placeholder="Address, location, or lot" />
+        </div>
+
+        <div class="q-block">
+          <p class="q-label" id="buildQContactLabel">What is the best way to reach you about this project?</p>
+          <div class="q-options" role="radiogroup" aria-labelledby="buildQContactLabel">
+            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
+            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="text">Text</button>
+          </div>
+          <input type="email" class="q-input" id="buildQContact" maxlength="200" autocomplete="email"
+                 placeholder="you@example.com" aria-label="Email address" />
+        </div>
+
+        <div class="q-block">
+          <label class="q-label" for="buildQName">Name <small>(optional)</small></label>
+          <input type="text" class="q-input" id="buildQName" maxlength="120" autocomplete="name" placeholder="Your name" />
+        </div>
+
+        <p class="q-error" id="buildQError" role="alert"></p>
+        <div class="q-actions">
+          <button type="submit" class="modal-submit" id="buildQSubmit">Send</button>
+        </div>
+      </form>
+
+      <div class="q-thanks" id="buildQThanks">
+        <h2>Thank you.</h2>
+        <p>We&rsquo;ve got your build location. We&rsquo;ll be in touch shortly about your project.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="pagehero pagehero--renovate" id="renovate">
+    <img class="pagehero-img" src="/assets/hero/renovate-hero.webp" width="1086" height="1448"
+         alt="Two people in hard hats and safety glasses, smiling as they put up the timber wall of a home"
+         loading="lazy" style="object-position: 50% 40%" />
+    <div class="pagehero-scrim"></div>
+    <div class="pagehero-body">
+      <h2 class="pagehero-headline">Renovate with confidence</h2>
+      <ul class="pagehero-points">
+        <li>Custom design concepts</li>
+        <li>Detailed project budget</li>
+        <li>Material recommendations</li>
+        <li>Neighborhood value &amp; ROI analysis</li>
+        <li>DIY vs contractor guidance</li>
+        <li>Clear timeline and roadmap</li>
+      </ul>
+      <button type="button" class="pagehero-cta" id="planStartPlanningBtn">Start planning</button>
+    </div>
+  </section>
+
+  <!-- ---------- Start planning questionnaire ---------- -->
+  <div class="modal-overlay" id="planModalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="planQTitle1">
+      <button type="button" class="modal-close" id="planModalClose" aria-label="Close">&times;</button>
+
+      <form id="planPlanForm" novalidate>
+        <fieldset class="q-step active" id="planQStep1">
+          <p class="q-progress">1 of 2</p>
+          <h2 class="modal-title" id="planQTitle1">What are you working on?</h2>
+          <div class="q-options" id="planQProjectOptions">
+            <button type="button" class="q-option" aria-pressed="false">Kitchen</button>
+            <button type="button" class="q-option" aria-pressed="false">Bathroom</button>
+            <button type="button" class="q-option" aria-pressed="false">Bedroom</button>
+            <button type="button" class="q-option" aria-pressed="false">Living room</button>
+            <button type="button" class="q-option" aria-pressed="false">Basement</button>
+            <button type="button" class="q-option" aria-pressed="false">Outdoor space</button>
+            <button type="button" class="q-option" aria-pressed="false">Whole home</button>
+          </div>
+          <input type="text" class="q-input" id="planQProjectOther" maxlength="200"
+                 placeholder="Or type anything" aria-label="Describe your project" />
+          <p class="q-error" id="planQError1" role="alert"></p>
+          <div class="q-actions">
+            <button type="button" class="modal-submit" id="planQNext">Continue</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="q-step" id="planQStep2">
+          <p class="q-progress">2 of 2</p>
+          <h2 class="modal-title" id="planQTitle2">What&rsquo;s the best way for us to learn more about your project?</h2>
+          <div class="q-options" role="radiogroup" aria-labelledby="planQTitle2">
+            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
+            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="phone">Phone</button>
+          </div>
+          <input type="email" class="q-input" id="planQContact" maxlength="200" autocomplete="email"
+                 placeholder="you@example.com" aria-label="Email address" />
+          <p class="q-error" id="planQError2" role="alert"></p>
+          <div class="q-actions">
+            <button type="button" class="modal-back" id="planQBack">Back</button>
+            <button type="submit" class="modal-submit" id="planQSubmit">Send</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="q-thanks" id="planQThanks">
+        <h2>Thank you.</h2>
+        <p>We&rsquo;ve got your project. We&rsquo;ll be in touch shortly to learn more.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="pagehero pagehero--connect" id="connect">
+    <img class="pagehero-img" src="/assets/hero/connect-hero.webp" width="2400" height="1600"
+         alt="A family of four laughing together by the tall windows of a bright, sunlit home"
+         loading="lazy" />
+    <div class="pagehero-scrim"></div>
+    <div>
+      <h2 class="pagehero-headline">Join the community</h2>
+      <div class="pagehero-social">
+        <a class="pagehero-social-link" href="https://apps.apple.com/app/id6789206534"
+           target="_blank" rel="noopener" aria-label="ROQ Home on the App Store">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M8.286 7.008c-3.216 0-4.286 3.23-4.286 5.92c0 3.229 2.143 8.072 4.286 8.072c1.165-.05 1.799-.538 3.214-.538c1.406 0 1.607 .538 3.214 .538s4.286-3.229 4.286-5.381c-.03-.011-2.649-.434-2.679-3.23c-.02-2.335 2.589-3.179 2.679-3.228c-1.096-1.606-3.162-2.113-3.75-2.153c-1.535-.12-3.032 1.077-3.75 1.077c-.729 0-2.036-1.077-3.214-1.077z" />
+            <path d="M12 4a2 2 0 0 0 2-2a2 2 0 0 0-2 2" />
+          </svg>
+        </a>
+        <a class="pagehero-social-link" href="https://www.facebook.com/61594580471119/"
+           target="_blank" rel="noopener" aria-label="ROQ Home on Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+        </a>
+        <a class="pagehero-social-link" href="https://www.instagram.com/roqhome"
+           target="_blank" rel="noopener" aria-label="ROQ Home on Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5.2" />
+            <circle cx="12" cy="12" r="4.2" />
+            <path d="M17.4 6.6h.01" />
+          </svg>
+        </a>
+        <a class="pagehero-social-link" href="https://www.tiktok.com/@roqhome"
+           target="_blank" rel="noopener" aria-label="ROQ Home on TikTok">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M21 7.917v4.034a9.948 9.948 0 0 1-5-1.951v4.5a6.5 6.5 0 1 1-8-6.326v4.326a2.5 2.5 0 1 0 4 2v-11.5h4.083a6.005 6.005 0 0 0 4.917 4.917z" />
+          </svg>
+        </a>
+        <a class="pagehero-social-link" href="https://g.page/r/CUCLk3HPnJuhEBM"
+           target="_blank" rel="noopener" aria-label="ROQ Home on Google">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20.945 11a9 9 0 1 1-3.284-5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" />
+          </svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1120,6 +1605,277 @@
       }
 
       load();
+    })();
+  </script>
+
+  <script>
+    // ---------- Get started intake form ----------
+    (function initIntake() {
+      const overlay = document.getElementById('buildModalOverlay');
+      const form = document.getElementById('buildIntakeForm');
+      const thanks = document.getElementById('buildQThanks');
+      const locationEl = document.getElementById('buildQLocation');
+      const contact = document.getElementById('buildQContact');
+      const nameEl = document.getElementById('buildQName');
+      const methods = Array.from(form.querySelectorAll('[data-method]'));
+      const errorEl = document.getElementById('buildQError');
+      const submitBtn = document.getElementById('buildQSubmit');
+      const openBtn = document.getElementById('buildGetStartedBtn');
+
+      let method = 'email';
+
+      function openModal() {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        locationEl.focus();
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+
+      openBtn.addEventListener('click', openModal);
+      document.getElementById('buildModalClose').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+      // Email or text.
+      methods.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          method = btn.dataset.method;
+          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
+          const isEmail = method === 'email';
+          contact.type = isEmail ? 'email' : 'tel';
+          contact.autocomplete = isEmail ? 'email' : 'tel';
+          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
+          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Mobile number');
+          contact.value = '';
+          errorEl.classList.remove('visible');
+          contact.focus();
+        });
+      });
+
+      function showError(msg) {
+        errorEl.textContent = msg;
+        errorEl.classList.add('visible');
+      }
+
+      // Reuses the existing project-potential-intake function/table, the one
+      // intake endpoint that accepts a phone number or an email and no name.
+      // The build location goes in its address field and project_type marks
+      // the lead as a FRAMEWORK request (with the name, when one is given).
+      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const location = locationEl.value.trim();
+        const value = contact.value.trim();
+        const name = nameEl.value.trim();
+
+        if (!location) {
+          showError('Please tell us where you are considering your build.');
+          locationEl.focus();
+          return;
+        }
+
+        const valid = method === 'email'
+          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
+
+        if (!valid) {
+          showError(method === 'email'
+            ? 'Please enter a valid email address.'
+            : 'Please enter a valid mobile number.');
+          contact.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        errorEl.classList.remove('visible');
+
+        try {
+          const res = await fetch(FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              // The function rejects addresses under 8 characters; a short
+              // answer like "Austin" is still a valid build location.
+              address: location.length < 8 ? `${location} (build location)` : location,
+              project_type: 'Build: FRAMEWORK' + (name ? ` | Name: ${name}` : '') + (method === 'text' ? ' | Prefers text' : ''),
+              contact: value,
+              contact_method: method === 'email' ? 'email' : 'phone',
+            }),
+          });
+
+          if (!res.ok) throw new Error('Request failed');
+
+          form.style.display = 'none';
+          thanks.classList.add('active');
+        } catch (err) {
+          showError('Something went wrong. Please try again.');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send';
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    // ---------- Start planning questionnaire ----------
+    (function initPlanning() {
+      const overlay = document.getElementById('planModalOverlay');
+      const form = document.getElementById('planPlanForm');
+      const thanks = document.getElementById('planQThanks');
+      const step1 = document.getElementById('planQStep1');
+      const step2 = document.getElementById('planQStep2');
+      const options = Array.from(document.querySelectorAll('#planQProjectOptions .q-option'));
+      const other = document.getElementById('planQProjectOther');
+      const methods = Array.from(step2.querySelectorAll('[data-method]'));
+      const contact = document.getElementById('planQContact');
+      const error1 = document.getElementById('planQError1');
+      const error2 = document.getElementById('planQError2');
+      const submitBtn = document.getElementById('planQSubmit');
+      const openBtn = document.getElementById('planStartPlanningBtn');
+
+      let method = 'email';
+
+      function showStep(n) {
+        step1.classList.toggle('active', n === 1);
+        step2.classList.toggle('active', n === 2);
+        if (n === 2) contact.focus();
+      }
+
+      function openModal() {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+
+      openBtn.addEventListener('click', openModal);
+      document.getElementById('planModalClose').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+      // Step 1: pick any rooms, and/or describe it in your own words.
+      options.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');
+          error1.classList.remove('visible');
+        });
+      });
+
+      function projectAnswer() {
+        const picked = options
+          .filter((b) => b.getAttribute('aria-pressed') === 'true')
+          .map((b) => b.textContent.trim());
+        const typed = other.value.trim();
+        if (typed) picked.push(typed);
+        return picked.join(', ');
+      }
+
+      function goNext() {
+        if (!projectAnswer()) {
+          error1.textContent = 'Pick a project or tell us what you have in mind.';
+          error1.classList.add('visible');
+          return;
+        }
+        error1.classList.remove('visible');
+        showStep(2);
+      }
+
+      document.getElementById('planQNext').addEventListener('click', goNext);
+      document.getElementById('planQBack').addEventListener('click', () => showStep(1));
+
+      // Step 2: email or phone.
+      methods.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          method = btn.dataset.method;
+          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
+          const isEmail = method === 'email';
+          contact.type = isEmail ? 'email' : 'tel';
+          contact.autocomplete = isEmail ? 'email' : 'tel';
+          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
+          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Phone number');
+          contact.value = '';
+          error2.classList.remove('visible');
+          contact.focus();
+        });
+      });
+
+      // Reuses the existing project-potential-intake function/table. That form
+      // also asked for a home address, which this one doesn't, so a fixed
+      // marker is sent in its place and identifies where the lead came from.
+      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Enter in the first step's text field submits the form; treat it as Continue.
+        if (step1.classList.contains('active')) { goNext(); return; }
+
+        const value = contact.value.trim();
+        const valid = method === 'email'
+          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
+
+        if (!valid) {
+          error2.textContent = method === 'email'
+            ? 'Please enter a valid email address.'
+            : 'Please enter a valid phone number.';
+          error2.classList.add('visible');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        error2.classList.remove('visible');
+
+        try {
+          const res = await fetch(FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              address: 'Not asked (Renovate: Start planning)',
+              project_type: projectAnswer(),
+              contact: value,
+              contact_method: method,
+            }),
+          });
+
+          if (!res.ok) throw new Error('Request failed');
+
+          form.style.display = 'none';
+          thanks.classList.add('active');
+        } catch (err) {
+          error2.textContent = 'Something went wrong. Please try again.';
+          error2.classList.add('visible');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send';
+        }
+      });
     })();
   </script>
 
