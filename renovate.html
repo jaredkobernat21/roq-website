@@ -343,10 +343,155 @@
     text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 30px rgba(0,0,0,0.6);
   }
 
+  /* What the plan includes, set under the headline. The list carries more
+     text than the headline alone, so it gets its own even layer of shade. */
+  .pagehero-body { width: 100%; max-width: 760px; }
+
+  .pagehero-scrim::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(20,18,14,0.22);
+  }
+
+  .pagehero-points {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    justify-content: center;
+    gap: 14px clamp(28px, 5vw, 64px);
+    margin: clamp(26px, 4.4vh, 40px) auto 0;
+    text-align: left;
+  }
+
+  .pagehero-points li {
+    position: relative;
+    padding-left: 20px;
+    font-size: clamp(15px, 1.25vw, 17px);
+    line-height: 1.4;
+    color: rgba(255,255,255,0.94);
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4), 0 1px 18px rgba(0,0,0,0.55);
+  }
+
+  .pagehero-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .pagehero-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    margin-top: clamp(30px, 5vh, 44px);
+    padding: 0 38px;
+    border-radius: 999px;
+    border: 1px solid #FFFFFF;
+    background: #FFFFFF;
+    color: #14110B;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease), color 0.25s var(--ease), transform 0.25s var(--ease);
+  }
+
+  .pagehero-cta:hover { background: var(--gold); border-color: var(--gold); color: #FFFFFF; }
+  .pagehero-cta:active { transform: scale(0.985); }
+
   @media (max-width: 640px) {
     .pagehero { padding: 104px 24px 84px; }
     .pagehero-headline { font-size: 31px; max-width: 14ch; }
+    .pagehero-scrim::after { background: rgba(20,18,14,0.32); }
+    .pagehero-points { grid-template-columns: auto; gap: 11px; }
+    .pagehero-points li { font-size: 15px; }
+    .pagehero-cta { width: 100%; max-width: 320px; }
   }
+
+  /* ---------- Start planning questionnaire (shared intake modal pattern) ---------- */
+
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(20,19,15,0.55);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; visibility: hidden;
+    transition: opacity 0.3s var(--ease), visibility 0.3s;
+  }
+  .modal-overlay.open { opacity: 1; visibility: visible; }
+
+  .modal-panel {
+    background: #fff; color: var(--ink); border-radius: 4px; width: 100%; max-width: 500px;
+    max-height: 88vh; overflow-y: auto; padding: clamp(28px, 5vw, 44px);
+    position: relative; transform: translateY(14px);
+    transition: transform 0.3s var(--ease);
+  }
+  .modal-overlay.open .modal-panel { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 18px; right: 18px; width: 32px; height: 32px;
+    border-radius: 50%; border: 1px solid var(--border); background: transparent;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim); font-size: 15px; line-height: 1;
+  }
+  .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+
+  .q-progress { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+  .modal-title { font-family: 'Lora', serif; font-weight: 500; font-size: clamp(21px, 3vw, 25px); line-height: 1.3; margin-bottom: 22px; padding-right: 30px; }
+
+  .q-step { display: none; border: none; min-width: 0; }
+  .q-step.active { display: block; }
+
+  .q-options { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+
+  .q-option {
+    min-height: 44px; padding: 0 18px; border-radius: 999px;
+    border: 1px solid var(--border); background: var(--bg-soft); color: var(--ink);
+    font-family: inherit; font-size: 14.5px; cursor: pointer;
+    transition: background 0.2s var(--ease), border-color 0.2s var(--ease), color 0.2s var(--ease);
+  }
+  .q-option:hover { border-color: var(--gold); }
+  .q-option[aria-pressed="true"],
+  .q-option[aria-checked="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  .q-input {
+    width: 100%; background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 4px; padding: 14px 16px; color: var(--ink);
+    font-family: 'Inter', sans-serif; font-size: 16px; outline: none;
+  }
+  .q-input:focus { border-color: var(--gold); }
+  .q-input::placeholder { color: var(--ink-faint); }
+
+  .q-error { margin-top: 10px; font-size: 13px; color: var(--danger); display: none; }
+  .q-error.visible { display: block; }
+
+  .q-actions { display: flex; gap: 10px; margin-top: 22px; }
+
+  .modal-submit {
+    flex: 1; border-radius: 4px; padding: 16px; border: none;
+    background: var(--gold); color: #fff; font-family: inherit; font-size: 14px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer;
+    transition: background 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .modal-submit:hover { background: var(--gold-dark); }
+  .modal-submit:disabled { opacity: 0.5; cursor: default; }
+
+  .modal-back {
+    border-radius: 4px; padding: 16px 20px; border: 1px solid var(--border);
+    background: transparent; color: var(--ink-dim); font-family: inherit; font-size: 14px; cursor: pointer;
+  }
+  .modal-back:hover { background: var(--bg-soft); color: var(--ink); }
+
+  .q-thanks { display: none; text-align: center; padding: 20px 0 4px; }
+  .q-thanks.active { display: block; }
+  .q-thanks h2 { font-family: 'Lora', serif; font-weight: 500; font-size: 24px; margin-bottom: 10px; }
+  .q-thanks p { font-size: 14.5px; line-height: 1.6; color: var(--ink-dim); }
 
   /* ---------- Footer ---------- */
 
@@ -442,10 +587,69 @@
          alt="Two people in hard hats and safety glasses, smiling as they put up the timber wall of a home"
          fetchpriority="high" style="object-position: 50% 40%" />
     <div class="pagehero-scrim"></div>
-    <div>
+    <div class="pagehero-body">
       <h1 class="pagehero-headline">Renovate with confidence</h1>
+      <ul class="pagehero-points">
+        <li>Custom design concepts</li>
+        <li>Detailed project budget</li>
+        <li>Material recommendations</li>
+        <li>Neighborhood value &amp; ROI analysis</li>
+        <li>DIY vs contractor guidance</li>
+        <li>Clear timeline and roadmap</li>
+      </ul>
+      <button type="button" class="pagehero-cta" id="startPlanningBtn">Start planning</button>
     </div>
   </section>
+
+  <!-- ---------- Start planning questionnaire ---------- -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="qTitle1">
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+      <form id="planForm" novalidate>
+        <fieldset class="q-step active" id="qStep1">
+          <p class="q-progress">1 of 2</p>
+          <h2 class="modal-title" id="qTitle1">What are you working on?</h2>
+          <div class="q-options" id="qProjectOptions">
+            <button type="button" class="q-option" aria-pressed="false">Kitchen</button>
+            <button type="button" class="q-option" aria-pressed="false">Bathroom</button>
+            <button type="button" class="q-option" aria-pressed="false">Bedroom</button>
+            <button type="button" class="q-option" aria-pressed="false">Living room</button>
+            <button type="button" class="q-option" aria-pressed="false">Basement</button>
+            <button type="button" class="q-option" aria-pressed="false">Outdoor space</button>
+            <button type="button" class="q-option" aria-pressed="false">Whole home</button>
+          </div>
+          <input type="text" class="q-input" id="qProjectOther" maxlength="200"
+                 placeholder="Or type anything" aria-label="Describe your project" />
+          <p class="q-error" id="qError1" role="alert"></p>
+          <div class="q-actions">
+            <button type="button" class="modal-submit" id="qNext">Continue</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="q-step" id="qStep2">
+          <p class="q-progress">2 of 2</p>
+          <h2 class="modal-title" id="qTitle2">What&rsquo;s the best way for us to learn more about your project?</h2>
+          <div class="q-options" role="radiogroup" aria-labelledby="qTitle2">
+            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
+            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="phone">Phone</button>
+          </div>
+          <input type="email" class="q-input" id="qContact" maxlength="200" autocomplete="email"
+                 placeholder="you@example.com" aria-label="Email address" />
+          <p class="q-error" id="qError2" role="alert"></p>
+          <div class="q-actions">
+            <button type="button" class="modal-back" id="qBack">Back</button>
+            <button type="submit" class="modal-submit" id="qSubmit">Send</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="q-thanks" id="qThanks">
+        <h2>Thank you.</h2>
+        <p>We&rsquo;ve got your project. We&rsquo;ll be in touch shortly to learn more.</p>
+      </div>
+    </div>
+  </div>
 
   <footer>
     <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
@@ -489,6 +693,154 @@
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll, { passive: true });
       }
+    })();
+  </script>
+
+  <script>
+    // ---------- Start planning questionnaire ----------
+    (function initPlanning() {
+      const overlay = document.getElementById('modalOverlay');
+      const form = document.getElementById('planForm');
+      const thanks = document.getElementById('qThanks');
+      const step1 = document.getElementById('qStep1');
+      const step2 = document.getElementById('qStep2');
+      const options = Array.from(document.querySelectorAll('#qProjectOptions .q-option'));
+      const other = document.getElementById('qProjectOther');
+      const methods = Array.from(step2.querySelectorAll('[data-method]'));
+      const contact = document.getElementById('qContact');
+      const error1 = document.getElementById('qError1');
+      const error2 = document.getElementById('qError2');
+      const submitBtn = document.getElementById('qSubmit');
+      const openBtn = document.getElementById('startPlanningBtn');
+
+      let method = 'email';
+
+      function showStep(n) {
+        step1.classList.toggle('active', n === 1);
+        step2.classList.toggle('active', n === 2);
+        if (n === 2) contact.focus();
+      }
+
+      function openModal() {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+
+      openBtn.addEventListener('click', openModal);
+      document.getElementById('modalClose').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+      // Step 1: pick any rooms, and/or describe it in your own words.
+      options.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');
+          error1.classList.remove('visible');
+        });
+      });
+
+      function projectAnswer() {
+        const picked = options
+          .filter((b) => b.getAttribute('aria-pressed') === 'true')
+          .map((b) => b.textContent.trim());
+        const typed = other.value.trim();
+        if (typed) picked.push(typed);
+        return picked.join(', ');
+      }
+
+      function goNext() {
+        if (!projectAnswer()) {
+          error1.textContent = 'Pick a project or tell us what you have in mind.';
+          error1.classList.add('visible');
+          return;
+        }
+        error1.classList.remove('visible');
+        showStep(2);
+      }
+
+      document.getElementById('qNext').addEventListener('click', goNext);
+      document.getElementById('qBack').addEventListener('click', () => showStep(1));
+
+      // Step 2: email or phone.
+      methods.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          method = btn.dataset.method;
+          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
+          const isEmail = method === 'email';
+          contact.type = isEmail ? 'email' : 'tel';
+          contact.autocomplete = isEmail ? 'email' : 'tel';
+          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
+          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Phone number');
+          contact.value = '';
+          error2.classList.remove('visible');
+          contact.focus();
+        });
+      });
+
+      // Reuses the existing project-potential-intake function/table. That form
+      // also asked for a home address, which this one doesn't, so a fixed
+      // marker is sent in its place and identifies where the lead came from.
+      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Enter in the first step's text field submits the form; treat it as Continue.
+        if (step1.classList.contains('active')) { goNext(); return; }
+
+        const value = contact.value.trim();
+        const valid = method === 'email'
+          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
+
+        if (!valid) {
+          error2.textContent = method === 'email'
+            ? 'Please enter a valid email address.'
+            : 'Please enter a valid phone number.';
+          error2.classList.add('visible');
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        error2.classList.remove('visible');
+
+        try {
+          const res = await fetch(FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              address: 'Not asked (Renovate: Start planning)',
+              project_type: projectAnswer(),
+              contact: value,
+              contact_method: method,
+            }),
+          });
+
+          if (!res.ok) throw new Error('Request failed');
+
+          form.style.display = 'none';
+          thanks.classList.add('active');
+        } catch (err) {
+          error2.textContent = 'Something went wrong. Please try again.';
+          error2.classList.add('visible');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send';
+        }
+      });
     })();
   </script>
 
