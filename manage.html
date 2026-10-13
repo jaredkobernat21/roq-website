@@ -246,10 +246,45 @@
   }
 
 
-  /* ---------- Page hero ---------- */
+  /* ---------- App hero ----------
+     The render is shown whole, never cropped: it sits on black, and its
+     edges are feathered so no seam shows where the picture ends. The App
+     Store button holds the bottom of the screen beneath it. */
+
+  .app-hero {
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #000;
+    padding: 72px 24px clamp(28px, 5vh, 48px);
+  }
+
+  .app-hero picture {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .app-hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 80%, transparent 100%);
+            mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, #000 80%, transparent 100%);
+  }
+
+  .app-hero .appstore-btn { flex: none; margin-top: clamp(14px, 3vh, 28px); }
+
+  /* ---------- Page intro ---------- */
 
   .page-hero {
-    padding: clamp(148px, 20vh, 200px) clamp(24px, 5vw, 64px) clamp(50px, 7vh, 70px);
+    padding: clamp(64px, 10vh, 104px) clamp(24px, 5vw, 64px) clamp(50px, 7vh, 70px);
     background: var(--bg-deep);
   }
 
@@ -531,9 +566,8 @@
   }
 
   @media (max-width: 640px) {
-    /* The hero was clearing a two-row fixed header that no longer exists,
-       leaving ~150px of empty screen before any content. */
-    .page-hero { padding: 104px 24px 40px; }
+    .app-hero { padding: 64px 12px 24px; }
+    .page-hero { padding: 52px 24px 40px; }
     .page-hero-eyebrow { margin-bottom: 14px; }
     .page-hero-headline { font-size: 31px; line-height: 1.12; margin-bottom: 16px; }
     .page-hero-sub { font-size: 15.5px; line-height: 1.6; }
@@ -566,7 +600,7 @@
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/build.html">Build</a>
       <a href="/dream.html">Design</a>
-      <a href="/manage.html" class="active" aria-current="page">Own</a>
+      <a href="/manage.html" class="active" aria-current="page">Manage</a>
       <a href="/renovate.html">Improve</a>
       <a href="/move.html">Move</a>
       <a href="/understand.html">Understand</a>
@@ -577,6 +611,18 @@
     <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs"
             aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
   </header>
+
+  <section class="app-hero">
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/app-hero-mobile.webp" />
+      <img class="app-hero-img" src="/assets/hero/app-hero-wide.webp"
+           alt="The ROQ app open on an iPhone: Welcome to the future of homeownership" fetchpriority="high" />
+    </picture>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
+  </section>
 
   <section class="page-hero">
     <p class="page-hero-eyebrow">ROQ App</p>
