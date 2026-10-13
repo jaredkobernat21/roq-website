@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Manage — ROQ Home</title>
+<title>App — ROQ Home</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
@@ -14,13 +14,13 @@
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ROQ Home" />
-<meta property="og:title" content="Manage — ROQ Home" />
+<meta property="og:title" content="App — ROQ Home" />
 <meta property="og:description" content="Your entire home in one app — health, projects, story, worth, and an AI advisor that knows your house." />
 <meta property="og:url" content="https://roqhome.com/manage.html" />
 <meta property="og:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Manage — ROQ Home" />
+<meta name="twitter:title" content="App — ROQ Home" />
 <meta name="twitter:description" content="Your entire home in one app — health, projects, story, worth, and an AI advisor that knows your house." />
 <meta name="twitter:image" content="https://roqhome.com/assets/screen-1-home.jpg" />
 
@@ -273,6 +273,16 @@
     z-index: -1;
     background: url(/assets/hero/app-promo.webp) 50% 50% / cover no-repeat;
     filter: blur(36px) brightness(0.42);
+  }
+
+  /* Read by screen readers and search engines; the photo carries it visually. */
+  .app-hero-title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
   }
 
   .app-hero picture {
@@ -619,7 +629,7 @@
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/build.html">Build</a>
       <a href="/dream.html">Design</a>
-      <a href="/manage.html" class="active" aria-current="page">Manage</a>
+      <a href="/manage.html" class="active" aria-current="page">App</a>
       <a href="/renovate.html">Improve</a>
       <a href="/move.html">Move</a>
       <a href="/understand.html">Understand</a>
@@ -632,6 +642,7 @@
   </header>
 
   <section class="app-hero">
+    <h1 class="app-hero-title">The ROQ app</h1>
     <picture>
       <img class="app-hero-img" src="/assets/hero/app-promo.webp" width="1024" height="1536"
            alt="A hand holding out an iPhone showing the ROQ app: Welcome to the future of homeownership" fetchpriority="high" />
@@ -640,76 +651,6 @@
       <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
       <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
     </a>
-  </section>
-
-  <section class="page-hero">
-    <p class="page-hero-eyebrow">ROQ App</p>
-    <h1 class="page-hero-headline">Run your home from one place.</h1>
-    <p class="page-hero-sub">Most of what you know about your home lives in drawers, inboxes, and memory. The ROQ app gathers it — every system, every project, every document, every dollar — into something you can actually use.</p>
-  </section>
-
-  <section class="showcase">
-    <div class="showcase-carousel">
-      <div class="showcase-track" id="showcaseTrack">
-        <div class="showcase-slide"><img src="/assets/screen-1-home.jpg" alt="ROQ home tour screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-2-pulse.jpg" alt="ROQ Pulse home health screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-3-studio.jpg" alt="ROQ Studio projects screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-4-story.jpg" alt="ROQ Story timeline screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-5-worth.jpg" alt="ROQ Worth finance screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-6-slade.jpg" alt="SLADE AI home advisor chat screen" loading="lazy"></div>
-        <div class="showcase-slide"><img src="/assets/screen-7-personality.jpg" alt="ROQ Personality home details screen" loading="lazy"></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="features">
-    <div class="features-grid">
-      <div class="feature">
-        <p class="feature-name">Home</p>
-        <h3 class="feature-title">A living tour</h3>
-        <p class="feature-desc">Your house, room by room — what's in it, when it was last touched, and what it's made of.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Pulse</p>
-        <h3 class="feature-title">Home health</h3>
-        <p class="feature-desc">What needs attention, what can wait, and what will cost you if it keeps waiting.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Studio</p>
-        <h3 class="feature-title">Projects &amp; plans</h3>
-        <p class="feature-desc">Every improvement in one thread — scope, budget, quotes, and progress.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Story</p>
-        <h3 class="feature-title">The timeline</h3>
-        <p class="feature-desc">Everything that's happened to your home, in order — and the record to prove it.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Worth</p>
-        <h3 class="feature-title">Value &amp; equity</h3>
-        <p class="feature-desc">What it's worth, what you owe, what you've put in, and what ownership actually costs.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">SLADE</p>
-        <h3 class="feature-title">Your home's advisor</h3>
-        <p class="feature-desc">An AI that knows your specific house — not houses in general — and answers accordingly.</p>
-      </div>
-      <div class="feature">
-        <p class="feature-name">Personality</p>
-        <h3 class="feature-title">What makes it yours</h3>
-        <p class="feature-desc">Materials, finishes, light, and character — the details that make it this home and no other.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="beta-note">
-    <h2 class="beta-headline">The ROQ app is out now.</h2>
-    <p class="close-sub">Every system, project, document and dollar, gathered into something you can actually use.</p>
-    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
-      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
-    </a>
-    <p class="appstore-meta">Free on iPhone · Requires iOS 15.1 or later</p>
   </section>
 
   <footer>
@@ -752,71 +693,6 @@
         onScroll();
         window.addEventListener('scroll', onScroll, { passive: true });
       }
-    })();
-
-    // ---------- Screenshot showcase carousel ----------
-    (function initShowcase() {
-      const track = document.getElementById('showcaseTrack');
-      if (!track) return;
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      const realSlides = Array.from(track.children);
-      if (!realSlides.length) return;
-
-      // Clone the first slide onto the end so the loop can reset invisibly.
-      const clone = realSlides[0].cloneNode(true);
-      track.appendChild(clone);
-
-      if (reduceMotion) return; // leave it static on the first screenshot
-
-      let index = 0;
-      const total = realSlides.length;
-
-      function slideStep() {
-        const style = getComputedStyle(track);
-        const gap = parseFloat(style.gap) || 0;
-        return track.children[0].getBoundingClientRect().width + gap;
-      }
-
-      function goTo(i, animate) {
-        track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)' : 'none';
-        track.style.transform = `translateX(-${i * slideStep()}px)`;
-      }
-
-      // When the animated step onto the cloned first slide finishes, snap
-      // back to the real first slide with no transition. Since the clone
-      // is pixel-identical, the reset is invisible.
-      track.addEventListener('transitionend', (e) => {
-        if (e.propertyName !== 'transform' || index !== total) return;
-        index = 0;
-        track.style.transition = 'none';
-        void track.offsetWidth; // force reflow so 'none' commits before the jump
-        track.style.transform = 'translateX(0px)';
-      });
-
-      setInterval(() => {
-        index++;
-        goTo(index, true);
-      }, 2600);
-
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => goTo(index, false), 120);
-      });
-    })();
-
-    // ---------- Scroll reveal ----------
-    (function initReveal() {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            observer.unobserve(entry.target);
-            entry.target.classList.add('in-view');
-          }
-        });
-      }, { threshold: 0.2 });
-      document.querySelectorAll('.feature').forEach(el => observer.observe(el));
     })();
   </script>
 
