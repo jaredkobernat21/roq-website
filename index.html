@@ -1305,6 +1305,7 @@
       <a href="/manage.html">App</a>
       <a href="/build.html">Designs</a>
       <a href="/renovate.html">Projects</a>
+      <a href="/atmospheres.html">Atmospheres</a>
       <a href="/connect.html">Connect</a>
     </nav>
 
@@ -1473,6 +1474,43 @@
     </div>
   </div>
 
+  <section class="pagehero" id="atmospheres">
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/atmospheres-loop-mobile-poster.webp" />
+      <img class="pagehero-img" src="/assets/hero/atmospheres-loop-desktop-poster.webp" width="1920" height="1080"
+           alt="A candle burning by a rain-streaked window" loading="lazy" />
+    </picture>
+    <video class="pagehero-video" id="atmospheresVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+    <div class="pagehero-scrim"></div>
+    <div>
+      <h2 class="pagehero-headline">Explore Atmospheres</h2>
+      <div class="pagehero-social">
+        <a class="pagehero-social-link" href="https://www.youtube.com/channel/UC40cpxxdSdEp_7TgitpT8WQ"
+           target="_blank" rel="noopener" aria-label="ROQ Home on YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="5" width="20" height="14" rx="4" />
+            <path d="M10 9.2l5 2.8-5 2.8z" />
+          </svg>
+        </a>
+        <a class="pagehero-social-link" href="https://www.instagram.com/roqhome"
+           target="_blank" rel="noopener" aria-label="ROQ Home on Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2.5" y="2.5" width="19" height="19" rx="5.2" />
+            <circle cx="12" cy="12" r="4.2" />
+            <path d="M17.4 6.6h.01" />
+          </svg>
+        </a>
+        <a class="pagehero-social-link" href="https://www.facebook.com/61594580471119/"
+           target="_blank" rel="noopener" aria-label="ROQ Home on Facebook">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section class="pagehero pagehero--connect" id="connect">
     <img class="pagehero-img" src="/assets/hero/connect-hero.webp" width="2400" height="1600"
          alt="A family of four laughing together by the tall windows of a bright, sunlit home"
@@ -1626,6 +1664,52 @@
 
       function load() {
         var src = '/assets/hero/build-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=3';
+        if (src === current) return;
+        current = src;
+        video.classList.remove('is-playing');
+        video.muted = true;               // required for autoplay; set as a property for iOS
+        video.src = src;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
+      }
+
+      video.addEventListener('playing', function () {
+        video.classList.add('is-playing');
+      });
+
+      // Rotating a phone or tablet swaps cuts, once a cut has been loaded.
+      if (portrait.addEventListener) portrait.addEventListener('change', function () {
+        if (current) load();
+      });
+
+      if (!('IntersectionObserver' in window)) { load(); return; }
+
+      // Load when it comes near the viewport; pause while it is off screen.
+      new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) { video.pause(); return; }
+        if (!current) { load(); return; }
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }, { rootMargin: '400px 0px' }).observe(video);
+    })();
+  </script>
+
+  <script>
+    /* Atmospheres loop: same portrait/landscape cuts as the Atmospheres page. It sits
+       below the fold, so nothing is fetched until it is nearly on screen. */
+    (function () {
+      var video = document.getElementById('atmospheresVideo');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var conn = navigator.connection || {};
+      if (reduce.matches || conn.saveData) return;   // poster only
+
+      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+      var current = null;
+
+      function load() {
+        var src = '/assets/hero/atmospheres-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
         if (src === current) return;
         current = src;
         video.classList.remove('is-playing');
