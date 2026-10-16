@@ -513,6 +513,13 @@
   .q-thanks h2 { font-family: 'Lora', serif; font-weight: 500; font-size: 24px; margin-bottom: 10px; }
   .q-thanks p { font-size: 14.5px; line-height: 1.6; color: var(--ink-dim); }
 
+  /* Headline set in Helvetica rather than the site's Lora, as on Dream and Solutions. */
+  .pagehero-headline--sans {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
   /* ---------- Footer ---------- */
 
   footer {
@@ -592,8 +599,8 @@
     </a>
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/dream.html">Dream</a>
       <a href="/manage.html">App</a>
-      <a href="/build.html">Designs</a>
       <a href="/potential.html" class="active" aria-current="page">Potential</a>
       <a href="/atmospheres.html">Atmospheres</a>
       <a href="/solutions.html">Solutions</a>
@@ -614,7 +621,7 @@
            preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
     <div class="pagehero-body">
-      <h1 class="pagehero-headline">See what your home could be</h1>
+      <h1 class="pagehero-headline pagehero-headline--sans">See what your home could be</h1>
       <ul class="pagehero-points">
         <li>Neighborhood ceiling range</li>
         <li>Renovation ROI analysis</li>
