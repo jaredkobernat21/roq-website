@@ -1188,6 +1188,16 @@
     color: var(--ink-faint);
   }
 
+
+  textarea.q-input { display: block; min-height: 132px; resize: vertical; line-height: 1.5; }
+
+  /* Solutions headline is set in Helvetica rather than the site's Lora. */
+  .pagehero-headline--sans {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+  }
+
   /* ---------- Footer ---------- */
 
   footer {
@@ -1526,9 +1536,48 @@
            preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
     <div>
-      <h2 class="pagehero-headline">We are here to help</h2>
+      <h2 class="pagehero-headline pagehero-headline--sans">We are here to help</h2>
+      <button type="button" class="pagehero-cta" id="helpBtn">Get help</button>
     </div>
   </section>
+
+  <!-- ---------- Get help intake form ---------- -->
+  <div class="modal-overlay" id="helpModalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="helpQTitle">
+      <button type="button" class="modal-close" id="helpModalClose" aria-label="Close">&times;</button>
+
+      <form id="helpForm" novalidate>
+        <h2 class="modal-title" id="helpQTitle">How can we help?</h2>
+
+        <div class="q-block">
+          <label class="q-label" for="helpQSituation">Tell us about your current situation.</label>
+          <textarea class="q-input" id="helpQSituation" maxlength="2000"
+                    placeholder="What's going on with your home, and what would you like help with?"></textarea>
+        </div>
+
+        <div class="q-block">
+          <p class="q-label" id="helpQContactLabel">What is the best way for us to reach you?</p>
+          <div class="q-options" role="radiogroup" aria-labelledby="helpQContactLabel">
+            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="call">Call</button>
+            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="text">Text</button>
+            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="email">Email</button>
+          </div>
+          <input type="tel" class="q-input" id="helpQContact" maxlength="200" autocomplete="tel"
+                 placeholder="(555) 555-5555" aria-label="Phone number" />
+        </div>
+
+        <p class="q-error" id="helpQError" role="alert"></p>
+        <div class="q-actions">
+          <button type="submit" class="modal-submit" id="helpQSubmit">Send</button>
+        </div>
+      </form>
+
+      <div class="q-thanks" id="helpQThanks">
+        <h2>Thank you.</h2>
+        <p>We&rsquo;ve got your message. We&rsquo;ll reach out shortly to help.</p>
+      </div>
+    </div>
+  </div>
 
   <section class="pagehero pagehero--connect" id="connect">
     <img class="pagehero-img" src="/assets/hero/connect-hero.webp" width="2400" height="1600"
@@ -2115,6 +2164,126 @@
         } catch (err) {
           error2.textContent = 'Something went wrong. Please try again.';
           error2.classList.add('visible');
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send';
+        }
+      });
+    })();
+  </script>
+
+  <script>
+    // ---------- Get help intake form ----------
+    (function initHelpIntake() {
+      const overlay = document.getElementById('helpModalOverlay');
+      const form = document.getElementById('helpForm');
+      const thanks = document.getElementById('helpQThanks');
+      const situationEl = document.getElementById('helpQSituation');
+      const contact = document.getElementById('helpQContact');
+      const methods = Array.from(form.querySelectorAll('[data-method]'));
+      const errorEl = document.getElementById('helpQError');
+      const submitBtn = document.getElementById('helpQSubmit');
+      const openBtn = document.getElementById('helpBtn');
+
+      let method = 'call';
+
+      function openModal() {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        situationEl.focus();
+      }
+      function closeModal() {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+        openBtn.focus();
+      }
+
+      openBtn.addEventListener('click', openModal);
+      document.getElementById('helpModalClose').addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
+      });
+
+      // Call, text, or email. Call and text share a phone number, so switching
+      // between those two keeps what was typed.
+      methods.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const wasEmail = method === 'email';
+          method = btn.dataset.method;
+          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
+          const isEmail = method === 'email';
+          contact.type = isEmail ? 'email' : 'tel';
+          contact.autocomplete = isEmail ? 'email' : 'tel';
+          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
+          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Phone number');
+          if (isEmail !== wasEmail) contact.value = '';
+          errorEl.classList.remove('visible');
+          contact.focus();
+        });
+      });
+
+      function showError(msg) {
+        errorEl.textContent = msg;
+        errorEl.classList.add('visible');
+      }
+
+      // Same endpoint as the Dream Home Plan form: project-potential-intake
+      // saves the lead and emails hello@roqhome.com. The situation goes in its
+      // address field and project_type marks the lead as a Solutions request.
+      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const situation = situationEl.value.trim();
+        const value = contact.value.trim();
+
+        if (situation.length < 10) {
+          showError('Please tell us a little about your situation.');
+          situationEl.focus();
+          return;
+        }
+
+        const valid = method === 'email'
+          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
+
+        if (!valid) {
+          showError(method === 'email'
+            ? 'Please enter a valid email address.'
+            : 'Please enter a valid phone number.');
+          contact.focus();
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending…';
+        errorEl.classList.remove('visible');
+
+        try {
+          const res = await fetch(FUNCTION_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+            },
+            body: JSON.stringify({
+              address: `Situation: ${situation}`,
+              project_type: `Solutions: Get help | Prefers ${method}`,
+              contact: value,
+              contact_method: method === 'email' ? 'email' : 'phone',
+            }),
+          });
+
+          if (!res.ok) throw new Error('Request failed');
+
+          form.style.display = 'none';
+          thanks.classList.add('active');
+        } catch (err) {
+          showError('Something went wrong. Please try again.');
           submitBtn.disabled = false;
           submitBtn.textContent = 'Send';
         }
