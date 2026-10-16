@@ -388,7 +388,7 @@
 
 
   /* ---------- App hero ----------
-     The App page's screen, third on the home page, after Dream. A portrait photo. On wide screens it is shown whole and sharp in the
+     The App page's screen, on the home page after Solutions. A portrait photo. On wide screens it is shown whole and sharp in the
      centre, over a blurred, darkened copy of itself that fills the sides;
      on tall screens it fills the screen edge to edge. The App Store button
      holds the bottom of the screen either way. */
@@ -1325,11 +1325,11 @@
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/dream.html">Dream</a>
-      <a href="/manage.html">App</a>
-      <a href="/potential.html">Potential</a>
       <a href="/spaces.html">Spaces</a>
       <a href="/atmospheres.html">Atmospheres</a>
       <a href="/solutions.html">Solutions</a>
+      <a href="/manage.html">App</a>
+      <a href="/potential.html">Potential</a>
       <a href="/connect.html">Connect</a>
     </nav>
 
@@ -1413,91 +1413,6 @@
       <div class="q-thanks" id="buildQThanks">
         <h2>Thank you.</h2>
         <p>We&rsquo;ve got your build location. We&rsquo;ll be in touch shortly about your project.</p>
-      </div>
-    </div>
-  </div>
-
-  <section class="app-hero" id="app">
-    <h2 class="app-hero-title">The ROQ app</h2>
-    <picture>
-      <img class="app-hero-img" src="/assets/hero/app-promo.webp" width="1024" height="1536"
-           alt="A hand holding out an iPhone showing the ROQ app: Welcome to the future of homeownership" loading="lazy" />
-    </picture>
-    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
-      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
-      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
-    </a>
-  </section>
-
-  <section class="pagehero pagehero--renovate" id="renovate">
-    <picture>
-      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/projects-loop-mobile-poster.webp" />
-      <img class="pagehero-img" src="/assets/hero/projects-loop-desktop-poster.webp" width="1920" height="1080"
-           alt="A modern home with solar panels, lit up at dusk" loading="lazy" />
-    </picture>
-    <video class="pagehero-video" id="projectsVideo" muted loop playsinline
-           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
-    <div class="pagehero-scrim"></div>
-    <div class="pagehero-body">
-      <h2 class="pagehero-headline pagehero-headline--sans">See what your home could be</h2>
-      <ul class="pagehero-points">
-        <li>Neighborhood ceiling range</li>
-        <li>Renovation ROI analysis</li>
-        <li>DIY vs contractor recommendation</li>
-        <li>Permit &amp; zoning guidance</li>
-        <li>Custom design concepts</li>
-        <li>Project budget &amp; roadmap</li>
-      </ul>
-      <button type="button" class="pagehero-cta" id="planStartPlanningBtn">Start planning</button>
-    </div>
-  </section>
-
-  <!-- ---------- Start planning questionnaire ---------- -->
-  <div class="modal-overlay" id="planModalOverlay">
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="planQTitle1">
-      <button type="button" class="modal-close" id="planModalClose" aria-label="Close">&times;</button>
-
-      <form id="planPlanForm" novalidate>
-        <fieldset class="q-step active" id="planQStep1">
-          <p class="q-progress">1 of 2</p>
-          <h2 class="modal-title" id="planQTitle1">What are you working on?</h2>
-          <div class="q-options" id="planQProjectOptions">
-            <button type="button" class="q-option" aria-pressed="false">Kitchen</button>
-            <button type="button" class="q-option" aria-pressed="false">Bathroom</button>
-            <button type="button" class="q-option" aria-pressed="false">Bedroom</button>
-            <button type="button" class="q-option" aria-pressed="false">Living room</button>
-            <button type="button" class="q-option" aria-pressed="false">Basement</button>
-            <button type="button" class="q-option" aria-pressed="false">Outdoor space</button>
-            <button type="button" class="q-option" aria-pressed="false">Whole home</button>
-          </div>
-          <input type="text" class="q-input" id="planQProjectOther" maxlength="200"
-                 placeholder="Or type anything" aria-label="Describe your project" />
-          <p class="q-error" id="planQError1" role="alert"></p>
-          <div class="q-actions">
-            <button type="button" class="modal-submit" id="planQNext">Continue</button>
-          </div>
-        </fieldset>
-
-        <fieldset class="q-step" id="planQStep2">
-          <p class="q-progress">2 of 2</p>
-          <h2 class="modal-title" id="planQTitle2">What&rsquo;s the best way for us to learn more about your project?</h2>
-          <div class="q-options" role="radiogroup" aria-labelledby="planQTitle2">
-            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
-            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="phone">Phone</button>
-          </div>
-          <input type="email" class="q-input" id="planQContact" maxlength="200" autocomplete="email"
-                 placeholder="you@example.com" aria-label="Email address" />
-          <p class="q-error" id="planQError2" role="alert"></p>
-          <div class="q-actions">
-            <button type="button" class="modal-back" id="planQBack">Back</button>
-            <button type="submit" class="modal-submit" id="planQSubmit">Send</button>
-          </div>
-        </fieldset>
-      </form>
-
-      <div class="q-thanks" id="planQThanks">
-        <h2>Thank you.</h2>
-        <p>We&rsquo;ve got your project. We&rsquo;ll be in touch shortly to learn more.</p>
       </div>
     </div>
   </div>
@@ -1643,6 +1558,91 @@
       <div class="q-thanks" id="helpQThanks">
         <h2>Thank you.</h2>
         <p>We&rsquo;ve got your message. We&rsquo;ll reach out shortly to help.</p>
+      </div>
+    </div>
+  </div>
+
+  <section class="app-hero" id="app">
+    <h2 class="app-hero-title">The ROQ app</h2>
+    <picture>
+      <img class="app-hero-img" src="/assets/hero/app-promo.webp" width="1024" height="1536"
+           alt="A hand holding out an iPhone showing the ROQ app: Welcome to the future of homeownership" loading="lazy" />
+    </picture>
+    <a class="appstore-btn" href="https://apps.apple.com/app/id6789206534" target="_blank" rel="noopener">
+      <svg viewBox="0 0 384 512" aria-hidden="true"><path d="M318.7 268.7c-.2-36.7 16.4-64.4 50-84.8-18.8-26.9-47.2-41.7-84.7-44.6-35.5-2.8-74.3 20.7-88.5 20.7-15 0-49.4-19.7-76.4-19.7C63.3 141.2 4 184.8 4 273.5q0 39.3 14.4 81.2c12.8 36.7 59 126.7 107.2 125.2 25.2-.6 43-17.9 75.8-17.9 31.8 0 48.3 17.9 76.4 17.9 48.6-.7 90.4-82.5 102.6-119.3-65.2-30.7-61.7-90-61.7-91.9zm-56.6-164.2c27.3-32.4 24.8-61.9 24-72.5-24.1 1.4-52 16.4-67.9 34.9-17.5 19.8-27.8 44.3-25.6 71.9 26.1 2 49.9-11.4 69.5-34.3z"/></svg>
+      <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
+    </a>
+  </section>
+
+  <section class="pagehero pagehero--renovate" id="renovate">
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/projects-loop-mobile-poster.webp" />
+      <img class="pagehero-img" src="/assets/hero/projects-loop-desktop-poster.webp" width="1920" height="1080"
+           alt="A modern home with solar panels, lit up at dusk" loading="lazy" />
+    </picture>
+    <video class="pagehero-video" id="projectsVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+    <div class="pagehero-scrim"></div>
+    <div class="pagehero-body">
+      <h2 class="pagehero-headline pagehero-headline--sans">See what your home could be</h2>
+      <ul class="pagehero-points">
+        <li>Neighborhood ceiling range</li>
+        <li>Renovation ROI analysis</li>
+        <li>DIY vs contractor recommendation</li>
+        <li>Permit &amp; zoning guidance</li>
+        <li>Custom design concepts</li>
+        <li>Project budget &amp; roadmap</li>
+      </ul>
+      <button type="button" class="pagehero-cta" id="planStartPlanningBtn">Start planning</button>
+    </div>
+  </section>
+
+  <!-- ---------- Start planning questionnaire ---------- -->
+  <div class="modal-overlay" id="planModalOverlay">
+    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="planQTitle1">
+      <button type="button" class="modal-close" id="planModalClose" aria-label="Close">&times;</button>
+
+      <form id="planPlanForm" novalidate>
+        <fieldset class="q-step active" id="planQStep1">
+          <p class="q-progress">1 of 2</p>
+          <h2 class="modal-title" id="planQTitle1">What are you working on?</h2>
+          <div class="q-options" id="planQProjectOptions">
+            <button type="button" class="q-option" aria-pressed="false">Kitchen</button>
+            <button type="button" class="q-option" aria-pressed="false">Bathroom</button>
+            <button type="button" class="q-option" aria-pressed="false">Bedroom</button>
+            <button type="button" class="q-option" aria-pressed="false">Living room</button>
+            <button type="button" class="q-option" aria-pressed="false">Basement</button>
+            <button type="button" class="q-option" aria-pressed="false">Outdoor space</button>
+            <button type="button" class="q-option" aria-pressed="false">Whole home</button>
+          </div>
+          <input type="text" class="q-input" id="planQProjectOther" maxlength="200"
+                 placeholder="Or type anything" aria-label="Describe your project" />
+          <p class="q-error" id="planQError1" role="alert"></p>
+          <div class="q-actions">
+            <button type="button" class="modal-submit" id="planQNext">Continue</button>
+          </div>
+        </fieldset>
+
+        <fieldset class="q-step" id="planQStep2">
+          <p class="q-progress">2 of 2</p>
+          <h2 class="modal-title" id="planQTitle2">What&rsquo;s the best way for us to learn more about your project?</h2>
+          <div class="q-options" role="radiogroup" aria-labelledby="planQTitle2">
+            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
+            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="phone">Phone</button>
+          </div>
+          <input type="email" class="q-input" id="planQContact" maxlength="200" autocomplete="email"
+                 placeholder="you@example.com" aria-label="Email address" />
+          <p class="q-error" id="planQError2" role="alert"></p>
+          <div class="q-actions">
+            <button type="button" class="modal-back" id="planQBack">Back</button>
+            <button type="submit" class="modal-submit" id="planQSubmit">Send</button>
+          </div>
+        </fieldset>
+      </form>
+
+      <div class="q-thanks" id="planQThanks">
+        <h2>Thank you.</h2>
+        <p>We&rsquo;ve got your project. We&rsquo;ll be in touch shortly to learn more.</p>
       </div>
     </div>
   </div>
