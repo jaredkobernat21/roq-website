@@ -1198,6 +1198,18 @@
     letter-spacing: -0.015em;
   }
 
+  .pagehero-sub {
+    max-width: 40ch;
+    margin: 18px auto 0;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(16px, 1.5vw, 19px);
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.92);
+    text-wrap: balance;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 2px 24px rgba(0,0,0,0.55);
+  }
+
   /* ---------- Footer ---------- */
 
   footer {
@@ -1537,6 +1549,7 @@
     <div class="pagehero-scrim"></div>
     <div>
       <h2 class="pagehero-headline pagehero-headline--sans">We are here to help</h2>
+      <p class="pagehero-sub">Whatever situation has you stressed out, we are here to help you understand your options and make the best decision.</p>
       <button type="button" class="pagehero-cta" id="helpBtn">Get help</button>
     </div>
   </section>
