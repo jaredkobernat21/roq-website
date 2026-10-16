@@ -604,9 +604,13 @@
   </header>
 
   <section class="pagehero">
-    <img class="pagehero-img" src="/assets/hero/renovate-hero.webp" width="1086" height="1448"
-         alt="Two people in hard hats and safety glasses, smiling as they put up the timber wall of a home"
-         fetchpriority="high" style="object-position: 50% 40%" />
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/projects-loop-mobile-poster.webp" />
+      <img class="pagehero-img" src="/assets/hero/projects-loop-desktop-poster.webp" width="1920" height="1080"
+           alt="A modern home with solar panels, lit up at dusk" fetchpriority="high" />
+    </picture>
+    <video class="pagehero-video" id="pageheroVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
     <div class="pagehero-body">
       <h1 class="pagehero-headline">Renovate with confidence</h1>
@@ -861,6 +865,55 @@
           submitBtn.textContent = 'Send';
         }
       });
+    })();
+  </script>
+
+  <script>
+    /* Hero loop: a portrait cut for tall screens, a landscape cut for wide
+       ones. The source is chosen in JS so only one file is ever fetched. */
+    (function () {
+      var video = document.getElementById('pageheroVideo');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var conn = navigator.connection || {};
+      if (reduce.matches || conn.saveData) return;   // poster only
+
+      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+      var current = null;
+
+      function load() {
+        var src = '/assets/hero/projects-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
+        if (src === current) return;
+        current = src;
+        video.classList.remove('is-playing');
+        video.muted = true;               // required for autoplay; set as a property for iOS
+        video.src = src;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
+      }
+
+      video.addEventListener('playing', function () {
+        video.classList.add('is-playing');
+      });
+
+      // Rotating a phone or tablet swaps cuts.
+      if (portrait.addEventListener) portrait.addEventListener('change', load);
+
+      // Don't decode frames nobody can see.
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          if (!current) return;
+          if (entries[0].isIntersecting) {
+            var p = video.play();
+            if (p && p.catch) p.catch(function () {});
+          } else {
+            video.pause();
+          }
+        }).observe(video);
+      }
+
+      load();
     })();
   </script>
 
