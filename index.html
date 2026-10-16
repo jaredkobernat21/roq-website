@@ -1516,6 +1516,20 @@
     </div>
   </section>
 
+  <section class="pagehero" id="solutions">
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/solutions-loop-mobile-poster.webp" />
+      <img class="pagehero-img" src="/assets/hero/solutions-loop-desktop-poster.webp" width="1920" height="1080"
+           alt="Homeowners looking over plans and their phones as they work through a home project" loading="lazy" />
+    </picture>
+    <video class="pagehero-video" id="solutionsVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+    <div class="pagehero-scrim"></div>
+    <div>
+      <h2 class="pagehero-headline">We are here to help</h2>
+    </div>
+  </section>
+
   <section class="pagehero pagehero--connect" id="connect">
     <img class="pagehero-img" src="/assets/hero/connect-hero.webp" width="2400" height="1600"
          alt="A family of four laughing together by the tall windows of a bright, sunlit home"
@@ -1761,6 +1775,52 @@
 
       function load() {
         var src = '/assets/hero/atmospheres-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=2';
+        if (src === current) return;
+        current = src;
+        video.classList.remove('is-playing');
+        video.muted = true;               // required for autoplay; set as a property for iOS
+        video.src = src;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
+      }
+
+      video.addEventListener('playing', function () {
+        video.classList.add('is-playing');
+      });
+
+      // Rotating a phone or tablet swaps cuts, once a cut has been loaded.
+      if (portrait.addEventListener) portrait.addEventListener('change', function () {
+        if (current) load();
+      });
+
+      if (!('IntersectionObserver' in window)) { load(); return; }
+
+      // Load when it comes near the viewport; pause while it is off screen.
+      new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) { video.pause(); return; }
+        if (!current) { load(); return; }
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }, { rootMargin: '400px 0px' }).observe(video);
+    })();
+  </script>
+
+  <script>
+    /* Solutions loop: same portrait/landscape cuts as the Solutions page. It sits
+       below the fold, so nothing is fetched until it is nearly on screen. */
+    (function () {
+      var video = document.getElementById('solutionsVideo');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var conn = navigator.connection || {};
+      if (reduce.matches || conn.saveData) return;   // poster only
+
+      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+      var current = null;
+
+      function load() {
+        var src = '/assets/hero/solutions-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
         if (src === current) return;
         current = src;
         video.classList.remove('is-playing');
