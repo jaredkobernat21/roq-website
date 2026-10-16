@@ -1504,8 +1504,8 @@
 
   <section class="pagehero" id="spaces">
     <picture>
-      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/spaces-loop-mobile-poster.webp" />
-      <img class="pagehero-img" src="/assets/hero/spaces-loop-desktop-poster.webp" width="1920" height="1080"
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/spaces-loop-mobile-poster.webp?v=2" />
+      <img class="pagehero-img" src="/assets/hero/spaces-loop-desktop-poster.webp?v=2" width="1920" height="1080"
            alt="Designed interiors: a living room with a fireplace, a soaking tub by tall windows, and a calm bedroom" loading="lazy" />
     </picture>
     <video class="pagehero-video" id="spacesVideo" muted loop playsinline
@@ -1513,7 +1513,7 @@
     <div class="pagehero-scrim"></div>
     <div>
       <h2 class="pagehero-headline pagehero-headline--sans">Design your space</h2>
-      <p class="pagehero-sub">Transform your space from vision to finished with our design guidance for a personal, functional, and affordable space you love.</p>
+      <p class="pagehero-sub">Transform your space with design guidance for a personal, functional, and affordable space you love.</p>
       <button type="button" class="pagehero-cta" id="spaceBtn">Get started</button>
     </div>
   </section>
@@ -1983,7 +1983,7 @@
       var current = null;
 
       function load() {
-        var src = '/assets/hero/spaces-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
+        var src = '/assets/hero/spaces-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=2';
         if (src === current) return;
         current = src;
         video.classList.remove('is-playing');
