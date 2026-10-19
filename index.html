@@ -622,7 +622,7 @@
     .pagehero-cta { width: 100%; max-width: 320px; }
   }
 
-  /* ---------- Intake forms: Build's Get started, Renovate's Start planning ---------- */
+  /* ---------- Intake forms ---------- */
 
   .modal-overlay {
     position: fixed; inset: 0; z-index: 500;
@@ -693,42 +693,7 @@
   .q-thanks h2 { font-family: 'Lora', serif; font-weight: 500; font-size: 24px; margin-bottom: 10px; }
   .q-thanks p { font-size: 14.5px; line-height: 1.6; color: var(--ink-dim); }
 
-  /* Renovate: two columns of points, a little more air around them, and its
-     own even layer of shade under the longer list. */
-  .pagehero--renovate .pagehero-scrim::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(20,18,14,0.22);
-  }
-
-  .pagehero--renovate .pagehero-points {
-    grid-template-columns: repeat(2, auto);
-    gap: 14px clamp(28px, 5vw, 64px);
-    margin-top: clamp(28px, 4.8vh, 46px);
-  }
-
-  /* Renovate's button is held at the bottom centre of its screen. */
-  .pagehero--renovate { padding-bottom: clamp(150px, 21vh, 190px); }
-
-  .pagehero--renovate .pagehero-cta {
-    position: absolute;
-    left: 50%;
-    bottom: clamp(44px, 9vh, 84px);
-    transform: translateX(-50%);
-    margin-top: 0;
-  }
-
-  .pagehero--renovate .pagehero-cta:active { transform: translateX(-50%) scale(0.985); }
-
-  @media (max-width: 640px) {
-    .pagehero--renovate { padding-bottom: 150px; }
-    .pagehero--renovate .pagehero-cta { width: calc(100% - 48px); }
-    .pagehero--renovate .pagehero-scrim::after { background: rgba(20,18,14,0.32); }
-    .pagehero--renovate .pagehero-points { grid-template-columns: auto; gap: 11px; }
-  }
-
-  /* Connect: the family stands left of centre; keep all four in a tall crop. */
+ left of centre; keep all four in a tall crop. */
   @media (max-aspect-ratio: 1/1) {
     .pagehero--connect .pagehero-img { object-position: 36% 50%; }
   }
@@ -770,23 +735,6 @@
 
   .pagehero-social-link:hover { background: #FFFFFF; border-color: #FFFFFF; color: #14110B; }
   .pagehero-social-link:active { transform: scale(0.96); }
-
-  /* Renovate's form runs in two steps. */
-  .q-progress { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
-
-  .q-step { display: none; border: none; min-width: 0; }
-  .q-step.active { display: block; }
-  .q-step .modal-title { margin-bottom: 22px; }
-  .q-step .q-options { margin-bottom: 16px; }
-  .q-step .q-actions { gap: 10px; margin-top: 22px; }
-
-  .q-option[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
-
-  .modal-back {
-    border-radius: 4px; padding: 16px 20px; border: 1px solid var(--border);
-    background: transparent; color: var(--ink-dim); font-family: inherit; font-size: 14px; cursor: pointer;
-  }
-  .modal-back:hover { background: var(--bg-soft); color: var(--ink); }
 
   /* ---------- Welcome ---------- */
 
@@ -1194,7 +1142,7 @@
 
   textarea.q-input { display: block; min-height: 132px; resize: vertical; line-height: 1.5; }
 
-  /* Experience Home, Dream, Potential, Spaces and Solutions headlines are set in Helvetica rather than the site's Lora. */
+  /* Experience Home, Dream, Renovate and Solutions headlines are set in Helvetica rather than the site's Lora. */
   .pagehero-headline--sans {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 500;
@@ -1328,11 +1276,10 @@
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/dream.html">Dream</a>
-      <a href="/spaces.html">Spaces</a>
+      <a href="/renovate.html">Renovate</a>
       <a href="/atmospheres.html">Atmospheres</a>
       <a href="/solutions.html">Solutions</a>
       <a href="/manage.html">App</a>
-      <a href="/potential.html">Potential</a>
       <a href="/connect.html">Connect</a>
     </nav>
 
@@ -1420,7 +1367,7 @@
     </div>
   </div>
 
-  <section class="pagehero" id="spaces">
+  <section class="pagehero" id="renovate">
     <picture>
       <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/spaces-loop-mobile-poster.webp?v=2" />
       <img class="pagehero-img" src="/assets/hero/spaces-loop-desktop-poster.webp?v=2" width="1920" height="1080"
@@ -1429,14 +1376,17 @@
     <video class="pagehero-video" id="spacesVideo" muted loop playsinline
            preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
-    <div>
-      <h2 class="pagehero-headline pagehero-headline--sans">Design your space</h2>
-      <p class="pagehero-sub">Transform your space with design guidance for a personal, functional, and affordable space you love.</p>
+    <div class="pagehero-body">
+      <h2 class="pagehero-headline pagehero-headline--sans">Renovation Plan</h2>
+      <ul class="pagehero-points">
+        <li>Discover your neighborhood ceiling range to keep your renovations intentional.</li>
+        <li>Includes permit &amp; zoning guidance, design concepts, budget &amp; roadmap, and contractor matching vs DIY recommendations.</li>
+      </ul>
       <button type="button" class="pagehero-cta" id="spaceBtn">Get started</button>
     </div>
   </section>
 
-  <!-- ---------- Spaces intake form ---------- -->
+  <!-- ---------- Renovate intake form ---------- -->
   <div class="modal-overlay" id="spaceModalOverlay">
     <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="spaceQTitle">
       <button type="button" class="modal-close" id="spaceModalClose" aria-label="Close">&times;</button>
@@ -1576,79 +1526,6 @@
       <span class="appstore-btn-label"><small>Download on the</small><b>App Store</b></span>
     </a>
   </section>
-
-  <section class="pagehero pagehero--renovate" id="renovate">
-    <picture>
-      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/projects-loop-mobile-poster.webp" />
-      <img class="pagehero-img" src="/assets/hero/projects-loop-desktop-poster.webp" width="1920" height="1080"
-           alt="A modern home with solar panels, lit up at dusk" loading="lazy" />
-    </picture>
-    <video class="pagehero-video" id="projectsVideo" muted loop playsinline
-           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
-    <div class="pagehero-scrim"></div>
-    <div class="pagehero-body">
-      <h2 class="pagehero-headline pagehero-headline--sans">See what your home could be</h2>
-      <ul class="pagehero-points">
-        <li>Neighborhood ceiling range</li>
-        <li>Renovation ROI analysis</li>
-        <li>DIY vs contractor recommendation</li>
-        <li>Permit &amp; zoning guidance</li>
-        <li>Custom design concepts</li>
-        <li>Project budget &amp; roadmap</li>
-      </ul>
-      <button type="button" class="pagehero-cta" id="planStartPlanningBtn">Start planning</button>
-    </div>
-  </section>
-
-  <!-- ---------- Start planning questionnaire ---------- -->
-  <div class="modal-overlay" id="planModalOverlay">
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="planQTitle1">
-      <button type="button" class="modal-close" id="planModalClose" aria-label="Close">&times;</button>
-
-      <form id="planPlanForm" novalidate>
-        <fieldset class="q-step active" id="planQStep1">
-          <p class="q-progress">1 of 2</p>
-          <h2 class="modal-title" id="planQTitle1">What are you working on?</h2>
-          <div class="q-options" id="planQProjectOptions">
-            <button type="button" class="q-option" aria-pressed="false">Kitchen</button>
-            <button type="button" class="q-option" aria-pressed="false">Bathroom</button>
-            <button type="button" class="q-option" aria-pressed="false">Bedroom</button>
-            <button type="button" class="q-option" aria-pressed="false">Living room</button>
-            <button type="button" class="q-option" aria-pressed="false">Basement</button>
-            <button type="button" class="q-option" aria-pressed="false">Outdoor space</button>
-            <button type="button" class="q-option" aria-pressed="false">Whole home</button>
-          </div>
-          <input type="text" class="q-input" id="planQProjectOther" maxlength="200"
-                 placeholder="Or type anything" aria-label="Describe your project" />
-          <p class="q-error" id="planQError1" role="alert"></p>
-          <div class="q-actions">
-            <button type="button" class="modal-submit" id="planQNext">Continue</button>
-          </div>
-        </fieldset>
-
-        <fieldset class="q-step" id="planQStep2">
-          <p class="q-progress">2 of 2</p>
-          <h2 class="modal-title" id="planQTitle2">What&rsquo;s the best way for us to learn more about your project?</h2>
-          <div class="q-options" role="radiogroup" aria-labelledby="planQTitle2">
-            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
-            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="phone">Phone</button>
-          </div>
-          <input type="email" class="q-input" id="planQContact" maxlength="200" autocomplete="email"
-                 placeholder="you@example.com" aria-label="Email address" />
-          <p class="q-error" id="planQError2" role="alert"></p>
-          <div class="q-actions">
-            <button type="button" class="modal-back" id="planQBack">Back</button>
-            <button type="submit" class="modal-submit" id="planQSubmit">Send</button>
-          </div>
-        </fieldset>
-      </form>
-
-      <div class="q-thanks" id="planQThanks">
-        <h2>Thank you.</h2>
-        <p>We&rsquo;ve got your project. We&rsquo;ll be in touch shortly to learn more.</p>
-      </div>
-    </div>
-  </div>
 
   <section class="pagehero pagehero--connect" id="connect">
     <img class="pagehero-img" src="/assets/hero/connect-hero.webp" width="2400" height="1600"
@@ -1834,52 +1711,6 @@
   </script>
 
   <script>
-    /* Potential loop: same portrait/landscape cuts as the Potential page. It sits
-       below the fold, so nothing is fetched until it is nearly on screen. */
-    (function () {
-      var video = document.getElementById('projectsVideo');
-      if (!video) return;
-
-      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
-      var conn = navigator.connection || {};
-      if (reduce.matches || conn.saveData) return;   // poster only
-
-      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
-      var current = null;
-
-      function load() {
-        var src = '/assets/hero/projects-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
-        if (src === current) return;
-        current = src;
-        video.classList.remove('is-playing');
-        video.muted = true;               // required for autoplay; set as a property for iOS
-        video.src = src;
-        var p = video.play();
-        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
-      }
-
-      video.addEventListener('playing', function () {
-        video.classList.add('is-playing');
-      });
-
-      // Rotating a phone or tablet swaps cuts, once a cut has been loaded.
-      if (portrait.addEventListener) portrait.addEventListener('change', function () {
-        if (current) load();
-      });
-
-      if (!('IntersectionObserver' in window)) { load(); return; }
-
-      // Load when it comes near the viewport; pause while it is off screen.
-      new IntersectionObserver(function (entries) {
-        if (!entries[0].isIntersecting) { video.pause(); return; }
-        if (!current) { load(); return; }
-        var p = video.play();
-        if (p && p.catch) p.catch(function () {});
-      }, { rootMargin: '400px 0px' }).observe(video);
-    })();
-  </script>
-
-  <script>
     /* Atmospheres loop: same portrait/landscape cuts as the Atmospheres page. It sits
        below the fold, so nothing is fetched until it is nearly on screen. */
     (function () {
@@ -1972,7 +1803,7 @@
   </script>
 
   <script>
-    /* Spaces loop: same portrait/landscape cuts as the Spaces page. It sits
+    /* Renovate loop: same portrait/landscape cuts as the Renovate page. It sits
        below the fold, so nothing is fetched until it is nearly on screen. */
     (function () {
       var video = document.getElementById('spacesVideo');
@@ -2141,154 +1972,6 @@
   </script>
 
   <script>
-    // ---------- Start planning questionnaire ----------
-    (function initPlanning() {
-      const overlay = document.getElementById('planModalOverlay');
-      const form = document.getElementById('planPlanForm');
-      const thanks = document.getElementById('planQThanks');
-      const step1 = document.getElementById('planQStep1');
-      const step2 = document.getElementById('planQStep2');
-      const options = Array.from(document.querySelectorAll('#planQProjectOptions .q-option'));
-      const other = document.getElementById('planQProjectOther');
-      const methods = Array.from(step2.querySelectorAll('[data-method]'));
-      const contact = document.getElementById('planQContact');
-      const error1 = document.getElementById('planQError1');
-      const error2 = document.getElementById('planQError2');
-      const submitBtn = document.getElementById('planQSubmit');
-      const openBtn = document.getElementById('planStartPlanningBtn');
-
-      let method = 'email';
-
-      function showStep(n) {
-        step1.classList.toggle('active', n === 1);
-        step2.classList.toggle('active', n === 2);
-        if (n === 2) contact.focus();
-      }
-
-      function openModal() {
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-      function closeModal() {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-        openBtn.focus();
-      }
-
-      openBtn.addEventListener('click', openModal);
-      document.getElementById('planModalClose').addEventListener('click', closeModal);
-      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-      });
-
-      // Step 1: pick any rooms, and/or describe it in your own words.
-      options.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          btn.setAttribute('aria-pressed', btn.getAttribute('aria-pressed') !== 'true');
-          error1.classList.remove('visible');
-        });
-      });
-
-      function projectAnswer() {
-        const picked = options
-          .filter((b) => b.getAttribute('aria-pressed') === 'true')
-          .map((b) => b.textContent.trim());
-        const typed = other.value.trim();
-        if (typed) picked.push(typed);
-        return picked.join(', ');
-      }
-
-      function goNext() {
-        if (!projectAnswer()) {
-          error1.textContent = 'Pick a project or tell us what you have in mind.';
-          error1.classList.add('visible');
-          return;
-        }
-        error1.classList.remove('visible');
-        showStep(2);
-      }
-
-      document.getElementById('planQNext').addEventListener('click', goNext);
-      document.getElementById('planQBack').addEventListener('click', () => showStep(1));
-
-      // Step 2: email or phone.
-      methods.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          method = btn.dataset.method;
-          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
-          const isEmail = method === 'email';
-          contact.type = isEmail ? 'email' : 'tel';
-          contact.autocomplete = isEmail ? 'email' : 'tel';
-          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
-          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Phone number');
-          contact.value = '';
-          error2.classList.remove('visible');
-          contact.focus();
-        });
-      });
-
-      // Reuses the existing project-potential-intake function/table. That form
-      // also asked for a home address, which this one doesn't, so a fixed
-      // marker is sent in its place and identifies where the lead came from.
-      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
-      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Enter in the first step's text field submits the form; treat it as Continue.
-        if (step1.classList.contains('active')) { goNext(); return; }
-
-        const value = contact.value.trim();
-        const valid = method === 'email'
-          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
-
-        if (!valid) {
-          error2.textContent = method === 'email'
-            ? 'Please enter a valid email address.'
-            : 'Please enter a valid phone number.';
-          error2.classList.add('visible');
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-        error2.classList.remove('visible');
-
-        try {
-          const res = await fetch(FUNCTION_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              apikey: SUPABASE_ANON_KEY,
-              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            },
-            body: JSON.stringify({
-              address: 'Not asked (Renovate: Start planning)',
-              project_type: projectAnswer(),
-              contact: value,
-              contact_method: method,
-            }),
-          });
-
-          if (!res.ok) throw new Error('Request failed');
-
-          form.style.display = 'none';
-          thanks.classList.add('active');
-        } catch (err) {
-          error2.textContent = 'Something went wrong. Please try again.';
-          error2.classList.add('visible');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send';
-        }
-      });
-    })();
-  </script>
-
-  <script>
     // ---------- Get help intake form ----------
     (function initHelpIntake() {
       const overlay = document.getElementById('helpModalOverlay');
@@ -2408,7 +2091,7 @@
     })();
   </script>
   <script>
-    // ---------- Spaces intake form ----------
+    // ---------- Renovate intake form ----------
     (function initSpaceIntake() {
       const overlay = document.getElementById('spaceModalOverlay');
       const form = document.getElementById('spaceForm');
@@ -2465,7 +2148,7 @@
 
       // Same endpoint as the Dream and Solutions forms: project-potential-intake
       // saves the lead and emails hello@roqhome.com. The space goes in its
-      // address field and project_type marks the lead as a Spaces request.
+      // address field and project_type marks the lead as a Renovate request.
       const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
       const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
       const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
@@ -2508,7 +2191,7 @@
             },
             body: JSON.stringify({
               address: `Space: ${space}`,
-              project_type: `Spaces: Design your space | Prefers ${method}`,
+              project_type: `Renovate: Renovation Plan | Prefers ${method}`,
               contact: value,
               contact_method: method === 'email' ? 'email' : 'phone',
             }),
