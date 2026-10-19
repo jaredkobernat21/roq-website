@@ -27,15 +27,11 @@
     'guidance is estimated. Professional evaluation and approvals are required before construction.';
 
   /* ---------- Sample publication pages ----------
-     Illustrative layouts only: no dimensions, no dollar figures. They show
-     the shape of the deliverable, not results for anyone's real project. */
+     Full-bleed photo pages with chapter titles only: no dimensions, no dollar
+     figures. They show the shape of the deliverable, not anyone's results. */
 
   function head(series, n) {
     return '<div class="pp-page-head"><span>ROQ &middot; ' + series + '</span><span>' + n + '</span></div>';
-  }
-
-  function foot(left) {
-    return '<div class="pp-page-foot"><span>' + left + '</span><span>Sample edition</span></div>';
   }
 
   function cover(o) {
@@ -55,10 +51,6 @@
         '</div>' +
       '</div>'
     );
-  }
-
-  function page(series, n, body) {
-    return '<div class="pp-page"><div class="pp-page-inner">' + head(series, n) + body + '</div></div>';
   }
 
   // A full-bleed photo page: running head at the top, chapter title at the foot.
@@ -177,76 +169,48 @@
       pages: [
         {
           label: 'Cover',
-          alt: 'Sample cover: The Fieldstone Kitchen, a renovated kitchen with oak beams and stone',
+          alt: 'Sample cover: The Linden Street Kitchen, a bright kitchen with open shelving and a wood island',
           html: cover({
             img: 'renovation-cover.jpg',
             issue: 'No. 02',
             series: 'Renovation Plan',
             shade: 0.34,
-            title: 'The Fieldstone Kitchen',
+            title: 'The Linden Street Kitchen',
             sub: 'A considered plan for a warmer, brighter heart of the home, prioritized for value and everyday life.'
           })
         },
         {
           label: 'Value',
-          alt: 'Sample page: where the home sits against its neighborhood ceiling range',
-          html: page('Renovation Plan', '03',
-            '<div class="pp-page-kicker">Chapter I &middot; Your home today</div>' +
-            '<div class="pp-page-title">Home &amp; neighborhood value</div>' +
-            '<div class="pp-page-copy">Where your home sits today, what the neighborhood supports, and how much room there is to improve before a project stops paying back.</div>' +
-            '<div class="pp-scale">' +
-              '<div class="pp-scale-line"></div><div class="pp-scale-band"></div><div class="pp-scale-dot"></div>' +
-              '<div class="pp-scale-label pp-scale-label--home">Your home<br />today</div>' +
-              '<div class="pp-scale-label pp-scale-label--grow">Room to<br />grow</div>' +
-              '<div class="pp-scale-label pp-scale-label--ceiling">Neighborhood<br />ceiling range</div>' +
-            '</div>' +
-            '<div class="pp-plan-notes">' +
-              '<div><b>Today</b>Your home against recent comparable sales.</div>' +
-              '<div><b>Ceiling</b>What buyers in your area are paying at the top.</div>' +
-              '<div><b>Headroom</b>How much improvement the market supports.</div>' +
-            '</div>' +
-            foot('Value assessment'))
+          alt: 'Sample page: home and neighborhood value, over an aerial view of a residential street',
+          html: photoPage({
+            img: 'renovation-value.jpg', series: 'Renovation Plan', n: '03', shade: 0.36,
+            kicker: 'Chapter I &middot; Your home today',
+            title: 'Home &amp; neighborhood value',
+            copy: 'Where your home sits today, what the neighborhood supports, and how much room there is to improve.',
+            foot: 'Value assessment'
+          })
         },
         {
           label: 'Priorities',
-          alt: 'Sample page: renovation priorities with potential return scenarios',
-          html: page('Renovation Plan', '07',
-            '<div class="pp-page-kicker">Chapter II &middot; Priorities</div>' +
-            '<div class="pp-page-title">Where to begin</div>' +
-            '<div class="pp-figure-pair">' +
-              '<img src="' + ASSETS + 'renovation-livingroom.jpg" alt="" loading="lazy" decoding="async" />' +
-              '<img src="' + ASSETS + 'renovation-bathroom.jpg" alt="" loading="lazy" decoding="async" />' +
-            '</div>' +
-            '<div style="margin-top:4cqw">' +
-              '<div class="pp-priority"><b>01</b><span>Kitchen refresh</span><em>ROI scenario</em></div>' +
-              '<div class="pp-priority"><b>02</b><span>Primary bath</span><em>ROI scenario</em></div>' +
-              '<div class="pp-priority"><b>03</b><span>Living room &amp; lighting</span><em>Lifestyle</em></div>' +
-            '</div>' +
-            foot('Priorities &amp; potential ROI'))
+          alt: 'Sample page: renovation priorities, over a couple painting a room',
+          html: photoPage({
+            img: 'renovation-priorities.jpg', series: 'Renovation Plan', n: '07', shade: 0.42,
+            kicker: 'Chapter II &middot; Priorities',
+            title: 'Where to begin',
+            copy: 'Projects ranked by value and everyday life, with potential ROI scenarios for each.',
+            foot: 'Priorities &amp; potential ROI'
+          })
         },
         {
           label: 'Budget &amp; roadmap',
-          alt: 'Sample page: project budget, DIY versus contractor guidance and a roadmap',
-          html: page('Renovation Plan', '12',
-            '<div class="pp-page-kicker">Chapter III &middot; The plan</div>' +
-            '<div class="pp-page-title">Budget, hands &amp; roadmap</div>' +
-            '<div class="pp-cols" style="grid-template-columns:1fr">' +
-              '<div><div class="pp-col-title">Preliminary project budget</div><ul class="pp-lines">' +
-                '<li>Materials &amp; finishes<em>Estimated range</em></li>' +
-                '<li>Labor &amp; trades<em>Estimated range</em></li>' +
-                '<li>Permits &amp; contingency<em>Estimated range</em></li>' +
-              '</ul></div>' +
-            '</div>' +
-            '<div class="pp-cols">' +
-              '<div><div class="pp-col-title">DIY</div><ul class="pp-lines">' +
-                '<li>Paint &amp; finishes</li><li>Hardware</li><li>Light fixtures</li></ul></div>' +
-              '<div><div class="pp-col-title">Contractor</div><ul class="pp-lines">' +
-                '<li>Electrical</li><li>Plumbing</li><li>Cabinet install</li></ul></div>' +
-            '</div>' +
-            '<div class="pp-roadmap">' +
-              '<div><b>01</b>Plan</div><div><b>02</b>Price</div><div><b>03</b>Build</div><div><b>04</b>Enjoy</div>' +
-            '</div>' +
-            foot('Preliminary budget &amp; roadmap'))
+          alt: 'Sample page: budget and roadmap, over a homeowner and contractor walking through a renovation',
+          html: photoPage({
+            img: 'renovation-roadmap.jpg', series: 'Renovation Plan', n: '12', shade: 0.4,
+            kicker: 'Chapter III &middot; The plan',
+            title: 'Budget &amp; roadmap',
+            copy: 'A preliminary project budget, DIY vs. contractor guidance, and a step-by-step roadmap.',
+            foot: 'Preliminary budget &amp; roadmap'
+          })
         }
       ],
       projectQuestion: 'What are you planning?',
