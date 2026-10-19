@@ -130,7 +130,8 @@
 
 .pp-thumbs {
   display: grid;
-  grid-template-columns: repeat(4, 96px);
+  grid-auto-flow: column;
+  grid-auto-columns: 86px;
   gap: 6px;
   margin: 0;
   padding: 0;
@@ -523,6 +524,10 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
 .pp-cover-bottom h3 { margin: 0; font-family: var(--pp-serif); font-size: 9.6cqw; font-weight: 400; line-height: 1.02; letter-spacing: -0.01em; }
 .pp-cover-bottom p { margin: 2.6cqw 0 0; max-width: 60cqw; font-size: 2.9cqw; line-height: 1.5; }
 .pp-cover-meta { display: flex; justify-content: space-between; margin-top: 5cqw; padding-top: 2.2cqw; border-top: 0.15cqw solid rgba(255,255,255,0.55); font-size: 2cqw; letter-spacing: 0.16em; text-transform: uppercase; }
+
+/* Full-bleed photo pages (Dream): running head in white over the image */
+.pp-photo .pp-page-head { border-bottom-color: rgba(255,255,255,0.85); color: #FFFFFF; text-shadow: 0 0 4cqw rgba(0,0,0,0.4); }
+.pp-photo-kicker { margin-bottom: 2.4cqw; font-size: 2.3cqw; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.9; }
 
 /* Conceptual plan */
 .pp-plan { margin-top: 5cqw; }

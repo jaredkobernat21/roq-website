@@ -61,26 +61,24 @@
     return '<div class="pp-page"><div class="pp-page-inner">' + head(series, n) + body + '</div></div>';
   }
 
-  var PLAN_SVG =
-    '<svg viewBox="0 0 400 300" role="presentation" aria-hidden="true" fill="none" stroke="#1C1B18" ' +
-    'font-family="Inter, sans-serif" font-size="9" letter-spacing="1.2">' +
-      '<rect x="20" y="20" width="360" height="220" stroke-width="2.4" />' +
-      '<path d="M200 20v130M300 20v130M20 150h360M110 150v90M200 150v90M270 150v90" stroke-width="1.2" />' +
-      '<path d="M200 70h100" stroke-width="0.6" stroke-dasharray="3 3" />' +
-      '<rect x="20" y="248" width="180" height="40" stroke-width="0.8" stroke-dasharray="4 4" />' +
-      '<g fill="#1C1B18" stroke="none" text-anchor="middle">' +
-        '<text x="110" y="88">GREAT ROOM</text>' +
-        '<text x="250" y="48">KITCHEN</text>' +
-        '<text x="250" y="114">DINING</text>' +
-        '<text x="340" y="82">PRIMARY</text><text x="340" y="96">SUITE</text>' +
-        '<text x="65" y="198">BED 2</text>' +
-        '<text x="155" y="198">BED 3</text>' +
-        '<text x="235" y="198">STUDY</text>' +
-        '<text x="325" y="198">GARAGE</text>' +
-        '<text x="110" y="272" fill="#948F83">TERRACE</text>' +
-      '</g>' +
-      '<g transform="translate(370 272)" stroke-width="1"><circle r="9" /><path d="M0 -6 L3 4 L0 2 L-3 4 Z" fill="#1C1B18" /></g>' +
-    '</svg>';
+  // A full-bleed photo page: running head at the top, chapter title at the foot.
+  function photoPage(o) {
+    return (
+      '<div class="pp-page pp-cover pp-photo">' +
+        '<img src="' + ASSETS + o.img + '" alt="" loading="lazy" decoding="async" />' +
+        '<div class="pp-cover-shade"' + (o.shade ? ' style="background:rgba(12,11,9,' + o.shade + ')"' : '') + '></div>' +
+        '<div class="pp-page-inner">' +
+          head(o.series, o.n) +
+          '<div class="pp-cover-bottom">' +
+            '<div class="pp-photo-kicker">' + o.kicker + '</div>' +
+            '<h3>' + o.title + '</h3>' +
+            '<p>' + o.copy + '</p>' +
+            '<div class="pp-cover-meta"><span>' + o.foot + '</span><span>Sample edition</span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>'
+    );
+  }
 
   var PLANS = {
     dream: {
@@ -100,63 +98,59 @@
       pages: [
         {
           label: 'Cover',
-          alt: 'Sample cover: The Ridgeline Residence, a modern home on a coastal hillside',
+          alt: 'Sample cover: The Ridgeline Residence, a white modern farmhouse with dark gables',
           html: cover({
             img: 'dream-cover.jpg',
             issue: 'No. 01',
             series: 'Dream Home Plan',
+            shade: 0.3,
             title: 'The Ridgeline Residence',
-            sub: 'A personal home concept for a hillside lot, shaped around the view, the light, and the way the family lives.'
+            sub: 'A personal home concept shaped around the land, the light, and the way the family lives.'
+          })
+        },
+        {
+          label: 'Site feasibility',
+          alt: 'Sample page: site feasibility, over an aerial view of an open lot',
+          html: photoPage({
+            img: 'dream-site.jpg', series: 'Dream Home Plan', n: '03', shade: 0.34,
+            kicker: 'Chapter I &middot; The land',
+            title: 'Site feasibility',
+            copy: 'A preliminary read of the lot: access, orientation, slope, setbacks, and utilities, before anything is drawn.',
+            foot: 'Preliminary review'
           })
         },
         {
           label: 'Floor plan',
-          alt: 'Sample page: a conceptual floor plan with a great room, kitchen, primary suite and bedrooms',
-          html: page('Dream Home Plan', '04',
-            '<div class="pp-page-kicker">Chapter II &middot; The plan</div>' +
-            '<div class="pp-page-title">A conceptual floor plan</div>' +
-            '<div class="pp-plan">' + PLAN_SVG + '</div>' +
-            '<div class="pp-plan-notes">' +
-              '<div><b>Gather</b>The great room opens to the terrace and the view.</div>' +
-              '<div><b>Retreat</b>The primary suite sits on its own quiet wing.</div>' +
-              '<div><b>Arrive</b>Garage and study form an easy everyday entry.</div>' +
-            '</div>' +
-            foot('Conceptual &middot; not for construction'))
+          alt: 'Sample page: a conceptual floor plan, over a photo of a homeowner and designer reviewing plans',
+          html: photoPage({
+            img: 'dream-floorplan.jpg', series: 'Dream Home Plan', n: '07', shade: 0.42,
+            kicker: 'Chapter II &middot; The plan',
+            title: 'A conceptual floor plan',
+            copy: 'Rooms arranged around how you live, organized for your lot, your priorities, and your budget.',
+            foot: 'Conceptual &middot; not for construction'
+          })
         },
         {
           label: 'Design direction',
-          alt: 'Sample page: architectural style and design direction with a material palette',
-          html: page('Dream Home Plan', '09',
-            '<div class="pp-page-kicker">Chapter III &middot; Character</div>' +
-            '<div class="pp-page-title">Warm modern, set into the land</div>' +
-            '<div class="pp-figure"><img src="' + ASSETS + 'dream-direction.jpg" alt="" loading="lazy" decoding="async" /></div>' +
-            '<div class="pp-swatches">' +
-              '<div class="pp-swatch"><i style="background:#DCD3C4"></i>Limestone</div>' +
-              '<div class="pp-swatch"><i style="background:#3A322B"></i>Charred oak</div>' +
-              '<div class="pp-swatch"><i style="background:#8A6A45"></i>Bronze</div>' +
-              '<div class="pp-swatch"><i style="background:#EFEAE1"></i>Lime plaster</div>' +
-            '</div>' +
-            foot('Style &amp; design direction'))
+          alt: 'Sample page: design direction, over a tray of material and finish samples',
+          html: photoPage({
+            img: 'dream-design.jpg', series: 'Dream Home Plan', n: '11', shade: 0.4,
+            kicker: 'Chapter III &middot; Character',
+            title: 'Design direction',
+            copy: 'Architectural style, materials, and finishes brought together into one clear point of view.',
+            foot: 'Style &amp; materials'
+          })
         },
         {
-          label: 'Budget &amp; roadmap',
-          alt: 'Sample page: preliminary build budget categories and a four-step roadmap',
-          html: page('Dream Home Plan', '14',
-            '<div class="pp-page-kicker">Chapter IV &middot; The path</div>' +
-            '<div class="pp-page-title">Budget guidance &amp; roadmap</div>' +
-            '<div class="pp-cols" style="grid-template-columns:1fr">' +
-              '<div><div class="pp-col-title">Preliminary build budget</div><ul class="pp-lines">' +
-                '<li>Site work &amp; foundation<em>Estimated range</em></li>' +
-                '<li>Structure &amp; envelope<em>Estimated range</em></li>' +
-                '<li>Systems &amp; utilities<em>Estimated range</em></li>' +
-                '<li>Interiors &amp; finishes<em>Estimated range</em></li>' +
-                '<li>Design, permits &amp; contingency<em>Estimated range</em></li>' +
-              '</ul></div>' +
-            '</div>' +
-            '<div class="pp-roadmap">' +
-              '<div><b>01</b>Concept</div><div><b>02</b>Refine</div><div><b>03</b>Professional handoff</div><div><b>04</b>Approvals &amp; build</div>' +
-            '</div>' +
-            foot('Estimates are preliminary'))
+          label: 'Professional handoff',
+          alt: 'Sample page: professional handoff, over hands marking up drawings and sketches',
+          html: photoPage({
+            img: 'dream-handoff.jpg', series: 'Dream Home Plan', n: '15', shade: 0.44,
+            kicker: 'Chapter IV &middot; Next steps',
+            title: 'Professional handoff',
+            copy: 'An organized package and roadmap to take to your architect, engineer, and builder.',
+            foot: 'Roadmap to build'
+          })
         }
       ],
       projectQuestion: 'What are you planning?',
