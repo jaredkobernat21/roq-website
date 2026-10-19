@@ -576,6 +576,7 @@
     .footer-links a:last-child { border-bottom: none; }
   }
 </style>
+<link rel="stylesheet" href="/assets/plan-preview/plan-preview.css?v=1" />
 </head>
 <body>
 
@@ -617,51 +618,9 @@
         <li>Design, materials &amp; buildability</li>
         <li>Professional handoff documentation</li>
       </ul>
-      <button type="button" class="pagehero-cta" id="getStartedBtn">Learn more</button>
+      <button type="button" class="pagehero-cta" id="getStartedBtn" data-plan-preview="dream">Learn more</button>
     </div>
   </section>
-
-  <!-- ---------- Get started intake form ---------- -->
-  <div class="modal-overlay" id="modalOverlay">
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="qTitle">
-      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
-
-      <form id="intakeForm" novalidate>
-        <h2 class="modal-title" id="qTitle">Let&rsquo;s get started.</h2>
-
-        <div class="q-block">
-          <label class="q-label" for="qLocation">Where are you considering your build?</label>
-          <input type="text" class="q-input" id="qLocation" maxlength="300" autocomplete="street-address"
-                 placeholder="Address, location, or lot" />
-        </div>
-
-        <div class="q-block">
-          <p class="q-label" id="qContactLabel">What is the best way to reach you about this project?</p>
-          <div class="q-options" role="radiogroup" aria-labelledby="qContactLabel">
-            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="email">Email</button>
-            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="text">Text</button>
-          </div>
-          <input type="email" class="q-input" id="qContact" maxlength="200" autocomplete="email"
-                 placeholder="you@example.com" aria-label="Email address" />
-        </div>
-
-        <div class="q-block">
-          <label class="q-label" for="qName">Name <small>(optional)</small></label>
-          <input type="text" class="q-input" id="qName" maxlength="120" autocomplete="name" placeholder="Your name" />
-        </div>
-
-        <p class="q-error" id="qError" role="alert"></p>
-        <div class="q-actions">
-          <button type="submit" class="modal-submit" id="qSubmit">Send</button>
-        </div>
-      </form>
-
-      <div class="q-thanks" id="qThanks">
-        <h2>Thank you.</h2>
-        <p>We&rsquo;ve got your build location. We&rsquo;ll be in touch shortly about your project.</p>
-      </div>
-    </div>
-  </div>
 
   <footer>
     <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
@@ -704,129 +663,6 @@
         window.addEventListener('scroll', onScroll, { passive: true });
         window.addEventListener('resize', onScroll, { passive: true });
       }
-    })();
-  </script>
-
-  <script>
-    // ---------- Get started intake form ----------
-    (function initIntake() {
-      const overlay = document.getElementById('modalOverlay');
-      const form = document.getElementById('intakeForm');
-      const thanks = document.getElementById('qThanks');
-      const locationEl = document.getElementById('qLocation');
-      const contact = document.getElementById('qContact');
-      const nameEl = document.getElementById('qName');
-      const methods = Array.from(form.querySelectorAll('[data-method]'));
-      const errorEl = document.getElementById('qError');
-      const submitBtn = document.getElementById('qSubmit');
-      const openBtn = document.getElementById('getStartedBtn');
-
-      let method = 'email';
-
-      function openModal() {
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        locationEl.focus();
-      }
-      function closeModal() {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-        openBtn.focus();
-      }
-
-      openBtn.addEventListener('click', openModal);
-      document.getElementById('modalClose').addEventListener('click', closeModal);
-      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-      });
-
-      // Email or text.
-      methods.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          method = btn.dataset.method;
-          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
-          const isEmail = method === 'email';
-          contact.type = isEmail ? 'email' : 'tel';
-          contact.autocomplete = isEmail ? 'email' : 'tel';
-          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
-          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Mobile number');
-          contact.value = '';
-          errorEl.classList.remove('visible');
-          contact.focus();
-        });
-      });
-
-      function showError(msg) {
-        errorEl.textContent = msg;
-        errorEl.classList.add('visible');
-      }
-
-      // Reuses the existing project-potential-intake function/table, the one
-      // intake endpoint that accepts a phone number or an email and no name.
-      // The build location goes in its address field and project_type marks
-      // the lead as a Dream Home Plan request (with the name, when one is given).
-      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
-      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const location = locationEl.value.trim();
-        const value = contact.value.trim();
-        const name = nameEl.value.trim();
-
-        if (!location) {
-          showError('Please tell us where you are considering your build.');
-          locationEl.focus();
-          return;
-        }
-
-        const valid = method === 'email'
-          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
-
-        if (!valid) {
-          showError(method === 'email'
-            ? 'Please enter a valid email address.'
-            : 'Please enter a valid mobile number.');
-          contact.focus();
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-        errorEl.classList.remove('visible');
-
-        try {
-          const res = await fetch(FUNCTION_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              apikey: SUPABASE_ANON_KEY,
-              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            },
-            body: JSON.stringify({
-              // The function rejects addresses under 8 characters; a short
-              // answer like "Austin" is still a valid build location.
-              address: location.length < 8 ? `${location} (build location)` : location,
-              project_type: 'Build: Dream Home Plan' + (name ? ` | Name: ${name}` : '') + (method === 'text' ? ' | Prefers text' : ''),
-              contact: value,
-              contact_method: method === 'email' ? 'email' : 'phone',
-            }),
-          });
-
-          if (!res.ok) throw new Error('Request failed');
-
-          form.style.display = 'none';
-          thanks.classList.add('active');
-        } catch (err) {
-          showError('Something went wrong. Please try again.');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send';
-        }
-      });
     })();
   </script>
 
@@ -879,5 +715,6 @@
     })();
   </script>
 
+  <script src="/assets/plan-preview/plan-preview.js?v=1" defer></script>
 </body>
 </html>

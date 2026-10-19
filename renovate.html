@@ -609,6 +609,7 @@
     .footer-links a:last-child { border-bottom: none; }
   }
 </style>
+<link rel="stylesheet" href="/assets/plan-preview/plan-preview.css?v=1" />
 </head>
 <body>
 
@@ -647,47 +648,9 @@
         <li>Discover your neighborhood ceiling range to keep your renovations intentional.</li>
         <li>Includes permit &amp; zoning guidance, design concepts, budget &amp; roadmap, and contractor matching vs DIY recommendations.</li>
       </ul>
-      <button type="button" class="pagehero-cta" id="spaceBtn">Learn more</button>
+      <button type="button" class="pagehero-cta" id="spaceBtn" data-plan-preview="renovation">Learn more</button>
     </div>
   </section>
-
-  <!-- ---------- Renovate intake form ---------- -->
-  <div class="modal-overlay" id="spaceModalOverlay">
-    <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="spaceQTitle">
-      <button type="button" class="modal-close" id="spaceModalClose" aria-label="Close">&times;</button>
-
-      <form id="spaceForm" novalidate>
-        <h2 class="modal-title" id="spaceQTitle">Let&rsquo;s design your space.</h2>
-
-        <div class="q-block">
-          <label class="q-label" for="spaceQSpace">What space do you want to transform?</label>
-          <input type="text" class="q-input" id="spaceQSpace" maxlength="300"
-                 placeholder="Kitchen, primary bedroom, backyard&hellip;" />
-        </div>
-
-        <div class="q-block">
-          <p class="q-label" id="spaceQContactLabel">What is the best way for us to reach you?</p>
-          <div class="q-options" role="radiogroup" aria-labelledby="spaceQContactLabel">
-            <button type="button" class="q-option" role="radio" aria-checked="true" data-method="phone">Phone</button>
-            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="text">Text</button>
-            <button type="button" class="q-option" role="radio" aria-checked="false" data-method="email">Email</button>
-          </div>
-          <input type="tel" class="q-input" id="spaceQContact" maxlength="200" autocomplete="tel"
-                 placeholder="(555) 555-5555" aria-label="Phone number" />
-        </div>
-
-        <p class="q-error" id="spaceQError" role="alert"></p>
-        <div class="q-actions">
-          <button type="submit" class="modal-submit" id="spaceQSubmit">Send</button>
-        </div>
-      </form>
-
-      <div class="q-thanks" id="spaceQThanks">
-        <h2>Thank you.</h2>
-        <p>We&rsquo;ve got your space. We&rsquo;ll reach out shortly to start designing it with you.</p>
-      </div>
-    </div>
-  </div>
 
   <footer>
     <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
@@ -782,125 +745,6 @@
     })();
   </script>
 
-  <script>
-    // ---------- Renovate intake form ----------
-    (function initSpaceIntake() {
-      const overlay = document.getElementById('spaceModalOverlay');
-      const form = document.getElementById('spaceForm');
-      const thanks = document.getElementById('spaceQThanks');
-      const spaceEl = document.getElementById('spaceQSpace');
-      const contact = document.getElementById('spaceQContact');
-      const methods = Array.from(form.querySelectorAll('[data-method]'));
-      const errorEl = document.getElementById('spaceQError');
-      const submitBtn = document.getElementById('spaceQSubmit');
-      const openBtn = document.getElementById('spaceBtn');
-
-      let method = 'phone';
-
-      function openModal() {
-        overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        spaceEl.focus();
-      }
-      function closeModal() {
-        overlay.classList.remove('open');
-        document.body.style.overflow = '';
-        openBtn.focus();
-      }
-
-      openBtn.addEventListener('click', openModal);
-      document.getElementById('spaceModalClose').addEventListener('click', closeModal);
-      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal();
-      });
-
-      // Phone, text, or email. Phone and text share a phone number, so switching
-      // between those two keeps what was typed.
-      methods.forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const wasEmail = method === 'email';
-          method = btn.dataset.method;
-          methods.forEach((b) => b.setAttribute('aria-checked', b === btn));
-          const isEmail = method === 'email';
-          contact.type = isEmail ? 'email' : 'tel';
-          contact.autocomplete = isEmail ? 'email' : 'tel';
-          contact.placeholder = isEmail ? 'you@example.com' : '(555) 555-5555';
-          contact.setAttribute('aria-label', isEmail ? 'Email address' : 'Phone number');
-          if (isEmail !== wasEmail) contact.value = '';
-          errorEl.classList.remove('visible');
-          contact.focus();
-        });
-      });
-
-      function showError(msg) {
-        errorEl.textContent = msg;
-        errorEl.classList.add('visible');
-      }
-
-      // Same endpoint as the Dream and Solutions forms: project-potential-intake
-      // saves the lead and emails hello@roqhome.com. The space goes in its
-      // address field and project_type marks the lead as a Renovate request.
-      const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
-      const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
-      const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/project-potential-intake`;
-
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const space = spaceEl.value.trim();
-        const value = contact.value.trim();
-
-        if (space.length < 2) {
-          showError('Please tell us which space you want to transform.');
-          spaceEl.focus();
-          return;
-        }
-
-        const valid = method === 'email'
-          ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-          : value.replace(/\D/g, '').length >= 10 && !value.includes('@');
-
-        if (!valid) {
-          showError(method === 'email'
-            ? 'Please enter a valid email address.'
-            : 'Please enter a valid phone number.');
-          contact.focus();
-          return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending…';
-        errorEl.classList.remove('visible');
-
-        try {
-          const res = await fetch(FUNCTION_URL, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              apikey: SUPABASE_ANON_KEY,
-              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-            },
-            body: JSON.stringify({
-              address: `Space: ${space}`,
-              project_type: `Renovate: Renovation Plan | Prefers ${method}`,
-              contact: value,
-              contact_method: method === 'email' ? 'email' : 'phone',
-            }),
-          });
-
-          if (!res.ok) throw new Error('Request failed');
-
-          form.style.display = 'none';
-          thanks.classList.add('active');
-        } catch (err) {
-          showError('Something went wrong. Please try again.');
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send';
-        }
-      });
-    })();
-  </script>
-
+  <script src="/assets/plan-preview/plan-preview.js?v=1" defer></script>
 </body>
 </html>
