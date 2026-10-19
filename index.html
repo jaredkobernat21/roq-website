@@ -1328,19 +1328,16 @@
 
   <section class="pagehero" id="renovate">
     <picture>
-      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/spaces-loop-mobile-poster.webp?v=2" />
-      <img class="pagehero-img" src="/assets/hero/spaces-loop-desktop-poster.webp?v=2" width="1920" height="1080"
-           alt="Designed interiors: a living room with a fireplace, a soaking tub by tall windows, and a calm bedroom" loading="lazy" />
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/renovate-loop-mobile-poster.webp?v=1" />
+      <img class="pagehero-img" src="/assets/hero/renovate-loop-desktop-poster.webp?v=1" width="1920" height="1080"
+           alt="Renovations in progress and finished rooms: plastering and painting walls, a bright curved-ceiling bedroom, and a soaking tub by the window" loading="lazy" />
     </picture>
     <video class="pagehero-video" id="spacesVideo" muted loop playsinline
            preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
     <div class="pagehero-body">
       <h2 class="pagehero-headline pagehero-headline--sans">Renovation Plan</h2>
-      <ul class="pagehero-points">
-        <li>Discover your neighborhood ceiling range to keep your renovations intentional.</li>
-        <li>Includes permit &amp; zoning guidance, design concepts, budget &amp; roadmap, and contractor matching vs DIY recommendations.</li>
-      </ul>
+      <p class="pagehero-sub">Discover your neighborhood ceiling to keep your renovations intentional, with design concepts and a project budget.</p>
       <button type="button" class="pagehero-cta" id="spaceBtn" data-plan-preview="renovation">Learn more</button>
     </div>
   </section>
@@ -1738,7 +1735,7 @@
       var current = null;
 
       function load() {
-        var src = '/assets/hero/spaces-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=2';
+        var src = '/assets/hero/renovate-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
         if (src === current) return;
         current = src;
         video.classList.remove('is-playing');

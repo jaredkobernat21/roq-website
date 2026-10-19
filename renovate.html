@@ -9,20 +9,20 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="description" content="Discover your neighborhood ceiling range to keep your renovations intentional. ROQ Home's Renovation Plan includes permit and zoning guidance, design concepts, budget and roadmap, and contractor matching vs DIY recommendations." />
+<meta name="description" content="Discover your neighborhood ceiling to keep your renovations intentional. ROQ Home's Renovation Plan includes design concepts and a project budget." />
 <link rel="canonical" href="https://roqhome.com/renovate.html" />
 
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="ROQ" />
 <meta property="og:title" content="Renovation Plan — Renovate Your Home | ROQ Home" />
-<meta property="og:description" content="Discover your neighborhood ceiling range to keep your renovations intentional. ROQ Home's Renovation Plan includes permit and zoning guidance, design concepts, budget and roadmap, and contractor matching vs DIY recommendations." />
+<meta property="og:description" content="Discover your neighborhood ceiling to keep your renovations intentional. ROQ Home's Renovation Plan includes design concepts and a project budget." />
 <meta property="og:url" content="https://roqhome.com/renovate.html" />
-<meta property="og:image" content="https://roqhome.com/assets/hero/spaces-loop-desktop-poster.webp?v=2" />
+<meta property="og:image" content="https://roqhome.com/assets/hero/renovate-loop-desktop-poster.webp?v=1" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Renovation Plan — Renovate Your Home | ROQ Home" />
-<meta name="twitter:description" content="Discover your neighborhood ceiling range to keep your renovations intentional. ROQ Home's Renovation Plan includes permit and zoning guidance, design concepts, budget and roadmap, and contractor matching vs DIY recommendations." />
-<meta name="twitter:image" content="https://roqhome.com/assets/hero/spaces-loop-desktop-poster.webp?v=2" />
+<meta name="twitter:description" content="Discover your neighborhood ceiling to keep your renovations intentional. ROQ Home's Renovation Plan includes design concepts and a project budget." />
+<meta name="twitter:image" content="https://roqhome.com/assets/hero/renovate-loop-desktop-poster.webp?v=1" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -635,19 +635,16 @@
 
   <section class="pagehero">
     <picture>
-      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/spaces-loop-mobile-poster.webp?v=2" />
-      <img class="pagehero-img" src="/assets/hero/spaces-loop-desktop-poster.webp?v=2" width="1920" height="1080"
-           alt="Designed interiors: a living room with a fireplace, a soaking tub by tall windows, and a calm bedroom" fetchpriority="high" />
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/renovate-loop-mobile-poster.webp?v=1" />
+      <img class="pagehero-img" src="/assets/hero/renovate-loop-desktop-poster.webp?v=1" width="1920" height="1080"
+           alt="Renovations in progress and finished rooms: plastering and painting walls, a bright curved-ceiling bedroom, and a soaking tub by the window" fetchpriority="high" />
     </picture>
     <video class="pagehero-video" id="pageheroVideo" muted loop playsinline
            preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
     <div class="pagehero-scrim"></div>
     <div class="pagehero-body">
       <h1 class="pagehero-headline pagehero-headline--sans">Renovation Plan</h1>
-      <ul class="pagehero-points">
-        <li>Discover your neighborhood ceiling range to keep your renovations intentional.</li>
-        <li>Includes permit &amp; zoning guidance, design concepts, budget &amp; roadmap, and contractor matching vs DIY recommendations.</li>
-      </ul>
+      <p class="pagehero-sub">Discover your neighborhood ceiling to keep your renovations intentional, with design concepts and a project budget.</p>
       <button type="button" class="pagehero-cta" id="spaceBtn" data-plan-preview="renovation">Learn more</button>
     </div>
   </section>
@@ -711,7 +708,7 @@
       var current = null;
 
       function load() {
-        var src = '/assets/hero/spaces-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=2';
+        var src = '/assets/hero/renovate-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
         if (src === current) return;
         current = src;
         video.classList.remove('is-playing');
