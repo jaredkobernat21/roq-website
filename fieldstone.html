@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FIELDSTONE — Modern Farmhouse by ROQ Home</title>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/logo/roq-icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/logo/roq-icon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="description" content="FIELDSTONE: a 2,560 SF modern farmhouse from the ROQ Home design collection. A considered architectural plan — dimensioned, detailed, and ready for your builder." />
+<link rel="canonical" href="https://roqhome.com/fieldstone.html" />
+
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="ROQ Home" />
+<meta property="og:title" content="FIELDSTONE — Modern Farmhouse by ROQ Home" />
+<meta property="og:description" content="Traditional form. Modern proportion. Quiet luxury. 3 Bedrooms · 2.5 Baths · Approx. 2,560 SF." />
+<meta property="og:url" content="https://roqhome.com/fieldstone.html" />
+<meta property="og:image" content="https://roqhome.com/assets/share/fieldstone.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="FIELDSTONE — Modern Farmhouse by ROQ Home" />
+<meta name="twitter:description" content="Traditional form. Modern proportion. Quiet luxury. 3 Bedrooms · 2.5 Baths · Approx. 2,560 SF." />
+<meta name="twitter:image" content="https://roqhome.com/assets/share/fieldstone.jpg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
+<style>
+  :root {
+    --bg: #FAF8F3;
+    --bg-soft: #F3EFE6;
+    --ink: #1C1B18;
+    --ink-dim: #5B5A54;
+    --ink-faint: #948F83;
+    --border: rgba(28,27,24,0.11);
+    --border-soft: rgba(28,27,24,0.08);
+    --gold: #AD8656;
+    --gold-dark: #8F6D43;
+    --dark: #14120E;
+    --dark-ink: #F5F1E9;
+    --danger: #B5473A;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--gold); color: #fff; }
+  img, svg { display: block; max-width: 100%; }
+
+  /* ---------- Site header ---------- */
+
+  .site-header {
+    --nav-fg: rgba(255,255,255,0.78);
+    --nav-fg-strong: #FFFFFF;
+    --nav-accent: #C8A882;
+    --nav-scrim: 13,13,12;
+    --nav-solid: rgba(13,13,12,0.82);
+    --nav-border: rgba(255,255,255,0.10);
+    --nav-panel: rgba(10,10,9,0.96);
+    --nav-shadow: 0 1px 12px rgba(0,0,0,0.55);
+    --nav-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px clamp(24px, 5vw, 64px);
+    border-bottom: 1px solid transparent;
+    transition: background 0.35s var(--nav-ease), border-color 0.35s var(--nav-ease);
+  }
+
+  .site-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--nav-scrim),0.80) 0%,
+      rgba(var(--nav-scrim),0.42) 58%,
+      rgba(var(--nav-scrim),0) 100%
+    );
+    transition: opacity 0.35s var(--nav-ease);
+  }
+
+  .site-header.scrolled::before { opacity: 0; }
+
+  .site-header.scrolled {
+    --nav-fg: rgba(20,19,15,0.78);
+    --nav-fg-strong: #14130F;
+    --nav-accent: var(--gold);
+    --nav-solid: rgba(250,248,243,0.92);
+    --nav-border: var(--border);
+    --nav-shadow: none;
+    background: var(--nav-solid);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom-color: var(--nav-border);
+  }
+
+  .site-logo { display: flex; }
+  .logo-mark { width: 30px; height: 30px; display: block; }
+  .logo-mark path { stroke: var(--nav-fg-strong); stroke-width: 8; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+  .site-tabs { display: flex; align-items: center; gap: clamp(14px, 2.1vw, 30px); }
+
+  .site-tabs a {
+    position: relative;
+    padding: 6px 0;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    color: var(--nav-fg);
+    text-shadow: var(--nav-shadow);
+    transition: color 0.25s var(--nav-ease);
+  }
+
+  .site-tabs a:hover { color: var(--nav-fg-strong); }
+  .site-tabs a.active { color: var(--nav-fg-strong); }
+  .site-tabs a.active::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 1px; background: var(--nav-accent); }
+
+  .site-tabs-toggle { display: none; }
+
+  @media (max-width: 760px) {
+    .site-tabs-toggle {
+      display: flex; align-items: center; justify-content: center;
+      width: 40px; height: 40px; background: transparent;
+      border: 1px solid var(--nav-border); border-radius: 50%; cursor: pointer;
+    }
+    .site-tabs-toggle span { position: relative; width: 16px; height: 10px; }
+    .site-tabs-toggle span::before, .site-tabs-toggle span::after, .site-tabs-toggle span i {
+      content: ''; position: absolute; left: 0; width: 100%; height: 1px; background: var(--nav-fg-strong);
+    }
+    .site-tabs-toggle span::before { top: 0; }
+    .site-tabs-toggle span i { top: 50%; margin-top: -0.5px; display: block; }
+    .site-tabs-toggle span::after { bottom: 0; }
+    .site-tabs {
+      position: absolute; top: calc(100% - 4px); right: clamp(24px, 5vw, 64px);
+      min-width: 170px; flex-direction: column; align-items: stretch; gap: 0;
+      background: var(--nav-panel); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--nav-border); border-radius: 14px; padding: 8px;
+      opacity: 0; transform: translateY(-6px); pointer-events: none;
+      transition: opacity 0.25s var(--nav-ease), transform 0.25s var(--nav-ease);
+    }
+    .site-tabs.open { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .site-tabs a { padding: 12px 14px; border-radius: 8px; text-shadow: none; }
+    .site-tabs a.active { background: rgba(127,127,127,0.14); }
+    .site-tabs a.active::after { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+
+  .pagehero {
+    position: relative;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px clamp(24px, 6vw, 64px) 96px;
+    background: #14120E;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .pagehero-img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; }
+
+  .pagehero-scrim {
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to bottom, rgba(16,14,11,0.56) 0%, rgba(16,14,11,0.24) 34%, rgba(16,14,11,0.44) 62%, rgba(16,14,11,0.86) 100%);
+  }
+
+  .fs-hero-inner { max-width: 640px; margin: 0 auto; }
+
+  .fs-hero-eyebrow {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+    color: rgba(255,255,255,0.74); margin-bottom: 20px; text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .fs-wordmark {
+    font-family: 'Lora', serif; font-weight: 500; font-size: clamp(50px, 9vw, 104px);
+    line-height: 0.96; letter-spacing: 0.01em; color: #FFFFFF; text-shadow: 0 4px 40px rgba(0,0,0,0.5);
+  }
+
+  .pagehero-headline {
+    font-family: 'Lora', serif; font-style: italic; font-weight: 400;
+    font-size: clamp(16px, 1.9vw, 21px); line-height: 1.5; color: rgba(255,255,255,0.92);
+    max-width: 34ch; margin: 22px auto 0; text-wrap: balance; text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .fs-hero-meta {
+    margin-top: 24px; font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.72); text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  .fs-hero-actions { margin-top: 38px; display: flex; align-items: center; justify-content: center; gap: 30px; flex-wrap: wrap; }
+
+  /* ---------- Buttons / links ---------- */
+
+  .btn-gold {
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--gold); color: #fff; border: none; border-radius: 2px;
+    padding: 16px 32px; font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+    cursor: pointer; transition: background 0.25s var(--ease);
+  }
+  .btn-gold:hover { background: var(--gold-dark); }
+  .btn-gold:active { opacity: 0.9; }
+
+  .link-arrow {
+    display: inline-flex; align-items: center; gap: 7px; font-size: 13px; font-weight: 500;
+    letter-spacing: 0.03em; color: rgba(255,255,255,0.86);
+    border-bottom: 1px solid rgba(255,255,255,0.32); padding-bottom: 2px;
+    transition: color 0.2s var(--ease), border-color 0.2s var(--ease);
+  }
+  .link-arrow:hover { color: #fff; border-color: rgba(255,255,255,0.7); }
+  .link-arrow svg { width: 12px; height: 12px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* ---------- Shared editorial primitives ---------- */
+
+  .fs-section { padding: clamp(80px, 11vw, 150px) clamp(24px, 6vw, 72px); }
+  .fs-section.soft { background: var(--bg-soft); }
+  .fs-section.dark { background: var(--dark); color: var(--dark-ink); }
+  .fs-section.tight { padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(48px, 6vw, 80px); }
+
+  .fs-wrap { max-width: 1220px; margin: 0 auto; }
+  .fs-wrap.narrow { max-width: 760px; }
+  .fs-wrap.copy { max-width: 620px; }
+
+  .fs-eyebrow {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold-dark); margin-bottom: 18px;
+  }
+  .fs-section.dark .fs-eyebrow { color: var(--gold); }
+
+  .fs-h2 {
+    font-family: 'Lora', serif; font-weight: 500; font-size: clamp(30px, 3.6vw, 46px);
+    line-height: 1.16; letter-spacing: -0.01em; max-width: 16ch; text-wrap: balance;
+  }
+
+  .fs-rule { width: 30px; height: 1px; background: var(--gold); margin: 24px 0; }
+  .fs-section.dark .fs-rule { background: var(--gold); }
+
+  .fs-lede { font-size: 15.5px; line-height: 1.8; color: var(--ink-dim); max-width: 52ch; }
+  .fs-section.dark .fs-lede { color: rgba(245,241,233,0.72); }
+
+  .fs-head { margin-bottom: clamp(44px, 6vw, 72px); }
+  .fs-head.center { text-align: center; }
+  .fs-head.center .fs-h2, .fs-head.center .fs-lede { margin-left: auto; margin-right: auto; }
+  .fs-head.center .fs-rule { margin-left: auto; margin-right: auto; }
+
+  figure { margin: 0; }
+  img { display: block; }
+
+  /* ---------- Hero spec row ---------- */
+
+  /* (spec row lives inside the hero itself — .fs-hero-meta above) */
+
+  /* ---------- Design statement (text-only) ---------- */
+
+  .fs-statement { text-align: center; }
+  .fs-statement .fs-eyebrow { justify-content: center; }
+
+  .fs-statement-quote {
+    font-family: 'Lora', serif; font-style: italic; font-weight: 400;
+    font-size: clamp(24px, 3.2vw, 36px); line-height: 1.45; color: var(--ink);
+    max-width: 20ch; margin: 0 auto;
+  }
+
+  .fs-statement-body {
+    font-size: 15.5px; line-height: 1.85; color: var(--ink-dim);
+    max-width: 56ch; margin: 28px auto 0;
+  }
+
+  .fs-principles-row {
+    margin: clamp(56px, 7vw, 80px) auto 0;
+    max-width: 980px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+  }
+  .fs-principles-row div {
+    padding: 22px clamp(10px, 2vw, 24px) 0;
+    border-top: 1px solid var(--border);
+    font-size: 13.5px;
+    line-height: 1.6;
+    color: var(--ink);
+    text-align: left;
+  }
+  @media (max-width: 820px) {
+    .fs-principles-row { grid-template-columns: repeat(2, minmax(0,1fr)); }
+  }
+  @media (max-width: 520px) {
+    .fs-principles-row { grid-template-columns: 1fr; max-width: 420px; }
+  }
+
+  /* ---------- Editorial image compositions ---------- */
+
+  .fs-offset-pair {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(18px, 2.4vw, 28px);
+    align-items: end;
+  }
+  .fs-offset-pair .second { margin-bottom: clamp(0px, 6vw, 72px); }
+  .fs-offset-pair img { width: 100%; height: auto; display: block; }
+
+  @media (max-width: 820px) {
+    .fs-offset-pair { grid-template-columns: 1fr; }
+    .fs-offset-pair .second { margin-bottom: 0; }
+  }
+
+  .fs-caption-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr;
+    gap: clamp(18px, 2.4vw, 28px);
+    margin-top: 16px;
+  }
+  .fs-caption-row span {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--ink-faint);
+  }
+  @media (max-width: 820px) { .fs-caption-row { grid-template-columns: 1fr; gap: 8px; } }
+
+  .fs-portrait-pair {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: clamp(16px, 2.2vw, 26px);
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .fs-portrait-pair img { width: 100%; height: auto; display: block; }
+  @media (max-width: 680px) { .fs-portrait-pair { grid-template-columns: 1fr; max-width: 420px; } }
+
+  .fs-portrait-single { max-width: 460px; margin: 0 auto; }
+  .fs-portrait-single img { width: 100%; height: auto; display: block; }
+
+  .fs-spec-line {
+    text-align: center;
+    margin-top: clamp(28px, 3.6vw, 40px);
+    font-family: 'Lora', serif;
+    font-size: 14.5px;
+    color: var(--ink-dim);
+  }
+
+  /* ---------- Floor plan (dark) ---------- */
+
+  .fs-plan-figure img { width: 100%; height: auto; border-radius: 2px; }
+
+  .fs-plan-sf {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 0;
+    justify-content: center;
+    margin-top: clamp(32px, 4vw, 48px);
+    font-size: 14px;
+    color: rgba(245,241,233,0.85);
+  }
+  .fs-plan-sf b { font-family: 'Lora', serif; font-weight: 500; color: #fff; }
+  .fs-plan-sf span.sep { margin: 0 18px; color: rgba(245,241,233,0.3); }
+
+  .fs-routes {
+    margin: clamp(48px, 6vw, 64px) auto 0;
+    max-width: 920px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: clamp(24px, 3vw, 40px);
+  }
+  .fs-route { padding-top: 18px; border-top: 1px solid rgba(245,241,233,0.14); }
+  .fs-route b { display: block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .fs-route span { font-size: 13.5px; line-height: 1.6; color: rgba(245,241,233,0.78); }
+  @media (max-width: 680px) { .fs-routes { grid-template-columns: 1fr; max-width: 420px; } }
+
+  /* ---------- Disclosure (details/summary) ---------- */
+
+  details.fs-more { margin-top: clamp(32px, 4vw, 48px); max-width: 920px; margin-left: auto; margin-right: auto; }
+  details.fs-more > summary {
+    cursor: pointer;
+    list-style: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+  }
+  .fs-section.dark details.fs-more > summary { color: rgba(245,241,233,0.78); border-color: rgba(245,241,233,0.2); }
+  details.fs-more > summary::-webkit-details-marker { display: none; }
+  details.fs-more > summary::before { content: '+'; font-family: 'Lora', serif; font-size: 15px; color: var(--gold); }
+  details.fs-more[open] > summary::before { content: '–'; }
+  details.fs-more .fs-more-body { padding-top: clamp(24px, 3vw, 36px); }
+
+  .fs-dims-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 0 48px;
+  }
+  .fs-dims-list { list-style: none; }
+  .fs-dims-list li {
+    display: flex; justify-content: space-between; gap: 16px;
+    padding: 10px 0; border-bottom: 1px solid var(--border-soft); font-size: 13px;
+  }
+  .fs-section.dark .fs-dims-list li { border-bottom-color: rgba(245,241,233,0.1); }
+  .fs-dims-list li span:first-child { color: var(--ink-faint); }
+  .fs-section.dark .fs-dims-list li span:first-child { color: rgba(245,241,233,0.55); }
+  .fs-dims-list li span:last-child { font-family: 'Lora', serif; }
+  .fs-dims-group-title {
+    font-size: 10.5px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--gold-dark); margin: 24px 0 4px;
+  }
+  .fs-section.dark .fs-dims-group-title { color: var(--gold); }
+  .fs-dims-group-title:first-child { margin-top: 0; }
+  @media (max-width: 640px) { .fs-dims-grid { grid-template-columns: 1fr; } }
+
+  .fs-options-detail-list { list-style: none; display: grid; gap: 4px; }
+  .fs-options-detail-list li {
+    display: flex; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border-soft); font-size: 13.5px;
+  }
+  .fs-options-detail-list li b { font-family: 'Lora', serif; font-weight: 500; color: var(--gold-dark); flex: 0 0 56px; }
+
+  .fs-perf-detail-list { list-style: none; display: grid; gap: 10px; text-align: left; max-width: 640px; margin: 0 auto; }
+  .fs-perf-detail-list li { font-size: 13.5px; line-height: 1.6; color: var(--ink-dim); padding-bottom: 10px; border-bottom: 1px solid var(--border-soft); }
+
+  /* ---------- Quiet bands (performance / options) ---------- */
+
+  .fs-quiet-list {
+    margin: clamp(32px, 4vw, 44px) auto 0;
+    max-width: 760px;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+  }
+  .fs-quiet-list div {
+    padding: 16px clamp(8px, 1.6vw, 18px) 0;
+    border-top: 1px solid var(--border);
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--ink-dim);
+  }
+  @media (max-width: 760px) { .fs-quiet-list { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (max-width: 460px) { .fs-quiet-list { grid-template-columns: 1fr; max-width: 320px; } }
+
+  .fs-options-inline { margin-top: 22px; font-family: 'Lora', serif; font-size: 16px; color: var(--ink); }
+  .fs-options-inline span { margin: 0 10px; color: var(--ink-faint); font-family: 'Inter', sans-serif; }
+
+  /* ---------- Package ---------- */
+
+  .fs-package-groups {
+    margin-top: clamp(48px, 6vw, 68px);
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .fs-package-group {
+    padding: 0 clamp(14px, 2.4vw, 32px);
+    border-left: 1px solid var(--border-soft);
+  }
+  .fs-package-group:first-child { border-left: none; padding-left: 0; }
+  .fs-package-group h4 {
+    font-family: 'Lora', serif; font-weight: 500; font-size: 17px; margin-bottom: 10px;
+  }
+  .fs-package-group p { font-size: 13.5px; line-height: 1.7; color: var(--ink-dim); }
+  @media (max-width: 760px) {
+    .fs-package-groups { grid-template-columns: 1fr; gap: 28px; }
+    .fs-package-group { border-left: none; padding-left: 0; border-top: 1px solid var(--border-soft); padding-top: 24px; }
+    .fs-package-group:first-child { border-top: none; padding-top: 0; }
+  }
+
+  .fs-package-foot {
+    margin: clamp(40px, 5vw, 56px) auto 0;
+    max-width: 620px;
+    text-align: center;
+  }
+
+  /* ---------- FAQ (accordion) ---------- */
+
+  .fs-faq-list { max-width: 740px; margin: 0 auto; }
+  details.fs-faq-item { border-bottom: 1px solid var(--border-soft); }
+  details.fs-faq-item summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 24px 0;
+    font-family: 'Lora', serif;
+    font-weight: 500;
+    font-size: 17px;
+  }
+  details.fs-faq-item summary::-webkit-details-marker { display: none; }
+  details.fs-faq-item summary::after { content: '+'; font-family: 'Lora', serif; color: var(--gold); flex: 0 0 auto; }
+  details.fs-faq-item[open] summary::after { content: '–'; }
+  details.fs-faq-item .fs-faq-a { font-size: 14.5px; line-height: 1.75; color: var(--ink-dim); padding: 0 0 26px; max-width: 64ch; }
+
+  /* ---------- Closing cinematic ---------- */
+
+  .fs-closing {
+    position: relative;
+    min-height: 92svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .fs-closing img { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 38%; }
+  .fs-closing::before {
+    content: '';
+    position: absolute; inset: 0; z-index: -1;
+    background: linear-gradient(to bottom, rgba(14,13,10,0.5) 0%, rgba(14,13,10,0.2) 35%, rgba(14,13,10,0.5) 68%, rgba(14,13,10,0.88) 100%);
+  }
+  .fs-closing-wordmark {
+    font-family: 'Lora', serif; font-weight: 500; font-size: clamp(36px, 6vw, 68px);
+    color: #fff; letter-spacing: 0.01em; text-shadow: 0 4px 30px rgba(0,0,0,0.5);
+  }
+  .fs-closing p {
+    font-family: 'Lora', serif; font-style: italic; font-size: clamp(16px, 1.8vw, 20px);
+    color: rgba(255,255,255,0.9); margin: 16px 0 36px; text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+  }
+
+  /* ---------- Footer ---------- */
+
+  footer {
+    background: var(--dark);
+    padding: 0 clamp(24px, 6vw, 72px) 40px;
+    display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;
+    border-top: 1px solid rgba(245,241,233,0.08);
+    margin: 0 clamp(24px, 6vw, 72px);
+    padding-top: 28px;
+  }
+  .footer-copy { font-size: 12px; color: rgba(245,241,233,0.5); }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-size: 12px; color: rgba(245,241,233,0.6); }
+  .footer-links a:hover { color: var(--dark-ink); }
+
+  /* ---------- Reveal ---------- */
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+  .reveal.in-view { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) { .reveal { transition: none !important; opacity: 1 !important; transform: none !important; } }
+
+  /* ---------- Modal (shared intake pattern) ---------- */
+
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 500;
+    background: rgba(20,19,15,0.55);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 24px; opacity: 0; pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+  .modal-panel {
+    background: #fff; border-radius: 4px; width: 100%; max-width: 500px;
+    max-height: 88vh; overflow-y: auto; padding: clamp(28px, 5vw, 44px);
+    position: relative; transform: translateY(14px);
+    transition: transform 0.3s var(--ease);
+  }
+  .modal-overlay.open .modal-panel { transform: translateY(0); }
+
+  .modal-close {
+    position: absolute; top: 18px; right: 18px; width: 32px; height: 32px;
+    border-radius: 50%; border: 1px solid var(--border); background: transparent;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--ink-dim); font-size: 15px; line-height: 1;
+  }
+  .modal-close:hover { background: var(--bg-soft); color: var(--ink); }
+
+  .modal-title { font-family: 'Lora', serif; font-weight: 500; font-size: clamp(21px, 3vw, 25px); line-height: 1.3; margin-bottom: 6px; padding-right: 30px; }
+  .modal-sub { font-size: 13.5px; color: var(--ink-faint); margin-bottom: 26px; }
+
+  .q-block { margin-bottom: 20px; }
+  .q-label { font-family: 'Lora', serif; font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+  .q-hint { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 10px; }
+
+  .q-input {
+    width: 100%; background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 4px; padding: 14px 16px; color: var(--ink);
+    font-family: 'Inter', sans-serif; font-size: 14.5px; outline: none;
+  }
+  .q-input:focus { border-color: var(--gold); }
+  .q-input::placeholder { color: var(--ink-faint); }
+
+  .field-row { margin-bottom: 14px; }
+  .field-row label { display: block; font-size: 12px; color: var(--ink-faint); margin-bottom: 6px; }
+  .field-row:last-of-type { margin-bottom: 0; }
+
+  .q-error { margin-top: 10px; font-size: 13px; color: var(--danger); display: none; }
+  .q-error.visible { display: block; }
+
+  .modal-submit {
+    width: 100%; border-radius: 4px; padding: 16px; border: none;
+    background: var(--gold); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; cursor: pointer;
+    margin-top: 10px; transition: background 0.25s var(--ease), opacity 0.25s var(--ease);
+  }
+  .modal-submit:hover { background: var(--gold-dark); }
+  .modal-submit:disabled { opacity: 0.5; cursor: default; }
+
+  .q-thanks { display: none; text-align: center; padding: 20px 0 4px; }
+  .q-thanks.active { display: block; animation: fadeUp 0.4s var(--ease); }
+  .q-thanks-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--bg-soft); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+  .q-thanks-icon svg { width: 22px; height: 22px; stroke: var(--gold); fill: none; stroke-width: 2; }
+  .q-thanks h3 { font-family: 'Lora', serif; font-size: 20px; line-height: 1.4; margin-bottom: 10px; }
+  .q-thanks p { font-size: 14px; color: var(--ink-dim); line-height: 1.6; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ---------- Mobile refinements ---------- */
+
+  @media (max-width: 640px) {
+    .site-header { padding: 16px 20px; }
+    .site-tabs { min-width: 200px; padding: 10px; }
+    .site-tabs a { display: flex; align-items: center; min-height: 46px; padding: 0 14px; font-size: 13px; letter-spacing: 0.12em; }
+    .site-tabs-toggle { width: 44px; height: 44px; }
+
+    footer { padding: 36px 20px 32px; flex-direction: column; align-items: flex-start; gap: 22px; }
+    .footer-links { gap: 0; width: 100%; flex-direction: column; }
+    .footer-links a { display: flex; align-items: center; min-height: 44px; font-size: 13px; border-bottom: 1px solid rgba(245,241,233,0.08); }
+    .footer-links a:last-child { border-bottom: none; }
+
+    .fs-section { padding: 64px 20px; }
+    .pagehero { padding: 104px 24px 84px; }
+    .fs-wordmark { font-size: 50px; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="site-logo" href="/" aria-label="ROQ Home">
+      <svg class="logo-mark" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <path d="M32 70 L32 42 L50 25 Q74 40 67 70" />
+      </svg>
+    </a>
+    <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/build.html">Build</a>
+      <a href="/dream.html" class="active" aria-current="page">Design</a>
+      <a href="/manage.html">Own</a>
+      <a href="/renovate.html">Improve</a>
+      <a href="/move.html">Move</a>
+      <a href="/understand.html">Understand</a>
+    </nav>
+    <button class="site-tabs-toggle" id="siteTabsToggle" aria-controls="siteTabs" aria-expanded="false" aria-label="Menu"><span><i></i></span></button>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="pagehero">
+    <img class="pagehero-img"
+         srcset="/assets/fieldstone/hero-sm.webp 900w, /assets/fieldstone/hero-xl.webp 1920w"
+         sizes="100vw"
+         src="/assets/fieldstone/hero-xl.webp" width="1920" height="1081"
+         alt="FIELDSTONE at dusk: a warm ivory and limestone modern farmhouse with a deep timber front porch" loading="eager">
+    <div class="pagehero-scrim"></div>
+    <div class="fs-hero-inner">
+      <p class="fs-hero-eyebrow">ROQ Home</p>
+      <h1 class="fs-wordmark">FIELDSTONE</h1>
+      <p class="fs-hero-eyebrow" style="margin-top:14px; margin-bottom:0;">Modern Farmhouse Collection</p>
+      <p class="pagehero-headline">Traditional form. Modern proportion. Quiet luxury.</p>
+      <p class="fs-hero-meta">3 Bedrooms &nbsp;·&nbsp; 2.5 Baths &nbsp;·&nbsp; Approx. 2,560 SF</p>
+      <div class="fs-hero-actions">
+        <button type="button" class="btn-gold" id="heroCtaBtn">Request the FIELDSTONE Package</button>
+        <a class="link-arrow" href="#floorplan">View Floor Plan
+          <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DESIGN STATEMENT ============ -->
+  <section class="fs-section">
+    <div class="fs-wrap fs-statement reveal">
+      <p class="fs-eyebrow">FIELDSTONE Design Philosophy</p>
+      <p class="fs-statement-quote">"Traditional form. Modern proportion. Natural materials. Quiet luxury. Rural practicality."</p>
+      <p class="fs-statement-body">FIELDSTONE is designed as a real home first: simple gabled forms, a deep porch, restrained materials, logical circulation, and a compact upper level.</p>
+
+      <div class="fs-principles-row">
+        <div>One dominant farmhouse volume</div>
+        <div>Garage held visually secondary</div>
+        <div>Natural stone used as architecture</div>
+        <div>Circulation designed around real daily life</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GREAT ROOM + KITCHEN ============ -->
+  <section class="fs-section soft">
+    <div class="fs-wrap">
+      <div class="fs-head reveal">
+        <p class="fs-eyebrow">Great Room + Kitchen</p>
+        <h2 class="fs-h2">The heart of FIELDSTONE.</h2>
+        <p class="fs-lede" style="margin-top:18px;">A vaulted great room, full-height limestone fireplace, exposed oak structure, and an open kitchen built around natural materials and daily life.</p>
+      </div>
+
+      <div class="fs-offset-pair reveal">
+        <div>
+          <img src="/assets/fieldstone/tour-livingroom.webp"
+               srcset="/assets/fieldstone/tour-livingroom-sm.webp 560w, /assets/fieldstone/tour-livingroom.webp 1000w"
+               sizes="(max-width: 820px) 100vw, 58vw"
+               width="1000" height="1777" alt="FIELDSTONE great room with a vaulted beamed ceiling, full-height stone fireplace, and iron chandelier" loading="lazy" decoding="async">
+        </div>
+        <div class="second">
+          <img src="/assets/fieldstone/tour-kitchen.webp"
+               srcset="/assets/fieldstone/tour-kitchen-sm.webp 560w, /assets/fieldstone/tour-kitchen.webp 1000w"
+               sizes="(max-width: 820px) 100vw, 40vw"
+               width="1000" height="1777" alt="FIELDSTONE kitchen with a plaster hood, brass pendant lighting, and a large island" loading="lazy" decoding="async">
+        </div>
+      </div>
+      <div class="fs-caption-row reveal">
+        <span>Great Room</span>
+        <span>Kitchen</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FLOOR PLAN ============ -->
+  <section class="fs-section dark" id="floorplan">
+    <div class="fs-wrap">
+      <div class="fs-head center reveal">
+        <p class="fs-eyebrow">Floor Plan</p>
+        <h2 class="fs-h2" style="margin:0 auto;">A compact, legible plan.</h2>
+      </div>
+
+      <figure class="fs-plan-figure reveal">
+        <img src="/assets/fieldstone/floor-plans-board.webp" width="1800" height="1200" loading="lazy" decoding="async"
+             alt="FIELDSTONE dimensioned main floor and upper floor plans">
+      </figure>
+
+      <p class="fs-plan-sf reveal" style="justify-content:center; display:flex; flex-wrap:wrap;">
+        <span><b>1,900 SF</b> Main Floor</span><span class="sep">·</span>
+        <span><b>660 SF</b> Upper Floor</span><span class="sep">·</span>
+        <span><b>2,560 SF</b> Total Conditioned</span>
+      </p>
+
+      <div class="fs-routes reveal">
+        <div class="fs-route"><b>Arrival</b><span>Garage → Mudroom → Pantry → Kitchen</span></div>
+        <div class="fs-route"><b>Owner</b><span>Bedroom → Bath → Closet → Laundry</span></div>
+        <div class="fs-route"><b>Guest</b><span>Porch → Foyer → Great Room → Rear Porch</span></div>
+      </div>
+
+      <details class="fs-more reveal">
+        <summary>View detailed dimensions</summary>
+        <div class="fs-more-body fs-dims-grid">
+          <div>
+            <p class="fs-dims-group-title">Overall Dimensions</p>
+            <ul class="fs-dims-list">
+              <li><span>Overall Width</span><span>82'-0"</span></li>
+              <li><span>Overall Depth</span><span>64'-0"</span></li>
+              <li><span>Overall Footprint</span><span>82' × 64'</span></li>
+              <li><span>Main Floor Ceiling Height</span><span>10'-0"</span></li>
+              <li><span>Great Room Ceiling Height</span><span>Approx. 17'-6"</span></li>
+              <li><span>Upper Floor Ceiling Height</span><span>9'-0"</span></li>
+              <li><span>Garage</span><span>2-Car Side-Entry, 650 SF</span></li>
+              <li><span>Porches</span><span>Covered Front + Rear</span></li>
+            </ul>
+          </div>
+          <div>
+            <p class="fs-dims-group-title">Key Room Dimensions</p>
+            <ul class="fs-dims-list">
+              <li><span>Great Room</span><span>18' × 20'</span></li>
+              <li><span>Kitchen</span><span>14' × 18'</span></li>
+              <li><span>Dining</span><span>12' × 14'</span></li>
+              <li><span>Primary Suite</span><span>15' × 15'</span></li>
+              <li><span>Primary Bath</span><span>10' × 12'</span></li>
+              <li><span>Office / Flex</span><span>12' × 12'</span></li>
+              <li><span>Bedroom 2 / Bedroom 3</span><span>13' × 14'</span></li>
+              <li><span>Loft</span><span>12' × 16'</span></li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ PRIMARY SUITE ============ -->
+  <section class="fs-section">
+    <div class="fs-wrap">
+      <div class="fs-head center reveal">
+        <p class="fs-eyebrow">Primary Suite</p>
+        <h2 class="fs-h2" style="margin:0 auto;">A private, light-filled retreat.</h2>
+        <p class="fs-lede" style="margin:18px auto 0;">Main-floor living with landscape views, direct outdoor access, a generous bath, walk-in closet, and laundry adjacency.</p>
+      </div>
+
+      <div class="fs-portrait-pair reveal">
+        <img src="/assets/fieldstone/tour-bedroom.webp"
+             srcset="/assets/fieldstone/tour-bedroom-sm.webp 560w, /assets/fieldstone/tour-bedroom.webp 1000w"
+             sizes="(max-width: 680px) 100vw, 44vw"
+             width="1000" height="1777" alt="FIELDSTONE primary bedroom with vaulted beamed ceiling, iron chandelier, and landscape views" loading="lazy" decoding="async">
+        <img src="/assets/fieldstone/tour-bathroom.webp"
+             srcset="/assets/fieldstone/tour-bathroom-sm.webp 560w, /assets/fieldstone/tour-bathroom.webp 1000w"
+             sizes="(max-width: 680px) 100vw, 44vw"
+             width="1000" height="1777" alt="FIELDSTONE primary bathroom with a freestanding tub, walk-in shower, and double vanity" loading="lazy" decoding="async">
+      </div>
+
+      <p class="fs-spec-line reveal">15' × 15' Bedroom &nbsp;·&nbsp; 10' × 12' Bath &nbsp;·&nbsp; 8' × 10' Closet</p>
+    </div>
+  </section>
+
+  <!-- ============ EXTERIOR + OUTDOOR LIVING ============ -->
+  <section class="fs-section soft">
+    <div class="fs-wrap">
+      <div class="fs-head reveal">
+        <p class="fs-eyebrow">Exterior + Outdoor Living</p>
+        <h2 class="fs-h2">Designed to live beyond the walls.</h2>
+        <p class="fs-lede" style="margin-top:18px;">Deep covered porches, a refined rear terrace, and landscape-driven outdoor living extend the architecture into the site.</p>
+      </div>
+
+      <div class="fs-offset-pair reveal">
+        <div>
+          <img src="/assets/fieldstone/tour-backyard.webp"
+               srcset="/assets/fieldstone/tour-backyard-sm.webp 560w, /assets/fieldstone/tour-backyard.webp 1000w"
+               sizes="(max-width: 820px) 100vw, 58vw"
+               width="1000" height="1777" alt="FIELDSTONE rear exterior at dusk with a covered terrace and landscape lighting" loading="lazy" decoding="async">
+        </div>
+        <div class="second">
+          <img src="/assets/fieldstone/tour-porch.webp"
+               srcset="/assets/fieldstone/tour-porch-sm.webp 560w, /assets/fieldstone/tour-porch.webp 1000w"
+               sizes="(max-width: 820px) 100vw, 40vw"
+               width="1000" height="1777" alt="FIELDSTONE front porch detail with stone piers, timber beams, and lantern sconces" loading="lazy" decoding="async">
+        </div>
+      </div>
+
+      <p class="fs-spec-line reveal">Limestone &nbsp;·&nbsp; Warm Ivory Siding &nbsp;·&nbsp; Natural Timber &nbsp;·&nbsp; Dark Bronze Openings</p>
+    </div>
+  </section>
+
+  <!-- ============ PERFORMANCE ============ -->
+  <section class="fs-section tight">
+    <div class="fs-wrap narrow">
+      <div class="fs-head center reveal">
+        <h2 class="fs-h2" style="margin:0 auto;">Designed to perform as well as it looks.</h2>
+      </div>
+      <div class="fs-quiet-list reveal">
+        <div>High-performance glazing</div>
+        <div>Continuous air, water, and thermal control</div>
+        <div>Right-sized HVAC and ventilation</div>
+        <div>EV, solar, and backup-power readiness</div>
+      </div>
+
+      <details class="fs-more reveal" style="text-align:center;">
+        <summary>View performance notes</summary>
+        <div class="fs-more-body">
+          <ul class="fs-perf-detail-list">
+            <li>Right-sized HVAC with at least two comfort zones; balanced ventilation in high-performance builds.</li>
+            <li>Duct and plumbing routes protected in the architecture; real kitchen exhaust and make-up-air coordination.</li>
+            <li>EV-ready garage, low-voltage/network planning, leak detection, and shade power.</li>
+            <li>Final performance targets and assemblies require adaptation to the project climate, site, utility, code, and builder.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ OPTIONS ============ -->
+  <section class="fs-section soft tight">
+    <div class="fs-wrap narrow">
+      <div class="fs-head center reveal">
+        <p class="fs-eyebrow">Available Adaptations</p>
+        <h2 class="fs-h2" style="margin:0 auto;">Ten controlled ways to make it yours.</h2>
+        <p class="fs-options-inline">3-Car Garage <span>·</span> Basement <span>·</span> Screened Porch <span>·</span> Bonus Room</p>
+      </div>
+
+      <details class="fs-more reveal" style="text-align:center;">
+        <summary>View all options</summary>
+        <div class="fs-more-body" style="max-width:640px; margin:0 auto; text-align:left;">
+          <ul class="fs-options-detail-list">
+            <li><b>OPT-01</b> 3-Car Garage Expansion</li>
+            <li><b>OPT-02</b> Basement Foundation</li>
+            <li><b>OPT-03</b> Screened Rear Porch</li>
+            <li><b>OPT-04</b> Outdoor Kitchen</li>
+            <li><b>OPT-05</b> Tub-Free Primary Bath</li>
+            <li><b>OPT-06</b> Office-to-Bedroom Conversion</li>
+            <li><b>OPT-07</b> Garage Storage Expansion</li>
+            <li><b>OPT-08</b> Bonus Room / Expanded Upper Floor</li>
+            <li><b>OPT-09</b> Enhanced Performance Envelope</li>
+            <li><b>OPT-10</b> Solar / Battery Readiness Upgrades</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ============ PACKAGE ============ -->
+  <section class="fs-section">
+    <div class="fs-wrap">
+      <div class="fs-head center reveal">
+        <p class="fs-eyebrow">The FIELDSTONE Package</p>
+        <h2 class="fs-h2" style="margin:0 auto;">One complete design package.</h2>
+      </div>
+
+      <div class="fs-package-groups reveal">
+        <div class="fs-package-group">
+          <h4>Architecture</h4>
+          <p>Plans, elevations, sections, schedules</p>
+        </div>
+        <div class="fs-package-group">
+          <h4>Interiors</h4>
+          <p>Kitchen, bath, millwork, lighting, finishes</p>
+        </div>
+        <div class="fs-package-group">
+          <h4>Builder Coordination</h4>
+          <p>CAD/BIM source, pricing package, local professional coordination guide</p>
+        </div>
+      </div>
+
+      <div class="fs-package-foot reveal">
+        <p class="fs-lede" style="margin:0 auto 32px; text-align:center;">FIELDSTONE is premium through design quality and material control — not uncontrolled scope. Construction pricing is coordinated with your local builder, since final costs reflect local labor, material availability, climate, code, soils, utilities, and site access.</p>
+        <div style="text-align:center;">
+          <button type="button" class="btn-gold" id="packageCtaBtn">Request the FIELDSTONE Package</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section class="fs-section soft">
+    <div class="fs-wrap narrow">
+      <div class="fs-head center reveal">
+        <p class="fs-eyebrow">FAQ</p>
+        <h2 class="fs-h2" style="margin:0 auto;">Common questions.</h2>
+      </div>
+
+      <div class="fs-faq-list reveal">
+        <details class="fs-faq-item">
+          <summary>Is FIELDSTONE a final, permit-ready construction set?<span></span></summary>
+          <p class="fs-faq-a">No. FIELDSTONE is a Concept Edition design book. Plans show design intent and may require adaptation to local codes, site conditions, and engineering. Site-specific permitting, structural, civil, MEP engineering, surveys, and professional seals are provided locally as required.</p>
+        </details>
+        <details class="fs-faq-item">
+          <summary>Can the dimensions or square footage change?</summary>
+          <p class="fs-faq-a">Dimensions are to face of exterior walls and centerline of interior walls (architectural). Exterior dimensions and square footage may vary slightly based on final wall assemblies and local requirements.</p>
+        </details>
+        <details class="fs-faq-item">
+          <summary>How is FIELDSTONE priced?</summary>
+          <p class="fs-faq-a">FIELDSTONE is premium through design quality and material control — not uncontrolled scope. The design package is priced separately from construction; construction costs are established with your local builder. Request pricing to start that process.</p>
+        </details>
+        <details class="fs-faq-item">
+          <summary>Can I customize the plan for my site or preferences?</summary>
+          <p class="fs-faq-a">Yes. FIELDSTONE includes ten controlled architectural options — such as a 3-car garage expansion, basement foundation, or bonus room — and is designed for regional adaptation without changing its identity.</p>
+        </details>
+        <details class="fs-faq-item">
+          <summary>Where can FIELDSTONE be built?</summary>
+          <p class="fs-faq-a">FIELDSTONE is designed for regional adaptation — materials, performance assemblies, and code details are coordinated to your specific climate, site, and local builder, while the architectural identity stays the same.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CINEMATIC CLOSING ============ -->
+  <section class="fs-closing">
+    <img src="/assets/fieldstone/tour-frontyard.webp"
+         srcset="/assets/fieldstone/tour-frontyard-sm.webp 560w, /assets/fieldstone/tour-frontyard.webp 1000w"
+         sizes="100vw"
+         width="1000" height="1777" alt="FIELDSTONE front exterior at sunset" loading="lazy" decoding="async">
+    <div class="reveal in-view">
+      <p class="fs-closing-wordmark">FIELDSTONE</p>
+      <p>Designed with permanence in mind.</p>
+      <button type="button" class="btn-gold" id="ctaBtn">Request the FIELDSTONE Package</button>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 ROQ Innovation LLC</span>
+    <div class="footer-links">
+      <a href="/legal/roq-privacy.html">Privacy</a>
+      <a href="/about.html">Story</a>
+    </div>
+  </footer>
+
+  <!-- ---------- FIELDSTONE intake modal ---------- -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-panel">
+      <button type="button" class="modal-close" id="modalClose" aria-label="Close">&times;</button>
+
+      <div id="formWrap">
+        <h2 class="modal-title">Let's get your FIELDSTONE Package started.</h2>
+        <p class="modal-sub">A few quick questions &mdash; takes about a minute.</p>
+
+        <form id="intakeForm">
+          <div class="q-block">
+            <p class="q-label">Where will FIELDSTONE be built?</p>
+            <p class="q-hint">Property address, parcel location, or city/state if you haven't found land yet.</p>
+            <input type="text" class="q-input" id="qLocation" placeholder="e.g. 1420 County Road 12, Topeka, KS" autocomplete="off">
+          </div>
+
+          <div class="q-block">
+            <div class="field-row">
+              <label for="qName">Name</label>
+              <input type="text" class="q-input" id="qName" placeholder="Your name" autocomplete="name">
+            </div>
+            <div class="field-row">
+              <label for="qEmail">Email</label>
+              <input type="email" class="q-input" id="qEmail" placeholder="your@email.com" autocomplete="email">
+            </div>
+            <div class="field-row">
+              <label for="qPhone">Phone <span style="opacity:.6;">(optional)</span></label>
+              <input type="tel" class="q-input" id="qPhone" placeholder="(555) 555-5555" autocomplete="tel">
+            </div>
+          </div>
+
+          <p class="q-error" id="qError">Please enter your location, name, and a valid email address.</p>
+          <button type="submit" class="modal-submit" id="submitBtn">Request the FIELDSTONE Package</button>
+        </form>
+      </div>
+
+      <div class="q-thanks" id="qThanks">
+        <div class="q-thanks-icon"><svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>You're on your way.</h3>
+        <p>We're reviewing your request now. We'll follow up within 24&ndash;48 hours with FIELDSTONE Package details and builder pricing next steps.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- Header: tabs + scroll scrim ----------
+    (function initHeader() {
+      const header = document.querySelector('.site-header');
+      const tabs = document.getElementById('siteTabs');
+      const toggle = document.getElementById('siteTabsToggle');
+
+      if (toggle && tabs) {
+        toggle.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = tabs.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', isOpen);
+        });
+        document.addEventListener('click', () => {
+          tabs.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        });
+      }
+
+      if (header) {
+        const hero = document.querySelector('.pagehero');
+        const threshold = () => hero ? Math.max(12, hero.offsetHeight - header.offsetHeight) : 12;
+        const onScroll = () => header.classList.toggle('scrolled', window.scrollY > threshold());
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll, { passive: true });
+      }
+    })();
+
+    // ---------- Scroll reveal ----------
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('in-view'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ---------- Modal open/close ----------
+    const overlay = document.getElementById('modalOverlay');
+    const closeBtn = document.getElementById('modalClose');
+    const formWrap = document.getElementById('formWrap');
+    const thanksPanel = document.getElementById('qThanks');
+
+    function openModal() {
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('heroCtaBtn').addEventListener('click', openModal);
+    document.getElementById('packageCtaBtn').addEventListener('click', openModal);
+    document.getElementById('ctaBtn').addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+
+    // ---------- Submit ----------
+    // Reuses the existing ROQ intake function/table (same contract as build.html's
+    // ROQ Framework modal) so this ships on proven infrastructure rather than a new
+    // endpoint. build_type is pinned to an existing valid value and stage/unsure_about
+    // are sent empty, since this form doesn't ask those questions.
+    const SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
+    const FUNCTION_URL = `${SUPABASE_URL}/functions/v1/groundbreakable-intake`;
+
+    const form = document.getElementById('intakeForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const errorEl = document.getElementById('qError');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const location = document.getElementById('qLocation').value.trim();
+      const name = document.getElementById('qName').value.trim();
+      const email = document.getElementById('qEmail').value.trim();
+      const phone = document.getElementById('qPhone').value.trim();
+
+      if (!location || !name || !email || !email.includes('@')) {
+        errorEl.textContent = 'Please enter your location, name, and a valid email address.';
+        errorEl.classList.add('visible');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+      errorEl.classList.remove('visible');
+
+      try {
+        const res = await fetch(FUNCTION_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            apikey: SUPABASE_ANON_KEY,
+            Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          },
+          body: JSON.stringify({
+            location,
+            name,
+            email,
+            phone,
+            build_type: 'Custom home',
+            build_type_other: 'FIELDSTONE Modern Farmhouse',
+            stage: '',
+            unsure_about: [],
+          }),
+        });
+
+        if (!res.ok) throw new Error('Request failed');
+
+        formWrap.style.display = 'none';
+        thanksPanel.classList.add('active');
+      } catch (err) {
+        errorEl.textContent = 'Something went wrong. Please try again.';
+        errorEl.classList.add('visible');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Request the FIELDSTONE Package';
+      }
+    });
+  </script>
+
+</body>
+</html>

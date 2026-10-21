@@ -17,13 +17,30 @@
   "@context": "https://schema.org",
   "@type": "Service",
   "name": "Dream Home Plan",
-  "description": "Dream Home Plan from ROQ Home: site feasibility, dimensioned floor plans, architectural drawings, and professional handoff documentation for your build.",
+  "serviceType": "Home planning",
+  "description": "Turn your vision into a personalized home concept with a custom floor plan, architectural design direction, and a clear path toward building.",
   "url": "https://roqhome.com/dream.html",
   "provider": {
     "@type": "Organization",
     "@id": "https://roqhome.com/#organization",
     "name": "ROQ Home",
     "url": "https://roqhome.com/"
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "United States"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://roqhome.com/dream.html",
+    "priceCurrency": "USD",
+    "price": "499",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "minPrice": "499",
+      "priceCurrency": "USD"
+    },
+    "availability": "https://schema.org/InStock"
   }
 }
 </script>
@@ -33,12 +50,14 @@
 <meta property="og:title" content="Dream Home Plan — Plan Your New Home Build | ROQ Home" />
 <meta property="og:description" content="Dream Home Plan from ROQ Home: site feasibility, dimensioned floor plans, architectural drawings, and professional handoff documentation for your build." />
 <meta property="og:url" content="https://roqhome.com/dream.html" />
-<meta property="og:image" content="https://roqhome.com/assets/hero/build-loop-desktop-poster.webp" />
+<meta property="og:image" content="https://roqhome.com/assets/share/dream.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Dream Home Plan — Plan Your New Home Build | ROQ Home" />
 <meta name="twitter:description" content="Dream Home Plan from ROQ Home: site feasibility, dimensioned floor plans, architectural drawings, and professional handoff documentation for your build." />
-<meta name="twitter:image" content="https://roqhome.com/assets/hero/build-loop-desktop-poster.webp" />
+<meta name="twitter:image" content="https://roqhome.com/assets/share/dream.jpg" />
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -576,7 +595,7 @@
     .footer-links a:last-child { border-bottom: none; }
   }
 </style>
-<link rel="stylesheet" href="/assets/plan-preview/plan-preview.css?v=3" />
+<link rel="stylesheet" href="/assets/plan-preview/plan-preview.css?v=4" />
 </head>
 <body>
 
@@ -620,6 +639,23 @@
       </ul>
       <button type="button" class="pagehero-cta" id="getStartedBtn" data-plan-preview="dream">Learn more</button>
     </div>
+  </section>
+
+  <!-- The plan details the Learn more overlay shows, as plain HTML so search
+       engines and screen readers get them without opening it. Visually
+       hidden; keep in step with PLANS in /assets/plan-preview/plan-preview.js. -->
+  <section class="pp-sr" aria-label="Dream Home Plan details">
+    <h2>Dream Home Plan: what&rsquo;s included</h2>
+    <p>Turn your vision into a personalized home concept with a custom floor plan, architectural design direction, and a clear path toward building.</p>
+    <ul>
+        <li>Preliminary site considerations</li>
+        <li>Custom conceptual floor plan</li>
+        <li>Architectural style &amp; design direction</li>
+        <li>Preliminary build budget guidance</li>
+        <li>Professional handoff roadmap</li>
+    </ul>
+    <p>Dream Home Plan starts at $499.</p>
+    <p>ROQ Home provides home planning and conceptual design guidance, not licensed architecture or engineering services. Floor plans are conceptual, feasibility reviews are preliminary, and cost guidance is estimated. Professional evaluation and approvals are required before construction.</p>
   </section>
 
   <footer>

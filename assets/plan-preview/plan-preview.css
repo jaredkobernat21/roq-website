@@ -581,3 +581,13 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
 }
 
 html.pp-locked, html.pp-locked body { overflow: hidden; }
+
+/* Plan details kept in the page for search engines and screen readers. */
+.pp-sr {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0; border: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
