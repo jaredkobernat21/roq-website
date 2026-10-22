@@ -940,7 +940,7 @@
       '<p class="pp-eyebrow">' + plan.name + '</p>' +
       '<h2 class="pp-title" id="ppTitle">Thank you' + (first ? ', ' + esc(first) : '') + '.</h2>' +
       '<p class="pp-lede">' + (wasPaid
-        ? 'Your payment is complete and your ' + plan.name + ' is underway. Stripe will email your receipt, and we&rsquo;ll follow up' + to + ' with next steps.'
+        ? 'Your payment is complete and your ' + plan.name + ' is underway. We&rsquo;ve sent a confirmation' + to + ', and your plan will arrive within 5 business days.'
         : 'Your request is in. We&rsquo;ll review it and follow up' + to + ' with next steps.') + '</p>' +
       '<button type="button" class="pp-btn" data-close>Close</button>';
     views.done.querySelector('[data-close]').addEventListener('click', close);
