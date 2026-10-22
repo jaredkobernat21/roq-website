@@ -248,9 +248,10 @@
         'Guaranteed renovation ROI'
       ],
       cross: { text: 'Already know what you&rsquo;d like to renovate?', link: 'Explore the Renovation Plan', to: 'renovation' },
-      fine: 'Home Value Potential is a research-informed home improvement strategy, not an appraisal, broker price opinion, ' +
-        'or certified valuation. Market observations reflect available information and are not a guarantee of value. ' +
-        'Cost ranges are preliminary estimates, and no improvement is guaranteed to increase resale value.',
+      fine: 'Home Value Potential is market research and home improvement guidance. ROQ Home is not a licensed real estate ' +
+        'broker, agent, or appraiser, and this is not an appraisal, broker price opinion, or certified valuation. Market ' +
+        'observations reflect publicly available information and are not a guarantee of value. Cost ranges are preliminary ' +
+        'estimates, and no improvement is guaranteed to increase resale value.',
       pages: [
         {
           label: 'Cover',
