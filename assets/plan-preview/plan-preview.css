@@ -252,6 +252,7 @@
 
 .pp-included li:last-child { border-bottom: 0; }
 .pp-included li span { font-size: 11px; letter-spacing: 0.08em; color: var(--pp-ink-faint); font-variant-numeric: tabular-nums; }
+.pp-included li small { display: block; margin-top: 3px; font-size: 13px; line-height: 1.5; color: var(--pp-ink-dim); }
 
 .pp-buy {
   display: flex;

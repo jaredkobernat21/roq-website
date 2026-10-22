@@ -1,6 +1,6 @@
 /* ROQ plan preview + intake.
    One overlay, configured per service in PLANS below. Any button with
-   data-plan-preview="dream" or "renovation" opens it; the button itself is
+   data-plan-preview="dream", "potential" or "renovation" opens it; the button itself is
    left exactly as the page styles it.
 
    Flow: preview (sample publication + what's included + price)
@@ -152,19 +152,97 @@
       visionHint: 'The setting, the feeling, the rooms that matter most…'
     },
 
+    potential: {
+      key: 'potential',
+      name: 'Home Value Potential',
+      price: '$199',
+      priceLabel: 'One-time purchase',
+      eyebrow: 'Home Value Potential',
+      title: 'Know what&rsquo;s worth improving.',
+      lede: 'Understand your home&rsquo;s market potential and discover which improvements may make financial sense. Get a personalized roadmap to invest thoughtfully and avoid over-renovating.',
+      included: [
+        { t: 'Home &amp; neighborhood value potential',
+          d: 'Comparable properties, neighborhood trends, and the market-supported value range for your home.' },
+        { t: 'Improvement opportunity analysis',
+          d: 'Which improvements may be worthwhile, and which may not justify their cost, given your home, goals, and timeline.' },
+        { t: 'Renovation priorities',
+          d: 'What deserves attention first, what to defer, and where you risk over-renovating.' },
+        { t: 'Value improvement roadmap',
+          d: 'A phased strategy with preliminary investment ranges, sequencing, and key decision points.' }
+      ],
+      pages: [
+        {
+          label: 'Cover',
+          alt: 'Sample cover: The Alder Court Residence, a modern home lit at dusk',
+          html: cover({
+            img: 'potential-cover.jpg',
+            issue: 'No. 03',
+            series: 'Home Value Potential',
+            shade: 0.3,
+            title: 'The Alder Court Residence',
+            sub: 'Where this home sits in its market, and which improvements are worth making.'
+          })
+        },
+        {
+          label: 'Value',
+          alt: 'Sample page: home and neighborhood value potential, over an aerial view of a residential street',
+          html: photoPage({
+            img: 'renovation-value.jpg', series: 'Home Value Potential', n: '03', shade: 0.36,
+            kicker: 'Chapter I &middot; Your market',
+            title: 'Home &amp; neighborhood value',
+            copy: 'Comparable homes, neighborhood trends, and the value range the market supports for a home like yours.',
+            foot: 'Market-supported range'
+          })
+        },
+        {
+          label: 'Priorities',
+          alt: 'Sample page: improvement opportunities and priorities, over a couple painting a room',
+          html: photoPage({
+            img: 'renovation-priorities.jpg', series: 'Home Value Potential', n: '07', shade: 0.42,
+            kicker: 'Chapter II &middot; Opportunities',
+            title: 'What&rsquo;s worth doing',
+            copy: 'Improvements ranked by cost, practical value, and resale contribution, including the ones to skip.',
+            foot: 'Opportunities &amp; priorities'
+          })
+        },
+        {
+          label: 'Roadmap',
+          alt: 'Sample page: value improvement roadmap, over a homeowner and contractor walking through a home',
+          html: photoPage({
+            img: 'renovation-roadmap.jpg', series: 'Home Value Potential', n: '12', shade: 0.4,
+            kicker: 'Chapter III &middot; The roadmap',
+            title: 'A phased roadmap',
+            copy: 'What to do now, what to do later, preliminary investment ranges, and the decisions along the way.',
+            foot: 'Value improvement roadmap'
+          })
+        }
+      ],
+      projectQuestion: 'What is your main goal?',
+      projects: ['Improve before selling', 'Improve and stay long-term', 'Deciding whether to renovate or move', 'Not sure yet'],
+      secondQuestion: 'How long do you plan to own the home?',
+      secondLabel: 'Ownership timeline',
+      secondError: 'Please choose how long you plan to own the home.',
+      seconds: ['Less than 2 years', '2–5 years', '5–10 years', '10+ years', 'Not sure yet'],
+      locationLabel: 'Home address',
+      locationRequired: true,
+      locationHint: 'Street address, city, and state',
+      visionLabel: 'Your home and goals, in a few words',
+      visionHint: 'Improvements you’ve considered, what’s dated or not working, what matters most…'
+    },
+
     renovation: {
       key: 'renovation',
       name: 'Renovation Plan',
       price: '$199',
       eyebrow: 'Renovation Plan',
-      title: 'Make more of the home you have.',
-      lede: 'Discover your home’s potential with thoughtful renovation priorities, budget guidance, and a personalized roadmap for your next project.',
+      title: 'Plan your project with confidence.',
+      lede: 'Design, budget, and plan one specific home improvement project, from first concept to a clear, step-by-step path to completion.',
       included: [
-        'Home &amp; neighborhood value assessment',
-        'Renovation priorities &amp; potential ROI scenarios',
+        'Project scope &amp; goals',
+        'Design concepts &amp; direction',
         'Preliminary project budget',
         'DIY vs. contractor guidance',
-        'Personalized renovation roadmap'
+        'Step-by-step project roadmap'
       ],
       pages: [
         {
@@ -176,48 +254,37 @@
             series: 'Renovation Plan',
             shade: 0.34,
             title: 'The Linden Street Kitchen',
-            sub: 'A considered plan for a warmer, brighter heart of the home, prioritized for value and everyday life.'
+            sub: 'A considered plan for a warmer, brighter heart of the home, from design to done.'
           })
         },
         {
-          label: 'Value',
-          alt: 'Sample page: home and neighborhood value, over an aerial view of a residential street',
+          label: 'Design',
+          alt: 'Sample page: scope and design concepts, over a homeowner and designer reviewing a floor plan',
           html: photoPage({
-            img: 'renovation-value.jpg', series: 'Renovation Plan', n: '03', shade: 0.36,
-            kicker: 'Chapter I &middot; Your home today',
-            title: 'Home &amp; neighborhood value',
-            copy: 'Where your home sits today, what the neighborhood supports, and how much room there is to improve.',
-            foot: 'Value assessment'
-          })
-        },
-        {
-          label: 'Priorities',
-          alt: 'Sample page: renovation priorities, over a couple painting a room',
-          html: photoPage({
-            img: 'renovation-priorities.jpg', series: 'Renovation Plan', n: '07', shade: 0.42,
-            kicker: 'Chapter II &middot; Priorities',
-            title: 'Where to begin',
-            copy: 'Projects ranked by value and everyday life, with potential ROI scenarios for each.',
-            foot: 'Priorities &amp; potential ROI'
+            img: 'renovation-design.jpg', series: 'Renovation Plan', n: '03', shade: 0.42,
+            kicker: 'Chapter I &middot; The design',
+            title: 'Scope &amp; design concepts',
+            copy: 'What the project includes, and a clear design direction for layout, materials, and finishes.',
+            foot: 'Scope &amp; design direction'
           })
         },
         {
           label: 'Budget &amp; roadmap',
-          alt: 'Sample page: budget and roadmap, over a homeowner and contractor walking through a renovation',
+          alt: 'Sample page: budget and roadmap, over two builders at work on a project',
           html: photoPage({
-            img: 'renovation-roadmap.jpg', series: 'Renovation Plan', n: '12', shade: 0.4,
-            kicker: 'Chapter III &middot; The plan',
+            img: 'renovation-execution.jpg', series: 'Renovation Plan', n: '09', shade: 0.4,
+            kicker: 'Chapter II &middot; The plan',
             title: 'Budget &amp; roadmap',
-            copy: 'A preliminary project budget, DIY vs. contractor guidance, and a step-by-step roadmap.',
+            copy: 'A preliminary project budget, DIY vs. contractor guidance, and a step-by-step path to completion.',
             foot: 'Preliminary budget &amp; roadmap'
           })
         }
       ],
-      projectQuestion: 'What are you planning?',
-      projects: ['Kitchen or bathroom renovation', 'Addition or major renovation', 'Multiple home improvements', 'Not sure yet'],
+      projectQuestion: 'Which project are you planning?',
+      projects: ['Kitchen', 'Bathroom', 'Basement or living space', 'Addition or major renovation', 'Exterior or outdoor space', 'Something else'],
       budgets: ['Under $20,000', '$20,000–$75,000', '$75,000–$200,000', 'Over $200,000', 'Not sure yet'],
       locationHint: 'Home address or city',
-      visionHint: 'What you’d like to change, and what’s not working today…'
+      visionHint: 'The project, what you’d like to change, and what’s not working today…'
     }
   };
 
@@ -396,14 +463,23 @@
       '<hr class="pp-rule" />' +
       '<h3 class="pp-included-title">What&rsquo;s included</h3>' +
       '<ul class="pp-included">' + plan.included.map(function (t, i) {
-        return '<li><span>0' + (i + 1) + '</span>' + t + '</li>';
+        // An item is a title, or { t: title, d: one-line description }.
+        var body = typeof t === 'string' ? t : '<div>' + t.t + '<small>' + t.d + '</small></div>';
+        return '<li><span>0' + (i + 1) + '</span>' + body + '</li>';
       }).join('') + '</ul>' +
       '<div class="pp-buy">' +
-        '<div><span class="pp-price-label">Starting at</span><span class="pp-price">' + plan.price + '</span></div>' +
+        '<div><span class="pp-price-label">' + (plan.priceLabel || 'Starting at') + '</span><span class="pp-price">' + plan.price + '</span></div>' +
         '<button type="button" class="pp-btn" data-go="project">Start My Plan</button>' +
       '</div>' +
       '<p class="pp-fine">' + DISCLAIMER + '</p>';
     v.querySelector('[data-go]').addEventListener('click', function () { show('project'); });
+  }
+
+  // The project step's second question: budget, unless the plan asks something else.
+  function second(p) {
+    return p.secondQuestion
+      ? { question: p.secondQuestion, label: p.secondLabel, error: p.secondError, options: p.seconds }
+      : { question: 'Estimated project budget', label: 'Budget', error: 'Please choose an estimated budget.', options: p.budgets };
   }
 
   function radios(name, legend, options, value) {
@@ -423,7 +499,7 @@
       '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">Tell us about your project.</h2>' +
       '<form novalidate>' +
         radios('pp-project', plan.projectQuestion, plan.projects, d.project) +
-        radios('pp-budget', 'Estimated project budget', plan.budgets, d.budget) +
+        radios('pp-budget', second(plan).question, second(plan).options, d.budget) +
         '<p class="pp-error" role="alert"></p>' +
         '<div class="pp-actions">' +
           '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
@@ -443,7 +519,7 @@
       e.preventDefault();
       var err = form.querySelector('.pp-error');
       if (!d.project) return fail(err, 'Please choose what you are planning.', form.querySelector('[name="pp-project"]'));
-      if (!d.budget) return fail(err, 'Please choose an estimated budget.', form.querySelector('[name="pp-budget"]'));
+      if (!d.budget) return fail(err, second(plan).error, form.querySelector('[name="pp-budget"]'));
       show('details');
     });
   }
@@ -472,8 +548,8 @@
         field('pp-name', 'Full name', 'text', d.name, { auto: 'name', max: 120 }) +
         field('pp-email', 'Email', 'email', d.email, { auto: 'email', hint: 'you@example.com' }) +
         field('pp-phone', 'Phone', 'tel', d.phone, { auto: 'tel', optional: true, max: 40 }) +
-        field('pp-location', 'Property location', 'text', d.location, { auto: 'street-address', optional: true, hint: plan.locationHint, max: 300 }) +
-        field('pp-vision', 'Your project or vision, in a few words', 'textarea', d.vision, { hint: plan.visionHint, max: 1000 }) +
+        field('pp-location', plan.locationLabel || 'Property location', 'text', d.location, { auto: 'street-address', optional: !plan.locationRequired, hint: plan.locationHint, max: 300 }) +
+        field('pp-vision', plan.visionLabel || 'Your project or vision, in a few words', 'textarea', d.vision, { hint: plan.visionHint, max: 1000 }) +
         '<p class="pp-error" role="alert"></p>' +
         '<div class="pp-actions">' +
           '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
@@ -501,6 +577,7 @@
       if (!d.name) return fail(err, 'Please enter your full name.', form['pp-name']);
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return fail(err, 'Please enter a valid email address.', form['pp-email']);
       if (d.phone && d.phone.replace(/\D/g, '').length < 10) return fail(err, 'Please enter a valid phone number, or leave it blank.', form['pp-phone']);
+      if (plan.locationRequired && d.location.length < 8) return fail(err, 'Please enter your home address.', form['pp-location']);
       if (!d.vision) return fail(err, 'Please tell us a little about your project.', form['pp-vision']);
       show('review');
     });
@@ -516,10 +593,10 @@
       '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">Review your request</h2>' +
       '<div class="pp-review">' +
         '<div class="pp-review-group"><div class="pp-review-head"><h4>Service</h4></div><dl>' +
-          row('Plan', plan.name) + row('Price', 'Starting at ' + plan.price) + '</dl></div>' +
+          row('Plan', plan.name) + row('Price', (plan.priceLabel ? plan.price + ' · ' + plan.priceLabel : 'Starting at ' + plan.price)) + '</dl></div>' +
         '<div class="pp-review-group"><div class="pp-review-head"><h4>Project</h4>' +
           '<button type="button" class="pp-edit" data-edit="project" aria-label="Edit project">Edit</button></div><dl>' +
-          row('Project', d.project) + row('Budget', d.budget) + '</dl></div>' +
+          row(plan.secondQuestion ? 'Goal' : 'Project', d.project) + row(second(plan).label, d.budget) + '</dl></div>' +
         '<div class="pp-review-group"><div class="pp-review-head"><h4>Details</h4>' +
           '<button type="button" class="pp-edit" data-edit="details" aria-label="Edit details">Edit</button></div><dl>' +
           row('Name', d.name) + row('Email', d.email) + row('Phone', d.phone) +
@@ -586,7 +663,7 @@
     var summary = [
       p.name + ' (' + p.price + ')',
       d.project,
-      'Budget: ' + d.budget,
+      second(p).label + ': ' + d.budget,
       'Name: ' + d.name,
       'Phone: ' + (d.phone || '—'),
       'Location: ' + (loc || '—'),

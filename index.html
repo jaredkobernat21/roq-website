@@ -40,7 +40,7 @@
   "legalName": "ROQ Innovation LLC",
   "url": "https://roqhome.com/",
   "logo": "https://roqhome.com/assets/roq-share.png",
-  "description": "ROQ Home helps homeowners make better home decisions: an iPhone app to manage the home you own, the Dream Home Plan for a new build, and renovation planning.",
+  "description": "ROQ Home helps homeowners make better home decisions: an iPhone app to manage the home you own, the Dream Home Plan for a new build, Home Value Potential for deciding what is worth improving, and renovation planning.",
   "email": "support@roqhome.com",
   "address": {
     "@type": "PostalAddress",
@@ -1264,7 +1264,7 @@
     .appstore-btn { padding: 15px 28px 15px 24px; }
   }
 </style>
-<link rel="stylesheet" href="/assets/plan-preview/plan-preview.css?v=4" />
+<link rel="stylesheet" href="/assets/plan-preview/plan-preview.css?v=5" />
 </head>
 <body>
 
@@ -1277,6 +1277,7 @@
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
       <a href="/dream.html">Dream</a>
+      <a href="/potential.html">Potential</a>
       <a href="/renovate.html">Renovate</a>
       <a href="/atmospheres.html">Atmospheres</a>
       <a href="/solutions.html">Solutions</a>
@@ -1326,6 +1327,22 @@
     </div>
   </section>
 
+  <section class="pagehero" id="potential">
+    <picture>
+      <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/projects-loop-mobile-poster.webp?v=1" />
+      <img class="pagehero-img" src="/assets/hero/projects-loop-desktop-poster.webp?v=1" width="1920" height="1080"
+           alt="A modern home with solar panels, lit up at dusk" loading="lazy" />
+    </picture>
+    <video class="pagehero-video" id="potentialVideo" muted loop playsinline
+           preload="none" disablepictureinpicture aria-hidden="true" tabindex="-1"></video>
+    <div class="pagehero-scrim"></div>
+    <div class="pagehero-body">
+      <h2 class="pagehero-headline pagehero-headline--sans">Home Value Potential</h2>
+      <p class="pagehero-sub">Know your home&rsquo;s potential. Invest with purpose.</p>
+      <button type="button" class="pagehero-cta" id="potentialBtn" data-plan-preview="potential">Learn more</button>
+    </div>
+  </section>
+
   <section class="pagehero" id="renovate">
     <picture>
       <source media="(max-aspect-ratio: 1/1)" srcset="/assets/hero/renovate-loop-mobile-poster.webp?v=1" />
@@ -1337,7 +1354,7 @@
     <div class="pagehero-scrim"></div>
     <div class="pagehero-body">
       <h2 class="pagehero-headline pagehero-headline--sans">Renovation Plan</h2>
-      <p class="pagehero-sub">Discover your neighborhood ceiling to keep your renovations intentional, with design concepts and a project budget.</p>
+      <p class="pagehero-sub">Design, budget, and plan your next project, with design concepts and a step-by-step roadmap.</p>
       <button type="button" class="pagehero-cta" id="spaceBtn" data-plan-preview="renovation">Learn more</button>
     </div>
   </section>
@@ -1721,6 +1738,52 @@
   </script>
 
   <script>
+    /* Potential loop: same portrait/landscape cuts as the Potential page. It sits
+       below the fold, so nothing is fetched until it is nearly on screen. */
+    (function () {
+      var video = document.getElementById('potentialVideo');
+      if (!video) return;
+
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      var conn = navigator.connection || {};
+      if (reduce.matches || conn.saveData) return;   // poster only
+
+      var portrait = window.matchMedia('(max-aspect-ratio: 1/1)');
+      var current = null;
+
+      function load() {
+        var src = '/assets/hero/projects-loop-' + (portrait.matches ? 'mobile' : 'desktop') + '.mp4?v=1';
+        if (src === current) return;
+        current = src;
+        video.classList.remove('is-playing');
+        video.muted = true;               // required for autoplay; set as a property for iOS
+        video.src = src;
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});   // autoplay refused: poster stays
+      }
+
+      video.addEventListener('playing', function () {
+        video.classList.add('is-playing');
+      });
+
+      // Rotating a phone or tablet swaps cuts, once a cut has been loaded.
+      if (portrait.addEventListener) portrait.addEventListener('change', function () {
+        if (current) load();
+      });
+
+      if (!('IntersectionObserver' in window)) { load(); return; }
+
+      // Load when it comes near the viewport; pause while it is off screen.
+      new IntersectionObserver(function (entries) {
+        if (!entries[0].isIntersecting) { video.pause(); return; }
+        if (!current) { load(); return; }
+        var p = video.play();
+        if (p && p.catch) p.catch(function () {});
+      }, { rootMargin: '400px 0px' }).observe(video);
+    })();
+  </script>
+
+  <script>
     /* Renovate loop: same portrait/landscape cuts as the Renovate page. It sits
        below the fold, so nothing is fetched until it is nearly on screen. */
     (function () {
@@ -1885,6 +1948,6 @@
       });
     })();
   </script>
-  <script src="/assets/plan-preview/plan-preview.js?v=3" defer></script>
+  <script src="/assets/plan-preview/plan-preview.js?v=4" defer></script>
 </body>
 </html>
