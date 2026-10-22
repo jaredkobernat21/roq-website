@@ -67,9 +67,23 @@ Deno.serve(async (req: Request) => {
 
   const planKey = text(body.plan, 40);
   const plan = PLANS[planKey];
-  const priceId = plan ? Deno.env.get(plan.priceEnv) : undefined;
+  let priceId = plan ? Deno.env.get(plan.priceEnv) : undefined;
   if (!plan || !priceId) {
     return jsonResponse({ error: "This plan isn't available for purchase yet." }, 400);
+  }
+
+  // The secret may hold a Product ID (prod_...) instead of a Price ID; use
+  // that product's default price.
+  if (priceId.startsWith("prod_")) {
+    const productRes = await fetch(`https://api.stripe.com/v1/products/${encodeURIComponent(priceId)}`, {
+      headers: { Authorization: `Bearer ${stripeKey}` },
+    }).catch(() => null);
+    const product = productRes && productRes.ok ? await productRes.json().catch(() => null) : null;
+    const defaultPrice = typeof product?.default_price === "string" ? product.default_price : product?.default_price?.id;
+    if (!defaultPrice) {
+      return jsonResponse({ error: "This plan isn't available for purchase yet." }, 400);
+    }
+    priceId = defaultPrice;
   }
 
   const address = text(body.address, 300);
