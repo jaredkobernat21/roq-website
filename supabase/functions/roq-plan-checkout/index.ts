@@ -51,7 +51,9 @@ Deno.serve(async (req: Request) => {
     return jsonResponse({ error: "Method not allowed" }, 405);
   }
 
-  const stripeKey = Deno.env.get("ROQ_STRIPE_SECRET_KEY");
+  // ROQ's Stripe account key. Falls back to the key already set for bank
+  // linking (bank-link / stripe-webhook) when no ROQ-specific key is set.
+  const stripeKey = Deno.env.get("ROQ_STRIPE_SECRET_KEY") || Deno.env.get("BANK_STRIPE_SECRET_KEY");
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
   const serviceRoleKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
   if (!stripeKey || !supabaseUrl || !serviceRoleKey) {
