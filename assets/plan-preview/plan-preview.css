@@ -523,6 +523,7 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
 .pp-review dd { margin: 0; color: var(--pp-ink); overflow-wrap: anywhere; white-space: pre-line; }
 
 .pp-submit-note { margin: 18px 0 0; font-size: 13px; line-height: 1.55; color: var(--pp-ink-dim); }
+.pp-notice { margin: 14px 0 0; padding: 12px 14px; border-left: 2px solid #C2873F; background: var(--pp-paper); font-size: 13.5px; line-height: 1.5; color: var(--pp-ink); }
 
 .pp-done { justify-content: center; }
 .pp-done .pp-title { max-width: 16ch; }

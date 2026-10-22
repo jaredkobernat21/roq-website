@@ -6,12 +6,15 @@
    Flow: preview (sample publication + what's included + price)
          -> Start My Plan -> the plan's own intake steps -> Review -> submitted.
 
-   There is no Stripe checkout for these plans yet (the only checkout on the
-   site is the $10 Property Fingerprint), so the review step sends a real
-   request through project-potential-intake, the same endpoint every intake
-   form on the site uses, and shows a confirmation only once it succeeds.
-   When checkout exists, swap submitRequest() for a call that returns the
-   Stripe URL and redirect to it. */
+   Plans marked `checkout` are paid through Stripe: the review step sends the
+   answers to roq-plan-checkout, which saves a pending order and returns a
+   Stripe Checkout URL; Stripe sends the customer back with ?checkout=success
+   or ?checkout=cancelled, handled in resumeFromCheckout(). Every other plan
+   sends a free request through project-potential-intake, the endpoint every
+   intake form on the site uses.
+
+   CHECKOUT_LIVE keeps payment off for visitors until it has been tested.
+   Opening any page with ?pay=test turns it on for that browser tab. */
 
 (function () {
   'use strict';
@@ -19,6 +22,8 @@
   var SUPABASE_URL = 'https://pgcospvlhorcvssafjoo.supabase.co';
   var SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
   var FUNCTION_URL = SUPABASE_URL + '/functions/v1/project-potential-intake';
+  var CHECKOUT_URL = SUPABASE_URL + '/functions/v1/roq-plan-checkout';
+  var CHECKOUT_LIVE = false;
   var ASSETS = '/assets/plan-preview/';
 
   var DISCLAIMER =
@@ -226,6 +231,7 @@
       name: 'Home Value Potential',
       price: '$199',
       priceLabel: 'One-time purchase',
+      checkout: true,
       eyebrow: 'Home Value Potential',
       title: 'Know what&rsquo;s worth improving.',
       lede: 'Understand your home&rsquo;s market potential and discover which improvements may make financial sense. Get a personalized roadmap to invest thoughtfully and avoid over-renovating.',
@@ -867,6 +873,10 @@
   function renderReview() {
     var d = data[plan.key];
     var v = views.review;
+    var pay = paid(plan);
+    var label = pay ? 'Continue to Payment' : 'Submit Request';
+    var notice = reviewNotice;
+    reviewNotice = '';
     function row(k, val) { return '<dt>' + k + '</dt><dd>' + esc(val || '—') + '</dd>'; }
     v.innerHTML =
       steps(plan.steps.length) +
@@ -881,11 +891,14 @@
             s.fields.map(function (f) { return row(f.short, display(d[f.id])); }).join('') + '</dl></div>';
         }).join('') +
       '</div>' +
-      '<p class="pp-submit-note">No payment is due today. We&rsquo;ll review your request and follow up by email with next steps.</p>' +
+      '<p class="pp-submit-note">' + (pay
+        ? 'Next, you&rsquo;ll pay ' + plan.price + ' securely through Stripe. We&rsquo;ll begin once your payment is confirmed and follow up by email.'
+        : 'No payment is due today. We&rsquo;ll review your request and follow up by email with next steps.') + '</p>' +
+      (notice ? '<p class="pp-notice">' + notice + '</p>' : '') +
       '<p class="pp-error" role="alert"></p>' +
       '<div class="pp-actions">' +
         '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
-        '<button type="button" class="pp-btn" data-submit>Submit Request</button>' +
+        '<button type="button" class="pp-btn" data-submit>' + label + '</button>' +
       '</div>';
 
     v.querySelectorAll('[data-edit]').forEach(function (b) {
@@ -897,8 +910,16 @@
       var err = v.querySelector('.pp-error');
       err.classList.remove('is-visible');
       btn.disabled = true;
-      btn.textContent = 'Sending…';
+      btn.textContent = pay ? 'Opening checkout…' : 'Sending…';
       var sent = plan;
+      if (pay) {
+        startCheckout(sent, d).catch(function (e) {
+          btn.disabled = false;
+          btn.textContent = label;
+          fail(err, e.message || 'Could not start checkout. Please try again.');
+        });
+        return;
+      }
       submitRequest(sent, d).then(function () {
         submitted[sent.key] = true;
         if (plan !== sent) return;
@@ -906,19 +927,21 @@
         show('done');
       }).catch(function (e) {
         btn.disabled = false;
-        btn.textContent = 'Submit Request';
+        btn.textContent = label;
         fail(err, e.message || 'Could not send your request. Please try again.');
       });
     });
   }
 
-  function renderDone(d) {
+  function renderDone(d, wasPaid) {
     var first = (d.name || '').split(/\s+/)[0];
+    var to = d.email ? ' at <strong>' + esc(d.email) + '</strong>' : ' by email';
     views.done.innerHTML =
       '<p class="pp-eyebrow">' + plan.name + '</p>' +
       '<h2 class="pp-title" id="ppTitle">Thank you' + (first ? ', ' + esc(first) : '') + '.</h2>' +
-      '<p class="pp-lede">Your request is in. We&rsquo;ll review it and follow up at <strong>' +
-        esc(d.email) + '</strong> with next steps.</p>' +
+      '<p class="pp-lede">' + (wasPaid
+        ? 'Your payment is complete and your ' + plan.name + ' is underway. Stripe will email your receipt, and we&rsquo;ll follow up' + to + ' with next steps.'
+        : 'Your request is in. We&rsquo;ll review it and follow up' + to + ' with next steps.') + '</p>' +
       '<button type="button" class="pp-btn" data-close>Close</button>';
     views.done.querySelector('[data-close]').addEventListener('click', close);
   }
@@ -939,12 +962,19 @@
      project_type, which is the line the notification email leads with: the
      plan and price, then the first answer unlabelled, then the rest. */
 
-  function submitRequest(p, d) {
+  function allFields(p) {
     var fields = [];
     p.steps.forEach(function (s) { fields = fields.concat(s.fields); });
-    var addrField = fields.filter(function (f) { return f.address; })[0];
-    var loc = addrField ? d[addrField.id] || '' : '';
-    var address = !loc ? 'Not provided' : (loc.length >= 8 ? loc : loc + ' (as entered)');
+    return fields;
+  }
+
+  function addressOf(p, d) {
+    var addrField = allFields(p).filter(function (f) { return f.address; })[0];
+    return addrField ? d[addrField.id] || '' : '';
+  }
+
+  function summaryOf(p, d) {
+    var fields = allFields(p);
 
     // The first answer after the address leads, unlabelled. Optional
     // questions left blank are dropped to keep the email readable.
@@ -956,7 +986,31 @@
       if (!val && f.optional && f.id !== 'phone' && f.id !== 'location') return;
       parts.push(f === lead ? val : f.short + ': ' + (val || '—'));
     });
+    return parts.join(' | ');
+  }
 
+  function post(url, body) {
+    return fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: SUPABASE_ANON_KEY,
+        Authorization: 'Bearer ' + SUPABASE_ANON_KEY
+      },
+      body: JSON.stringify(body)
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (b) {
+        if (!res.ok || b.error) throw new Error(b.error || 'Something went wrong. Please try again.');
+        return b;
+      });
+    }, function () {
+      throw new Error('We couldn’t reach our server. Check your connection and try again.');
+    });
+  }
+
+  function submitRequest(p, d) {
+    var loc = addressOf(p, d);
+    var address = !loc ? 'Not provided' : (loc.length >= 8 ? loc : loc + ' (as entered)');
     return fetch(FUNCTION_URL, {
       method: 'POST',
       headers: {
@@ -964,7 +1018,7 @@
         apikey: SUPABASE_ANON_KEY,
         Authorization: 'Bearer ' + SUPABASE_ANON_KEY
       },
-      body: JSON.stringify({ address: address, project_type: parts.join(' | '), contact: d.email, contact_method: 'email' })
+      body: JSON.stringify({ address: address, project_type: summaryOf(p, d), contact: d.email, contact_method: 'email' })
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
         if (!res.ok || !body.ok) throw new Error(body.error || 'Could not send your request. Please try again.');
@@ -972,6 +1026,64 @@
     }, function () {
       throw new Error('We couldn’t reach our server. Check your connection and try again.');
     });
+  }
+
+  /* ---------- Stripe checkout ----------
+     The answers are kept in sessionStorage across the trip to Stripe, so a
+     cancelled checkout comes back to the review step with nothing lost. */
+
+  var DRAFT = 'roq-plan-draft-';
+  var reviewNotice = '';
+
+  function store(fn) { try { return fn(window.sessionStorage); } catch (e) { return null; } }
+
+  function paid(p) {
+    return !!p.checkout && (CHECKOUT_LIVE || store(function (s) { return s.getItem('roq-pay-test') === '1'; }) === true);
+  }
+
+  function startCheckout(p, d) {
+    store(function (s) { s.setItem(DRAFT + p.key, JSON.stringify(d)); });
+    return post(CHECKOUT_URL, {
+      plan: p.key,
+      address: addressOf(p, d),
+      email: d.email,
+      summary: summaryOf(p, d),
+      intake: d,
+      origin: location.origin
+    }).then(function (b) {
+      if (!b.url) throw new Error('Could not start checkout. Please try again.');
+      location.assign(b.url);
+    });
+  }
+
+  function resumeFromCheckout() {
+    var q = new URLSearchParams(location.search);
+    if (q.get('pay') === 'test') store(function (s) { s.setItem('roq-pay-test', '1'); });
+    var result = q.get('checkout');
+    if (result !== 'success' && result !== 'cancelled') return;
+
+    // Back from Stripe: this page's plan is the one its Learn more button opens.
+    var b = document.querySelector('[data-plan-preview]');
+    var key = b && b.getAttribute('data-plan-preview');
+    if (!PLANS[key]) return;
+    var draft = store(function (s) { return JSON.parse(s.getItem(DRAFT + key) || 'null'); }) || {};
+
+    q.delete('checkout');
+    q.delete('session_id');
+    history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
+
+    if (result === 'success') {
+      store(function (s) { s.removeItem(DRAFT + key); });
+      open(key, b);
+      submitted[key] = true;
+      renderDone(draft, true);
+      show('done');
+    } else {
+      data[key] = draft;
+      reviewNotice = 'Checkout was cancelled, so you haven&rsquo;t been charged. Your answers are saved below.';
+      open(key, b);
+      show(draft.email ? 'review' : 'preview');
+    }
   }
 
   /* ---------- Wire up the existing Learn more buttons ---------- */
@@ -982,6 +1094,9 @@
     e.preventDefault();
     open(b.getAttribute('data-plan-preview'), b);
   });
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', resumeFromCheckout);
+  else resumeFromCheckout();
 
   window.ROQPlanPreview = { open: open, close: close };
 })();
