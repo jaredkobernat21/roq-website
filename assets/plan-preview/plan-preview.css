@@ -1,5 +1,5 @@
 /* ROQ plan preview + intake overlay.
-   Opened by any [data-plan-preview="dream" | "renovation"] button; built and
+   Opened by any [data-plan-preview="dream" | "potential" | "renovation"] button; built and
    driven by plan-preview.js. Every rule is scoped under .pp so nothing here
    reaches the page underneath. Sample publication pages are sized in cqw so
    one set of markup renders both the large preview and the thumbnails. */
@@ -98,12 +98,40 @@
   min-height: 0;
 }
 
-.pp-book {
+.pp-book-wrap {
   position: relative;
   width: min(100%, 440px, calc((100vh - 64px - 220px) * 0.75));
+}
+
+.pp-book {
+  position: relative;
+  width: 100%;
   aspect-ratio: 3 / 4;
   margin: 0;
+  cursor: zoom-in;
 }
+
+/* Opens the current page full screen, where the report pages read comfortably. */
+.pp-enlarge {
+  position: absolute;
+  right: -50px;
+  bottom: 0;
+  z-index: 2;
+  width: 38px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--pp-line);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  color: var(--pp-ink);
+  cursor: pointer;
+  transition: background 0.25s var(--pp-ease), border-color 0.25s var(--pp-ease);
+}
+
+.pp-enlarge:hover { background: var(--pp-white); border-color: rgba(28,27,24,0.3); }
+.pp-enlarge svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
 
 .pp-book .pp-page {
   position: absolute;
@@ -131,7 +159,7 @@
 .pp-thumbs {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 86px;
+  grid-auto-columns: 92px;
   gap: 6px;
   margin: 0;
   padding: 0;
@@ -291,6 +319,40 @@
 .pp-btn--quiet { background: transparent; color: var(--pp-ink); border-color: var(--pp-line); }
 .pp-btn--quiet:hover { background: transparent; border-color: rgba(28,27,24,0.4); }
 
+/* Service boundaries, folded away under What's included. */
+.pp-excluded { margin-top: 14px; font-size: 13.5px; color: var(--pp-ink-dim); }
+.pp-excluded summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  color: var(--pp-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  list-style: none;
+}
+.pp-excluded summary::-webkit-details-marker { display: none; }
+.pp-excluded summary::after { content: "+"; text-decoration: none; color: var(--pp-ink-faint); }
+.pp-excluded[open] summary::after { content: "\2013"; }
+.pp-excluded ul { margin: 8px 0 0; padding: 0 0 0 18px; line-height: 1.7; }
+
+/* One quiet line pointing to the companion service. */
+.pp-cross { margin: 18px 0 0; font-size: 13.5px; line-height: 1.55; color: var(--pp-ink-dim); }
+
+.pp-link {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--pp-ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+.pp-link:hover { color: var(--pp-ink-dim); }
+
 .pp-fine {
   margin: auto 0 0;
   padding-top: 30px;
@@ -376,12 +438,16 @@
   transition: border-color 0.2s var(--pp-ease), box-shadow 0.2s var(--pp-ease);
 }
 
+.pp-choice--check input { border-radius: 3px; }
 .pp-choice input:checked { border-color: var(--pp-ink); box-shadow: inset 0 0 0 4px #FFFFFF, inset 0 0 0 9px var(--pp-ink); }
 .pp-choice:has(input:checked) { color: var(--pp-ink); }
 .pp-choice input:focus-visible { outline: 2px solid var(--pp-ink); outline-offset: 3px; }
 
 .pp-field { display: block; margin-top: 20px; }
-.pp-field:first-of-type { margin-top: 26px; }
+.pp-field:first-child { margin-top: 26px; }
+.pp-fieldset + .pp-field { margin-top: 32px; }
+.pp-field + .pp-fieldset { margin-top: 32px; }
+.pp-field-note { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--pp-ink-faint); }
 
 .pp-label {
   display: block;
@@ -513,6 +579,103 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
 .pp-photo .pp-page-head { border-bottom-color: rgba(255,255,255,0.85); color: #FFFFFF; text-shadow: 0 0 4cqw rgba(0,0,0,0.4); }
 .pp-photo-kicker { margin-bottom: 2.4cqw; font-size: 2.3cqw; letter-spacing: 0.22em; text-transform: uppercase; opacity: 0.9; }
 
+/* Report pages: the deliverable itself, set in type on paper */
+.pp-report .pp-page-inner { padding: 7cqw 7.5cqw 5.5cqw 9cqw; }
+.pp-report-kicker { margin-top: 3.6cqw; font-size: 2.2cqw; letter-spacing: 0.22em; text-transform: uppercase; color: var(--pp-ink-faint); }
+.pp-report-title { margin: 1.2cqw 0 0; font-family: var(--pp-serif); font-size: 6.2cqw; font-weight: 400; line-height: 1.05; letter-spacing: -0.01em; }
+.pp-report-sub { margin: 1.4cqw 0 0; font-size: 2.5cqw; letter-spacing: 0.04em; color: var(--pp-ink-dim); }
+
+.pp-report-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3cqw;
+  margin: 3cqw 0 0;
+  padding: 2.2cqw 0;
+  border-top: 0.15cqw solid var(--pp-line);
+  border-bottom: 0.15cqw solid var(--pp-line);
+}
+.pp-report-facts dt { font-size: 1.9cqw; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pp-ink-faint); }
+.pp-report-facts dd { margin: 0.8cqw 0 0; font-size: 2.35cqw; line-height: 1.35; }
+
+.pp-report-table { width: 100%; margin-top: 3cqw; border-collapse: collapse; font-size: 2.7cqw; line-height: 1.28; }
+.pp-report-table th {
+  padding: 0 0 1.3cqw;
+  border-bottom: 0.25cqw solid var(--pp-ink);
+  font-size: 1.9cqw;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-align: left;
+  text-transform: uppercase;
+  color: var(--pp-ink-faint);
+}
+.pp-report-table td { padding: 1.35cqw 0; border-bottom: 0.15cqw solid var(--pp-line); vertical-align: baseline; }
+.pp-report-table td + td, .pp-report-table th + th { padding-left: 2.4cqw; }
+.pp-report-table .pp-rank { width: 8cqw; color: var(--pp-ink-faint); font-variant-numeric: tabular-nums; }
+.pp-report-table .pp-num { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.pp-report-table tfoot td { border-top: 0.25cqw solid var(--pp-ink); border-bottom: 0; font-weight: 600; }
+
+.pp-report-note {
+  margin-top: 3cqw;
+  padding: 2.4cqw 3cqw;
+  border-left: 0.5cqw solid #C2873F;
+  background: rgba(28,27,24,0.045);
+}
+.pp-report-note span { font-size: 1.9cqw; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pp-ink-faint); }
+.pp-report-note p { margin: 1cqw 0 0; font-family: var(--pp-serif); font-size: 2.6cqw; line-height: 1.42; }
+.pp-report-fine { margin: auto 0 0; padding-top: 2cqw; font-size: 1.95cqw; line-height: 1.5; color: var(--pp-ink-faint); }
+
+/* ---------- Enlarged page ---------- */
+
+.pp-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  padding: 24px;
+  background: rgba(20,18,14,0.94);
+  animation: pp-fade 0.3s var(--pp-ease) both;
+}
+
+.pp-zoom[hidden] { display: none; }
+
+@keyframes pp-fade { from { opacity: 0; } to { opacity: 1; } }
+
+.pp-zoom-page {
+  position: relative;
+  width: min(100%, calc((100vh - 120px) * 0.75));
+  width: min(100%, calc((100svh - 120px) * 0.75));
+  aspect-ratio: 3 / 4;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+}
+
+.pp-zoom-page .pp-page { position: absolute; inset: 0; }
+
+.pp-zoom-close,
+.pp-zoom-nav {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 50%;
+  background: transparent;
+  color: #FFFFFF;
+  cursor: pointer;
+  transition: background 0.25s var(--pp-ease), border-color 0.25s var(--pp-ease);
+}
+
+.pp-zoom-close:hover,
+.pp-zoom-nav:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.7); }
+.pp-zoom-close { position: absolute; top: 18px; right: 18px; }
+.pp-zoom-close svg, .pp-zoom-nav svg { width: 15px; height: 15px; stroke: currentColor; stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.pp-zoom-bar { display: flex; align-items: center; gap: 18px; color: rgba(255,255,255,0.8); font-size: 12px; letter-spacing: 0.14em; font-variant-numeric: tabular-nums; }
+.pp :focus-visible.pp-zoom-close, .pp-zoom :focus-visible { outline-color: #FFFFFF; }
+
 /* ---------- Mobile: one full-screen scrolling column ---------- */
 
 @media (max-width: 860px) {
@@ -532,7 +695,7 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
   .pp-close { position: fixed; top: 14px; right: 14px; }
 
   .pp-stage { padding: 72px 0 28px; gap: 22px; }
-  .pp-book { width: min(72vw, 360px); }
+  .pp-book-wrap { width: min(72vw, 360px); }
 
   .pp-thumbs {
     display: flex;
@@ -545,7 +708,7 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
   }
 
   .pp-thumbs::-webkit-scrollbar { display: none; }
-  .pp-thumbs li { flex: none; width: 88px; scroll-snap-align: start; }
+  .pp-thumbs li { flex: none; width: 92px; scroll-snap-align: start; }
   .pp-thumbs li:first-child { margin-left: auto; }
   .pp-thumbs li:last-child { margin-right: auto; }
   .pp-sample-note { padding: 0 24px; }
@@ -566,6 +729,8 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
     background: #FFFFFF;
   }
 
+  .pp-steps { gap: 6px; }
+  .pp-steps li { font-size: 10.5px; letter-spacing: 0.08em; }
   .pp-price { font-size: 28px; }
   .pp-btn { min-height: 52px; padding: 0 26px; }
   .pp-actions { flex-direction: column-reverse; align-items: stretch; }
@@ -574,10 +739,15 @@ textarea.pp-input { min-height: 112px; resize: vertical; line-height: 1.5; }
   .pp-review dl { grid-template-columns: 1fr; gap: 2px; }
   .pp-review dt { margin-top: 8px; }
   .pp-review dt:first-child { margin-top: 0; }
+
+  .pp-zoom { padding: 64px 12px 20px; }
+  .pp-zoom-page { width: min(100%, calc((100vh - 150px) * 0.75)); width: min(100%, calc((100svh - 150px) * 0.75)); }
+  .pp-zoom-close { top: 12px; right: 12px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .pp, .pp-panel, .pp-book .pp-page { transition: none; }
+  .pp-zoom { animation: none; }
   .pp-view.is-active { animation: none; }
 }
 

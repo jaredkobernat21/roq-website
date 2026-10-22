@@ -1,10 +1,10 @@
 /* ROQ plan preview + intake.
    One overlay, configured per service in PLANS below. Any button with
-   data-plan-preview="dream", "potential" or "renovation" opens it; the button itself is
-   left exactly as the page styles it.
+   data-plan-preview="dream", "potential" or "renovation" opens it; the
+   button itself is left exactly as the page styles it.
 
    Flow: preview (sample publication + what's included + price)
-         -> Start My Plan -> 1 Project -> 2 Details -> 3 Review -> submitted.
+         -> Start My Plan -> the plan's own intake steps -> Review -> submitted.
 
    There is no Stripe checkout for these plans yet (the only checkout on the
    site is the $10 Property Fingerprint), so the review step sends a real
@@ -27,8 +27,9 @@
     'guidance is estimated. Professional evaluation and approvals are required before construction.';
 
   /* ---------- Sample publication pages ----------
-     Full-bleed photo pages with chapter titles only: no dimensions, no dollar
-     figures. They show the shape of the deliverable, not anyone's results. */
+     Full-bleed photo pages carry chapter titles only. Each plan also has one
+     report page set in type, showing what the deliverable actually reads
+     like, with fictional figures that are labelled as such. */
 
   function head(series, n) {
     return '<div class="pp-page-head"><span>ROQ &middot; ' + series + '</span><span>' + n + '</span></div>';
@@ -72,6 +73,61 @@
     );
   }
 
+  // A typeset report page: optional fact row, a table, and ROQ's recommendation.
+  function reportPage(o) {
+    var facts = o.facts ? '<dl class="pp-report-facts">' + o.facts.map(function (f) {
+      return '<div><dt>' + f[0] + '</dt><dd>' + f[1] + '</dd></div>';
+    }).join('') + '</dl>' : '';
+    var cols = o.table.cols;
+    function cells(row, tag) {
+      return row.map(function (c, i) {
+        var cls = cols[i].cls ? ' class="' + cols[i].cls + '"' : '';
+        return '<' + tag + cls + '>' + c + '</' + tag + '>';
+      }).join('');
+    }
+    return (
+      '<div class="pp-page pp-report">' +
+        '<div class="pp-page-inner">' +
+          head(o.series, o.n) +
+          '<div class="pp-report-kicker">' + o.kicker + '</div>' +
+          '<h3 class="pp-report-title">' + o.title + '</h3>' +
+          '<p class="pp-report-sub">' + o.sub + '</p>' +
+          facts +
+          '<table class="pp-report-table">' +
+            '<thead><tr>' + cells(cols.map(function (c) { return c.label; }), 'th') + '</tr></thead>' +
+            '<tbody>' + o.table.rows.map(function (r) { return '<tr>' + cells(r, 'td') + '</tr>'; }).join('') + '</tbody>' +
+            (o.table.total ? '<tfoot><tr>' + cells(o.table.total, 'td') + '</tr></tfoot>' : '') +
+          '</table>' +
+          '<div class="pp-report-note"><span>ROQ recommendation</span><p>' + o.note + '</p></div>' +
+          '<p class="pp-report-fine">' + o.fine + '</p>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  /* ---------- Intake fields ----------
+     Each plan lists its intake steps; each step lists its fields. Types:
+     radio, checks (any number), text, email, tel, textarea. `short` is the
+     label used in the review and in the request summary. One field per plan
+     carries `address: true` and becomes the request's address. */
+
+  var CONTACT = [
+    { id: 'name', type: 'text', label: 'Full name', short: 'Name', auto: 'name', max: 120,
+      error: 'Please enter your full name.' },
+    { id: 'email', type: 'email', label: 'Email', short: 'Email', auto: 'email', hint: 'you@example.com',
+      error: 'Please enter a valid email address.' },
+    { id: 'phone', type: 'tel', label: 'Phone', short: 'Phone', auto: 'tel', optional: true, max: 40,
+      error: 'Please enter a valid phone number, or leave it blank.' }
+  ];
+
+  var ADDRESS = {
+    id: 'address', type: 'text', label: 'Property address', short: 'Address', address: true, min: 8,
+    auto: 'street-address', hint: 'Street address, city, and state', max: 300,
+    error: 'Please enter the property address.'
+  };
+
+  var BUDGETS_199 = ['Under $10,000', '$10,000–$25,000', '$25,000–$50,000', '$50,000–$100,000', 'Over $100,000', 'Not sure yet'];
+
   var PLANS = {
     dream: {
       key: 'dream',
@@ -87,6 +143,7 @@
         'Preliminary build budget guidance',
         'Professional handoff roadmap'
       ],
+      fine: DISCLAIMER,
       pages: [
         {
           label: 'Cover',
@@ -145,11 +202,23 @@
           })
         }
       ],
-      projectQuestion: 'What are you planning?',
-      projects: ['New custom home', 'Vacation or second home', 'Exploring future possibilities'],
-      budgets: ['Under $400,000', '$400,000–$750,000', '$750,000–$1 million', 'Over $1 million', 'Not sure yet'],
-      locationHint: 'City, region, or lot address',
-      visionHint: 'The setting, the feeling, the rooms that matter most…'
+      steps: [
+        { name: 'Project', title: 'Tell us about your project.', fields: [
+          { id: 'project', type: 'radio', label: 'What are you planning?', short: 'Project',
+            options: ['New custom home', 'Vacation or second home', 'Exploring future possibilities'],
+            error: 'Please choose what you are planning.' },
+          { id: 'budget', type: 'radio', label: 'Estimated project budget', short: 'Budget',
+            options: ['Under $400,000', '$400,000–$750,000', '$750,000–$1 million', 'Over $1 million', 'Not sure yet'],
+            error: 'Please choose an estimated budget.' }
+        ] },
+        { name: 'Details', title: 'Your details', fields: CONTACT.concat([
+          { id: 'location', type: 'text', label: 'Property location', short: 'Location', address: true, optional: true,
+            auto: 'street-address', hint: 'City, region, or lot address', max: 300 },
+          { id: 'vision', type: 'textarea', label: 'Your project or vision, in a few words', short: 'Vision', max: 1000,
+            hint: 'The setting, the feeling, the rooms that matter most…',
+            error: 'Please tell us a little about your project.' }
+        ]) }
+      ]
     },
 
     potential: {
@@ -162,88 +231,164 @@
       lede: 'Understand your home&rsquo;s market potential and discover which improvements may make financial sense. Get a personalized roadmap to invest thoughtfully and avoid over-renovating.',
       included: [
         { t: 'Home &amp; neighborhood value potential',
-          d: 'Comparable properties, neighborhood trends, and the market-supported value range for your home.' },
+          d: 'Comparable homes, neighborhood market trends, and where your home sits within its local market.' },
         { t: 'Improvement opportunity analysis',
-          d: 'Which improvements may be worthwhile, and which may not justify their cost, given your home, goals, and timeline.' },
+          d: 'Which improvements may be worthwhile and which may not justify their cost, given your home, goals, timeline, and neighborhood.' },
         { t: 'Renovation priorities',
           d: 'What deserves attention first, what to defer, and where you risk over-renovating.' },
         { t: 'Value improvement roadmap',
           d: 'A phased strategy with preliminary investment ranges, sequencing, and key decision points.' }
       ],
+      excluded: [
+        'Custom room designs or detailed floor plans',
+        'Interior design or material selection packages',
+        'Contractor matching or introductions',
+        'Construction management',
+        'Formal appraisals or certified valuations',
+        'Guaranteed renovation ROI'
+      ],
+      cross: { text: 'Already know what you&rsquo;d like to renovate?', link: 'Explore the Renovation Plan', to: 'renovation' },
+      fine: 'Home Value Potential is a research-informed home improvement strategy, not an appraisal, broker price opinion, ' +
+        'or certified valuation. Market observations reflect available information and are not a guarantee of value. ' +
+        'Cost ranges are preliminary estimates, and no improvement is guaranteed to increase resale value.',
       pages: [
         {
           label: 'Cover',
-          alt: 'Sample cover: The Alder Court Residence, a modern home lit at dusk',
+          alt: 'Sample cover: The Linden Street Home, a modern home lit at dusk',
           html: cover({
             img: 'potential-cover.jpg',
             issue: 'No. 03',
             series: 'Home Value Potential',
             shade: 0.3,
-            title: 'The Alder Court Residence',
-            sub: 'Where this home sits in its market, and which improvements are worth making.'
+            title: 'The Linden Street Home',
+            sub: 'Understanding your home&rsquo;s potential and the improvements worth considering.'
           })
         },
         {
-          label: 'Value',
-          alt: 'Sample page: home and neighborhood value potential, over an aerial view of a residential street',
+          label: 'Market',
+          alt: 'Sample page: your home’s market potential, over an aerial view of a residential street',
           html: photoPage({
             img: 'renovation-value.jpg', series: 'Home Value Potential', n: '03', shade: 0.36,
-            kicker: 'Chapter I &middot; Your market',
-            title: 'Home &amp; neighborhood value',
-            copy: 'Comparable homes, neighborhood trends, and the value range the market supports for a home like yours.',
-            foot: 'Market-supported range'
+            kicker: 'Chapter I &middot; Market',
+            title: 'Your home&rsquo;s market potential',
+            copy: 'Explore comparable homes, neighborhood market context, and the range of values supported by available market evidence.',
+            foot: 'Market context'
+          })
+        },
+        {
+          label: 'Opportunities',
+          alt: 'Sample page: improvement opportunities, over a couple painting a room',
+          html: photoPage({
+            img: 'renovation-priorities.jpg', series: 'Home Value Potential', n: '06', shade: 0.42,
+            kicker: 'Chapter II &middot; Opportunities',
+            title: 'What could make a difference',
+            copy: 'Identify improvements that may enhance your home&rsquo;s everyday appeal and future marketability.',
+            foot: 'Improvement opportunities'
           })
         },
         {
           label: 'Priorities',
-          alt: 'Sample page: improvement opportunities and priorities, over a couple painting a room',
+          alt: 'Sample page: renovation priorities, over a white gable and a single dark window',
           html: photoPage({
-            img: 'renovation-priorities.jpg', series: 'Home Value Potential', n: '07', shade: 0.42,
-            kicker: 'Chapter II &middot; Opportunities',
-            title: 'What&rsquo;s worth doing',
-            copy: 'Improvements ranked by cost, practical value, and resale contribution, including the ones to skip.',
-            foot: 'Opportunities &amp; priorities'
+            img: 'potential-priorities.jpg', series: 'Home Value Potential', n: '09', shade: 0.46,
+            kicker: 'Chapter III &middot; Priorities',
+            title: 'Invest with purpose',
+            copy: 'Prioritize meaningful improvements while considering costs, local market expectations, and the risk of over-renovating.',
+            foot: 'Renovation priorities'
           })
         },
         {
           label: 'Roadmap',
-          alt: 'Sample page: value improvement roadmap, over a homeowner and contractor walking through a home',
-          html: photoPage({
-            img: 'renovation-roadmap.jpg', series: 'Home Value Potential', n: '12', shade: 0.4,
-            kicker: 'Chapter III &middot; The roadmap',
-            title: 'A phased roadmap',
-            copy: 'What to do now, what to do later, preliminary investment ranges, and the decisions along the way.',
-            foot: 'Value improvement roadmap'
+          alt: 'Sample report page: a ranked improvement list with preliminary budgets and an ROQ recommendation for a fictional home',
+          html: reportPage({
+            series: 'Home Value Potential', n: '12',
+            kicker: 'Chapter IV &middot; Roadmap',
+            title: 'Your path forward',
+            sub: 'The Linden Street Home &middot; Illustrative example',
+            facts: [
+              ['Comparables', 'Nine nearby sales of similar size and age'],
+              ['Neighborhood', 'Updated homes lead recent sales; few full remodels'],
+              ['This home', 'Sound and well kept, with dated interior finishes']
+            ],
+            table: {
+              cols: [{ label: 'No.', cls: 'pp-rank' }, { label: 'Improvement' }, { label: 'Preliminary budget', cls: 'pp-num' }],
+              rows: [
+                ['01', 'Kitchen refresh', '$8,000–$12,000'],
+                ['02', 'Interior painting', '$3,000–$5,000'],
+                ['03', 'Curb appeal improvements', '$2,000–$4,000'],
+                ['04', 'Full bathroom renovation', '$12,000–$20,000']
+              ]
+            },
+            note: 'Begin with targeted updates that improve the home&rsquo;s overall presentation before committing to larger structural or luxury improvements. Reevaluate higher-cost renovations against local comparable properties and the homeowner&rsquo;s intended ownership timeline.',
+            fine: 'Fictional example. The home, figures, and recommendations are illustrative only. They are not an appraisal and do not predict any change in value.'
           })
         }
       ],
-      projectQuestion: 'What is your main goal?',
-      projects: ['Improve before selling', 'Improve and stay long-term', 'Deciding whether to renovate or move', 'Not sure yet'],
-      secondQuestion: 'How long do you plan to own the home?',
-      secondLabel: 'Ownership timeline',
-      secondError: 'Please choose how long you plan to own the home.',
-      seconds: ['Less than 2 years', '2–5 years', '5–10 years', '10+ years', 'Not sure yet'],
-      locationLabel: 'Home address',
-      locationRequired: true,
-      locationHint: 'Street address, city, and state',
-      visionLabel: 'Your home and goals, in a few words',
-      visionHint: 'Improvements you’ve considered, what’s dated or not working, what matters most…'
+      steps: [
+        { name: 'Home', title: 'Tell us about your home.', fields: [
+          ADDRESS,
+          { id: 'ptype', type: 'radio', label: 'Property type', short: 'Property type',
+            options: ['Single-family home', 'Townhouse', 'Condo', 'Multi-family (2–4 units)', 'Other'],
+            error: 'Please choose a property type.' },
+          { id: 'size', type: 'text', label: 'Approximate size', short: 'Size', optional: true, max: 60,
+            hint: 'e.g. 1,800 sq ft, 3 bed, 2 bath' },
+          { id: 'built', type: 'text', label: 'Approximate year built', short: 'Year built', optional: true, max: 40,
+            hint: 'e.g. 1985, or “not sure”' },
+          { id: 'condition', type: 'radio', label: 'Overall condition', short: 'Condition',
+            options: ['Updated and move-in ready', 'Good, but dated in places', 'Needs significant work', 'Not sure'],
+            error: 'Please choose the overall condition.' },
+          { id: 'completed', type: 'textarea', label: 'Major renovations already completed', short: 'Completed', optional: true, max: 600,
+            hint: 'e.g. new roof in 2019, bathroom remodeled in 2015' }
+        ] },
+        { name: 'Goals', title: 'What are you hoping for?', fields: [
+          { id: 'focus', type: 'checks', label: 'What matters most? <small>(choose any)</small>', short: 'Focus',
+            options: ['Resale value', 'Long-term ownership', 'Everyday enjoyment'],
+            error: 'Please choose at least one focus.' },
+          { id: 'timeline', type: 'radio', label: 'How long do you expect to own the home?', short: 'Ownership timeline',
+            options: ['Less than 2 years', '2–5 years', '5–10 years', '10+ years', 'Not sure yet'],
+            error: 'Please choose an ownership timeline.' },
+          { id: 'budget', type: 'radio', label: 'Approximate improvement budget', short: 'Budget',
+            options: BUDGETS_199, error: 'Please choose an approximate budget.' },
+          { id: 'considering', type: 'textarea', label: 'Improvements you&rsquo;re considering', short: 'Considering', optional: true, max: 800,
+            hint: 'e.g. kitchen update, finishing the basement, new windows' },
+          { id: 'goals', type: 'textarea', label: 'Anything else about your goals', short: 'Other goals', optional: true, max: 800,
+            hint: 'What you’d like to get out of the home in the next few years…' }
+        ] },
+        { name: 'Details', title: 'Your details', fields: CONTACT }
+      ]
     },
 
     renovation: {
       key: 'renovation',
       name: 'Renovation Plan',
       price: '$199',
+      priceLabel: 'One-time purchase',
       eyebrow: 'Renovation Plan',
-      title: 'Plan your project with confidence.',
-      lede: 'Design, budget, and plan one specific home improvement project, from first concept to a clear, step-by-step path to completion.',
+      title: 'Make your next project a better one.',
+      lede: 'From design direction and preliminary budgeting to contractor selection and project sequencing, get a personalized plan for one specific renovation.',
       included: [
-        'Project scope &amp; goals',
-        'Design concepts &amp; direction',
-        'Preliminary project budget',
-        'DIY vs. contractor guidance',
-        'Step-by-step project roadmap'
+        { t: 'Project concept &amp; design direction',
+          d: 'One cohesive direction for your room: style, materials and finishes, layout considerations, and practical recommendations.' },
+        { t: 'Preliminary project budget',
+          d: 'Estimated cost ranges for materials, labor, and major cost drivers, with contingency and ways to save. Not a contractor quote.' },
+        { t: 'Contractor selection &amp; DIY guidance',
+          d: 'Which work needs professionals and what may suit DIY, a hiring checklist, questions to ask, and research on up to three local candidates.' },
+        { t: 'Project roadmap',
+          d: 'Design decisions, budget confirmation, consultations, permits, estimates, purchasing, and sequencing, in order.' }
       ],
+      excluded: [
+        'Neighborhood value or property valuation research',
+        'Whole-home improvement prioritization',
+        'Guaranteed renovation ROI',
+        'Construction-ready drawings, engineering, or architectural services',
+        'Contractor hiring or project management',
+        'Unlimited revisions or more than one project'
+      ],
+      cross: { text: 'Not sure which improvements are worth making?', link: 'Explore Home Value Potential', to: 'potential' },
+      fine: 'The Renovation Plan covers one defined renovation and one primary design direction. ROQ Home provides conceptual ' +
+        'design and planning guidance, not licensed architecture, engineering, or contracting services. Budgets are preliminary ' +
+        'estimates, not contractor quotes. Contractor research uses publicly available information and is not an endorsement or a ' +
+        'guarantee of availability, pricing, or workmanship. Permits and professional review may be required.',
       pages: [
         {
           label: 'Cover',
@@ -254,43 +399,104 @@
             series: 'Renovation Plan',
             shade: 0.34,
             title: 'The Linden Street Kitchen',
-            sub: 'A considered plan for a warmer, brighter heart of the home, from design to done.'
+            sub: 'A considered plan for a warmer, brighter kitchen, designed around everyday life, practical investment, and a clear path to renovation.'
           })
         },
         {
           label: 'Design',
-          alt: 'Sample page: scope and design concepts, over a homeowner and designer reviewing a floor plan',
+          alt: 'Sample page: the design direction, over a homeowner and designer reviewing a layout',
           html: photoPage({
             img: 'renovation-design.jpg', series: 'Renovation Plan', n: '03', shade: 0.42,
-            kicker: 'Chapter I &middot; The design',
-            title: 'Scope &amp; design concepts',
-            copy: 'What the project includes, and a clear design direction for layout, materials, and finishes.',
-            foot: 'Scope &amp; design direction'
+            kicker: 'Chapter I &middot; Design',
+            title: 'The design direction',
+            copy: 'A cohesive vision for layout, materials, finishes, and the experience of the space.',
+            foot: 'Concept &amp; design direction'
           })
         },
         {
-          label: 'Budget &amp; roadmap',
-          alt: 'Sample page: budget and roadmap, over two builders at work on a project',
+          label: 'Budget',
+          alt: 'Sample report page: a $25,000 preliminary budget for a fictional kitchen, with planning allowances and an ROQ recommendation',
+          html: reportPage({
+            series: 'Renovation Plan', n: '07',
+            kicker: 'Chapter II &middot; Budget',
+            title: 'Understanding the investment',
+            sub: 'The Linden Street Kitchen &middot; Preliminary budget target $25,000',
+            table: {
+              cols: [{ label: 'Category' }, { label: 'Planning allowance', cls: 'pp-num' }],
+              rows: [
+                ['Cabinet refinishing or selective replacement', '$6,500'],
+                ['Countertops', '$4,500'],
+                ['Backsplash and finishes', '$2,000'],
+                ['Lighting and electrical allowances', '$2,500'],
+                ['Labor and installation allowances', '$5,500'],
+                ['Contingency', '$4,000']
+              ],
+              total: ['Total', '$25,000']
+            },
+            note: 'Prioritize retaining the existing layout where practical, investing in durable high-visibility finishes, and confirming electrical, plumbing, and installation costs before ordering materials.',
+            fine: 'Illustrative example for a fictional project. Not a verified estimate or contractor quote.'
+          })
+        },
+        {
+          label: 'Contractors',
+          alt: 'Sample page: choosing the right professionals, over two builders at work',
           html: photoPage({
-            img: 'renovation-execution.jpg', series: 'Renovation Plan', n: '09', shade: 0.4,
-            kicker: 'Chapter II &middot; The plan',
-            title: 'Budget &amp; roadmap',
-            copy: 'A preliminary project budget, DIY vs. contractor guidance, and a step-by-step path to completion.',
-            foot: 'Preliminary budget &amp; roadmap'
+            img: 'renovation-execution.jpg', series: 'Renovation Plan', n: '11', shade: 0.4,
+            kicker: 'Chapter III &middot; Contractors',
+            title: 'The right people for the project',
+            copy: 'Understand which professionals your project needs and how to evaluate qualifications, estimates, and experience.',
+            foot: 'Contractor &amp; DIY guidance'
+          })
+        },
+        {
+          label: 'Roadmap',
+          alt: 'Sample page: from vision to renovation, over a homeowner and contractor walking through a project',
+          html: photoPage({
+            img: 'renovation-roadmap.jpg', series: 'Renovation Plan', n: '14', shade: 0.4,
+            kicker: 'Chapter IV &middot; Roadmap',
+            title: 'From vision to renovation',
+            copy: 'An organized sequence of decisions, professional consultations, purchasing, and next steps.',
+            foot: 'Project roadmap'
           })
         }
       ],
-      projectQuestion: 'Which project are you planning?',
-      projects: ['Kitchen', 'Bathroom', 'Basement or living space', 'Addition or major renovation', 'Exterior or outdoor space', 'Something else'],
-      budgets: ['Under $20,000', '$20,000–$75,000', '$75,000–$200,000', 'Over $200,000', 'Not sure yet'],
-      locationHint: 'Home address or city',
-      visionHint: 'The project, what you’d like to change, and what’s not working today…'
+      steps: [
+        { name: 'Project', title: 'Tell us about your project.', fields: [
+          ADDRESS,
+          { id: 'room', type: 'radio', label: 'Which project is this plan for?', short: 'Project',
+            options: ['Kitchen', 'Bathroom', 'Basement', 'Living room', 'Laundry room', 'Home office', 'Another room or project'],
+            error: 'Please choose the project.' },
+          { id: 'changes', type: 'textarea', label: 'What would you like to change?', short: 'Desired changes', max: 1000,
+            hint: 'What’s not working today, and what you’d like the space to do…',
+            error: 'Please tell us what you would like to change.' },
+          { id: 'style', type: 'text', label: 'Style and design preferences', short: 'Style', optional: true, max: 200,
+            hint: 'e.g. warm modern, light oak, matte black fixtures' },
+          { id: 'info', type: 'textarea', label: 'Anything else about the space', short: 'Project info', optional: true, max: 800,
+            hint: 'Approximate size, what should stay, links to photos or inspiration…',
+            note: 'You can also reply to our email with photos of the space.' }
+        ] },
+        { name: 'Plans', title: 'Budget, timing, and help.', fields: [
+          { id: 'budget', type: 'radio', label: 'Approximate project budget', short: 'Budget',
+            options: BUDGETS_199, error: 'Please choose an approximate budget.' },
+          { id: 'when', type: 'radio', label: 'When would you like to start?', short: 'Timeline',
+            options: ['Within 3 months', '3–6 months', '6–12 months', 'Just exploring'],
+            error: 'Please choose a timeline.' },
+          { id: 'diy', type: 'radio', label: 'How much would you like to do yourself?', short: 'DIY',
+            options: ['Hire out everything', 'Open to some DIY', 'Plan to do much of it myself', 'Not sure yet'],
+            error: 'Please choose how much you would like to do yourself.' },
+          { id: 'contractors', type: 'radio', label: 'Do you already have contractor candidates?', short: 'Contractors',
+            options: ['Yes', 'Not yet'],
+            error: 'Please let us know if you have contractor candidates.' }
+        ] },
+        { name: 'Details', title: 'Your details', fields: CONTACT }
+      ]
     }
   };
 
   /* ---------- Overlay ---------- */
 
-  var root, panel, stage, book, thumbs, side, views = {};
+  var MAX_STEPS = 3;
+  var root, panel, stage, book, thumbs, side, zoom, zoomPage, zoomCount, views = {};
   var plan = null, trigger = null, pageIndex = 0;
   var data = {};       // per-plan answers, kept while the page is open
   var submitted = {};  // per-plan: true once a request went through
@@ -308,7 +514,16 @@
     });
   }
 
+  function plain(s) {
+    var d = document.createElement('div');
+    d.innerHTML = s;
+    return d.textContent;
+  }
+
   function build() {
+    var stepViews = '';
+    for (var i = 0; i < MAX_STEPS; i++) stepViews += '<section class="pp-view" data-view="step' + i + '"></section>';
+
     root = el('div', 'pp');
     root.setAttribute('aria-hidden', 'true');
     root.innerHTML =
@@ -317,16 +532,33 @@
           '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" /></svg>' +
         '</button>' +
         '<div class="pp-stage">' +
-          '<figure class="pp-book" aria-live="polite"></figure>' +
+          '<div class="pp-book-wrap">' +
+            '<figure class="pp-book" aria-live="polite"></figure>' +
+            '<button type="button" class="pp-enlarge" aria-label="Enlarge sample page">' +
+              '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M9.5 2.5h4v4M6.5 13.5h-4v-4M13.5 2.5l-4.5 4.5M2.5 13.5l4.5-4.5" /></svg>' +
+            '</button>' +
+          '</div>' +
           '<ul class="pp-thumbs" aria-label="Sample pages"></ul>' +
           '<p class="pp-sample-note">Sample publication shown for illustration. Your plan is prepared for your home.</p>' +
         '</div>' +
         '<div class="pp-side">' +
           '<section class="pp-view" data-view="preview"></section>' +
-          '<section class="pp-view" data-view="project"></section>' +
-          '<section class="pp-view" data-view="details"></section>' +
+          stepViews +
           '<section class="pp-view" data-view="review"></section>' +
           '<section class="pp-view pp-done" data-view="done"></section>' +
+        '</div>' +
+        '<div class="pp-zoom" role="dialog" aria-label="Enlarged sample page" hidden>' +
+          '<button type="button" class="pp-zoom-close" aria-label="Close enlarged page">' +
+            '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" /></svg>' +
+          '</button>' +
+          '<div class="pp-zoom-page"></div>' +
+          '<div class="pp-zoom-bar">' +
+            '<button type="button" class="pp-zoom-nav" data-dir="-1" aria-label="Previous page">' +
+              '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3L5 8l5 5" /></svg></button>' +
+            '<span class="pp-zoom-count"></span>' +
+            '<button type="button" class="pp-zoom-nav" data-dir="1" aria-label="Next page">' +
+              '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3l5 5-5 5" /></svg></button>' +
+          '</div>' +
         '</div>' +
       '</div>';
     document.body.appendChild(root);
@@ -336,19 +568,37 @@
     book = root.querySelector('.pp-book');
     thumbs = root.querySelector('.pp-thumbs');
     side = root.querySelector('.pp-side');
+    zoom = root.querySelector('.pp-zoom');
+    zoomPage = root.querySelector('.pp-zoom-page');
+    zoomCount = root.querySelector('.pp-zoom-count');
     root.querySelectorAll('.pp-view').forEach(function (v) { views[v.dataset.view] = v; });
 
     root.querySelector('.pp-close').addEventListener('click', close);
     root.addEventListener('mousedown', function (e) { if (e.target === root) close(); });
     root.addEventListener('keydown', onKeydown);
+
+    book.addEventListener('click', openZoom);
+    root.querySelector('.pp-enlarge').addEventListener('click', openZoom);
+    root.querySelector('.pp-zoom-close').addEventListener('click', closeZoom);
+    zoom.addEventListener('click', function (e) { if (e.target === zoom) closeZoom(); });
+    root.querySelectorAll('.pp-zoom-nav').forEach(function (b) {
+      b.addEventListener('click', function () { stepZoom(+b.dataset.dir); });
+    });
   }
 
   function onKeydown(e) {
-    if (e.key === 'Escape') { e.preventDefault(); close(); return; }
+    var zoomed = zoom && !zoom.hidden;
+    if (e.key === 'Escape') { e.preventDefault(); if (zoomed) closeZoom(); else close(); return; }
+    if (zoomed && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+      e.preventDefault();
+      stepZoom(e.key === 'ArrowLeft' ? -1 : 1);
+      return;
+    }
     if (e.key !== 'Tab') return;
-    // Keep focus inside the dialog.
+    // Keep focus inside the dialog, or inside the enlarged page while it is open.
+    var scope = zoomed ? zoom : panel;
     var f = Array.prototype.filter.call(
-      panel.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'),
+      scope.querySelectorAll('button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'),
       function (n) { return !n.disabled && n.offsetParent !== null; }
     );
     if (!f.length) return;
@@ -360,7 +610,8 @@
   function open(key, from) {
     if (!PLANS[key]) return;
     if (!root) build();
-    trigger = from || null;
+    if (from !== undefined) trigger = from || null;
+    closeZoom(true);
 
     if (!plan || plan.key !== key) {
       plan = PLANS[key];
@@ -369,7 +620,8 @@
     }
     if (!data[key]) data[key] = {};
 
-    // A finished request starts fresh next time; otherwise reopen where they left off.
+    // A finished request starts fresh next time; otherwise reopen where they
+    // left off. Answers are kept per plan, so moving between plans loses nothing.
     if (submitted[key]) { submitted[key] = false; data[key] = {}; show('preview'); }
     else if (!root.dataset.state || root.dataset.plan !== key) show('preview');
     root.dataset.plan = key;
@@ -385,6 +637,7 @@
 
   function close() {
     if (!root || !root.classList.contains('is-open')) return;
+    closeZoom(true);
     root.classList.remove('is-open');
     root.setAttribute('aria-hidden', 'true');
     document.documentElement.classList.remove('pp-locked');
@@ -404,7 +657,7 @@
       var li = el('li');
       var btn = el('button', 'pp-thumb');
       btn.type = 'button';
-      btn.setAttribute('aria-label', 'Show sample page: ' + p.label.replace('&amp;', 'and'));
+      btn.setAttribute('aria-label', 'Show sample page: ' + plain(p.label));
       var mini = el('span', 'pp-thumb-page', p.html);
       mini.setAttribute('aria-hidden', 'true');
       btn.appendChild(mini);
@@ -413,6 +666,7 @@
       li.appendChild(btn);
       thumbs.appendChild(li);
     });
+    thumbs.scrollLeft = 0;
     showPage(0);
   }
 
@@ -425,14 +679,46 @@
     book.setAttribute('aria-label', plan.pages[i].alt);
   }
 
+  /* ---------- Enlarged page ----------
+     The sample pages are sized in cqw, so the same markup renders legibly
+     at full screen; this is how the report pages are read on a phone. */
+
+  function openZoom() {
+    renderZoom();
+    zoom.hidden = false;
+    root.classList.add('is-zoomed');
+    zoom.querySelector('.pp-zoom-close').focus();
+  }
+
+  function renderZoom() {
+    var p = plan.pages[pageIndex];
+    zoomPage.innerHTML = p.html;
+    zoomPage.setAttribute('aria-label', p.alt);
+    zoomPage.setAttribute('role', 'img');
+    zoomCount.textContent = (pageIndex + 1) + ' / ' + plan.pages.length;
+  }
+
+  function stepZoom(dir) {
+    var n = plan.pages.length;
+    showPage((pageIndex + dir + n) % n);
+    renderZoom();
+  }
+
+  function closeZoom(silent) {
+    if (!zoom || zoom.hidden) return;
+    zoom.hidden = true;
+    zoomPage.innerHTML = '';
+    root.classList.remove('is-zoomed');
+    if (silent !== true) root.querySelector('.pp-enlarge').focus();
+  }
+
   /* ---------- Views ---------- */
 
   function show(name) {
     root.dataset.state = name;
     Object.keys(views).forEach(function (k) { views[k].classList.toggle('is-active', k === name); });
     root.classList.toggle('is-intake', name !== 'preview');
-    if (name === 'project') renderProject();
-    if (name === 'details') renderDetails();
+    if (name.indexOf('step') === 0) renderStep(+name.slice(4));
     if (name === 'review') renderReview();
     side.scrollTop = 0;
     panel.scrollTop = 0;
@@ -446,12 +732,16 @@
   }
 
   function steps(current) {
-    var names = ['Project', 'Details', 'Review'];
+    var names = plan.steps.map(function (s) { return s.name; }).concat('Review');
     return '<ol class="pp-steps" aria-label="Progress">' + names.map(function (n, i) {
       var cls = i < current ? ' class="is-done"' : '';
       var cur = i === current ? ' aria-current="step"' : '';
       return '<li' + cls + cur + '>' + (i + 1) + ' &middot; ' + n + '</li>';
     }).join('') + '</ol>';
+  }
+
+  function priceText(p) {
+    return p.priceLabel ? p.price + ' &middot; ' + p.priceLabel : 'Starting at ' + p.price;
   }
 
   function renderPreview() {
@@ -467,120 +757,110 @@
         var body = typeof t === 'string' ? t : '<div>' + t.t + '<small>' + t.d + '</small></div>';
         return '<li><span>0' + (i + 1) + '</span>' + body + '</li>';
       }).join('') + '</ul>' +
+      (plan.excluded ?
+        '<details class="pp-excluded"><summary>What&rsquo;s not included</summary><ul>' +
+          plan.excluded.map(function (t) { return '<li>' + t + '</li>'; }).join('') +
+        '</ul></details>' : '') +
       '<div class="pp-buy">' +
-        '<div><span class="pp-price-label">' + (plan.priceLabel || 'Starting at') + '</span><span class="pp-price">' + plan.price + '</span></div>' +
-        '<button type="button" class="pp-btn" data-go="project">Start My Plan</button>' +
+        '<div><span class="pp-price-label">' + (plan.priceLabel || 'Starting at') + '</span>' +
+          '<span class="pp-price">' + plan.price + '</span></div>' +
+        '<button type="button" class="pp-btn" data-go="step0">Start My Plan</button>' +
       '</div>' +
-      '<p class="pp-fine">' + DISCLAIMER + '</p>';
-    v.querySelector('[data-go]').addEventListener('click', function () { show('project'); });
+      (plan.cross ?
+        '<p class="pp-cross">' + plan.cross.text + ' <button type="button" class="pp-link" data-switch="' +
+          plan.cross.to + '">' + plan.cross.link + '</button></p>' : '') +
+      '<p class="pp-fine">' + plan.fine + '</p>';
+    v.querySelector('[data-go]').addEventListener('click', function () { show('step0'); });
+    var sw = v.querySelector('[data-switch]');
+    if (sw) sw.addEventListener('click', function () { open(sw.dataset.switch); });
   }
 
-  // The project step's second question: budget, unless the plan asks something else.
-  function second(p) {
-    return p.secondQuestion
-      ? { question: p.secondQuestion, label: p.secondLabel, error: p.secondError, options: p.seconds }
-      : { question: 'Estimated project budget', label: 'Budget', error: 'Please choose an estimated budget.', options: p.budgets };
-  }
-
-  function radios(name, legend, options, value) {
-    return '<fieldset class="pp-fieldset"><legend class="pp-legend">' + legend + '</legend><div class="pp-choices">' +
-      options.map(function (o) {
-        return '<label class="pp-choice"><input type="radio" name="' + name + '" value="' + esc(o) + '"' +
-          (o === value ? ' checked' : '') + ' />' + esc(o) + '</label>';
-      }).join('') + '</div></fieldset>';
-  }
-
-  function renderProject() {
-    var d = data[plan.key];
-    var v = views.project;
-    v.innerHTML =
-      steps(0) +
-      '<p class="pp-eyebrow">' + plan.name + ' &middot; ' + plan.price + '</p>' +
-      '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">Tell us about your project.</h2>' +
-      '<form novalidate>' +
-        radios('pp-project', plan.projectQuestion, plan.projects, d.project) +
-        radios('pp-budget', second(plan).question, second(plan).options, d.budget) +
-        '<p class="pp-error" role="alert"></p>' +
-        '<div class="pp-actions">' +
-          '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
-          '<button type="submit" class="pp-btn">Continue</button>' +
-        '</div>' +
-      '</form>';
-
-    var form = v.querySelector('form');
-    form.addEventListener('change', function () {
-      var p = form.querySelector('[name="pp-project"]:checked');
-      var b = form.querySelector('[name="pp-budget"]:checked');
-      d.project = p ? p.value : d.project;
-      d.budget = b ? b.value : d.budget;
-    });
-    v.querySelector('[data-back]').addEventListener('click', function () { show('preview'); });
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var err = form.querySelector('.pp-error');
-      if (!d.project) return fail(err, 'Please choose what you are planning.', form.querySelector('[name="pp-project"]'));
-      if (!d.budget) return fail(err, second(plan).error, form.querySelector('[name="pp-budget"]'));
-      show('details');
-    });
-  }
-
-  function field(id, label, type, value, opts) {
-    opts = opts || {};
-    var optional = opts.optional ? ' <small>(optional)</small>' : '';
-    var attrs = ' id="' + id + '" name="' + id + '" maxlength="' + (opts.max || 200) + '"' +
-      (opts.auto ? ' autocomplete="' + opts.auto + '"' : '') +
-      (opts.hint ? ' placeholder="' + esc(opts.hint) + '"' : '') +
-      (opts.optional ? '' : ' required');
-    var input = type === 'textarea'
-      ? '<textarea class="pp-input"' + attrs + '>' + esc(value || '') + '</textarea>'
-      : '<input class="pp-input" type="' + type + '"' + attrs + ' value="' + esc(value || '') + '" />';
-    return '<div class="pp-field"><label class="pp-label" for="' + id + '">' + label + optional + '</label>' + input + '</div>';
-  }
-
-  function renderDetails() {
-    var d = data[plan.key];
-    var v = views.details;
-    v.innerHTML =
-      steps(1) +
-      '<p class="pp-eyebrow">' + plan.name + ' &middot; ' + plan.price + '</p>' +
-      '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">Your details</h2>' +
-      '<form novalidate>' +
-        field('pp-name', 'Full name', 'text', d.name, { auto: 'name', max: 120 }) +
-        field('pp-email', 'Email', 'email', d.email, { auto: 'email', hint: 'you@example.com' }) +
-        field('pp-phone', 'Phone', 'tel', d.phone, { auto: 'tel', optional: true, max: 40 }) +
-        field('pp-location', plan.locationLabel || 'Property location', 'text', d.location, { auto: 'street-address', optional: !plan.locationRequired, hint: plan.locationHint, max: 300 }) +
-        field('pp-vision', plan.visionLabel || 'Your project or vision, in a few words', 'textarea', d.vision, { hint: plan.visionHint, max: 1000 }) +
-        '<p class="pp-error" role="alert"></p>' +
-        '<div class="pp-actions">' +
-          '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
-          '<button type="submit" class="pp-btn">Review</button>' +
-        '</div>' +
-      '</form>';
-
-    var form = v.querySelector('form');
-    function read() {
-      d.name = form['pp-name'].value.trim();
-      d.email = form['pp-email'].value.trim();
-      d.phone = form['pp-phone'].value.trim();
-      d.location = form['pp-location'].value.trim();
-      d.vision = form['pp-vision'].value.trim();
+  function fieldHtml(f, value) {
+    var name = 'pp-' + f.id;
+    if (f.type === 'radio' || f.type === 'checks') {
+      var input = f.type === 'radio' ? 'radio' : 'checkbox';
+      var chosen = [].concat(value || []);
+      return '<fieldset class="pp-fieldset" data-field="' + f.id + '"><legend class="pp-legend">' + f.label + '</legend>' +
+        '<div class="pp-choices">' + f.options.map(function (o) {
+          return '<label class="pp-choice' + (input === 'checkbox' ? ' pp-choice--check' : '') + '">' +
+            '<input type="' + input + '" name="' + name + '" value="' + esc(o) + '"' +
+            (chosen.indexOf(o) > -1 ? ' checked' : '') + ' />' + esc(o) + '</label>';
+        }).join('') + '</div></fieldset>';
     }
-    form.addEventListener('input', function (e) {
+    var optional = f.optional ? ' <small>(optional)</small>' : '';
+    var attrs = ' id="' + name + '" name="' + name + '" maxlength="' + (f.max || 200) + '"' +
+      (f.auto ? ' autocomplete="' + f.auto + '"' : '') +
+      (f.hint ? ' placeholder="' + esc(f.hint) + '"' : '') +
+      (f.optional ? '' : ' required');
+    var control = f.type === 'textarea'
+      ? '<textarea class="pp-input"' + attrs + '>' + esc(value || '') + '</textarea>'
+      : '<input class="pp-input" type="' + f.type + '"' + attrs + ' value="' + esc(value || '') + '" />';
+    return '<div class="pp-field" data-field="' + f.id + '"><label class="pp-label" for="' + name + '">' + f.label + optional + '</label>' +
+      control + (f.note ? '<p class="pp-field-note">' + f.note + '</p>' : '') + '</div>';
+  }
+
+  function readField(form, f) {
+    var name = 'pp-' + f.id;
+    if (f.type === 'radio') {
+      var r = form.querySelector('[name="' + name + '"]:checked');
+      return r ? r.value : '';
+    }
+    if (f.type === 'checks') {
+      return Array.prototype.map.call(form.querySelectorAll('[name="' + name + '"]:checked'), function (c) { return c.value; });
+    }
+    return form[name].value.trim();
+  }
+
+  // Returns an error message, or '' when the value is acceptable.
+  function check(f, v) {
+    var empty = !v || (Array.isArray(v) && !v.length);
+    if (empty) return f.optional ? '' : (f.error || 'Please complete this field.');
+    if (f.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return f.error;
+    if (f.type === 'tel' && v.replace(/\D/g, '').length < 10) return f.error;
+    if (f.min && v.length < f.min) return f.error;
+    return '';
+  }
+
+  function renderStep(i) {
+    var s = plan.steps[i];
+    var d = data[plan.key];
+    var v = views['step' + i];
+    var last = i === plan.steps.length - 1;
+    v.innerHTML =
+      steps(i) +
+      '<p class="pp-eyebrow">' + plan.name + ' &middot; ' + plan.price + '</p>' +
+      '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">' + s.title + '</h2>' +
+      '<form novalidate>' +
+        s.fields.map(function (f) { return fieldHtml(f, d[f.id]); }).join('') +
+        '<p class="pp-error" role="alert"></p>' +
+        '<div class="pp-actions">' +
+          '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
+          '<button type="submit" class="pp-btn">' + (last ? 'Review' : 'Continue') + '</button>' +
+        '</div>' +
+      '</form>';
+
+    var form = v.querySelector('form');
+    function read() { s.fields.forEach(function (f) { d[f.id] = readField(form, f); }); }
+    form.addEventListener('input', function (e) { read(); e.target.removeAttribute('aria-invalid'); });
+    form.addEventListener('change', read);
+    v.querySelector('[data-back]').addEventListener('click', function () {
       read();
-      e.target.removeAttribute('aria-invalid');
+      show(i === 0 ? 'preview' : 'step' + (i - 1));
     });
-    v.querySelector('[data-back]').addEventListener('click', function () { read(); show('project'); });
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       read();
       var err = form.querySelector('.pp-error');
-      if (!d.name) return fail(err, 'Please enter your full name.', form['pp-name']);
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)) return fail(err, 'Please enter a valid email address.', form['pp-email']);
-      if (d.phone && d.phone.replace(/\D/g, '').length < 10) return fail(err, 'Please enter a valid phone number, or leave it blank.', form['pp-phone']);
-      if (plan.locationRequired && d.location.length < 8) return fail(err, 'Please enter your home address.', form['pp-location']);
-      if (!d.vision) return fail(err, 'Please tell us a little about your project.', form['pp-vision']);
-      show('review');
+      for (var k = 0; k < s.fields.length; k++) {
+        var f = s.fields[k], msg = check(f, d[f.id]);
+        if (msg) return fail(err, msg, form.querySelector('[name="pp-' + f.id + '"]'));
+      }
+      show(last ? 'review' : 'step' + (i + 1));
     });
+  }
+
+  function display(v) {
+    return Array.isArray(v) ? v.join(', ') : v;
   }
 
   function renderReview() {
@@ -588,21 +868,19 @@
     var v = views.review;
     function row(k, val) { return '<dt>' + k + '</dt><dd>' + esc(val || '—') + '</dd>'; }
     v.innerHTML =
-      steps(2) +
+      steps(plan.steps.length) +
       '<p class="pp-eyebrow">' + plan.name + ' &middot; ' + plan.price + '</p>' +
       '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">Review your request</h2>' +
       '<div class="pp-review">' +
         '<div class="pp-review-group"><div class="pp-review-head"><h4>Service</h4></div><dl>' +
-          row('Plan', plan.name) + row('Price', (plan.priceLabel ? plan.price + ' · ' + plan.priceLabel : 'Starting at ' + plan.price)) + '</dl></div>' +
-        '<div class="pp-review-group"><div class="pp-review-head"><h4>Project</h4>' +
-          '<button type="button" class="pp-edit" data-edit="project" aria-label="Edit project">Edit</button></div><dl>' +
-          row(plan.secondQuestion ? 'Goal' : 'Project', d.project) + row(second(plan).label, d.budget) + '</dl></div>' +
-        '<div class="pp-review-group"><div class="pp-review-head"><h4>Details</h4>' +
-          '<button type="button" class="pp-edit" data-edit="details" aria-label="Edit details">Edit</button></div><dl>' +
-          row('Name', d.name) + row('Email', d.email) + row('Phone', d.phone) +
-          row('Location', d.location) + row('Vision', d.vision) + '</dl></div>' +
+          row('Plan', plan.name) + row('Price', plain(priceText(plan))) + '</dl></div>' +
+        plan.steps.map(function (s, i) {
+          return '<div class="pp-review-group"><div class="pp-review-head"><h4>' + s.name + '</h4>' +
+            '<button type="button" class="pp-edit" data-edit="step' + i + '" aria-label="Edit ' + s.name.toLowerCase() + '">Edit</button></div><dl>' +
+            s.fields.map(function (f) { return row(f.short, display(d[f.id])); }).join('') + '</dl></div>';
+        }).join('') +
       '</div>' +
-      '<p class="pp-submit-note">No payment is due today. We&rsquo;ll review your project and follow up by email with next steps.</p>' +
+      '<p class="pp-submit-note">No payment is due today. We&rsquo;ll review your request and follow up by email with next steps.</p>' +
       '<p class="pp-error" role="alert"></p>' +
       '<div class="pp-actions">' +
         '<button type="button" class="pp-btn pp-btn--quiet" data-back>Back</button>' +
@@ -612,15 +890,17 @@
     v.querySelectorAll('[data-edit]').forEach(function (b) {
       b.addEventListener('click', function () { show(b.dataset.edit); });
     });
-    v.querySelector('[data-back]').addEventListener('click', function () { show('details'); });
+    v.querySelector('[data-back]').addEventListener('click', function () { show('step' + (plan.steps.length - 1)); });
     var btn = v.querySelector('[data-submit]');
     btn.addEventListener('click', function () {
       var err = v.querySelector('.pp-error');
       err.classList.remove('is-visible');
       btn.disabled = true;
       btn.textContent = 'Sending…';
-      submitRequest(plan, d).then(function () {
-        submitted[plan.key] = true;
+      var sent = plan;
+      submitRequest(sent, d).then(function () {
+        submitted[sent.key] = true;
+        if (plan !== sent) return;
         renderDone(d);
         show('done');
       }).catch(function (e) {
@@ -636,7 +916,7 @@
     views.done.innerHTML =
       '<p class="pp-eyebrow">' + plan.name + '</p>' +
       '<h2 class="pp-title" id="ppTitle">Thank you' + (first ? ', ' + esc(first) : '') + '.</h2>' +
-      '<p class="pp-lede">Your request is in. We&rsquo;ll review your project and follow up at <strong>' +
+      '<p class="pp-lede">Your request is in. We&rsquo;ll review it and follow up at <strong>' +
         esc(d.email) + '</strong> with next steps.</p>' +
       '<button type="button" class="pp-btn" data-close>Close</button>';
     views.done.querySelector('[data-close]').addEventListener('click', close);
@@ -655,20 +935,26 @@
      project-potential-intake takes { address, project_type, contact }. The
      address must be 8+ characters, so a short or missing location is padded
      with a plain-language note rather than rejected. Everything else rides in
-     project_type, which is the line the notification email leads with. */
+     project_type, which is the line the notification email leads with: the
+     plan and price, then the first answer unlabelled, then the rest. */
 
   function submitRequest(p, d) {
-    var loc = d.location || '';
+    var fields = [];
+    p.steps.forEach(function (s) { fields = fields.concat(s.fields); });
+    var addrField = fields.filter(function (f) { return f.address; })[0];
+    var loc = addrField ? d[addrField.id] || '' : '';
     var address = !loc ? 'Not provided' : (loc.length >= 8 ? loc : loc + ' (as entered)');
-    var summary = [
-      p.name + ' (' + p.price + ')',
-      d.project,
-      second(p).label + ': ' + d.budget,
-      'Name: ' + d.name,
-      'Phone: ' + (d.phone || '—'),
-      'Location: ' + (loc || '—'),
-      'Vision: ' + d.vision
-    ].join(' | ');
+
+    // The first answer after the address leads, unlabelled. Optional
+    // questions left blank are dropped to keep the email readable.
+    var lead = fields.filter(function (f) { return f.id !== 'address'; })[0];
+    var parts = [p.name + ' (' + p.price + ')'];
+    fields.forEach(function (f) {
+      if (f.id === 'email' || f.id === 'address') return;   // sent as contact / address
+      var val = display(d[f.id]);
+      if (!val && f.optional && f.id !== 'phone' && f.id !== 'location') return;
+      parts.push(f === lead ? val : f.short + ': ' + (val || '—'));
+    });
 
     return fetch(FUNCTION_URL, {
       method: 'POST',
@@ -677,7 +963,7 @@
         apikey: SUPABASE_ANON_KEY,
         Authorization: 'Bearer ' + SUPABASE_ANON_KEY
       },
-      body: JSON.stringify({ address: address, project_type: summary, contact: d.email, contact_method: 'email' })
+      body: JSON.stringify({ address: address, project_type: parts.join(' | '), contact: d.email, contact_method: 'email' })
     }).then(function (res) {
       return res.json().catch(function () { return {}; }).then(function (body) {
         if (!res.ok || !body.ok) throw new Error(body.error || 'Could not send your request. Please try again.');
