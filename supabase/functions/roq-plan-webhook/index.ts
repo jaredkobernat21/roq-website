@@ -113,7 +113,7 @@ async function emailCustomer(order: any): Promise<void> {
       <p style="margin:0 0 8px">We'll prepare your plan and email it to you <strong>${plan.turnaround}</strong>. It will include:</p>
       <ul style="margin:0 0 16px;padding-left:20px">${plan.items.map((i) => `<li>${i}</li>`).join("")}</ul>
       <p style="margin:0 0 24px">${plan.ask}</p>
-      <p style="margin:0 0 32px">Warmly,<br />The ROQ Home team</p>
+      <p style="margin:0 0 32px">The ROQ Home team</p>
       <p style="font-size:12px;color:#948F83;border-top:1px solid #E6E1D8;padding-top:16px;margin:0">${plan.note}<br />Order reference: ${esc(String(order.id).slice(0, 8).toUpperCase())}</p>
     </div>`;
   try {
