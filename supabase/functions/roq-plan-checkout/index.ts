@@ -137,6 +137,10 @@ Deno.serve(async (req: Request) => {
   params.set("success_url", `${back}?checkout=success&session_id={CHECKOUT_SESSION_ID}`);
   params.set("cancel_url", `${back}?checkout=cancelled`);
   params.set("allow_promotion_codes", "true");
+  params.set(
+    "custom_text[submit][message]",
+    "Full refund if requested before work on your plan begins. Terms & refund policy: roqhome.com/legal/roq-plan-terms.html",
+  );
 
   let res: Response;
   try {

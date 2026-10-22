@@ -24,6 +24,7 @@
   var FUNCTION_URL = SUPABASE_URL + '/functions/v1/project-potential-intake';
   var CHECKOUT_URL = SUPABASE_URL + '/functions/v1/roq-plan-checkout';
   var CHECKOUT_LIVE = false;
+  var TERMS_URL = '/legal/roq-plan-terms.html';
   var ASSETS = '/assets/plan-preview/';
 
   var DISCLAIMER =
@@ -776,7 +777,8 @@
       (plan.cross ?
         '<p class="pp-cross">' + plan.cross.text + ' <button type="button" class="pp-link" data-switch="' +
           plan.cross.to + '">' + plan.cross.link + '</button></p>' : '') +
-      '<p class="pp-fine">' + plan.fine + '</p>';
+      '<p class="pp-fine">' + plan.fine +
+        (plan.checkout ? ' <a class="pp-link" href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms &amp; refund policy</a>' : '') + '</p>';
     v.querySelector('[data-go]').addEventListener('click', function () { show('step0'); });
     var sw = v.querySelector('[data-switch]');
     if (sw) sw.addEventListener('click', function () { open(sw.dataset.switch); });
@@ -892,7 +894,8 @@
         }).join('') +
       '</div>' +
       '<p class="pp-submit-note">' + (pay
-        ? 'Next, you&rsquo;ll pay ' + plan.price + ' securely through Stripe. We&rsquo;ll begin once your payment is confirmed and follow up by email.'
+        ? 'Next, you&rsquo;ll pay ' + plan.price + ' securely through Stripe. We&rsquo;ll begin once your payment is confirmed and follow up by email. ' +
+          'By continuing, you agree to the <a class="pp-link" href="' + TERMS_URL + '" target="_blank" rel="noopener">Home Plan Terms &amp; Refund Policy</a>.'
         : 'No payment is due today. We&rsquo;ll review your request and follow up by email with next steps.') + '</p>' +
       (notice ? '<p class="pp-notice">' + notice + '</p>' : '') +
       '<p class="pp-error" role="alert"></p>' +
