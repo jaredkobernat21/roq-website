@@ -1284,8 +1284,23 @@
     open(b.getAttribute('data-plan-preview'), b);
   });
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', resumeFromCheckout);
-  else resumeFromCheckout();
+  /* The short link roqhome.com/<plan> (e.g. /potential) opens that plan's
+     preview straight away. Site navigation uses /potential.html, so the tab
+     still shows the page itself. Skipped when returning from Stripe. */
+  function openFromShortLink() {
+    if (/[?&]checkout=/.test(location.search)) return;
+    var key = location.pathname.replace(/^\/+|\/+$/g, '').toLowerCase();
+    var b = document.querySelector('[data-plan-preview="' + key + '"]');
+    if (PLANS[key] && b) open(key, b);
+  }
+
+  function init() {
+    resumeFromCheckout();
+    openFromShortLink();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
 
   window.ROQPlanPreview = { open: open, close: close };
 })();
