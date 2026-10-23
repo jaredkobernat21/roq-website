@@ -111,6 +111,76 @@
     );
   }
 
+  /* The roadmap spread: two report pages that read as one chapter. The
+     first sets out the strategy and the ranked improvements, the second
+     turns them into a proposed first phase. `call` marks each improvement
+     prioritize / consider / defer with a filled, half or open dot. */
+
+  function mark(call) {
+    return '<i class="pp-mark pp-mark--' + call + '" aria-hidden="true"></i>';
+  }
+
+  function roadmapPage(o) {
+    return (
+      '<div class="pp-page pp-report pp-road">' +
+        '<div class="pp-page-inner">' +
+          head(o.series, o.n) +
+          '<div class="pp-road-meta"><span>' + o.kicker + '</span><span>' + o.meta + '</span></div>' +
+          '<h3 class="pp-report-title">' + o.title + '</h3>' +
+          '<p class="pp-road-dek">' + o.dek + '</p>' +
+          '<dl class="pp-road-direction">' + o.direction.map(function (d) {
+            return '<div><dt>' + d[0] + '</dt><dd>' + d[1] + '</dd></div>';
+          }).join('') + '</dl>' +
+          '<div class="pp-road-listhead"><span>' + o.listTitle + '</span><span>Preliminary range</span></div>' +
+          '<ol class="pp-road-list">' + o.items.map(function (it) {
+            return '<li>' +
+              '<span class="pp-road-no">' + it.no + '</span>' +
+              '<div class="pp-road-body">' +
+                '<div class="pp-road-line"><h4>' + it.name + '</h4>' +
+                  '<span class="pp-road-call">' + mark(it.call) + it.call + '</span>' +
+                  '<span class="pp-road-cost">' + it.cost + '</span></div>' +
+                '<p>' + it.scope + '</p>' +
+                '<p class="pp-road-why"><b>Why</b>' + it.why + '</p>' +
+              '</div>' +
+            '</li>';
+          }).join('') + '</ol>' +
+          '<p class="pp-report-fine">' + o.fine + '</p>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
+  function phasePage(o) {
+    return (
+      '<div class="pp-page pp-report pp-road">' +
+        '<div class="pp-page-inner">' +
+          head(o.series, o.n) +
+          '<div class="pp-road-meta"><span>' + o.kicker + '</span><span>' + o.meta + '</span></div>' +
+          '<h3 class="pp-report-title">' + o.title + '</h3>' +
+          '<p class="pp-road-dek">' + o.dek + '</p>' +
+          '<section class="pp-phase">' +
+            '<div class="pp-phase-label">' + o.phase.label + '</div>' +
+            '<div class="pp-phase-figure">' + o.phase.total + '</div>' +
+            '<div class="pp-phase-cap">' + o.phase.caption + '</div>' +
+            '<table class="pp-phase-lines"><tbody>' + o.phase.lines.map(function (l) {
+              return '<tr><td>' + l[0] + '</td><td>' + l[1] + '</td></tr>';
+            }).join('') + '</tbody></table>' +
+            '<p class="pp-phase-note">' + o.phase.note + '</p>' +
+          '</section>' +
+          '<ol class="pp-sequence">' + o.sequence.map(function (st) {
+            return '<li>' + mark(st.call) +
+              '<span class="pp-seq-when">' + st.when + '</span>' +
+              '<strong>' + st.what + '</strong>' +
+              '<span class="pp-seq-detail">' + st.detail + '</span></li>';
+          }).join('') + '</ol>' +
+          '<div class="pp-report-note"><span>ROQ perspective</span><p>' + o.perspective + '</p>' +
+            '<div class="pp-road-next"><span>Next step</span><p>' + o.next + '</p></div></div>' +
+          '<p class="pp-report-fine">' + o.fine + '</p>' +
+        '</div>' +
+      '</div>'
+    );
+  }
+
   /* ---------- Intake fields ----------
      Each plan lists its intake steps; each step lists its fields. Types:
      radio, checks (any number), text, email, tel, textarea. `short` is the
@@ -306,29 +376,64 @@
           })
         },
         {
-          label: 'Roadmap',
-          alt: 'Sample report page: a ranked improvement list with preliminary budgets and an ROQ recommendation for a fictional home',
-          html: reportPage({
+          label: 'Strategy',
+          alt: 'Sample report page: the strategic direction for a fictional home and four ranked improvements with illustrative budget ranges',
+          html: roadmapPage({
             series: 'Home Value Potential', n: '12',
-            kicker: 'Chapter IV &middot; Roadmap',
+            kicker: 'Chapter IV / Roadmap',
+            meta: 'The Linden Street Home',
             title: 'Your path forward',
-            sub: 'The Linden Street Home &middot; Illustrative example',
-            facts: [
-              ['Comparables', 'Nine nearby sales of similar size and age'],
-              ['Neighborhood', 'Updated homes lead recent sales; few full remodels'],
-              ['This home', 'Sound and well kept, with dated interior finishes']
+            dek: 'A prioritized improvement strategy informed by the home&rsquo;s condition, neighborhood, and ownership goals.',
+            direction: [
+              ['Market position', 'Well maintained; finishes trail updated nearby homes.'],
+              ['Primary opportunity', 'Targeted cosmetic updates, not a full remodel.'],
+              ['Investment approach', 'Favor moderate costs; weigh big work against comparables.']
             ],
-            table: {
-              cols: [{ label: 'No.', cls: 'pp-rank' }, { label: 'Improvement' }, { label: 'Preliminary budget', cls: 'pp-num' }],
-              rows: [
-                ['01', 'Kitchen refresh', '$8,000–$12,000'],
-                ['02', 'Interior painting', '$3,000–$5,000'],
-                ['03', 'Curb appeal improvements', '$2,000–$4,000'],
-                ['04', 'Full bathroom renovation', '$12,000–$20,000']
-              ]
+            listTitle: 'Prioritized improvements',
+            items: [
+              { no: '01', name: 'Kitchen refresh', cost: '$8,000&ndash;$12,000', call: 'prioritize',
+                scope: 'Cabinet finishes, hardware, lighting, and surfaces. Same footprint.',
+                why: 'Updates the most visible dated finishes without a full rebuild.' },
+              { no: '02', name: 'Interior painting', cost: '$3,000&ndash;$5,000', call: 'prioritize',
+                scope: 'One cohesive palette across living areas, halls, and bedrooms.',
+                why: 'A controlled way to make the whole home feel consistent.' },
+              { no: '03', name: 'Curb appeal', cost: '$2,000&ndash;$4,000', call: 'consider',
+                scope: 'Landscaping, entry refinishing, exterior lighting, small repairs.',
+                why: 'Better first impressions without a major exterior project.' },
+              { no: '04', name: 'Full bathroom renovation', cost: '$12,000&ndash;$20,000', call: 'defer',
+                scope: 'Replace finishes, fixtures, tile, and possibly cabinetry.',
+                why: 'Unneeded if the baths work and comparables don&rsquo;t support it.' }
+            ],
+            fine: 'Illustrative sample. Figures are hypothetical planning ranges, not contractor estimates.'
+          })
+        },
+        {
+          label: 'Roadmap',
+          alt: 'Sample report page: a proposed first phase of improvements with an illustrative combined budget, phasing, and the ROQ perspective',
+          html: phasePage({
+            series: 'Home Value Potential', n: '13',
+            kicker: 'Chapter IV / Roadmap',
+            meta: 'The Linden Street Home',
+            title: 'A measured first phase',
+            dek: 'How the priorities translate into a proposed starting scope.',
+            phase: {
+              label: 'Initial improvement strategy',
+              total: '$11,000&ndash;$17,000',
+              caption: 'Illustrative combined investment, first phase',
+              lines: [
+                ['Kitchen refresh', '$8,000&ndash;$12,000'],
+                ['Interior painting', '$3,000&ndash;$5,000']
+              ],
+              note: 'A proposed starting scope, not a forecast of value added or return.'
             },
-            note: 'Begin with targeted updates that improve the home&rsquo;s overall presentation before committing to larger structural or luxury improvements. Reevaluate higher-cost renovations against local comparable properties and the homeowner&rsquo;s intended ownership timeline.',
-            fine: 'Fictional example. The home, figures, and recommendations are illustrative only. They are not an appraisal and do not predict any change in value.'
+            sequence: [
+              { call: 'prioritize', when: 'First phase', what: 'Kitchen + painting', detail: 'Begin here' },
+              { call: 'consider', when: 'Then consider', what: 'Curb appeal', detail: '$2,000&ndash;$4,000' },
+              { call: 'defer', when: 'Reconsider', what: 'Bathroom renovation', detail: 'Revisit with evidence' }
+            ],
+            perspective: 'Begin with targeted improvements that address the home&rsquo;s most visible dated finishes. A kitchen refresh and interior painting offer a measured first phase, while larger renovations should be evaluated against neighborhood market evidence, the condition of existing spaces, and the homeowner&rsquo;s long-term plans.',
+            next: 'Validate the first-phase scope and obtain local contractor estimates before committing to larger projects.',
+            fine: 'Illustrative sample. Property observations, estimates, and recommendations are hypothetical and do not constitute an appraisal or guarantee of value.'
           })
         }
       ],
