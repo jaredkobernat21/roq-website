@@ -553,6 +553,7 @@
           '<section class="pp-view" data-view="preview"></section>' +
           stepViews +
           '<section class="pp-view" data-view="review"></section>' +
+          '<section class="pp-view" data-view="terms"></section>' +
           '<section class="pp-view pp-done" data-view="done"></section>' +
         '</div>' +
         '<div class="pp-zoom" role="dialog" aria-label="Enlarged sample page" hidden>' +
@@ -778,8 +779,9 @@
         '<p class="pp-cross">' + plan.cross.text + ' <button type="button" class="pp-link" data-switch="' +
           plan.cross.to + '">' + plan.cross.link + '</button></p>' : '') +
       '<p class="pp-fine">' + plan.fine +
-        (plan.checkout ? ' <a class="pp-link" href="' + TERMS_URL + '" target="_blank" rel="noopener">Terms &amp; refund policy</a>' : '') + '</p>';
+        (plan.checkout ? ' <a class="pp-link" href="' + TERMS_URL + '" target="_blank" rel="noopener" data-terms>Terms &amp; refund policy</a>' : '') + '</p>';
     v.querySelector('[data-go]').addEventListener('click', function () { show('step0'); });
+    bindTerms(v);
     var sw = v.querySelector('[data-switch]');
     if (sw) sw.addEventListener('click', function () { open(sw.dataset.switch); });
   }
@@ -895,7 +897,7 @@
       '</div>' +
       '<p class="pp-submit-note">' + (pay
         ? 'Next, you&rsquo;ll pay ' + plan.price + ' securely through Stripe. We&rsquo;ll begin once your payment is confirmed and follow up by email. ' +
-          'By continuing, you agree to the <a class="pp-link" href="' + TERMS_URL + '" target="_blank" rel="noopener">Home Plan Terms &amp; Refund Policy</a>.'
+          'By continuing, you agree to the <a class="pp-link" href="' + TERMS_URL + '" target="_blank" rel="noopener" data-terms>Home Plan Terms &amp; Refund Policy</a>.'
         : 'No payment is due today. We&rsquo;ll review your request and follow up by email with next steps.') + '</p>' +
       (notice ? '<p class="pp-notice">' + notice + '</p>' : '') +
       '<p class="pp-error" role="alert"></p>' +
@@ -908,6 +910,7 @@
       b.addEventListener('click', function () { show(b.dataset.edit); });
     });
     v.querySelector('[data-back]').addEventListener('click', function () { show('step' + (plan.steps.length - 1)); });
+    bindTerms(v);
     var btn = v.querySelector('[data-submit]');
     btn.addEventListener('click', function () {
       var err = v.querySelector('.pp-error');
@@ -933,6 +936,77 @@
         btn.textContent = label;
         fail(err, e.message || 'Could not send your request. Please try again.');
       });
+    });
+  }
+
+  /* Terms open inside the overlay, so the customer reads them without
+     losing their place: Back returns to the step they came from, and the
+     main button carries on (Start My Plan, or straight to payment). The text
+     is pulled from the terms page itself, so there is one copy to maintain.
+     A modified click, or a failed fetch, still opens the page in a new tab. */
+
+  var termsFrom = 'review';
+  var termsHtml = null;
+
+  function bindTerms(v) {
+    v.querySelectorAll('[data-terms]').forEach(function (a) { a.addEventListener('click', openTerms); });
+  }
+
+  function loadTerms() {
+    if (termsHtml) return Promise.resolve(termsHtml);
+    return fetch(TERMS_URL).then(function (res) {
+      if (!res.ok) throw new Error('terms');
+      return res.text();
+    }).then(function (html) {
+      var main = new DOMParser().parseFromString(html, 'text/html').querySelector('main');
+      if (!main) throw new Error('terms');
+      main.querySelectorAll('.doc-title, .doc-heading').forEach(function (n) { n.remove(); });
+      main.querySelectorAll('h2').forEach(function (h) {
+        var h3 = document.createElement('h3');
+        h3.className = h.className;
+        h3.innerHTML = h.innerHTML;
+        h.replaceWith(h3);
+      });
+      main.querySelectorAll('a[href]').forEach(function (a) {
+        a.href = new URL(a.getAttribute('href'), location.origin + TERMS_URL).href;
+        a.target = '_blank';
+        a.rel = 'noopener';
+      });
+      termsHtml = main.innerHTML;
+      return termsHtml;
+    });
+  }
+
+  function openTerms(e) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    var from = root.dataset.state;
+    loadTerms().then(function (html) {
+      termsFrom = from;
+      renderTerms(html);
+      show('terms');
+    }, function () { window.open(TERMS_URL, '_blank', 'noopener'); });
+  }
+
+  function renderTerms(html) {
+    var fromReview = termsFrom === 'review';
+    var next = fromReview ? (paid(plan) ? 'Continue to Payment' : 'Submit Request') : 'Start My Plan';
+    var v = views.terms;
+    v.innerHTML =
+      '<p class="pp-eyebrow">' + plan.name + ' &middot; ' + plan.price + '</p>' +
+      '<h2 class="pp-step-title" id="ppTitle" style="margin-top:12px">Home Plan Terms &amp; Refund Policy</h2>' +
+      '<div class="pp-terms">' + html + '</div>' +
+      '<div class="pp-actions">' +
+        '<button type="button" class="pp-btn pp-btn--quiet" data-back>' + (fromReview ? 'Back to Review' : 'Back') + '</button>' +
+        '<button type="button" class="pp-btn" data-next>' + next + '</button>' +
+      '</div>';
+    v.querySelector('[data-back]').addEventListener('click', function () { show(termsFrom); });
+    v.querySelector('[data-next]').addEventListener('click', function () {
+      if (!fromReview) { show('step0'); return; }
+      // Hand off to the review step's own button, so payment starts (and any
+      // error shows) exactly as if it had been clicked there.
+      show('review');
+      views.review.querySelector('[data-submit]').click();
     });
   }
 
