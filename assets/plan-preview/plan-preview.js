@@ -23,7 +23,7 @@
   var SUPABASE_ANON_KEY = 'sb_publishable_E8B6OF7rTmNhlEVvS36fiA_wewl5tER';
   var FUNCTION_URL = SUPABASE_URL + '/functions/v1/project-potential-intake';
   var CHECKOUT_URL = SUPABASE_URL + '/functions/v1/roq-plan-checkout';
-  var CHECKOUT_LIVE = false;
+  var CHECKOUT_LIVE = true;
   var TERMS_URL = '/legal/roq-plan-terms.html';
   var ASSETS = '/assets/plan-preview/';
 
