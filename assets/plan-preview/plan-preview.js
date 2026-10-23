@@ -304,6 +304,8 @@
       priceLabel: 'One-time purchase',
       checkout: true,
       eyebrow: 'Home Value Potential',
+      // One preview image fills the left side in place of the sample pages.
+      stage: { img: 'potential-preview.jpg', alt: 'Home Potential sample cover: a modern white home beside the report contents, from neighborhood ceiling and comps to budget, contractors, and roadmap' },
       title: 'Know what&rsquo;s worth improving.',
       lede: 'Understand your home&rsquo;s market potential and discover which improvements may make financial sense. Get a personalized roadmap to invest thoughtfully and avoid over-renovating.',
       included: [
@@ -645,6 +647,7 @@
           '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 2l12 12M14 2L2 14" /></svg>' +
         '</button>' +
         '<div class="pp-stage">' +
+          '<img class="pp-stage-img" alt="" decoding="async" />' +
           '<div class="pp-book-wrap">' +
             '<figure class="pp-book" aria-live="polite"></figure>' +
             '<button type="button" class="pp-enlarge" aria-label="Enlarge sample page">' +
@@ -729,6 +732,10 @@
 
     if (!plan || plan.key !== key) {
       plan = PLANS[key];
+      var img = root.querySelector('.pp-stage-img');
+      root.classList.toggle('has-stage-img', !!plan.stage);
+      if (plan.stage) { img.src = ASSETS + plan.stage.img; img.alt = plan.stage.alt; }
+      else { img.removeAttribute('src'); img.alt = ''; }
       renderPublication();
       renderPreview();
     }
