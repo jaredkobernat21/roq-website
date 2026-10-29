@@ -390,6 +390,59 @@
   }
 
 
+  /* ---------- Journal pages ----------
+     Magazine pages from the ROQ Journal. They carry their own text, so they are
+     never cropped: on wide screens each is shown whole at screen height over a
+     blurred, darkened copy of itself; on tall screens it runs full width. */
+
+  .journal-page {
+    position: relative;
+    height: 100vh;
+    height: 100svh;
+    min-height: 520px;
+    display: flex;
+    justify-content: center;
+    background: #0B0B0A;
+    padding: 84px 24px clamp(24px, 4vh, 40px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .journal-page::before {
+    content: "";
+    position: absolute;
+    inset: -60px;
+    z-index: -1;
+    background: var(--journal-bg) 50% 50% / cover no-repeat;
+    filter: blur(36px) brightness(0.42);
+  }
+
+  .journal-page picture { position: relative; width: 100%; height: 100%; }
+
+  .journal-page img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  @media (max-aspect-ratio: 1/1) {
+    .journal-page { height: auto; min-height: 0; padding: 0; }
+    .journal-page::before { display: none; }
+    .journal-page picture { height: auto; }
+    .journal-page img { position: static; height: auto; }
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
   /* ---------- App hero ----------
      The App page's screen, on the home page after Atmospheres. A portrait photo. On wide screens it is shown whole and sharp in the
      centre, over a blurred, darkened copy of itself that fills the sides;
@@ -1275,6 +1328,7 @@
     </a>
 
     <nav class="site-tabs" id="siteTabs" aria-label="Main">
+      <a href="/journal.html">Journal</a>
       <a href="/atmospheres.html">Atmospheres</a>
       <a href="/manage.html">App</a>
       <a href="/connect.html">Connect</a>
@@ -1298,6 +1352,24 @@
     <div>
       <h1 class="statement-text pagehero-headline--sans">Experience Home</h1>
     </div>
+  </section>
+
+  <section class="journal-page" id="journal-cover" style="--journal-bg: url(/assets/journal/cover-sm.webp)">
+    <h2 class="visually-hidden">ROQ Journal: Experience Home</h2>
+    <picture>
+      <img src="/assets/journal/cover.webp" srcset="/assets/journal/cover-sm.webp 800w, /assets/journal/cover.webp 1545w"
+           sizes="(max-aspect-ratio: 1/1) 100vw, 78vh" width="1545" height="1999" loading="lazy"
+           alt="ROQ Journal cover, Experience Home, November 26: a log cabin lit up in the snow, reflected in a mountain lake. Immersive tours, captivating spaces, inspiring stories, helpful insights." />
+    </picture>
+  </section>
+
+  <section class="journal-page" id="journal-experience" style="--journal-bg: url(/assets/journal/experience-sm.webp)">
+    <h2 class="visually-hidden">Experience Home</h2>
+    <picture>
+      <img src="/assets/journal/experience.webp" srcset="/assets/journal/experience-sm.webp 800w, /assets/journal/experience.webp 1545w"
+           sizes="(max-aspect-ratio: 1/1) 100vw, 78vh" width="1545" height="2000" loading="lazy"
+           alt="Experience Home, ROQ Journal 2026: photos of builders at work, a family outdoors, and people cooking together at home. We believe home should be a place built around its purpose, and designed around the people living within the walls. An intentional room design can be the catalyst for countless family memories. Every home has a story, so let us share yours!" />
+    </picture>
   </section>
 
   <section class="pagehero" id="atmospheres">
